@@ -2,9 +2,10 @@
 @import "@fortawesome/fontawesome-free/css/all.css";
 @import "bootstrap/dist/css/bootstrap.css";
 
-body  {
+$HEADER_HEIGHT: 65px;
 
-}
-:host {
-
+html, body  {
+    height: 100%;
+    width: 100%;
+    margin: 0;
 }

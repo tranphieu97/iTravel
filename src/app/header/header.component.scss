@@ -1,6 +1,33 @@
 :host {
     background-color: #2C2B33;
-    min-height: 75px;
-    max-height: 76px;
-    display: inline;
+    min-height: 60px;
+    max-height: 65px;
+    display: block;
+    display: flex;
+    justify-content: space-between;
+    .toolBar {
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        .toolBarIcon {
+            display: flex;
+            width: 40px;
+            align-items: center;
+            margin: 0 5px;
+            span {
+                width: 40px;
+                height: 40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                i {
+                    color: aliceblue;
+                }
+            }
+            span:hover {
+                border-radius: 50%;
+                background-color: rgb(35, 35, 37);
+            }
+        }
+    }
 }
