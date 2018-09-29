@@ -1,11 +1,46 @@
 @import 'src/styles.scss';
 
 :host {
-    display: block;
     display: flex;
     flex-direction: column;
-    .navBarLogo {
+    height: 100%;
+    position: relative;
+    .navBarHeader {
         height: $HEADER_HEIGHT;
+        width: 100%;
+        position: fixed;
+        position: absolute;
+        z-index: 10;
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        justify-content: center;
+        img {
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+        }
         
+
+    }
+    .navBarMenu {
+        margin-top: $HEADER_HEIGHT;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        z-index: 9;
+        app-navbar-menu {
+            width: 100%;
+        }
+    }
+    .navBarToolBar {
+        height: $HEADER_HEIGHT;
+        width: 100%;
+        position: fixed;
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        z-index: 10;
+        background-color: aqua;
     }
 }

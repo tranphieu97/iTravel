@@ -1,4 +1,10 @@
-<div class="navBarLogo">
+<div class="navBarHeader">
+    <img [src]=HEADER_LOGO>
+    <span></span>
+</div>
+<div class="navBarMenu">
+    <app-navbar-menu *ngFor="let menu of listMenu" [inputMenu]=menu ></app-navbar-menu>
+</div>
+<div class="navBarToolBar">
 
 </div>
-<app-navbar-menu *ngFor="let menu of listMenu" [inputMenu]=menu ></app-navbar-menu>

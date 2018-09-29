@@ -3,9 +3,16 @@
     table {
         margin: 0;
         th, td {
-            padding: 5px;
-            margin-top: auto;
-            margin-bottom: auto;
+            div {
+                height: 100%;
+                display: flex;
+                align-items: stretch;
+                align-self: stretch;
+                p {
+                    padding-top: 0;
+                    margin: auto;
+                }
+            }
         }
         .icon {
             width: 50px;
@@ -17,10 +24,12 @@
             }
         }
         .iconShow {
-            width: 20px;
-            min-width: 17px;
+            width: 5px;
+            height: 5px;
+            font-size: 12px !important;
         }
         * {
+            cursor: pointer;
             -webkit-touch-callout: none; /* iOS Safari */
               -webkit-user-select: none; /* Safari */
                -khtml-user-select: none; /* Konqueror HTML */

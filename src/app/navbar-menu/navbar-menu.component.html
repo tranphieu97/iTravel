@@ -3,9 +3,9 @@
         <th class="icon">
             <img [src]=inputMenu.Image>
         </th>
-        <th>{{inputMenu.Name}}</th>
+        <th><div><p>{{inputMenu.Name}}</p></div></th>
         <th class="iconShow" >
-            <i [ngClass]="{'fas':true, 'fa-chevron-down':true, 'fa-rotate-180':isShowFull} "></i>
+            <i [ngClass]="{'fas':true, 'fa-chevron-down':isShowFull, 'fa-chevron-right':!isShowFull, 'fa-xs':true} "></i>
         </th>
     </tr>
     <tr [hidden]="!isShowFull" *ngFor="let catagory of inputMenu.Catagories">

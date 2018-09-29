@@ -2,10 +2,39 @@
 @import "@fortawesome/fontawesome-free/css/all.css";
 @import "bootstrap/dist/css/bootstrap.css";
 
+/* CONST SIZE */
 $HEADER_HEIGHT: 65px;
+
+/* CONST COLOR */
+$BLUE: #007bff;
+$INDIGO: #6610f2;
+$PURPLE: #6f42c1;
+$PINK:  #e83e8c;
+$RED: #dc3545;
+$ORANGE: #fd7e14;
+$YELLOW: #ffc107;
+$GREEN: #28a745;
+$TEAL: #20c997;
+$CYAN: #17a2b8;
+$WHITE: #fff;
+$GRAY: #6c757d;
+$GRAY-DARK: #343a40;
+$PRIMARY: #5867dd;
+$SECONDARY: #e1e1ef;
+$SUCCESS: #1dc9b7;
+$INFO: #5578eb;
+$WARNING: #ffb822;
+$DANGER: #fd3995;
+$LIGHT: #f8f9fa;
+$DARK: #343a40;
+
 
 html, body  {
     height: 100%;
     width: 100%;
     margin: 0;
+}
+* {
+    font-size: 12px;
+    font-family:  Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
