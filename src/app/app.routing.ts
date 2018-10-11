@@ -7,6 +7,7 @@ import { LayoutComponent } from './layout/layout.component';
 const routes: Routes = [
     { path: '', component: LayoutComponent },
     { path: '**', component: NotFoundPageComponent },
+    { path: 'addpost', loadChildren: 'src/app/add-post/app-post.module#AddPostModule'}
 ];
 
 @NgModule({
