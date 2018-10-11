@@ -1,16 +1,18 @@
+@import 'src/styles.scss';
+
 :host {
     display: block;
     table {
         margin: 0;
         th, td {
+            padding: 4px;
+            vertical-align: middle !important;
             div {
-                height: 100%;
                 display: flex;
-                align-items: stretch;
-                align-self: stretch;
+                align-items: center;
                 p {
-                    padding-top: 0;
-                    margin: auto;
+                    padding: 0;
+                    margin: 0;
                 }
             }
         }
@@ -20,13 +22,16 @@
                 display: block;
                 width: 25px;
                 height: 25px;
-                margin: 0 auto;
+                margin: auto;
             }
         }
         .iconShow {
             width: 5px;
             height: 5px;
             font-size: 12px !important;
+            i {
+                margin: 0 $NAVBAR_MARGIN_RIGHT;
+            }
         }
         * {
             cursor: pointer;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Menu } from '../model/Menu';
-import { Catagory } from '../model/Catagory';
+
+import { Catagory } from '../../model/Catagory';
+import { Menu } from '../../model/Menu';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -21,7 +22,7 @@ export class NavigationBarComponent implements OnInit {
   // tslint:disable-next-line:max-line-length
   menu2: Menu = new Menu('An uong', 'data:image/png;base64,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', '' , [this.catagory2, this.catagory3]);
 
-  listMenu: Array<Menu> = [this.menu1, this.menu2];
+  listMenu: Array<Menu> = [this.menu1, this.menu2, this.menu1, this.menu2, this.menu2, this.menu1, this.menu2, this.menu2];
 
   constructor() { }
 
