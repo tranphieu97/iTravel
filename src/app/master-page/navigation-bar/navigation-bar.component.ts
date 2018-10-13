@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Catagory } from '../../model/Catagory';
 import { Menu } from '../../model/Menu';
+import { MasterPageService } from '../../core/services/master-page.service';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -24,7 +25,7 @@ export class NavigationBarComponent implements OnInit {
 
   listMenu: Array<Menu> = [this.menu1, this.menu2, this.menu1, this.menu2, this.menu2, this.menu1, this.menu2, this.menu2];
 
-  constructor() { }
+  constructor(private masterpageServices: MasterPageService) {}
 
   ngOnInit() {
   }

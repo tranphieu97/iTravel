@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: '', component: LayoutComponent },
+    { path: 'addpost', loadChildren: 'src/app/add-post/add-post.module#AddPostModule' },
     { path: '**', component: NotFoundPageComponent }
 ];
 

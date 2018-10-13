@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Menu } from '../../model/Menu';
-import { NavBarService } from '../../core/services/nav-bar.service';
+import { MasterPageService } from '../../core/services/master-page.service';
 
 @Component({
   selector: 'app-navbar-menu',
@@ -11,9 +11,9 @@ export class NavbarMenuComponent implements OnInit {
 
   @Input() inputMenu: Menu;
 
-  isShowFull: Boolean = true;
+  isShowFullMenu: Boolean = false;
 
-  constructor(private navBarService: NavBarService) { }
+  constructor(private mtpService: MasterPageService) { }
 
   ngOnInit() {
   }

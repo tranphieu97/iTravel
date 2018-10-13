@@ -1,5 +1,7 @@
+@import 'src/styles.scss';
+
 :host {
-    background-color: #2C2B33;
+    background-color:$WHITE;
     min-height: 60px;
     max-height: 65px;
     display: block;
@@ -21,12 +23,12 @@
                 justify-content: center;
                 align-items: center;
                 i {
-                    color: aliceblue;
+                    color: $GRAY;
                 }
             }
             span:hover {
                 border-radius: 50%;
-                background-color: rgb(35, 35, 37);
+                background-color: $LIGHT;
             }
         }
     }

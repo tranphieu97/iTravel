@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class NavBarService {
+export class MasterPageService {
 
-  isShowFull: Boolean = true;
+  isShowFullNavBar: Boolean = true;
 
   constructor() { }
 }

@@ -2,37 +2,62 @@
 
 :host {
     display: block;
+
     table {
         margin: 0;
-        th, td {
-            padding: 4px;
-            vertical-align: middle !important;
-            div {
-                display: flex;
-                align-items: center;
+        background-color: $NAVBAR_BACKGROUND_COLOR !important;
+
+        tr {
+            color: $GRAY;
+
+            th, td {
+                padding: 5px;
+                vertical-align: middle !important;
+                
                 p {
-                    padding: 0;
-                    margin: 0;
+                    text-align: left;
+                    margin: auto;
+                }
+            }
+
+            .navbar-menu-icon {
+                width: $NAVBAR_MIN_WIDTH;
+                margin: auto NAVBAR_ICON_MARGIN;
+
+                // Icon
+                img {
+                    display: block;
+                    width: $NAVBAR_ICON_SIZE;
+                    height: $NAVBAR_ICON_SIZE;
+                    margin: auto;
+                }
+            }
+
+            .navbar-side-toggle {
+                width: 20px;
+                margin: auto NAVBAR_ICON_MARGIN;
+                text-align: center;
+
+                i {
+                    font-size: 8px;
+                }
+            }
+
+            .navbar-menu-dot {
+                text-align: right;
+                margin: auto NAVBAR_ICON_MARGIN;
+
+                i {
+                    font-size: 3px;
                 }
             }
         }
-        .icon {
-            width: 50px;
-            img {
-                display: block;
-                width: 25px;
-                height: 25px;
-                margin: auto;
-            }
+
+        tr:hover {
+            color: $BLUE;
         }
-        .iconShow {
-            width: 5px;
-            height: 5px;
-            font-size: 12px !important;
-            i {
-                margin: 0 $NAVBAR_MARGIN_RIGHT;
-            }
-        }
+
+        // For more browsers
         * {
             cursor: pointer;
             -webkit-touch-callout: none; /* iOS Safari */
@@ -45,4 +70,3 @@
         }
     }
 }
-
