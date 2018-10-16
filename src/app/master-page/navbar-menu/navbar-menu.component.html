@@ -1,3 +1,4 @@
+
 <table class="table table-hover">
     <tr (click)='isShowFullMenu = !isShowFullMenu'>
         <th class="navbar-menu-icon">
@@ -7,7 +8,7 @@
             <p>{{inputMenu.Name}}</p>
         </th>
         <th [hidden]='!this.mtpService.isShowFullNavBar' class="navbar-side-toggle">
-            <i [ngClass] ="{'fas':true, 'fa-chevron-down':isShowFull, 'fa-chevron-right':!isShowFull, 'fa-xs':true} "></i>
+            <i [ngClass] ="{'fas':true, 'fa-chevron-down':isShowFullMenu, 'fa-chevron-right':!isShowFullMenu, 'fa-xs':true} "></i>
         </th>
     </tr>
     <tr [hidden]='(!isShowFullMenu && this.mtpService.isShowFullNavBar) || !this.mtpService.isShowFullNavBar' 

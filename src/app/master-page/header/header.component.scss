@@ -2,16 +2,57 @@
 
 :host {
     background-color:$WHITE;
-    min-height: 60px;
-    max-height: 65px;
-    display: block;
+    height: $HEADER_HEIGHT;
     display: flex;
-    justify-content: space-between;
-    .toolBar {
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        background-color: $NAVBAR_BACKGROUND_COLOR;
+
+        .slide-icon {
+            display: flex;
+            width: 50px;
+            justify-content: flex-end;
+            align-items: center;
+            
+            i {
+                font-size: 20px;
+                color: $GRAY;
+
+                transition: font-size  0.2s;
+                -moz-transition: font-size  0.2s;
+                -webkit-transition: font-size  0.2s;
+                -o-transition: font-size  0.2s;
+                cursor: pointer;
+            }
+
+            i:hover {
+                font-size: 25px;
+                color: $BLUE;
+            }
+        }
+
+        .logo {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            cursor: pointer;
+
+            img {
+                height: 30px;
+                width: auto;
+            }
+        }
+    }
+
+    .toolbar {
         display: flex;
         flex-direction: row;
         align-items: stretch;
-        .toolBarIcon {
+        justify-content: flex-end;
+
+        .toolbar-icon {
             display: flex;
             width: 40px;
             align-items: center;

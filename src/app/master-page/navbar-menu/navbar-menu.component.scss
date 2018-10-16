@@ -13,6 +13,7 @@
             th, td {
                 padding: 5px;
                 vertical-align: middle !important;
+                border-color: $GRAY-DARK;
                 
                 p {
                     text-align: left;
@@ -34,7 +35,7 @@
             }
 
             .navbar-side-toggle {
-                width: 20px;
+                width: 40px;
                 margin: auto NAVBAR_ICON_MARGIN;
                 text-align: center;
 
