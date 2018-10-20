@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class MasterPageService {
 
-  isShowFullNavBar: Boolean = true;
+  isShowFullNavBar: Boolean = false;
 
   constructor() { }
 }
