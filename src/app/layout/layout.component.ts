@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MasterPageService } from '../core/services/master-page.service';
 
 @Component({
   selector: 'app-layout',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(private mtpService: MasterPageService) { }
 
   ngOnInit() {
   }

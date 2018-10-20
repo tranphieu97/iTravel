@@ -12,19 +12,19 @@
 
         .slide-icon {
             display: flex;
-            width: 50px;
-            justify-content: flex-end;
+            width: $NAVBAR_WIDTH_HIDE;
             align-items: center;
             
             i {
                 font-size: 20px;
                 color: $GRAY;
+                cursor: pointer;
+                margin: auto;
 
                 transition: font-size  0.2s;
                 -moz-transition: font-size  0.2s;
                 -webkit-transition: font-size  0.2s;
                 -o-transition: font-size  0.2s;
-                cursor: pointer;
             }
 
             i:hover {
@@ -38,6 +38,7 @@
             justify-content: flex-end;
             align-items: center;
             cursor: pointer;
+            margin: 10px;
 
             img {
                 height: 30px;
@@ -46,11 +47,20 @@
         }
     }
 
+    .navbar-show {
+        width: $NAVBAR_WIDTH_SHOW;
+    }
+
+    .navbar-hide {
+        width: $NAVBAR_WIDTH_HIDE;
+    }
+
     .toolbar {
         display: flex;
         flex-direction: row;
         align-items: stretch;
         justify-content: flex-end;
+        flex: 1;
 
         .toolbar-icon {
             display: flex;

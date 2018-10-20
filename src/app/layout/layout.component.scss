@@ -5,12 +5,25 @@
     height: 100%;
     display: block;
 
-    .masterpage-layout-content {
+    .master-page-main {
         width: 100%;
         flex: 1;
         
         app-navigation-bar {
             height: 100%;
+        }
+
+        .navbar-show {
+            width: $NAVBAR_WIDTH_SHOW;
+        }
+
+        .navbar-hide {
+            width: $NAVBAR_WIDTH_HIDE;
+        }
+
+        .master-page-content {
+            flex: 1;
+            background-color: $CONTENT_BACKGROUND_COLOR;
         }
     }
 
@@ -19,7 +32,7 @@
     }
 
     // To clear bootstrap default margin and padding properties
-    .masterpage-layout {
+    .master-page {
         margin:  0;
         padding: 0;
         height: 100%;

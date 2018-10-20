@@ -6,10 +6,23 @@ import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-    { path: 'login', component: LoginComponent },
-    { path: '', component: LayoutComponent },
-    { path: 'addpost', loadChildren: 'src/app/add-post/add-post.module#AddPostModule' },
-    { path: '**', component: NotFoundPageComponent }
+    {
+      path: 'login',
+      component: LoginComponent
+    },
+    {
+      path: '',
+      component: LayoutComponent
+    },
+    {
+      path: 'create-post',
+      component: LayoutComponent,
+      loadChildren: 'src/app/add-post/add-post.module#AddPostModule'
+    },
+    {
+      path: '**',
+      component: NotFoundPageComponent
+    }
 ];
 
 @NgModule({
