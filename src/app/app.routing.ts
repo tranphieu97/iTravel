@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NotFoundPageComponent } from './master-page/not-found-page/not-found-page.component';
 import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
+import { IndexComponent } from './home-page/index/index.component';
 
 const routes: Routes = [
     {
@@ -19,6 +20,12 @@ const routes: Routes = [
       component: LayoutComponent,
       loadChildren: 'src/app/add-post/add-post.module#AddPostModule'
     },
+    {
+      path: 'home',
+      component: LayoutComponent,
+      loadChildren: 'src/app/home-page/home-page.module#HomePageModule'
+    },
+
     {
       path: '**',
       component: NotFoundPageComponent

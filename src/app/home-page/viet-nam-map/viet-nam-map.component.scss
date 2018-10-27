@@ -1,0 +1,29 @@
+@import 'src/styles.scss';
+
+:host {
+    background-color: $WHITE;
+    display: flex;
+    border-radius: 5px;
+    box-shadow: 1px 0px 13px 0px rgba(82, 63, 105, 0.05);
+    justify-content: center;
+    margin: 10px;
+
+    svg {
+        width: 70%;
+        height: auto;
+        max-height: 800px;
+        overflow: visible;
+        
+        .land {
+            fill: rgb(102, 77, 39);
+            fill-opacity: 1;
+            stroke:white;
+            stroke-opacity: 1;
+            stroke-width:0.5;
+        }
+
+        path:hover {
+            fill: $GREEN;
+        }
+    }
+}
