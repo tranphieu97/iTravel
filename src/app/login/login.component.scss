@@ -1,7 +1,8 @@
 .left {
     height: 100vh;
-    width: 50%;
-    background-color: grey;
+    min-height: 500px;
+    //width: 50%;
+    background-color: rgba(0, 0, 0, 0.746);
     float: left;
     line-height: 100vh;
 
@@ -15,7 +16,8 @@
   
 .right {
     height: 100vh;
-    width: 50%;
+    min-height: 500px;
+    //width: 50%;
     background-color: white;
     float: right;
     padding-left: 5%;
@@ -38,12 +40,12 @@
             height: 52px;
             margin: 0px;
 
-            span {
+            span {//icon
                 display: block;
                 //margin: 0px;
                 padding: 7px 5px 5px 5px;
                 background-color: rgba(150, 150, 150, 0.541);
-                width: 15%;
+                width: 18%;
                 //max-width: 50px;
                 height: 50px;
                 float: left;
@@ -62,7 +64,7 @@
                 padding-left: 5px;
                 background-color: rgb(240, 240, 240);
                 border: none;
-                width: 85%;
+                width: 82%;
                 height: 50px;
                 float: right;
                 font-size: 20px;
