@@ -14,9 +14,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        overflow: hidden;
 
         svg {
-            width: 70%;
+            width: 74%;
             height: auto;
             max-height: 800px;
             overflow: visible;
@@ -42,13 +43,13 @@
         width: 150px;
         height: fit-content;
         background-color: $SECONDARY;
-        opacity: 0.7;
+        opacity: 0.8;
         position: fixed;
 
         div#popup-header {
             vertical-align: middle;
             min-height: 25px;
-
+            opacity: 0.9 !important;
             p {
                 text-align: center;
                 font-weight: bold;

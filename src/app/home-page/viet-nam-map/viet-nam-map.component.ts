@@ -1,6 +1,8 @@
 import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
 import { AmChartsService, AmChart, AmChartsModule } from '@amcharts/amcharts3-angular';
 import { $ } from 'protractor';
+import { ServerService } from '../../core/services/server.service';
+import { Province } from '../../model/Province';
 
 
 @Component({
@@ -10,14 +12,23 @@ import { $ } from 'protractor';
 })
 export class VietNamMapComponent implements OnInit {
 
-  pathPosition_X: number;
-  pathPosition_Y: number;
+  private pathPosition_X: number;
+  private pathPosition_Y: number;
 
-  isFocusLocation: Boolean = false;
-  isFocusPopup: Boolean = false;
+  private isFocusLocation: Boolean = false;
+  private isFocusPopup: Boolean = false;
 
   private mousePosition_X: number;
   private mousePosition_Y: number;
+
+  private listProvinces: Province[];
+
+  private popupInfo: any = {
+    ProvinceName: '',
+    PostCount: 0,
+    Position_X: '-100px',
+    Position_Y: '-100px'
+  };
 
   @HostListener('document:mousemove', ['$event'])
   onmousemove(event) {
@@ -25,9 +36,13 @@ export class VietNamMapComponent implements OnInit {
     this.mousePosition_Y = event.clientY;
   }
 
-  constructor() { }
+  constructor(private server: ServerService) { }
 
   ngOnInit() {
+    this.server.GetListProvinces().subscribe(res => {
+      this.listProvinces = res;
+    });
+
     this.ResetPopup();
 
     this.mousePosition_X = 0;
@@ -35,11 +50,17 @@ export class VietNamMapComponent implements OnInit {
   }
 
 
-  GetPathPosition(event): void {
+  GetPathInformation(event, provinceID): void {
     this.isFocusLocation = true;
 
     this.pathPosition_X = event.clientX;
     this.pathPosition_Y = event.clientY;
+
+    this.popupInfo.Position_X = (this.pathPosition_X - 70) + 'px';
+    this.popupInfo.Position_Y = (this.pathPosition_Y + 15) + 'px';
+
+    this.popupInfo.ProvinceName = this.listProvinces.find(x => x.ProvinceID === provinceID).ProvinceName;
+
   }
 
   LeavePath(): void {
@@ -58,8 +79,8 @@ export class VietNamMapComponent implements OnInit {
   IsShowPopup(): boolean {
     if (this.isFocusLocation
         || this.isFocusPopup
-        || (this.pathPosition_X - 30 <= this.mousePosition_X
-              && this.pathPosition_X + 30 >= this.mousePosition_X
+        || (this.pathPosition_X - 45 <= this.mousePosition_X
+              && this.pathPosition_X + 45 >= this.mousePosition_X
               && this.pathPosition_Y + 55 >= this.mousePosition_Y
               && this.pathPosition_Y <= this.mousePosition_Y)) {
       return true;
@@ -69,8 +90,15 @@ export class VietNamMapComponent implements OnInit {
   }
 
   ResetPopup() {
+
+    this.popupInfo.PostCount = 0;
+    this.popupInfo.ProvinceName = '';
+
     this.pathPosition_X = -100;
     this.pathPosition_Y = -100;
+
+    this.popupInfo.Position_X = this.pathPosition_X + 'px';
+    this.popupInfo.Position_Y = this.pathPosition_Y + 'px';
 
     this.isFocusPopup = false;
   }
