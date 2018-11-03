@@ -1,0 +1,25 @@
+
+<table class="table table-hover">
+    <tr (click)='isShowFullMenu = !isShowFullMenu'>
+        <th class="navbar-menu-icon">
+            <img [src]=inputMenu.Image>
+        </th>
+        <th [hidden]='!this.mtpService.isShowFullNavBar'>
+            <p>{{inputMenu.Name}}</p>
+        </th>
+        <th [hidden]='!this.mtpService.isShowFullNavBar' class="navbar-side-toggle">
+            <i [ngClass] ="{'fas':true, 'fa-chevron-down':isShowFullMenu, 'fa-chevron-right':!isShowFullMenu, 'fa-xs':true} "></i>
+        </th>
+    </tr>
+    <tr [hidden]='(!isShowFullMenu && this.mtpService.isShowFullNavBar) || !this.mtpService.isShowFullNavBar' 
+        *ngFor="let catagory of inputMenu.Catagories">
+        <td class="navbar-menu-dot">
+            <i class="fas fa-circle"></i>
+        </td>
+        <td>
+            {{catagory.Name}}
+        </td>
+        <td>
+        </td>
+    </tr>
+</table>

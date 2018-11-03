@@ -1,0 +1,9 @@
+:host {
+    height: 100vh;
+    margin: 0;
+    display: block;
+    router-outlet {
+        height: 100%;
+        margin: 0;
+    } 
+}

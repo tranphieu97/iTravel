@@ -1,3 +1,15 @@
-<p>
-  layout works!
-</p>
+<div class="container-fluid master-page">
+    <div class="row">
+        <app-header></app-header>
+    </div>
+    <div class="row no-gutter master-page-main">
+        <div [ngClass]="{'navbar-show': this.mtpService.isShowFullNavBar, 'navbar-hide': !this.mtpService.isShowFullNavBar}">
+            <app-navigation-bar></app-navigation-bar>
+        </div>
+        <div class="master-page-content">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
+
+

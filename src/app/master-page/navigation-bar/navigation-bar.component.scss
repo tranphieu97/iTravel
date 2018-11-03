@@ -1,0 +1,95 @@
+@import 'src/styles.scss';
+
+$NAVBAR_toolbar_HEIGHT: 70px;
+
+:host {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: $NAVBAR_BACKGROUND_COLOR;
+
+    .navbar-menu {
+        width: 100%;
+        height: 100%;
+        // padding-bottom: $NAVBAR_toolbar_HEIGHT;
+        overflow-y: auto;
+        overflow: auto;
+        app-navbar-menu {
+            width: 100%;
+        }
+    }
+
+    .navbar-menu::-webkit-scrollbar {
+        width: 1px;
+        border-radius: 10px;
+    }
+
+    .navbar-toolbar {
+        height: $NAVBAR_toolbar_HEIGHT;
+        width: 100%;
+        position: fixed;
+        position: absolute;
+        z-index: -1;
+    }
+}
+
+// :host {
+//     display: flex;
+//     flex-direction: column;
+//     height: 100%;
+//     position: relative;
+//     background-color: $BLUE-DARK;
+//     .navbar-header {
+//         height: $HEADER_HEIGHT;
+//         width: 100%;
+//         position: fixed;
+//         position: absolute;
+//         z-index: 10;
+//         display: flex;
+//         flex-direction: row;
+//         align-items: stretch;
+//         justify-content: space-between;
+//         img {
+//             width: 50px;
+//             height: 50px;
+//             margin: 5px;
+//         }
+//         div {
+//             display: flex;
+//             align-items: center;
+//             i {
+//                 font-size: 30px;
+//                 color: $BLUE;
+//             }
+//         }
+        
+
+//     }
+//     .navbar-menu {
+//         // margin-top: $HEADER_HEIGHT;
+//         // height: 100%;
+//         // max-height: 90vh;
+//         // overflow-y: auto;
+//         // width: 100%;
+//         // position: absolute;
+//         // z-index: 9;
+//         // filter: sepia(100%) saturate(360%) grayscale(0) contrast(140%) hue-rotate(56deg) invert(16%)
+//         // app-navbar-menu {
+//         //     width: 100%;
+//         // }
+//     }
+//     .navbar-menu::-webkit-scrollbar {
+//         width: 1px;
+//         border-radius: 10px;
+//     }
+//     .navbar-toolbar {
+//         height: $HEADER_HEIGHT;
+//         width: 100%;
+//         position: fixed;
+//         position: absolute;
+//         bottom: 0px;
+//         left: 0px;
+//         z-index: 10;
+//         background-color: $LIGHT;
+//     }
+// }

@@ -1,0 +1,73 @@
+@import 'src/styles.scss';
+
+:host {
+    display: block;
+
+    table {
+        margin: 0;
+        background-color: $NAVBAR_BACKGROUND_COLOR !important;
+
+        tr {
+            color: $GRAY;
+
+            th, td {
+                padding: 5px;
+                vertical-align: middle !important;
+                border-color: $GRAY-DARK;
+                
+                p {
+                    text-align: left;
+                    margin: auto;
+                }
+            }
+
+            .navbar-menu-icon {
+                width: $NAVBAR_MIN_WIDTH;
+                margin: auto NAVBAR_ICON_MARGIN;
+
+                // Icon
+                img {
+                    display: block;
+                    width: $NAVBAR_ICON_SIZE;
+                    height: $NAVBAR_ICON_SIZE;
+                    margin: auto;
+                }
+            }
+
+            .navbar-side-toggle {
+                width: 40px;
+                margin: auto NAVBAR_ICON_MARGIN;
+                text-align: center;
+
+                i {
+                    font-size: 8px;
+                }
+            }
+
+            .navbar-menu-dot {
+                text-align: right;
+                margin: auto NAVBAR_ICON_MARGIN;
+
+                i {
+                    font-size: 3px;
+                }
+            }
+        }
+
+        tr:hover {
+            color: $BLUE;
+        }
+
+        // For more browsers
+        * {
+            cursor: pointer;
+            -webkit-touch-callout: none; /* iOS Safari */
+              -webkit-user-select: none; /* Safari */
+               -khtml-user-select: none; /* Konqueror HTML */
+                 -moz-user-select: none; /* Firefox */
+                  -ms-user-select: none; /* Internet Explorer/Edge */
+                      user-select: none; /* Non-prefixed version, currently
+                                            supported by Chrome and Opera */
+        }
+    }
+}

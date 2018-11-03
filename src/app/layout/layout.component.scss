@@ -1,0 +1,54 @@
+@import 'src/styles.scss';
+
+:host {
+    width: 100%;
+    height: 100%;
+    display: block;
+
+    .master-page-main {
+        width: 100%;
+        flex: 1;
+        
+        app-navigation-bar {
+            height: 100%;
+        }
+
+        .navbar-show {
+            width: $NAVBAR_WIDTH_SHOW;
+        }
+
+        .navbar-hide {
+            width: $NAVBAR_WIDTH_HIDE;
+        }
+
+        .master-page-content {
+            flex: 1;
+            background-color: $CONTENT_BACKGROUND_COLOR;
+        }
+    }
+
+    app-header {
+        width: 100%;
+    }
+
+    // To clear bootstrap default margin and padding properties
+    .master-page {
+        margin:  0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .no-gutter > [class*='col-'] {
+        padding-right:0;
+        padding-left:0;
+    }
+
+    .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}

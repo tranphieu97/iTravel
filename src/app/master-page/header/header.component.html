@@ -1,0 +1,27 @@
+
+<div [ngClass]="{'header': true, 'navbar-show':this.mtpService.isShowFullNavBar, 'navbar-hide':!this.mtpService.isShowFullNavBar}">
+    <div class="logo" *ngIf="this.mtpService.isShowFullNavBar">
+        <a href="#">
+            <img src="../../../assets/img/logo_with_text.png">
+        </a>
+    </div>
+    <div class="slide-icon" (click)='this.mtpService.isShowFullNavBar = !this.mtpService.isShowFullNavBar'>
+        <i class="fas fa-bars" ></i>
+    </div>
+</div>
+<!--toolbar-->
+<div class="toolbar">
+    <div class="toolbar-icon">
+        <span><i class="fas fa-search"></i></span>    
+    </div>
+    <div class="toolbar-icon">
+        <span><i class="far fa-bell"></i></span>
+    </div>
+    <div class="toolbar-icon">
+        <span><i class="fas fa-cog"></i></span>
+    </div>
+    <div class="toolbar-icon">
+        <span>Hi, </span>
+        <img>
+    </div>
+</div>

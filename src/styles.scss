@@ -2,13 +2,49 @@
 @import "@fortawesome/fontawesome-free/css/all.css";
 @import "bootstrap/dist/css/bootstrap.css";
 
+$HEADER_HEIGHT: 60px;
+$NAVBAR_MARGIN_RIGHT: 10px;
+$NAVBAR_MIN_WIDTH: 50px;
+$NAVBAR_ICON_MARGIN: 10px;
+$NAVBAR_ICON_SIZE: 25px;
+
+
+/* CONST COLOR */
+$BLUE: #007bff;
+$INDIGO: #6610f2;
+$PURPLE: #6f42c1;
+$PINK:  #e83e8c;
+$RED: #dc3545;
+$ORANGE: #fd7e14;
+$YELLOW: #ffc107;
+$GREEN: #28a745;
+$TEAL: #20c997;
+$CYAN: #17a2b8;
+$WHITE: #fff;
+$GRAY: #6c757d;
+$GRAY-DARK: #343a40;
+$PRIMARY: #5867dd;
+$SECONDARY: #e1e1ef;
+$SUCCESS: #1dc9b7;
+$INFO: #5578eb;
+$WARNING: #ffb822;
+$DANGER: #fd3995;
+$LIGHT: #f8f9fa;
+$DARK: #343a40;
+$BLUE-DARK: #25252d;
+
+// For MasterPage
+$NAVBAR_BACKGROUND_COLOR: #25252d;
+$CONTENT_BACKGROUND_COLOR: #e1e1ef;
+$NAVBAR_WIDTH_SHOW: 250px;
+$NAVBAR_WIDTH_HIDE: 70px;
+
+html, body  {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
 * {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 14px;
-}
-body  {
-
-}
-:host {
-
+    font-size: 12px;
+    font-family:  Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
