@@ -12,12 +12,12 @@
         </th>
     </tr>
     <tr [hidden]='(!isShowFullMenu && this.mtpService.isShowFullNavBar) || !this.mtpService.isShowFullNavBar' 
-        *ngFor="let catagory of inputMenu.Catagories">
+        *ngFor="let category of inputMenu.Categories">
         <td class="navbar-menu-dot">
             <i class="fas fa-circle"></i>
         </td>
         <td>
-            {{catagory.Name}}
+            {{category.Name}}
         </td>
         <td>
         </td>

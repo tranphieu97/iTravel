@@ -1,11 +1,11 @@
 @import 'src/styles.scss';
 
 :host {
-    background-color: $WHITE;
+    // background-color: $WHITE;
+    // border-radius: 5px;
+    // box-shadow: 1px 0px 13px 0px rgba(82, 63, 105, 0.05);
+    // margin: 10px;
     display: flex;
-    border-radius: 5px;
-    box-shadow: 1px 0px 13px 0px rgba(82, 63, 105, 0.05);
-    margin: 10px;
     align-items: stretch;
     position: relative;
     

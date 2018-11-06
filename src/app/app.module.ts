@@ -12,6 +12,7 @@ import { NavbarMenuComponent } from './master-page/navbar-menu/navbar-menu.compo
 import { LoginComponent } from './login/login.component';
 import { HomePageModule } from './home-page/home-page.module';
 import { AmChartsModule } from '@amcharts/amcharts3-angular';
+import { CardViewPostComponent } from './card-view-post/card-view-post.component';
 
 @NgModule({
   declarations: [

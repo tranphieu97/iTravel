@@ -1,15 +1,15 @@
-import { Catagory } from './Catagory';
+import { Category } from './Category';
 
 export class Menu {
     public Name: string;
     public Image: string;
     public Link: string;
-    public Catagories: Array<Catagory>;
+    public Categories: Array<Category>;
 
-    constructor(name: string, img: string, link: string, catagories: Array<Catagory>) {
+    constructor(name: string, img: string, link: string, catagories: Array<Category>) {
         this.Name = name;
         this.Image = img;
         this.Link = link;
-        this.Catagories = catagories;
+        this.Categories = catagories;
     }
 }

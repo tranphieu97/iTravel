@@ -13,6 +13,8 @@ export class NavbarMenuComponent implements OnInit {
 
   isShowFullMenu: Boolean = false;
 
+  isSingleMenu: Boolean = false;
+
   constructor(private mtpService: MasterPageService) { }
 
   ngOnInit() {
