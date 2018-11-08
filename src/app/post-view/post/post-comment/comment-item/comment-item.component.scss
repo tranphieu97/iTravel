@@ -1,0 +1,26 @@
+:host {
+    img {
+        background-color: black;
+    }
+    p {
+        font-size: 17px;
+        margin-bottom: 0px;
+        span {
+            font-size: 17px;
+            font-weight: bold;
+            color: blue;
+        }
+    }
+    .no-padding-right {
+        padding-right: 0px;
+    }
+    .no-padding-left {
+        padding-left: 0px;
+    }
+    .fit-content {
+        height: fit-content;
+    }
+    .comp {
+        padding-bottom: 15px;
+    }
+}

@@ -11,7 +11,7 @@ export class Post {
         public title: string,
         public cover: string,
         public authorId: number,
-        public location: any,
+        public location: Location,
         public categories: string,
         public rating: number,
         public status: string,
