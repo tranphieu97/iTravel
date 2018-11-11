@@ -25,7 +25,11 @@ const routes: Routes = [
       component: LayoutComponent,
       loadChildren: 'src/app/home-page/home-page.module#HomePageModule'
     },
-
+    {
+      path: 'user',
+      component: LayoutComponent,
+      loadChildren: 'src/app/user/user.module#UserModule'
+    },
     {
       path: '**',
       component: NotFoundPageComponent

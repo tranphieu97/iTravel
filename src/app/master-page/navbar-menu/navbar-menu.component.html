@@ -1,23 +1,24 @@
 
 <table class="table table-hover">
-    <tr (click)='isShowFullMenu = !isShowFullMenu'>
+    <tr (click)='ClickMenuName()'>
         <th class="navbar-menu-icon">
-            <img [src]=inputMenu.Image>
+            <img [src]=inputMenu.image>
         </th>
         <th [hidden]='!this.mtpService.isShowFullNavBar'>
-            <p>{{inputMenu.Name}}</p>
+            <p>{{inputMenu.name}}</p>
         </th>
-        <th [hidden]='!this.mtpService.isShowFullNavBar' class="navbar-side-toggle">
+        <th [hidden]='!this.mtpService.isShowFullNavBar || isSingleMenu' class="navbar-side-toggle">
             <i [ngClass] ="{'fas':true, 'fa-chevron-down':isShowFullMenu, 'fa-chevron-right':!isShowFullMenu, 'fa-xs':true} "></i>
         </th>
     </tr>
     <tr [hidden]='(!isShowFullMenu && this.mtpService.isShowFullNavBar) || !this.mtpService.isShowFullNavBar' 
-        *ngFor="let category of inputMenu.Categories">
+        *ngFor="let category of inputMenu.categories"
+        (click)='RedirectByMenu(category.link)'>
         <td class="navbar-menu-dot">
             <i class="fas fa-circle"></i>
         </td>
         <td>
-            {{category.Name}}
+            {{category.name}}
         </td>
         <td>
         </td>

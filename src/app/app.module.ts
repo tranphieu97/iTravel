@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { HomePageModule } from './home-page/home-page.module';
 import { AmChartsModule } from '@amcharts/amcharts3-angular';
 import { CardViewPostComponent } from './card-view-post/card-view-post.component';
+import { UserModule } from './user/user.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { CardViewPostComponent } from './card-view-post/card-view-post.component
     BrowserModule,
     AppRoutingModule,
     HomePageModule,
-    AmChartsModule
+    AmChartsModule,
+    UserModule
   ],
   providers: [],
   bootstrap: [AppComponent]

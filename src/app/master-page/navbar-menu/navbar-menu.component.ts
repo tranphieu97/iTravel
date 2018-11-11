@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Menu } from '../../model/Menu';
+import { Menu } from '../../model/menu.model';
 import { MasterPageService } from '../../core/services/master-page.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar-menu',
@@ -15,9 +16,31 @@ export class NavbarMenuComponent implements OnInit {
 
   isSingleMenu: Boolean = false;
 
-  constructor(private mtpService: MasterPageService) { }
+  constructor(private mtpService: MasterPageService, private route: Router) { }
 
   ngOnInit() {
+    if (this.inputMenu.categories.length > 0) {
+      this.isSingleMenu = false;
+    } else {
+      this.isSingleMenu = true;
+    }
   }
 
+  ClickMenuName() {
+    if (this.inputMenu.categories.length > 0) {
+      this.isShowFullMenu = !this.isShowFullMenu;
+    } else {
+      if (this.inputMenu.link == null || this.inputMenu.link === '') {
+
+      } else {
+        this.route.navigate([this.inputMenu.link]);
+      }
+    }
+  }
+
+  RedirectByMenu(categoryLink: string) {
+    if (categoryLink != null && categoryLink !== '') {
+      this.route.navigate([categoryLink]);
+    }
+  }
 }
