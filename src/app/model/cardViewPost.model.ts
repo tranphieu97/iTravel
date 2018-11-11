@@ -5,4 +5,7 @@ export class CardViewPost {
     category: string;
     creationTime: string;
     description: string;
+
+    constructor(id: string, postName: string,
+        category: string, creationTime: string, description: string) {}
 }
