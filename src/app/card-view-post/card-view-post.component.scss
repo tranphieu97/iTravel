@@ -8,18 +8,18 @@ $BACKGROUND_COLOR: #ebedee;
     align-items: stretch;
 
     height: fit-content;
-    max-width: 250px;
+    max-width: 500px;
     min-width: 150px;
 
-    margin: 2px;
-    padding: 2px;
+    margin: 5px;
+    padding: 5px;
     border: 1px solid #eeeef4;
     box-shadow: 1px 0px 13px 0px rgba(82, 63, 105, 0.05);
 
     .cardview-img {
         width: 100%;
         height: fit-content;
-        min-height: 50px;
+        min-height: 100px;
         background-color: #dfe4eb;
 
         display: flex;
@@ -33,30 +33,38 @@ $BACKGROUND_COLOR: #ebedee;
     }
 
     .cardview-content {
-        display: block;
+        display: flex;
+        flex-direction: column;
         border-top: 1px solid #dfe4eb;
 
         overflow: hidden;
         word-wrap: break-word;
 
-        div {
-            padding: 10px;
+        justify-content: center;
+
+        h4 {
+            font-weight: bolder;
+            margin-bottom: 5px;
+            margin-top: 10px;
+            text-align: justify;
         }
 
-        ul {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-
-            li {
-                border-top: 1px solid #eeeef4;
-                border-bottom: 1px solid #eeeef4;
-                padding: 10px;
+        div {
+            margin-bottom: 5px;
+            
+            span {
+                color: $GRAY;
+                margin-right: 15px;
+                font-weight: bold;
             }
         }
 
-        button {
-            margin: auto;
+        p {
+            word-wrap: break-word;
+            overflow: hidden;
+            max-height: 75px;
+            text-align: justify;
         }
+
     }
 }
