@@ -1,18 +1,19 @@
 import { PostContent } from './postContent.model';
 import { Comment } from './comment.model';
+import { Category } from './category.model';
 
 export class Post {
     constructor(
-        public id: number,
+        // public id: string,
         public createdTime: Date,
         public approvedTime: Date,
-        public tag: Array<string>,
+        public tags: Array<string>,
         public postContents: Array<PostContent>,
         public title: string,
         public cover: string,
-        public authorId: number,
+        public authorId: string,
         public location: Location,
-        public categories: string,
+        public categories: Array<Category>,
         public rating: number,
         public status: string,
         public comments: Array<Comment>,
