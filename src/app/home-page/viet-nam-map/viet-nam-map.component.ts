@@ -1,8 +1,7 @@
 import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
 import { AmChartsService, AmChart, AmChartsModule } from '@amcharts/amcharts3-angular';
-import { $ } from 'protractor';
 import { ServerService } from '../../core/services/server.service';
-import { Province } from '../../model/Province';
+import { Province } from '../../model/province.model';
 
 
 @Component({
@@ -59,7 +58,7 @@ export class VietNamMapComponent implements OnInit {
     this.popupInfo.Position_X = (this.pathPosition_X - 70) + 'px';
     this.popupInfo.Position_Y = (this.pathPosition_Y + 15) + 'px';
 
-    this.popupInfo.ProvinceName = this.listProvinces.find(x => x.ProvinceID === provinceID).ProvinceName;
+    this.popupInfo.ProvinceName = this.listProvinces.find(x => x.provinceID === provinceID).provinceName;
 
   }
 

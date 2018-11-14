@@ -32,6 +32,11 @@ const routes: Routes = [
       loadChildren: 'src/app/post-view/post-view.module#PostViewModule'
     },
     {
+      path: 'user',
+      component: LayoutComponent,
+      loadChildren: 'src/app/user/user.module#UserModule'
+    },
+    {
       path: '**',
       component: NotFoundPageComponent
     }

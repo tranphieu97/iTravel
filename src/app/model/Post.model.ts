@@ -1,6 +1,5 @@
-import { PostContent } from './postContent.model';
-import { Comment } from './comment.model';
 import { Category } from './category.model';
+import { PostContent } from './postContent.model';
 
 export class Post {
     constructor(

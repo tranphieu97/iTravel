@@ -1,5 +1,5 @@
 
-const DB_HOST = 'mongodb://localhost:27017/';
+const DB_HOST = 'mongodb+srv://itravel_admin:eD4w6NpdUyW5YeN@itravelcluster-x2srr.mongodb.net/';
 const DB_NAME = 'iTravel';
 const CONNECTION_STRING = DB_HOST + DB_NAME;
 const APP_PORT = 7979;

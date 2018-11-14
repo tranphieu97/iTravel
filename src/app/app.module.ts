@@ -12,6 +12,8 @@ import { NavbarMenuComponent } from './master-page/navbar-menu/navbar-menu.compo
 import { LoginComponent } from './login/login.component';
 import { HomePageModule } from './home-page/home-page.module';
 import { AmChartsModule } from '@amcharts/amcharts3-angular';
+import { CardViewPostComponent } from './card-view-post/card-view-post.component';
+import { UserModule } from './user/user.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { AmChartsModule } from '@amcharts/amcharts3-angular';
     BrowserModule,
     AppRoutingModule,
     HomePageModule,
-    AmChartsModule
+    AmChartsModule,
+    UserModule
   ],
   providers: [],
   bootstrap: [AppComponent]

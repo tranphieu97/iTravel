@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CardViewPost } from '../../model/cardViewPost.model';
+import { ServerService } from '../../core/services/server.service';
 
 @Component({
   selector: 'app-index',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IndexComponent implements OnInit {
 
-  constructor() { }
+  cardViewPosts: CardViewPost[];
+
+  constructor(private server: ServerService) { }
 
   ngOnInit() {
+    this.server.GetCardViewPost().subscribe((result) => {
+      this.cardViewPosts = result;
+    });
   }
 
 }
