@@ -50,6 +50,12 @@ $BACKGROUND_COLOR: #ebedee;
         }
 
         div {
+            max-width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+
             margin-bottom: 5px;
             
             span {

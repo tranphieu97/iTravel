@@ -4,7 +4,7 @@
     </div>
 </div>
 <div class="index-part">
-    <div class="content-box">
-        <app-card-view-post></app-card-view-post>
+    <div class="content-box list-post">
+        <app-card-view-post *ngFor="let post of cardViewPosts" [inputPost]="post"></app-card-view-post>
     </div>
 </div>

@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Menu } from '../../model/menu.model';
 import { map } from 'rxjs/operators';
 import { Category } from '../../model/category.model';
+import { CardViewPost } from '../../model/cardViewPost.model';
 
 
 @Injectable({
@@ -58,6 +59,23 @@ export class ServerService {
       });
 
       return menu;
+    }));
+  }
+
+  GetCardViewPost(): Observable<CardViewPost[]> {
+    return this.http.get<CardViewPost[]>(this.HOST + 'db/posts').pipe(map((res: any[]) => {
+      const cardViewPosts: CardViewPost[] = res.map((resItem) => {
+        const cardViewPost: CardViewPost = new CardViewPost(
+          resItem._id,
+          resItem.title,
+          resItem.cover,
+          resItem.categories,
+          resItem.createdTime,
+          resItem.description
+        );
+        return cardViewPost;
+      });
+      return cardViewPosts;
     }));
   }
 }

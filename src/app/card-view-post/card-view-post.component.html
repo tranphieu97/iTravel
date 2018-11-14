@@ -1,13 +1,15 @@
 <div class="cardview-img">
-  <img src="https://mytourcdn.com/resources/pictures/hotels/2/large_nxr1504775643_sapa_jade_hill_resort_spa.jpg">
+  <img [src]="inputPost.cover" *ngIf="inputPost.cover != null && inputPost.cover!==''">
 </div>
 <div class="cardview-content">
-    <h4>Tên bài viết thiệt là dài quá chừng luôn xem sẽ đi xa đến đâu</h4>
+    <h4>{{inputPost.title}}</h4>
     <div>
-      <span>Chuyên mục</span>
-      <span><i class="far fa-calendar-alt"></i> Thời gian</span>
+      <span><i class="far fa-calendar-alt"></i> {{inputPost.createdTime | date}}  </span>
+      <span *ngFor="let category of inputPost.categories">
+        <i class="fas fa-tag"></i> {{category}} 
+      </span>
     </div>
-    <p>Absolutely anyone is welcome to submit a comment here. But not all comments will be posted. Think of it like writing a letter to the editor. All submitted comments will be read, but not all published. Published comments will be on-topic, helpful, and further the discussion or debate.</p>
+    <p>{{inputPost.description}}</p>
 </div>
 
 

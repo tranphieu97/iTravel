@@ -1,11 +1,19 @@
 
 export class CardViewPost {
     id: string;
-    postName: string;
-    category: string;
-    creationTime: string;
+    title: string;
+    cover: string;
+    categories: string[];
+    createdTime: Date;
     description: string;
 
-    constructor(id: string, postName: string,
-        category: string, creationTime: string, description: string) {}
+    constructor(id: string, title: string, cover: string,
+    categories: string[], createdTime: Date, description: string) {
+        this.id = id;
+        this.title = title;
+        this.cover = cover;
+        this.categories = categories;
+        this.createdTime = createdTime;
+        this.description = description;
+    }
 }
