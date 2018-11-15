@@ -1,0 +1,56 @@
+@import 'src/styles.scss';
+
+:host {
+    display: flex;
+    flex-direction: column;
+
+    .user-profile-part {
+        border-radius: 5px;
+        box-shadow: 1px 0px 13px 0px rgba(82, 63, 105, 0.05);
+        background-color: $WHITE;
+        height: 14%;
+        margin: 10px;
+    }
+
+    .user-profile-header {
+        display: flex;
+        flex-direction: row;
+        padding: 15px;
+
+        .user-profile-header-part {
+            flex: 1;
+
+            img {
+                max-width: 120px;
+                max-height: 120px;
+                height: auto;
+                border-radius: 50%;
+                margin: 10px;
+            }
+        }
+
+        .user-profile-name {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            border-right: 0.5px solid $GRAY;
+
+            div {
+                margin: 15px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                h3 {
+                    font-weight: 600;
+                }
+
+                h5 {
+                    font-weight: bold;
+                    color: $GRAY;
+                }
+            }
+        }
+    }
+}
+
