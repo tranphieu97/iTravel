@@ -15,21 +15,23 @@ app.listen(config.APP_PORT, () => {
     console.log('Server is running at http://localhost:' + config.APP_PORT + '/');
 });
 
+app.use(bodyParser.json());
+
 app.use((req, res, next) => {
-    res.append('Access-Control-Allow-Origin', ['*']);
-    res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.append('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Origin', ['*']);
+    res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
 });
 
-app.get('/',function(req, res) {
+app.get('/', function (req, res) {
     res.send('http://localhost:7979/');
 });
 
-app.get('/db/provinces', function(req, res) {
+app.get('/db/provinces', function (req, res) {
     database.GetCollection('Provinces')
-        .then(function(colection) {
-            var result = colection.find().toArray(function(err, result) {
+        .then(function (colection) {
+            var result = colection.find().toArray(function (err, result) {
                 if (err) {
                     console.log('Error find data from collection Provinces');
                     res.send(null);
@@ -39,18 +41,30 @@ app.get('/db/provinces', function(req, res) {
         });
 });
 
-app.post('/db/posts', async (req, res) => {
-    const myPost = { }
-    database.GetCollection('posts')
-    .then((posts)=>{
-        posts.insertOne
-    })
+app.post('/db/posts', (req, res, next) => {
+    let post = req.body;
+    database.GetCollection('Posts')
+        .then((colection) => {
+            // after get collection, insert newPost to posts collection
+            colection.insertOne(post).then(() => {
+                res.status(201).json({
+                    message: 'A new post added to Posts collection'
+                });
+            });
+        });
 });
 
-app.get('/db/menu', function(req, res) {
+// app.get('/db/posts', (req, res, next) => {
+//     console.log('receive a GET req to /db/posts')
+//     res.status(200).json({
+//         message: 'you received posts from the server here'
+//     })
+// })
+
+app.get('/db/menu', function (req, res) {
     database.GetCollection('Menu')
-        .then(function(colection) {
-            var menu = colection.find().toArray(function(err, result) {
+        .then(function (colection) {
+            var menu = colection.find().toArray(function (err, result) {
                 if (err) {
                     console.log('Error find data from collection Menu');
                     res.send(null);
@@ -60,12 +74,12 @@ app.get('/db/menu', function(req, res) {
         });
 });
 
-app.get('/db/posts', function(req, res) {
-    database.GetCollection('Mokup_Posts')
-        .then(function(colection) {
-            var posts = colection.find().toArray(function(err, result) {
-                res.send(result);
-            });
-        });
-});
+// app.get('/db/posts', function (req, res) {
+//     database.GetCollection('Mokup_Posts')
+//         .then(function (colection) {
+//             var posts = colection.find().toArray(function (err, result) {
+//                 res.send(result);
+//             });
+//         });
+// });
 
