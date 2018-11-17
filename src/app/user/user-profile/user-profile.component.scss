@@ -3,13 +3,17 @@
 :host {
     display: flex;
     flex-direction: column;
+    overflow: scroll;
+    width: 100%;
+    height: 100%;
 
     .user-profile-part {
         border-radius: 5px;
         box-shadow: 1px 0px 13px 0px rgba(82, 63, 105, 0.05);
         background-color: $WHITE;
-        height: 14%;
-        margin: 10px;
+        height: fit-content;
+        margin: 15px;
+        min-width: 50%;
     }
 
     .user-profile-header {
@@ -31,6 +35,7 @@
 
         .user-profile-name {
             display: flex;
+            flex: 1.5 !important;
             flex-direction: row;
             justify-content: flex-start;
             border-right: 0.5px solid $GRAY;
@@ -51,6 +56,54 @@
                 }
             }
         }
+
+        .user-profile-additional {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: stretch;
+            border-right: 0.5px solid $GRAY;
+
+            div.additional-info {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                margin: 5px;
+                padding-left: 15px;
+                padding-right: 15px;
+                
+                img {
+                    width: 35px;
+                    height: 35px;
+                    margin: 0;
+                }
+
+                p {
+                    font-weight: bold;
+                    margin: 0;
+                    padding-left: 10px;
+                }
+            }
+        }
+    }
+
+    .no-border {
+        border-style: none !important;
+    }
+
+    .user-activities {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
     }
 }
 
+:host::-webkit-scrollbar {
+    width: 1px;  /* remove scrollbar space */
+    height: 1px;
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+
+:host::-webkit-scrollbar-thumb {
+    background: $WHITE;
+}
