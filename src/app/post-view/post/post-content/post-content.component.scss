@@ -1,8 +1,7 @@
 :host {
     .comp {
         margin: 0px;
-        padding: 0px 5%;
-        // border-color: black;
+        padding: 0px 5%; // border-color: black;
         // border-style: solid;
         // border-width: 5px;
     }
@@ -19,11 +18,19 @@
     p {
         font-size: 17px;
         line-height: 25px;
+        text-align: justify;
     }
-    .mid{
-        padding-top: 15px;
+    .mid {
+        padding-top: 10px;
     }
-    .bottom{
+    .bottom {
         margin-bottom: 10px;
+    }
+    .desc {
+        margin: auto;
+        // text-align: center;
+        font-size: 14px;
+        font-style: italic;
+        display: inline-block;
     }
 }

@@ -5,6 +5,8 @@ import { Post } from '../model/post.model';
 import { PostContent } from '../model/postContent.model';
 import { Category } from '../model/category.model';
 import { Comment } from '../model/comment.model';
+import { strictEqual } from 'assert';
+import { stringify } from '@angular/core/src/util';
 
 @Injectable({ providedIn: 'root' })
 export class PostViewService {
@@ -271,10 +273,10 @@ export class PostViewService {
                     ''),
                 new PostContent(
                     '',
-                    'content',
                     'Giá phòng ở khu vực trung tâm khá cao, khách sạn tập trung trên tuyến đường Trần Phú, '
                     + 'Hùng Vương, Nguyễn Thiện Thuật, Biệt Thự ... khách sạn khu vực này có view rất đẹp nhìn thẳng xuống biển, '
                     + 'để tắm biển bạn chỉ cần đi bộ vài phút từ chỗ nghỉ là ra tới bãi biển.',
+                    '',
                     ''),
                 new PostContent(
                     '',
@@ -451,9 +453,15 @@ export class PostViewService {
     // get all posts from database
     getAllPosts() {
         this.http.get<{ message: string; posts: Post[] }>(this.HOST + 'db/posts')
-            .subscribe((postData) => {
-                this.posts = postData.posts;
+            .subscribe((postList) => {
+                this.posts = postList.posts;
             });
+    }
+
+    getOnePosts(id: string) {
+        this.getAllPosts();
+        return this.posts[1];
+        // return this.posts.find(post => post._id === id);
     }
 
     // send a post and store in database

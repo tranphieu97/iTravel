@@ -44,9 +44,9 @@ app.get('/db/provinces', function (req, res) {
 app.post('/db/posts', (req, res, next) => {
     let post = req.body;
     database.GetCollection('Posts')
-        .then((colection) => {
+        .then((collection) => {
             // after get collection, insert newPost to posts collection
-            colection.insertOne(post).then(() => {
+            collection.insertOne(post).then(() => {
                 res.status(201).json({
                     message: 'A new post added to Posts collection'
                 });
@@ -54,12 +54,25 @@ app.post('/db/posts', (req, res, next) => {
         });
 });
 
-// app.get('/db/posts', (req, res, next) => {
-//     console.log('receive a GET req to /db/posts')
-//     res.status(200).json({
-//         message: 'you received posts from the server here'
-//     })
-// })
+app.get('/db/posts', (req, res, next) => {
+    // call to database
+    database.GetCollection('Posts')
+        .then((collection) => {// after got data from database
+            collection.find().toArray((toArrayErr, succeedResult) => {
+                if (toArrayErr) {
+                    // if there are errors when convert to array
+                    console.log('Error get data from collection Posts');
+                    res.json({
+                        message: 'Fail to get posts from collection Posts'
+                    });
+                }
+                res.status(200).json({
+                    message: 'you received posts from the server here',
+                    posts: succeedResult
+                });
+            });
+        });
+});
 
 app.get('/db/menu', function (req, res) {
     database.GetCollection('Menu')

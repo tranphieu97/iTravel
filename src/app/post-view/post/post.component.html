@@ -3,45 +3,40 @@
     <div class="col-xs-12 col-md-12">
       <!-- row 1 with title -->
       <div class="row">
-        <h2 class="title">Some very long title here and there, and there, and there, and there, and there...</h2>
+        <h2 class="title">{{ post.title }}</h2>
       </div>
       <!-- info -->
       <div class="row">
-        <p class="info"><a href="#" class="author">Author</a> - <span>5 minutes ago</span></p>
+        <p class="info"><a href="#" class="author">{{ post.authorId }}</a> - <span>{{ post.approvedTime }}</span></p>
       </div>
       <!-- include post description -->
       <div class="row">
         <div class="col-sm-12">
-          <p class="desc">
-            Chiếc đồng hồ Big Bang MECA-10 P2P được sản xuất với số lượng hạn chế chỉ 210 chiếc. Chiếc đồng hồ Big Bang
-            MECA-10 P2P được sản xuất với số lượng hạn chế chỉ 210 chiếc. Chiếc đồng hồ Big Bang MECA-10 P2P được sản
-            xuất với số lượng hạn chế chỉ 210 chiếc. Chiếc đồng hồ Big Bang MECA-10 P2P được sản xuất với số lượng hạn
-            chế chỉ 210 chiếc.</p>
+          <p class="desc">{{ post.description }}</p>
         </div>
       </div>
       <!-- add ngFor here for post contents -->
-      <app-post-content></app-post-content>
-      <app-post-content></app-post-content>
+      <app-post-content *ngFor="let content of post.postContents" [postContent]="content"></app-post-content>
       <!-- post feature -->
       <div>
-        <app-post-rating></app-post-rating>
+        <app-post-rating [post]="post"></app-post-rating>
       </div>
       <!-- add ngFor for tags -->
       <div class="row">
         <span class="tag">Tag:</span>
         <span class="tag tag-item">Province</span>
+        <span *ngFor="let tag of post.tags" class="tag tag-item">{{ tag }}</span>
+        <!-- <span class="tag tag-item">Experience</span>
         <span class="tag tag-item">Experience</span>
         <span class="tag tag-item">Experience</span>
         <span class="tag tag-item">Experience</span>
         <span class="tag tag-item">Experience</span>
         <span class="tag tag-item">Experience</span>
         <span class="tag tag-item">Experience</span>
-        <span class="tag tag-item">Experience</span>
-        <span class="tag tag-item">Experience</span>
-        <span class="tag tag-item">Experience</span>
+        <span class="tag tag-item">Experience</span> -->
       </div>
       <!-- post comments-->
-      <app-post-comment></app-post-comment>
+      <app-post-comment [post]="post"></app-post-comment>
     </div>
   </div>
 </div>
