@@ -6,6 +6,7 @@ import { Menu } from '../../model/menu.model';
 import { map } from 'rxjs/operators';
 import { Category } from '../../model/category.model';
 import { CardViewPost } from '../../model/cardViewPost.model';
+import { Feedback } from '../../model/feedback.model';
 
 
 @Injectable({
@@ -14,6 +15,12 @@ import { CardViewPost } from '../../model/cardViewPost.model';
 export class ServerService {
 
   HOST: String = 'http://localhost:7979/';
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json'
+    })
+  };
 
   constructor(private http: HttpClient) { }
 
@@ -77,5 +84,9 @@ export class ServerService {
       });
       return cardViewPosts;
     }));
+  }
+
+  postFeedback(feedback: Feedback): Observable<boolean> {
+    return this.http.post<boolean>(this.HOST + 'create-feedback', feedback, this.httpOptions);
   }
 }

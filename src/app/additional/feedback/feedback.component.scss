@@ -1,0 +1,76 @@
+@import 'src/styles.scss';
+
+:host {
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    .feedback-form {
+        border-radius: 5px;
+        box-shadow: 1px 0px 13px 0px rgba(82, 63, 105, 0.05);
+        background-color: $WHITE;
+        margin: 15px;
+        flex: 1 1 auto;
+        padding: 15px;
+        overflow: scroll;
+
+        .feedback-row {
+            margin-top: 15px;
+
+            div {
+                margin-left: 10px;
+                margin-right: 10px;
+                align-items: center;
+
+                .custom-file {
+                    margin: 0 !important;
+                }
+
+                textarea {
+                    resize: none;
+                }
+            }
+
+            label {
+                font-weight: 600;
+            }
+
+            input {
+                padding: 5px;
+                height: 35px;
+            }
+
+            button {
+                margin: 10px;
+                height: 35px;
+                min-width: 70px;
+            }
+        }
+
+        .two-col {
+            display: flex;
+            flex-direction: row;
+
+            div {
+                flex: 1;
+                min-width: 40%;
+            }
+        }
+
+        .row-center {
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    .feedback-form::-webkit-scrollbar {
+        width: 1px;  /* remove scrollbar space */
+        height: 1px;
+        background: transparent;  /* optional: just make scrollbar invisible */
+    }
+    
+    .feedback-form::-webkit-scrollbar-thumb {
+        background: $WHITE;
+    }
+}
+

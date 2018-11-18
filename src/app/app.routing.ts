@@ -32,6 +32,11 @@ const routes: Routes = [
       loadChildren: 'src/app/user/user.module#UserModule'
     },
     {
+      path: 'additional',
+      component: LayoutComponent,
+      loadChildren: 'src/app/additional/additional.module#AdditionalModule'
+    },
+    {
       path: '**',
       component: NotFoundPageComponent
     }

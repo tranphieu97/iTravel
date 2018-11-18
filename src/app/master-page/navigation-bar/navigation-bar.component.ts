@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ServerService } from '../../core/services/server.service';
 import { Menu } from '../../model/menu.model';
+import { MasterPageService } from '../../core/services/master-page.service';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -14,12 +15,17 @@ export class NavigationBarComponent implements OnInit {
 
   listMenu: Menu[];
 
-  constructor(private server: ServerService) {}
+  constructor(private server: ServerService, private masterPage: MasterPageService) {}
 
   ngOnInit() {
-    this.server.GetMenu().subscribe((result) => {
-      this.listMenu = result;
-    });
+    if (this.masterPage.listMenu == null || this.masterPage.listMenu.length < 1) {
+      this.server.GetMenu().subscribe((result) => {
+        this.masterPage.listMenu = result;
+        this.listMenu = result;
+      });
+    } else {
+      this.listMenu = this.masterPage.listMenu;
+    }
   }
 
 }

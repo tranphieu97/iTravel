@@ -11,6 +11,9 @@ var Q = require('q');
 
 const app = express();
 
+app.use(bodyParser.urlencoded({extended : true}));
+app.use(bodyParser.json())
+
 app.listen(config.APP_PORT, () => {
     console.log('Server is running at http://localhost:' + config.APP_PORT + '/');
 });
@@ -60,5 +63,22 @@ app.get('/db/posts', function(req, res) {
                 res.send(result);
             });
         });
+});
+
+app.post('/create-feedback', function(req, res) {
+    
+    const feedback = req.body;
+
+    database.GetCollection('Feedback')
+        .then(function(colection) {
+            colection.insertOne(feedback, (res) => {
+                console.log(res);
+            })
+        });
+
+    if (feedback === undefined) {
+        res.send(false);
+    }
+    res.send(true);
 });
 

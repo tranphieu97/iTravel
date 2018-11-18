@@ -8,7 +8,7 @@ exports = module.exports = {};
 
 exports.GetCollection = async function(collectionName) {
     var deferred = Q.defer();
-    MongoClient.connect(config.CONNECTION_STRING, (err, client) => {
+    MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {
         if (err) {
             console.log("Get Connection has an error: " + err.message);
             deferred.reject(new Error(err));
