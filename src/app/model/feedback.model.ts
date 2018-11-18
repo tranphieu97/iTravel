@@ -7,7 +7,6 @@ export class Feedback {
     isRead: boolean;
     isReplied: boolean;
     contact: string;
-    attachment: string;
     kindOf: string;
 
     constructor() {
@@ -18,7 +17,6 @@ export class Feedback {
         this.isRead = false;
         this.isReplied = false;
         this.contact = '';
-        this.attachment = '';
         this.kindOf = '';
     }
 }

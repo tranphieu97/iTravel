@@ -71,14 +71,12 @@ app.post('/create-feedback', function(req, res) {
 
     database.GetCollection('Feedback')
         .then(function(colection) {
-            colection.insertOne(feedback, (res) => {
-                console.log(res);
-            })
+            try {
+                colection.insertOne(feedback)
+                res.send(true);
+            } catch (error) {
+                res.send(false);
+            }
         });
-
-    if (feedback === undefined) {
-        res.send(false);
-    }
-    res.send(true);
 });
 

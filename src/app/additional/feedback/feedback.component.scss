@@ -33,9 +33,18 @@
 
             label {
                 font-weight: 600;
+
+                span {
+                    color: $RED;
+                }
             }
 
             input {
+                padding: 5px;
+                height: 35px;
+            }
+
+            select {
                 padding: 5px;
                 height: 35px;
             }
@@ -45,6 +54,7 @@
                 height: 35px;
                 min-width: 70px;
             }
+
         }
 
         .two-col {

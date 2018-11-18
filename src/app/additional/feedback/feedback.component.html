@@ -1,21 +1,30 @@
 <div class="feedback-form">
   <h3>Feedback</h3>
+  <div [ngClass]="{'alert': true, 'alert-success': isSuccess, 'alert-danger': isFail}" *ngIf="isSuccess || isFail" role="alert">
+    {{this.message}}
+  </div>
   <form>
     <div class="feedback-row two-col">
       <div>
-        <label for="name" >Feedback Name</label>
+        <label for="name" >Feedback Name <span>(*)</span> </label>
         <input type="text" [(ngModel)]="feedback.name" name="name"
           class="form-control" id="name" placeholder="Enter Feedback Name" required >
       </div>
       <div>
-        <label for="creationdatetime" >Creation Datetime</label>
-        <input type="datetime" [(value)]="feedback.creationDatetime"
-          class="form-control" id="creationdatetime"  required readonly>
+        <label for="kindof" >Kind of Feedback <span>(*)</span></label>
+        <select class="form-control" id="kindof" [(ngModel)]="feedback.kindOf" name="kindof">
+          <option selected="selected">About Content</option>
+          <option>About System</option>
+          <option>About User</option>
+          <option>About Policies</option>
+          <option>The Others</option>
+        </select>
       </div>
     </div>
+
     <div class="feedback-row two-col">
       <div>
-        <label for="username" >Username</label>
+        <label for="username" >Username <span>(*)</span></label>
         <input type="text" [(ngModel)]="feedback.from" name="username"
           class="form-control" id="username" placeholder="Enter User Name" required>
       </div>
@@ -25,36 +34,19 @@
           class="form-control" id="contact" placeholder="Enter Additional Contact Infomation">
       </div>
     </div>
-    <div class="feedback-row two-col">
-      <div>
-        <label for="kindof" >Kind of Feedback</label>
-        <select class="form-control" id="kindof" [(ngModel)]="feedback.kindOf" name="kindof">
-          <option selected="selected">About Content</option>
-          <option>About System</option>
-          <option>About User</option>
-          <option>About Policies</option>
-          <option>The Others</option>
-        </select>
-      </div>
-      <div>
-        <label for="attachment" >Attachment</label>
-        <div class="custom-file">
-          <input type="file" class="custom-file-input" id="customFile">
-          <label class="custom-file-label" for="customFile">Choose file</label>
-        </div>
-      </div>
-    </div>
+
     <div class="feedback-row">
       <div>
-        <label for="content" >Feedback Content</label>
+        <label for="content" >Feedback Content <span>(*)</span></label>
         <textarea [(ngModel)]="this.feedback.content" name="content"
           class="form-control" id="content" rows="11" placeholder="Enter Feedback Content" required></textarea>
       </div>
     </div>
+
     <div class="feedback-row row-center">
       <div>
         <button type="submit" (click)="submitForm()" class="btn btn-success">Submit</button>
-        <button type="reset" class="btn btn-danger">Reset</button>
+        <button (click)="cancelForm()" class="btn btn-danger">Go back</button>
       </div>
     </div>
   </form>
