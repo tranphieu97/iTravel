@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AddPostInformationComponent } from './add-post-information/add-post-information.component';
+import { CreatePostComponent } from './create-post/create-post.component';
 
 const routes: Routes = [
-  { path: '', component: AddPostInformationComponent },
+  { path: '', component: CreatePostComponent },
 ];
 
 @NgModule({
@@ -12,4 +12,4 @@ const routes: Routes = [
 })
 export class AddPostRoutingModule { }
 
-export const routedComponents = [AddPostInformationComponent];
+export const routedComponents = [CreatePostComponent];

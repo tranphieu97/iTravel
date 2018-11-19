@@ -1,6 +1,7 @@
 :host {
     img {
         background-color: black;
+        border-radius: 0.25rem;
     }
     p {
         font-size: 17px;
@@ -16,9 +17,6 @@
     }
     .no-padding-left {
         padding-left: 0px;
-    }
-    .fit-content {
-        height: fit-content;
     }
     .comp {
         padding-bottom: 15px;
