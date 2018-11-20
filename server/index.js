@@ -25,58 +25,102 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get('/',function(req, res) {
+/** Routing - START */
+app.get('/',(req, res) => {
     res.send('http://localhost:7979/');
 });
 
-app.get('/db/provinces', function(req, res) {
-    database.GetCollection('Provinces')
-        .then(function(colection) {
-            var result = colection.find().toArray(function(err, result) {
-                if (err) {
-                    console.log('Error find data from collection Provinces');
-                    res.send(null);
-                }
-
-                res.send(result);
-            });
-        });
+app.get('/db/provinces', (req, res) => {
+    const COLECTION_NAME = 'Provinces';
+    database.getCollectionData(COLECTION_NAME).then((data) => {
+        if (data != null) {
+            res.status(200).json({
+                message: 'Load '+ COLECTION_NAME + ' success!',
+                data: data
+            })
+        } else {
+            res.status(500).json({
+                message: 'Load' + COLECTION_NAME + 'fail!'
+            })
+        }
+    });
 });
 
-app.get('/db/menu', function(req, res) {
-    database.GetCollection('Menu')
-        .then(function(colection) {
-            var menu = colection.find().toArray(function(err, result) {
-                if (err) {
-                    console.log('Error find data from collection Menu');
-                    res.send(null);
-                }
-                res.send(result);
-            });
-        });
+app.get('/db/menu', (req, res) => {
+    const COLECTION_NAME = 'Menu';
+    database.getCollectionData(COLECTION_NAME).then((data) => {
+        if (data != null) {
+            res.status(200).json({
+                message: 'Load '+ COLECTION_NAME + ' success!',
+                data: data
+            })
+        } else {
+            res.status(500).json({
+                message: 'Load' + COLECTION_NAME + 'fail!'
+            })
+        }
+    });
 });
 
-app.get('/db/posts', function(req, res) {
-    database.GetCollection('Mokup_Posts')
-        .then(function(colection) {
-            var posts = colection.find().toArray(function(err, result) {
-                res.send(result);
-            });
-        });
+app.get('/db/posts', (req, res) => {
+    const COLECTION_NAME = 'Posts';
+    database.getCollectionData(COLECTION_NAME).then((data) => {
+        if (data != null) {
+            res.status(200).json({
+                message: 'Load '+ COLECTION_NAME + ' success!',
+                data: data
+            })
+        } else {
+            res.status(500).json({
+                message: 'Load' + COLECTION_NAME + 'fail!'
+            })
+        }
+    });
 });
 
-app.post('/create-feedback', function(req, res) {
+app.post('/create-feedback', (req, res) => {
     
     const feedback = req.body;
 
-    database.GetCollection('Feedback')
-        .then(function(colection) {
-            try {
-                colection.insertOne(feedback)
-                res.send(true);
-            } catch (error) {
-                res.send(false);
-            }
+    if (feedback.name.trim() === '' || feedback.from.trim() === '' 
+        || feedback.content.trim() === '' || feedback.creationDatetime == null) {
+        res.status(400).json({
+            message: 'Invalid data!'
         });
+    } else {
+        database.insertOneToColection(database.iTravelDB.Feedback, feedback)
+        .then(() => {
+            res.status(200).json({
+                message: 'Success!'
+            });
+        }).catch(() => {
+            res.status(500).json({
+                message: 'Fail!'
+            });
+        })
+    }
 });
 
+app.post('/create-search-history', (req, res) => {
+    
+    const searchHistory = req.body;
+
+    if (searchHistory === undefined || searchHistory.keyword === undefined 
+        || searchHistory.keyword.trim() === '' || searchHistory.creationTime == null) {
+        res.status(400).json({
+            message: 'Invalid data!'
+        });
+    } else {
+        database.insertOneToColection(database.iTravelDB.SearchHistory, searchHistory)
+        .then(() => {
+            res.status(200).json({
+                message: 'Success!'
+            });
+        }).catch(() => {
+            res.status(500).json({
+                message: 'Fail!'
+            });
+        })
+    }
+});
+/** Routing - END */

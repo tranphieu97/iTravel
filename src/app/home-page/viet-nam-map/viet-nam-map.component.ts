@@ -38,7 +38,7 @@ export class VietNamMapComponent implements OnInit {
   constructor(private server: ServerService) { }
 
   ngOnInit() {
-    this.server.GetListProvinces().subscribe(res => {
+    this.server.getListProvinces().subscribe(res => {
       this.listProvinces = res;
     });
 

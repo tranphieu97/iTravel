@@ -83,4 +83,35 @@
             }
         }
     }
+
+    #search-box {
+        display: flex;
+
+        border-radius: 5px;
+        box-shadow: 1px 1px 13px 1px rgba(82, 63, 105, 0.05);
+        border: 1px solid $GRAY;
+
+        background-color: $WHITE;
+        width: 20%;
+        min-width: 300px;
+        height: 50px;
+        padding: 5px;
+
+        position: absolute;
+        top: -15px;
+        left: 175px;
+        z-index: 100;
+
+        transform: translate3d(734px, 75px, 0px);
+        will-change: transform;
+
+        form {
+            width: 100%;
+            height: 100%;
+
+            input {
+                flex: 1;
+            }
+        }
+    }
 }

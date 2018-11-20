@@ -14,6 +14,7 @@ import { HomePageModule } from './home-page/home-page.module';
 import { AmChartsModule } from '@amcharts/amcharts3-angular';
 import { CardViewPostComponent } from './card-view-post/card-view-post.component';
 import { UserModule } from './user/user.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { UserModule } from './user/user.module';
     AppRoutingModule,
     HomePageModule,
     AmChartsModule,
-    UserModule
+    UserModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

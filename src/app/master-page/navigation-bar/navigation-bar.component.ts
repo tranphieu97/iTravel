@@ -19,7 +19,7 @@ export class NavigationBarComponent implements OnInit {
 
   ngOnInit() {
     if (this.masterPage.listMenu == null || this.masterPage.listMenu.length < 1) {
-      this.server.GetMenu().subscribe((result) => {
+      this.server.getMenu().subscribe((result) => {
         this.masterPage.listMenu = result;
         this.listMenu = result;
       });

@@ -7,6 +7,8 @@ import { map } from 'rxjs/operators';
 import { Category } from '../../model/category.model';
 import { CardViewPost } from '../../model/cardViewPost.model';
 import { Feedback } from '../../model/feedback.model';
+import { SearchHistory } from '../../model/searchHistory.model';
+
 
 
 @Injectable({
@@ -18,15 +20,15 @@ export class ServerService {
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type':  'application/json'
+      'Content-Type': 'application/json'
     })
   };
 
   constructor(private http: HttpClient) { }
 
-  GetListProvinces(): Observable<Province[]> {
-    return this.http.get<Province[]>(this.HOST + 'db/provinces/').pipe(map((res: any[]) => {
-      const provinces: Province[] = res.map((resItem) => {
+  getListProvinces(): Observable<Province[]> {
+    return this.http.get<any>(this.HOST + 'db/provinces/').pipe(map((res: any) => {
+      const provinces: Province[] = res.data.map((resItem) => {
         const province = new Province(
           resItem.ProvinceID,
           resItem.ProvinceName,
@@ -41,9 +43,9 @@ export class ServerService {
     }));
   }
 
-  GetMenu(): Observable<Menu[]> {
-    return this.http.get<Menu[]> (this.HOST + 'db/menu/').pipe(map((res: any[]) => {
-      const menu: Menu[] = res.map((resItem) => {
+  getMenu(): Observable<Menu[]> {
+    return this.http.get<any>(this.HOST + 'db/menu/').pipe(map((res: any) => {
+      const menu: Menu[] = res.data.map((resItem) => {
 
         const resItemCategories: Category[] = resItem.Categories.map((resItemCategory) => {
           const category: Category = new Category(
@@ -59,19 +61,19 @@ export class ServerService {
           resItem.Name,
           resItem.Image,
           resItem.Link,
-          resItemCategories
+          resItemCategories,
+          resItem.Position
         );
 
         return resMenu;
       });
-
-      return menu;
+      return menu.sort((a, b) => a.position - b.position);
     }));
   }
 
   GetCardViewPost(): Observable<CardViewPost[]> {
-    return this.http.get<CardViewPost[]>(this.HOST + 'db/posts').pipe(map((res: any[]) => {
-      const cardViewPosts: CardViewPost[] = res.map((resItem) => {
+    return this.http.get<any>(this.HOST + 'db/posts').pipe(map((res: any) => {
+      const cardViewPosts: CardViewPost[] = res.data.map((resItem) => {
         const cardViewPost: CardViewPost = new CardViewPost(
           resItem._id,
           resItem.title,
@@ -86,7 +88,11 @@ export class ServerService {
     }));
   }
 
-  postFeedback(feedback: Feedback): Observable<boolean> {
-    return this.http.post<boolean>(this.HOST + 'create-feedback', feedback, this.httpOptions);
+  postFeedback(feedback: Feedback): Observable<any> {
+    return this.http.post<any>(this.HOST + 'create-feedback', feedback, this.httpOptions);
+  }
+
+  postSearchHistory(searchHistory: SearchHistory): Observable<any> {
+    return this.http.post<any>(this.HOST + 'create-search-history', searchHistory, this.httpOptions);
   }
 }

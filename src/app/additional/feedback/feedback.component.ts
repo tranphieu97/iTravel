@@ -50,7 +50,7 @@ export class FeedbackComponent implements OnInit {
   submitForm(): void {
     if (this.validationForm()) {
       this.server.postFeedback(this.feedback).subscribe((res) => {
-        if (res) {
+        if (res.message === 'Success!') {
           this.message = 'Feedback Success! Thanks for your feedback';
           this.isSuccess = true;
           this.feedback = new Feedback();

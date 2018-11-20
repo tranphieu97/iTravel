@@ -12,7 +12,16 @@
 <!--toolbar-->
 <div class="toolbar">
     <div class="toolbar-icon">
-        <span><i class="fas fa-search"></i></span>    
+        <span (click)="isShowSearchBox = !isShowSearchBox">
+            <i class="fas fa-search"></i>
+        </span>  
+        <div id="search-box" *ngIf="isShowSearchBox">
+            <form class="form-inline">
+                <input type="text"  [(ngModel)]="searchBoxText" name="search"
+                    class="form-control" placeholder="Enter word to search">
+                <button type="button" (click)="searchByText()" class="btn btn-default">Search</button>
+            </form>
+        </div>
     </div>
     <div class="toolbar-icon">
         <span><i class="far fa-bell"></i></span>
