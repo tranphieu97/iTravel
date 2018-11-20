@@ -20,15 +20,11 @@ export class PostViewService {
 
     // get all posts from database
     getAllPosts() {
-        this.http
-            .get<{ message: string; posts: Post[] }>(
-                this.HOST + 'db/posts'
-            )
-            .subscribe(resData => {
-                this.posts = resData.posts;
-                // console.log(this.posts[2]);
-                this.postsUpdated.next([...this.posts]);
-            });
+        this.http.get<{ message: string; posts: Post[] }>(this.HOST + 'db/posts').subscribe(resData => {
+            this.posts = resData.posts;
+            // console.log(this.posts[2]);
+            this.postsUpdated.next([...this.posts]);
+        });
     }
 
     getOnePosts(id: string) {
