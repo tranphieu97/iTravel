@@ -1,0 +1,60 @@
+<div class="container comp col-md-7">
+  <form>
+    <div class="row">
+      <div class="col-xs-12 col-md-12">
+        <!-- row1 has title -->
+        <div class="row form-group">
+          <div class="col-sm-2">
+            <label>Title:</label>
+          </div>
+          <div class="col-sm-10">
+            <input class="form-control" type="text" name="title" id="">
+          </div>
+        </div>
+        <!-- row2 has description -->
+        <div class="row form-group">
+          <div class="col-sm-2">
+            <label>Description:</label>
+          </div>
+          <div class="col-sm-10">
+            <textarea name="description" class="form-control" rows="2"></textarea>
+          </div>
+        </div>
+        <!-- row3 has add-cover-button and preview -->
+        <div class="row form-group">
+          <div class="col-sm-2">
+            <button class="btn btn-success" type="button">Add Cover</button>
+          </div>
+          <div class="col-sm-10">
+            <img src="https://images.pexels.com/photos/1146708/pexels-photo-1146708.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+              alt="preview">
+          </div>
+        </div>
+        <!-- row4 has create-category component -->
+        <div class="row form-group">
+          <div class="col-sm-12">
+            <app-create-category></app-create-category>
+          </div>
+        </div>
+        <!-- row5 has create-tag component -->
+        <div class="row form-group">
+          <div class="col-sm-12">
+            <app-create-tag></app-create-tag>
+          </div>
+        </div>
+        <!-- row6 has create-location component -->
+        <div class="row form-group">
+          <div class="col-sm-12">
+            <app-create-location></app-create-location>
+          </div>
+        </div>
+        <!-- row7 has create-post-content component -->
+        <div class="row form-group">
+          <div class="col-sm-12">
+            <app-create-post-content></app-create-post-content>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

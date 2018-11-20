@@ -1,0 +1,48 @@
+.container {
+    margin: 0px;
+}
+
+.row {
+    padding: 5px;
+}
+
+input[type="text"] {
+    width: 100%;
+    font-size: 17px;
+}
+
+textarea {
+    width: 100%;
+    font-size: 17px;
+}
+
+.comp {
+    border-radius: 1rem; //box-shadow: 1px 0px 13px 0px rgba(82, 63, 105, 0.05);
+    background-color: #fff; //height: 95%;
+    margin: 10px;
+    padding-top: 10px;
+    //overflow: scroll; //height: 80%;
+}
+
+// .comp::-webkit-scrollbar {
+//     width: 1px;
+//     /* remove scrollbar space */
+//     height: 1px;
+//     background: transparent;
+//     /* optional: just make scrollbar invisible */
+// }
+img {
+    width: 66%;
+    height: auto;
+    border-radius: 0.25rem;
+}
+
+label {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+button {
+    font-size: 17px;
+    font-weight: bold;
+}

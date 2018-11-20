@@ -18,10 +18,12 @@ app.listen(config.APP_PORT, () => {
     console.log('Server is running at http://localhost:' + config.APP_PORT + '/');
 });
 
+app.use(bodyParser.json());
+
 app.use((req, res, next) => {
-    res.append('Access-Control-Allow-Origin', ['*']);
-    res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.append('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Origin', ['*']);
+    res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
 });
 
@@ -100,6 +102,39 @@ app.post('/create-feedback', (req, res) => {
         })
     }
 });
+
+app.post('/db/posts', (req, res, next) => {
+    let post = req.body;
+    database.GetCollection('Posts')
+        .then((collection) => {
+            // after get collection, insert newPost to posts collection
+            collection.insertOne(post).then(() => {
+                res.status(201).json({
+                    message: 'A new post added to Posts collection'
+                });
+            });
+        });
+});
+
+// app.get('/db/posts', (req, res, next) => {
+//     // call to database
+//     database.GetCollection('Posts')
+//         .then((collection) => {// after got data from database
+//             collection.find().toArray((toArrayErr, succeedResult) => {
+//                 if (toArrayErr) {
+//                     // if there are errors when convert to array
+//                     console.log('Error get data from collection Posts');
+//                     res.json({
+//                         message: 'Fail to get posts from collection Posts'
+//                     });
+//                 }
+//                 res.status(200).json({
+//                     message: 'you received posts from the server here',
+//                     posts: succeedResult
+//                 });
+//             });
+//         });
+// });
 
 app.post('/create-search-history', (req, res) => {
     
