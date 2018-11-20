@@ -27,6 +27,12 @@ const routes: Routes = [
       loadChildren: 'src/app/home-page/home-page.module#HomePageModule'
     },
     {
+      // only use this path at the beginning
+      path: 'postView',
+      component: LayoutComponent,
+      loadChildren: 'src/app/post-view/post-view.module#PostViewModule'
+    },
+    {
       path: 'user',
       component: LayoutComponent,
       loadChildren: 'src/app/user/user.module#UserModule'
