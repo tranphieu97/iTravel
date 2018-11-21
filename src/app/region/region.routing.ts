@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { IndexComponent } from './index/index.component';
+import { FilterbyRegionComponent } from './filterby-region/filterby-region.component';
 
 const routes: Routes = [
     {
-        path: '',
-        component: IndexComponent
+        path: ':part',
+        component: FilterbyRegionComponent
     }
 ];
 
@@ -13,6 +13,5 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class HomePageRoutingModule { }
+export class RegionRoutingModule { }
 
-export const routedComponents = [IndexComponent];

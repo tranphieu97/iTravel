@@ -43,6 +43,11 @@ const routes: Routes = [
       loadChildren: 'src/app/additional/additional.module#AdditionalModule'
     },
     {
+      path: 'region',
+      component: LayoutComponent,
+      loadChildren: 'src/app/region/region.module#RegionModule'
+    },
+    {
       path: '**',
       component: NotFoundPageComponent
     }
