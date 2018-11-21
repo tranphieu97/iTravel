@@ -20,8 +20,7 @@ textarea {
     border-radius: 1rem; //box-shadow: 1px 0px 13px 0px rgba(82, 63, 105, 0.05);
     background-color: #fff; //height: 95%;
     margin: 10px;
-    padding-top: 10px;
-    //overflow: scroll; //height: 80%;
+    padding-top: 10px; //overflow: scroll; //height: 80%;
 }
 
 // .comp::-webkit-scrollbar {
@@ -32,7 +31,7 @@ textarea {
 //     /* optional: just make scrollbar invisible */
 // }
 img {
-    width: 66%;
+    width: 100%;
     height: auto;
     border-radius: 0.25rem;
 }
@@ -45,4 +44,13 @@ label {
 button {
     font-size: 17px;
     font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.esc-btn {
+    cursor: pointer;
+    font-size: 14px;
+    position: absolute;
+    top: -8px;
+    right: 5px;
 }

@@ -1,0 +1,46 @@
+label {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+input {
+    font-size: 17px;
+    height: auto;
+}
+
+.fixed-height {
+    height: fit-content;
+}
+
+select {
+    option {
+        font-size: 17px;
+    }
+}
+
+.margin-bottom-15 {
+    margin-bottom: 15px;
+}
+
+.tag {
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-color: transparent;
+    border-radius: 0.5rem;
+    background-color: lightgray;
+    cursor: pointer;
+    overflow: visible;
+    position: relative;
+    width: fit-content;
+    display: inline-block;
+}
+
+.esc-btn {
+    font-size: 14px;
+    position: absolute;
+    top: -6px;
+    right: -6px;
+}

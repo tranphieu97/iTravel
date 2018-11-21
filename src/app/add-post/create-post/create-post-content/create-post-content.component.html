@@ -1,3 +1,81 @@
-<p>
-  create-post-content works!
-</p>
+<!-- big row include all post content component-->
+<div class="row">
+  <div class="col">
+    <!-- title for part post content -->
+    <div class="row">
+      <div class="col-12">
+        <h3 class="bigger">Post topics:</h3>
+      </div>
+    </div>
+
+    <!-- list all post-content and button add more post-content -->
+    <div class="row">
+      <div class="col-12">
+
+        <!-- ngfor here, each col-12 is a row and is a post-content -->
+        <div class="row myborder">
+          <div class="col-12">
+            <!-- input title -->
+            <br>
+            <div class="row">
+              <div class="col-xl-2 col-md-3 col-12 d-sm-block d-none">
+                <label>Topic title:</label>
+              </div>
+              <div class="col-xl-10 col-md-9 col-12">
+                <input type="text" class="form-control" placeholder="enter topic title">
+              </div>
+            </div>
+
+            <!-- input content -->
+            <br>
+            <div class="row">
+              <div class="col-xl-2 col-md-3 col-12 d-sm-block d-none">
+                <label>Content:</label>
+              </div>
+              <div class="col-xl-10 col-md-9 col-12">
+                <textarea rows="2" class="form-control" placeholder="enter topic content"></textarea>
+              </div>
+            </div>
+
+            <!-- add image for content -->
+            <br>
+            <div class="row">
+              <div class="col-sm-4 col-12">
+                <button class="btn btn-success bold">Add image</button>
+              </div>
+              <div class="col-sm-8 col-12">
+                <!-- image preview here -->
+                <div class="row">
+                  <div class="col-12">
+                    <img src="https://images.pexels.com/photos/338515/pexels-photo-338515.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260"
+                      alt="hinh anh minh hoa">
+                    <span class="fas fa-times-circle esc-btn"></span>
+                  </div>
+                </div>
+                <br>
+                <!-- image description here -->
+                <div class="row">
+                  <div class="col-12">
+                    <input type="text" class="form-control description" placeholder="enter image description">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+          </div>
+          <!-- button for delete topic-content -->
+          <span class="fas fa-times-circle del-btn"></span>
+        </div>
+        <br>
+
+        <!-- last row has '+' button -->
+        <div class="row">
+          <div class="col-12 no-padding">
+            <button type="button" class="btn btn-success right"><span class="fas fa-plus"></span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

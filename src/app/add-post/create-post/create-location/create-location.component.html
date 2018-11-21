@@ -1,19 +1,67 @@
 <!-- row1 has location name -->
 <div class="row">
-  <div class="col-sm-2">
-    <label for="">Location name:</label>
+  <div class="col-xl-2 col-md-3 col-12">
+    <label>Place:</label>
   </div>
-  <div class="col-sm-10">
-    <input type="text" name="location name" class="form-control" placeholder="đảo trường sa">
+  <div class="col-xl-10 col-md-9 col-12">
+    <input type="text" name="place" class="form-control" placeholder="Nha Trang beach">
   </div>
 </div>
+<br>
 <!-- row2 has location address -->
 <div class="row">
-  <div class="col-sm-2">
-    <label for="">Address:</label>
+  <div class="col-xl-2 col-md-3 col-12">
+    <label>Address:</label>
   </div>
-  <div class="col-sm-10">
-    <input type="text" name="address" class="form-control" placeholder="number 1 Wall street">
+  <div class="col-xl-10 col-md-9 col-12">
+    <input type="text" name="address" class="form-control" placeholder="No.1 Vo Van Ngan">
   </div>
 </div>
+<br>
 <!-- row3 has select box for province -->
+<div class="row">
+  <!-- col1 has label -->
+  <div class="col-xl-2 col-md-3 col-12">
+    <label>Province/ City</label>
+  </div>
+  <!-- col3 has selectList as multiple -->
+  <div class="col-xl-4 col-md-9 col-12 margin-bottom-15">
+    <input type="text" name="province" class="form-control" placeholder="find a city">
+    <select name="province" class="form-control" multiple>
+      <option value="Bến Tre">Bến Tre</option>
+      <option value="Khánh Hòa">Khánh Hòa</option>
+      <option value="Tp Hồ Chí Minh">Tp Hồ Chí Minh</option>
+      <option value="Hà Nội">Hà Nội</option>
+      <option value="Lào Cai">Lào Cai</option>
+      <option value="Lào Cai">Sơn La</option>
+    </select>
+  </div>
+  <!-- col4 has result of multiple selectList -->
+  <div class="col-xl-6 col-md-12 col-12">
+    <!-- ngFor here -->
+    <div class="tag">
+      Khánh Hòa<span class="fas fa-times-circle esc-btn"></span>
+    </div>
+    <div class="tag">
+      Bến Tre<span class="fas fa-times-circle esc-btn"></span>
+    </div>
+    <div class="tag">
+      Phú Yên<span class="fas fa-times-circle esc-btn"></span>
+    </div>
+    <div class="tag">
+      Đồng Nai<span class="fas fa-times-circle esc-btn"></span>
+    </div>
+    <div class="tag">
+      Lâm Đồng<span class="fas fa-times-circle esc-btn"></span>
+    </div>
+    <div class="tag">
+      Tiền Giang<span class="fas fa-times-circle esc-btn"></span>
+    </div>
+    <div class="tag">
+      Đắk Lắk<span class="fas fa-times-circle esc-btn"></span>
+    </div>
+    <div class="tag">
+      Hà Nội<span class="fas fa-times-circle esc-btn"></span>
+    </div>
+  </div>
+</div>
