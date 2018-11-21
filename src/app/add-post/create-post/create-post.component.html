@@ -8,7 +8,7 @@
             <label>Title:</label>
           </div>
           <div class="col-xl-10 col-md-9 col-12">
-            <input class="form-control" type="text" name="title" placeholder="enter post title">
+            <input class="form-control" type="text" name="title" placeholder="enter post title" [value]="post.title">
           </div>
         </div>
         <!-- row2 has description -->
@@ -17,7 +17,7 @@
             <label>Description:</label>
           </div>
           <div class="col-xl-10 col-md-9 col-12">
-            <textarea name="description" class="form-control" rows="2" placeholder="enter description"></textarea>
+            <textarea name="description" class="form-control" rows="2" placeholder="enter description" [value]="post.description"></textarea>
           </div>
         </div>
         <!-- row3 has add-cover-button and preview -->
@@ -25,34 +25,33 @@
           <div class="col-sm-5 col-12">
             <button class="btn btn-success" type="button">Add Cover</button>
           </div>
-          <div class="col-sm-7 col-12">
-            <img src="https://images.pexels.com/photos/1146708/pexels-photo-1146708.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-              alt="preview">
+          <div class="col-sm-7 col-12" *ngIf="post.cover.length > 0">
+            <img [src]="post.cover" alt="preview">
             <span class="fas fa-times-circle esc-btn"></span>
           </div>
         </div>
         <!-- row4 has create-category component -->
         <div class="row form-group">
           <div class="col-12">
-            <app-create-category></app-create-category>
+            <app-create-category [categories]="post.categories"></app-create-category>
           </div>
         </div>
         <!-- row5 has create-tag component -->
         <div class="row form-group">
           <div class="col-12">
-            <app-create-tag></app-create-tag>
+            <app-create-tag [tags]="post.tags"></app-create-tag>
           </div>
         </div>
         <!-- row6 has create-location component -->
         <div class="row form-group">
           <div class="col-12">
-            <app-create-location></app-create-location>
+            <app-create-location [location]="post.location"></app-create-location>
           </div>
         </div>
         <!-- row7 has create-post-content component -->
         <div class="row form-group">
           <div class="col-12">
-            <app-create-post-content></app-create-post-content>
+            <app-create-post-content [postContents]="post.postContents"></app-create-post-content>
           </div>
         </div>
       </div>

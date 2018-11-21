@@ -1,7 +1,9 @@
 export class Location {
+    public _id: string;
+
     constructor(
-        public provinceId: string,
+        public provinceId: Array<string>,
         public locationName: string,
         public gps: string,
-        public region: string) { }
+        public address: string) { }
 }

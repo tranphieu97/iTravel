@@ -4,7 +4,8 @@
     <label>Place:</label>
   </div>
   <div class="col-xl-10 col-md-9 col-12">
-    <input type="text" name="place" class="form-control" placeholder="Nha Trang beach">
+    <!-- <input type="text" name="place" class="form-control" placeholder="Nha Trang beach"> -->
+    <input type="text" name="place" class="form-control" placeholder="Nha Trang beach" [value]="location.locationName">
   </div>
 </div>
 <br>
@@ -14,7 +15,8 @@
     <label>Address:</label>
   </div>
   <div class="col-xl-10 col-md-9 col-12">
-    <input type="text" name="address" class="form-control" placeholder="No.1 Vo Van Ngan">
+    <!-- <input type="text" name="address" class="form-control" placeholder="No.1 Vo Van Ngan"> -->
+    <input type="text" name="address" class="form-control" placeholder="No.1 Vo Van Ngan" [value]="location.address">
   </div>
 </div>
 <br>
@@ -28,7 +30,8 @@
   <div class="col-xl-4 col-md-9 col-12 margin-bottom-15">
     <input type="text" name="province" class="form-control" placeholder="find a city">
     <select name="province" class="form-control" multiple>
-      <option value="Bến Tre">Bến Tre</option>
+      <!-- ngFor here -->
+      <!-- <option *ngFor="let province of search-provinces" [value]="province.provinceName">{{ province.provinceName }}</option> -->
       <option value="Khánh Hòa">Khánh Hòa</option>
       <option value="Tp Hồ Chí Minh">Tp Hồ Chí Minh</option>
       <option value="Hà Nội">Hà Nội</option>
@@ -39,9 +42,9 @@
   <!-- col4 has result of multiple selectList -->
   <div class="col-xl-6 col-md-12 col-12">
     <!-- ngFor here -->
-    <div class="tag">
-      Khánh Hòa<span class="fas fa-times-circle esc-btn"></span>
-    </div>
+    <!-- <div class="tag" *ngFor="let province of location-provinces">
+      {{ province.provinceName }}<span class="fas fa-times-circle esc-btn"></span>
+    </div> -->
     <div class="tag">
       Bến Tre<span class="fas fa-times-circle esc-btn"></span>
     </div>

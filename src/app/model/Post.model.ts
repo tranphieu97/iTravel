@@ -3,8 +3,9 @@ import { PostContent } from './postContent.model';
 import { Comment } from './comment.model';
 
 export class Post {
+    public _id: string;
+
     constructor(
-        public _id: string,
         public createdTime: Date,
         public approvedTime: Date,
         public tags: Array<string>,

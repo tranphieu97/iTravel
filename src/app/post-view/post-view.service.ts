@@ -8,6 +8,7 @@ import { Comment } from '../model/comment.model';
 import { strictEqual } from 'assert';
 import { stringify } from '@angular/core/src/util';
 import { Subject } from 'rxjs';
+import { ServerService } from '../core/services/server.service';
 
 @Injectable({ providedIn: 'root' })
 export class PostViewService {
@@ -16,25 +17,24 @@ export class PostViewService {
     // create an Observable will emit Post[] and component receive
     postsUpdated = new Subject<Post[]>();
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private server: ServerService) { }
 
     // get all posts from database
     getAllPosts() {
-        this.http.get<{ message: string; data: Post[] }>(this.HOST + 'db/posts').subscribe(resData => {
+        this.server.getListPosts().subscribe(resData => {
             this.posts = resData.data;
-            // console.log(this.posts[2]);
             this.postsUpdated.next([...this.posts]);
         });
     }
 
-    getOnePosts(id: string) {
-        let post: Post;
-        this.http.get<{ message: string; data: Post[] }>(this.HOST + 'db/posts')
-            .subscribe(resData => {
-                post = resData.data[2];
-            });
-        return post;
-    }
+    // used in next time
+    // getOnePosts(id: string) {
+    //     let post: Post;
+    //     this.server.getListPosts().subscribe(resData => {
+    //         post = resData.data[1];
+    //     });
+    //     return post;
+    // }
 
     // send a post and store in database
     addOnePost() {

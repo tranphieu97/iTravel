@@ -13,7 +13,7 @@
       <div class="col-12">
 
         <!-- ngfor here, each col-12 is a row and is a post-content -->
-        <div class="row myborder">
+        <div class="row myborder" *ngFor="let postContent of postContents">
           <div class="col-12">
             <!-- input title -->
             <br>
@@ -22,7 +22,7 @@
                 <label>Topic title:</label>
               </div>
               <div class="col-xl-10 col-md-9 col-12">
-                <input type="text" class="form-control" placeholder="enter topic title">
+                <input type="text" class="form-control" placeholder="enter topic title" [value]="postContent.title">
               </div>
             </div>
 
@@ -33,41 +33,39 @@
                 <label>Content:</label>
               </div>
               <div class="col-xl-10 col-md-9 col-12">
-                <textarea rows="2" class="form-control" placeholder="enter topic content"></textarea>
+                <textarea rows="2" class="form-control" placeholder="enter topic content" [value]="postContent.content"></textarea>
               </div>
             </div>
 
             <!-- add image for content -->
             <br>
             <div class="row">
-              <div class="col-sm-4 col-12">
+              <div class="col-sm-5 col-12">
                 <button class="btn btn-success bold">Add image</button>
               </div>
-              <div class="col-sm-8 col-12">
+              <div class="col-sm-7 col-12">
                 <!-- image preview here -->
-                <div class="row">
+                <div class="row" *ngIf="postContent.image.length > 0">
                   <div class="col-12">
-                    <img src="https://images.pexels.com/photos/338515/pexels-photo-338515.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260"
-                      alt="hinh anh minh hoa">
-                    <span class="fas fa-times-circle esc-btn"></span>
+                    <img [src]="postContent.image" alt="hinh anh minh hoa">
+                    <span class="fas fa-times-circle del-img-btn"></span>
                   </div>
                 </div>
                 <br>
                 <!-- image description here -->
-                <div class="row">
+                <div class="row" *ngIf="postContent.image.length > 0">
                   <div class="col-12">
-                    <input type="text" class="form-control description" placeholder="enter image description">
+                    <input type="text" class="form-control description" placeholder="enter image description" [value]="postContent.imageDesc">
                   </div>
                 </div>
               </div>
             </div>
             <br>
+            <!-- button for delete topic-content -->
+            <span class="fas fa-times-circle del-content-btn"></span>
           </div>
-          <!-- button for delete topic-content -->
-          <span class="fas fa-times-circle del-btn"></span>
         </div>
         <br>
-
         <!-- last row has '+' button -->
         <div class="row">
           <div class="col-12 no-padding">

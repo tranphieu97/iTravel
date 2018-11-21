@@ -49,9 +49,10 @@ img {
 
 .no-padding {
     padding: 0px;
+    border-radius: 1rem;
 }
 
-.esc-btn {
+.del-img-btn {
     cursor: pointer;
     font-size: 14px;
     position: absolute;
@@ -59,10 +60,10 @@ img {
     right: 5px;
 }
 
-.del-btn {
+.del-content-btn {
     cursor: pointer;
     font-size: 14px;
     position: absolute;
-    top: 2px;
-    right: 2px;
+    top: 1px;
+    right: 1px;
 }

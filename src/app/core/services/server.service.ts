@@ -8,6 +8,7 @@ import { Category } from '../../model/category.model';
 import { CardViewPost } from '../../model/cardViewPost.model';
 import { Feedback } from '../../model/feedback.model';
 import { SearchHistory } from '../../model/searchHistory.model';
+import { Post } from 'src/app/model/post.model';
 
 
 
@@ -86,6 +87,14 @@ export class ServerService {
       });
       return cardViewPosts;
     }));
+  }
+
+  /**
+   * @author Thong
+   * @description send get-request to node server for Posts collection
+   */
+  getListPosts() {
+    return this.http.get<{ message: string; data: Post[] }>(this.HOST + 'db/posts');
   }
 
   postFeedback(feedback: Feedback): Observable<any> {
