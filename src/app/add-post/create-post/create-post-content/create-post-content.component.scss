@@ -24,7 +24,8 @@ img {
 
 .myborder {
     border: 2px solid black;
-    border-radius: 1rem; //padding-top: 15px; //padding-bottom: 5px;
+    border-radius: 0.25rem; //padding-top: 15px; //padding-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 .bold {
@@ -49,7 +50,6 @@ img {
 
 .no-padding {
     padding: 0px;
-    border-radius: 1rem;
 }
 
 .del-img-btn {
@@ -64,6 +64,6 @@ img {
     cursor: pointer;
     font-size: 14px;
     position: absolute;
-    top: 1px;
-    right: 1px;
+    top: 0px;
+    right: 0px;
 }

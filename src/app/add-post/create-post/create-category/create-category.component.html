@@ -14,10 +14,10 @@
 <!-- row2 has list all categories added, each category can delete by a X button on top-right -->
 <div class="row">
     <div class="col-12">
-        <div class="tag">
-            The South<span class="fas fa-times-circle esc-btn"></span>
+        <div class="tag" *ngFor="let category of categories">
+            {{ category.name }}<span class="fas fa-times-circle esc-btn"></span>
         </div>
-        <div class="tag">
+        <!-- <div class="tag">
             Travel<span class="fas fa-times-circle esc-btn"></span>
         </div>
         <div class="tag">
@@ -25,6 +25,6 @@
         </div>
         <div class="tag">
             Cuisine<span class="fas fa-times-circle esc-btn"></span>
-        </div>
+        </div> -->
     </div>
 </div>

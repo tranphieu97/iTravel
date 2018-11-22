@@ -4,7 +4,7 @@
     <label>Tag:</label>
   </div>
   <div class="col-xl-8 col-md-6 col-10">
-    <input type="text" class="form-control" placeholder="enter new tag">
+    <input type="text" class="form-control" placeholder="add new tag">
   </div>
   <div class="col-xl-2 col-md-3 col-12 mt-3 mt-md-0">
     <button class="btn btn-success" type="button">Add</button>
@@ -13,10 +13,10 @@
 <!-- row2 has list all tags added, each tags can be deleted by a 'X' button on top-right -->
 <div class="row">
   <div class="col-12">
-    <div class="tag">
-      The South<span class="fas fa-times-circle esc-btn"></span>
+    <div class="tag" *ngFor="let tag of tags">
+      {{ tag }}<span class="fas fa-times-circle esc-btn"></span>
     </div>
-    <div class="tag">
+    <!-- <div class="tag">
       Travel<span class="fas fa-times-circle esc-btn"></span>
     </div>
     <div class="tag">
@@ -24,6 +24,6 @@
     </div>
     <div class="tag">
       Cuisine<span class="fas fa-times-circle esc-btn"></span>
-    </div>
+    </div> -->
   </div>
 </div>

@@ -7,7 +7,8 @@ import { Category } from 'src/app/model/category.model';
   styleUrls: ['./create-category.component.scss']
 })
 export class CreateCategoryComponent implements OnInit {
-  @Input() categories: Category;
+  @Input() categories: Category[] = [];
+
   constructor() { }
 
   ngOnInit() {

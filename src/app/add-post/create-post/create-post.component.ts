@@ -22,6 +22,7 @@ export class CreatePostComponent implements OnInit {
     this.postsSub = this.postService.postsUpdated.asObservable()
       .subscribe((posts: Post[]) => {
         this.post = posts[1];
+        console.log(this.post.location);
       });
     this.postService.getAllPosts();
   }
