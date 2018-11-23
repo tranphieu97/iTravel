@@ -9,6 +9,9 @@ import { CardViewPost } from '../../model/cardViewPost.model';
 import { Feedback } from '../../model/feedback.model';
 import { SearchHistory } from '../../model/searchHistory.model';
 import { Post } from 'src/app/model/post.model';
+import { Tag } from 'src/app/model/tag.model';
+import { PostCategory } from 'src/app/model/postCategory.model';
+import { ProvinceCity } from 'src/app/model/province-city.model';
 
 
 
@@ -90,8 +93,32 @@ export class ServerService {
   }
 
   /**
+     * @author Thong
+     * @description send get-request to node server for get list all Tag from Tags collection
+     */
+  getListTags() {
+    return this.http.get<{ message: string; data: Tag[] }>(this.HOST + 'db/tags');
+  }
+
+  /**
+     * @author Thong
+     * @description send get-request to node server for get list all ProvinceCity from ProvinceCity collection
+     */
+  getListProvinceCity() {
+    return this.http.get<{ message: string; data: ProvinceCity[] }>(this.HOST + 'db/province-city');
+  }
+
+  /**
+     * @author Thong
+     * @description send get-request to node server for list all PostCategory from PostCategories collection
+     */
+  getListPostCategories() {
+    return this.http.get<{ message: string; data: PostCategory[] }>(this.HOST + 'db/post-categories');
+  }
+
+  /**
    * @author Thong
-   * @description send get-request to node server for Posts collection
+   * @description send get-request to node server for listAllPost from Posts collection
    */
   getListPosts() {
     return this.http.get<{ message: string; data: Post[] }>(this.HOST + 'db/posts');

@@ -28,7 +28,7 @@ const routes: Routes = [
     },
     {
       // only use this path at the beginning, need to add id later
-      path: 'postView',
+      path: 'view-post',
       component: LayoutComponent,
       loadChildren: 'src/app/post-view/post-view.module#PostViewModule'
     },

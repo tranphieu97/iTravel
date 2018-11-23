@@ -18,8 +18,6 @@ app.listen(config.APP_PORT, () => {
     console.log('Server is running at http://localhost:' + config.APP_PORT + '/');
 });
 
-app.use(bodyParser.json());
-
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', ['*']);
     res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
@@ -33,8 +31,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/db/provinces', (req, res) => {
-    // const COLECTION_NAME = 'Provinces';
-    database.getCollectionData(database.iTravelDB.Provinces).then((data) => {
+    database.getCollectionData(database.iTravelDB.pro).then((data) => {
         if (data != null) {
             res.status(200).json({
                 message: 'Load ' + database.iTravelDB.Provinces + ' success!',
@@ -43,6 +40,21 @@ app.get('/db/provinces', (req, res) => {
         } else {
             res.status(500).json({
                 message: 'Load' + database.iTravelDB.Provinces + 'fail!'
+            })
+        }
+    });
+});
+
+app.get('/db/province-city', (req, res) => {
+    database.getCollectionData(database.iTravelDB.ProvinceCity).then((data) => {
+        if (data != null) {
+            res.status(200).json({
+                message: 'Load ' + database.iTravelDB.ProvinceCity + ' success!',
+                data: data
+            })
+        } else {
+            res.status(500).json({
+                message: 'Load' + database.iTravelDB.ProvinceCity + 'fail!'
             })
         }
     });
@@ -80,6 +92,13 @@ app.get('/db/posts', (req, res) => {
     });
 });
 
+/**
+ * @name POST-new-post
+ * @author Thong
+ * @param request
+ * @description receive request from serverService, include a postData in requestBody
+ * then insert that post to mongodb, send back response with message
+ */
 app.post('/db/posts', (req, res, next) => {
     let post = req.body;
     // pass a post to insertOneToColection(), function will upload to server automaticaly
@@ -94,6 +113,50 @@ app.post('/db/posts', (req, res, next) => {
                 message: 'Insert post fail!'
             });
         })
+});
+
+/**
+ * @name GET-tags
+ * @author Thong
+ * @param request
+ * @description receive request from serverService
+ * then call to fetch all tags from mongodb, send back response with message and data if successful
+ */
+app.get('/db/tags', (req, res, next) => {
+    database.getCollectionData(database.iTravelDB.Tags).then((data) => {
+        if (data != null) {
+            res.status(200).json({
+                message: 'Load ' + database.iTravelDB.Tags + ' success!',
+                data: data
+            })
+        } else {
+            res.status(500).json({
+                message: 'Load' + database.iTravelDB.Tags + 'fail!'
+            })
+        }
+    });
+});
+
+/**
+ * @name GET-post-categories
+ * @author Thong
+ * @param request
+ * @description receive request from serverService
+ * then call to fetch all tags from mongodb, send back response with message and data if successful
+ */
+app.get('/db/post-categories', (req, res, next) => {
+    database.getCollectionData(database.iTravelDB.PostCategories).then((data) => {
+        if (data != null) {
+            res.status(200).json({
+                message: 'Load ' + database.iTravelDB.PostCategories + ' success!',
+                data: data
+            })
+        } else {
+            res.status(500).json({
+                message: 'Load' + database.iTravelDB.PostCategories + 'fail!'
+            })
+        }
+    });
 });
 
 app.post('/create-feedback', (req, res) => {

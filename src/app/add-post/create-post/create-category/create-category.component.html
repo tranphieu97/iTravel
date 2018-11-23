@@ -5,26 +5,17 @@
     </div>
     <div class="col-xl-10 col-md-9">
         <select class="form-control">
-            <option value="Travel">Travel</option>
-            <option value="Cuisine">Cuisine</option>
-            <option value="Plan">Experience</option>
+            <option [value]="postCategory.name" *ngFor="let postCategory of allCategories">{{ postCategory.name }}</option>
+            <!-- <option value="Cuisine">Cuisine</option>
+            <option value="Plan">Experience</option> -->
         </select>
     </div>
 </div>
-<!-- row2 has list all categories added, each category can delete by a X button on top-right -->
+<!-- row2 has list all postCategories added, each category can delete by a X button on top-right -->
 <div class="row">
     <div class="col-12">
-        <div class="tag" *ngFor="let category of categories">
+        <div class="tag" *ngFor="let category of localCategories">
             {{ category.name }}<span class="fas fa-times-circle esc-btn"></span>
         </div>
-        <!-- <div class="tag">
-            Travel<span class="fas fa-times-circle esc-btn"></span>
-        </div>
-        <div class="tag">
-            Long Trip<span class="fas fa-times-circle esc-btn"></span>
-        </div>
-        <div class="tag">
-            Cuisine<span class="fas fa-times-circle esc-btn"></span>
-        </div> -->
     </div>
 </div>

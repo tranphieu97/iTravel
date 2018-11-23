@@ -10,7 +10,10 @@ const iTravelDB = {
     Menu: 'Menu',
     Feedback: 'Feedback',
     Posts: 'Posts',
-    SearchHistory: 'SearchHistory'
+    SearchHistory: 'SearchHistory',
+    Tags: 'Tags',
+    PostCategories: 'PostCategories',
+    ProvinceCity: 'ProvinceCity'
 }
 
 exports.iTravelDB = iTravelDB;
