@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { AmChartsModule } from '@amcharts/amcharts3-angular';
+
 
 @NgModule({
   imports: [
@@ -16,8 +16,7 @@ import { AmChartsModule } from '@amcharts/amcharts3-angular';
     HttpClientModule,
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
-    ModalModule.forRoot(),
-    AmChartsModule
+    ModalModule.forRoot()
   ],
   exports: [
     CommonModule,
@@ -26,8 +25,7 @@ import { AmChartsModule } from '@amcharts/amcharts3-angular';
     HttpClientModule,
     BsDropdownModule,
     TooltipModule,
-    ModalModule,
-    AmChartsModule
+    ModalModule
   ],
   declarations: [],
   providers: []

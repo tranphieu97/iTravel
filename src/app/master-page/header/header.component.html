@@ -16,10 +16,10 @@
             <i class="fas fa-search"></i>
         </span>  
         <div id="search-box" *ngIf="isShowSearchBox">
-            <form class="form-inline" onsubmit="searchByText()">
+            <form class="form-inline">
                 <input type="text"  [(ngModel)]="searchBoxText" name="search"
                     class="form-control" placeholder="Enter word to search">
-                <button type="submit" (click)="searchByText()" class="btn btn-default">Search</button>
+                <button type="button" (click)="searchByText()" class="btn btn-default">Search</button>
             </form>
         </div>
     </div>

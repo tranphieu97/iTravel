@@ -80,11 +80,6 @@ app.get('/db/posts', (req, res) => {
     });
 });
 
-app.get('report/searchkeyword', (req, res) => {
-    var temp = req.body;
-    console.log(temp);
-})
-
 app.post('/db/posts', (req, res, next) => {
     let post = req.body;
     // pass a post to insertOneToColection(), function will upload to server automaticaly
