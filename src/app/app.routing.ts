@@ -48,6 +48,11 @@ const routes: Routes = [
       loadChildren: 'src/app/region/region.module#RegionModule'
     },
     {
+      path: 'trend',
+      component: LayoutComponent,
+      loadChildren: 'src/app/trend/trend.module#TrendModule'
+    },
+    {
       path: '**',
       component: NotFoundPageComponent
     }

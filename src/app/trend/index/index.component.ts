@@ -2,12 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AmChart, AmChartsService } from '@amcharts/amcharts3-angular';
 import { SharedModule } from '../../shared/shared.module';
 import { ServerService } from '../../core/services/server.service';
-import * as am4core from '@amcharts/amcharts4/core';
-import * as am4charts from '@amcharts/amcharts4/charts';
-import am4themes_animated from '@amcharts/amcharts4/themes/animated';
-import 'core-js/shim';
 
-am4core.useTheme(am4themes_animated);
 
 @Component({
   selector: 'app-index',
