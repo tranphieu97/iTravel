@@ -5,9 +5,8 @@
     </div>
     <div class="col-xl-10 col-md-9">
         <select class="form-control">
-            <option [value]="postCategory.name" *ngFor="let postCategory of allCategories">{{ postCategory.name }}</option>
-            <!-- <option value="Cuisine">Cuisine</option>
-            <option value="Plan">Experience</option> -->
+            <option [value]="postCategory.name" *ngFor="let postCategory of allCategories" (click)="onSelectCategory(postCategory)">{{
+                postCategory.name }}</option>
         </select>
     </div>
 </div>
@@ -15,7 +14,7 @@
 <div class="row">
     <div class="col-12">
         <div class="tag" *ngFor="let category of localCategories">
-            {{ category.name }}<span class="fas fa-times-circle esc-btn"></span>
+            {{ category.name }}<span class="fas fa-times-circle remove-btn" (click)="onRemoveCategory(category)"></span>
         </div>
     </div>
 </div>

@@ -16,7 +16,6 @@ export class PostCategoryService {
   getAllCategories() {
     this.server.getListPostCategories().subscribe((resData => {
       // if (resData.data !== undefined || resData.data != null) {
-      console.log('from service\n' + resData.data);
       this.allCategories = resData.data;
       this.newCategoriesUpdated.next();
       // }
