@@ -51,10 +51,8 @@ html, body  {
 }
 
 .content-box {
-    flex: 1 1 auto;
     border-radius: 5px;
     box-shadow: 1px 0px 13px 0px rgba(82, 63, 105, 0.05);
     background-color: $WHITE;
-    height: 95%;
     margin: 10px;
 }
