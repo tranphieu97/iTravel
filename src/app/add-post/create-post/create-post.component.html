@@ -23,11 +23,12 @@
         <!-- row3 has add-cover-button and preview -->
         <div class="row form-group">
           <div class="col-sm-5 col-12">
-            <button class="btn btn-success" type="button">Add Cover</button>
+            <button class="btn btn-success" type="button" (click)="filePicker.click()">Add Cover</button>
+            <input class="d-none" type="file" #filePicker (change)="onImagePicked($event)">
           </div>
           <div class="col-sm-7 col-12" *ngIf="post.cover.length > 0">
             <img [src]="post.cover" alt="preview">
-            <span class="fas fa-times-circle esc-btn"></span>
+            <span class="fas fa-times-circle esc-btn" (click)="onDelImageClick()"></span>
           </div>
         </div>
         <!-- row4 has create-category component -->
@@ -52,6 +53,13 @@
         <div class="row form-group">
           <div class="col-12">
             <app-create-post-content [postContents]="post.postContents"></app-create-post-content>
+          </div>
+        </div>
+        <!-- row8 has create-post-content component -->
+        <div class="row form-group">
+          <div class="col-12 no-padding">
+            <button class="btn btn-warning" (click)="onCancle()">Cancel</button>
+            <button class="btn btn-success" (click)="onSave()">Save</button>
           </div>
         </div>
       </div>

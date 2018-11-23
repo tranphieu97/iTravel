@@ -13,7 +13,8 @@ const iTravelDB = {
     SearchHistory: 'SearchHistory',
     Tags: 'Tags',
     PostCategories: 'PostCategories',
-    ProvinceCity: 'ProvinceCity'
+    ProvinceCity: 'ProvinceCity',
+    Locations: 'Locations'
 }
 
 exports.iTravelDB = iTravelDB;
@@ -24,7 +25,7 @@ exports.iTravelDB = iTravelDB;
  * @async
  * @param {string} collectionName 
  */
-exports.getCollection = async function(collectionName) {
+exports.getCollection = async function (collectionName) {
     var deferred = Q.defer();
     MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {
         if (err) {
@@ -32,9 +33,9 @@ exports.getCollection = async function(collectionName) {
             deferred.reject(new Error(err));
         } else {
             var db = client.db(config.DB_NAME);
-    
+
             var collection = db.collection(collectionName);
-    
+
             deferred.resolve(collection);
         }
     });
@@ -58,7 +59,7 @@ exports.getCollectionData = async (collectionName) => {
         } else {
 
             var db = client.db(config.DB_NAME);
-    
+
             var collection = db.collection(collectionName, (err, collection) => {
                 if (err) {
                     console.log('Error load ' + collectionName);
@@ -75,11 +76,11 @@ exports.getCollectionData = async (collectionName) => {
                     }
                 });
             });
-            
+
             client.close();
         }
     });
-    
+
     return deferred.promise;
 }
 
@@ -100,7 +101,7 @@ exports.insertOneToColection = async (collectionName, document) => {
         } else {
 
             var db = client.db(config.DB_NAME);
-    
+
             var collection = db.collection(collectionName, (err, collection) => {
                 if (err) {
                     console.log('Error load ' + collectionName);
@@ -110,7 +111,7 @@ exports.insertOneToColection = async (collectionName, document) => {
                 try {
                     var insertOne = collection.insertOne(document, (err) => {
                         if (err) {
-                            console.log('Error insert data to '+ collectionName);
+                            console.log('Error insert data to ' + collectionName);
                             return null;
                         }
                         return 1;
@@ -118,12 +119,12 @@ exports.insertOneToColection = async (collectionName, document) => {
                     deferred.reject(insertOne);
                 }
                 catch (e) {
-                    console.log('Error insert data to '+ collectionName);
+                    console.log('Error insert data to ' + collectionName);
                     console.log(e.message);
                     deferred.reject(new Error(e.message));
                 }
             });
-            
+
             client.close();
         }
     });

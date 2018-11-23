@@ -37,12 +37,20 @@ export class PostViewService {
     // }
 
     // send a post and store in database
-    addOnePost() {
+    addOnePost(newPost: Post, image: File) {
         // const post: Post = this.posts[3];
+        const postData = new FormData();
+        postData.append('post', image);
         // console.log(post);
         // this.http.post<{ message: string }>(this.HOST + 'db/posts', post)
         //     .subscribe((resData) => {
         //         console.log(resData.message);
         //     });
+    }
+
+    uploadImage(image: File) {
+        // const newImage = new FormData();
+        // newImage.append('image', image);
+        return this.server.uploadImage(image);
     }
 }

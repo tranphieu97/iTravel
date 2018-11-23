@@ -54,3 +54,12 @@ button {
     top: -8px;
     right: 5px;
 }
+
+.no-padding {
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: right;
+    button {
+        margin-left: 15px;
+    }
+}

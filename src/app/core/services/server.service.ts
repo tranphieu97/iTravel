@@ -12,6 +12,7 @@ import { Post } from 'src/app/model/post.model';
 import { Tag } from 'src/app/model/tag.model';
 import { PostCategory } from 'src/app/model/postCategory.model';
 import { ProvinceCity } from 'src/app/model/province-city.model';
+import { Location } from 'src/app/model/location.model';
 
 
 
@@ -102,6 +103,14 @@ export class ServerService {
 
   /**
      * @author Thong
+     * @description send get-request to node server for get list all Location from Locations collection
+     */
+  getListLocations() {
+    return this.http.get<{ message: string; data: Location[] }>(this.HOST + 'db/locations');
+  }
+
+  /**
+     * @author Thong
      * @description send get-request to node server for get list all ProvinceCity from ProvinceCity collection
      */
   getListProvinceCity() {
@@ -122,6 +131,21 @@ export class ServerService {
    */
   getListPosts() {
     return this.http.get<{ message: string; data: Post[] }>(this.HOST + 'db/posts');
+  }
+
+  postOnePost() {
+  }
+
+  /**
+   * @author Thong
+   * @param {File} image
+   * @description send a POST request to upload an image to server
+   */
+  uploadImage(image: File) {
+    // convert to FormData before send to multer
+    const uploadImage = new FormData();
+    uploadImage.append('image', image);
+    return this.http.post<{ message: string, imageUrl: string }>(this.HOST + 'upload-image', uploadImage);
   }
 
   postFeedback(feedback: Feedback): Observable<any> {

@@ -26,4 +26,31 @@ export class CreatePostComponent implements OnInit {
       });
     this.postService.getAllPosts();
   }
+
+  onImagePicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    // const reader = new FileReader();
+    // reader.onload = () => {
+    //   this.post.cover = reader.result.toString();
+    // };
+    // reader.readAsDataURL(file);
+
+    this.postService.uploadImage(file).subscribe((resData) => {
+      if (resData.imageUrl !== '') {
+        this.post.cover = resData.imageUrl;
+      }
+    });
+  }
+
+  onDelImageClick() {
+    this.post.cover = '';
+  }
+
+  onSave() {
+
+  }
+
+  onCancel() {
+
+  }
 }
