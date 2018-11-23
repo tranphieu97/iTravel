@@ -2,14 +2,20 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { NotFoundPageComponent } from './master-page/not-found-page/not-found-page.component';
-import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
 import { IndexComponent } from './home-page/index/index.component';
+import { LayoutComponent } from './layout/layout.component';
+import { AuthLayoutComponent } from './web-layout/auth-layout/auth-layout.component';
 
 const routes: Routes = [
     {
       path: 'login',
       component: LoginComponent
+    },
+    {
+      path: 'auth',
+      component: AuthLayoutComponent,
+      loadChildren: 'src/app/auth/auth.module#AuthModule'
     },
     {
       path: '',

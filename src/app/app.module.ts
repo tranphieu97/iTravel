@@ -15,6 +15,7 @@ import { AmChartsModule } from '@amcharts/amcharts3-angular';
 import { CardViewPostComponent } from './card-view-post/card-view-post.component';
 import { UserModule } from './user/user.module';
 import { SharedModule } from './shared/shared.module';
+import { AuthLayoutComponent } from './web-layout/auth-layout/auth-layout.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { SharedModule } from './shared/shared.module';
     NavbarMenuComponent,
     NavigationBarComponent,
     NavbarMenuComponent,
-    HeaderComponent
+    HeaderComponent,
+    AuthLayoutComponent
   ],
   imports: [
     BrowserModule,
