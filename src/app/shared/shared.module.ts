@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -16,7 +16,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     HttpClientModule,
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    ReactiveFormsModule
   ],
   exports: [
     CommonModule,
@@ -25,7 +26,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     HttpClientModule,
     BsDropdownModule,
     TooltipModule,
-    ModalModule
+    ModalModule,
+    ReactiveFormsModule
   ],
   declarations: [],
   providers: []
