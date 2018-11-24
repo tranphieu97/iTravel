@@ -6,40 +6,65 @@
         <h1>Register</h1>
     </div>
     <div>
-        <form>
+        <form #registerForm="ngForm">
             <div class="form-row">
                 <div class="col form-group">
                     <label>First Name <span>(*)</span>:</label>
-                    <input type="text" class="form-control" placeholder="Enter your First name:">
+                    <input type="text" class="form-control" placeholder="Enter your First name" 
+                        required minlength="2" 
+                        [(ngModel)]="this.registerFormInfo.firstName" name="firstname" id="firstname" #firstname="ngModel">
+                    <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="form-mess">
+                        <div *ngIf="firstname.errors.required" class="error-mess">
+                            This information is required
+                        </div>
+                    </div>
                 </div>
                 <div class="col form-group">
-                    <label>Last Name <span>(*)</span>:</label>
-                    <input type="text" class="form-control" placeholder="Enter your Last name:">
+                    <label>Last Name:</label>
+                    <input type="text"  class="form-control" placeholder="Enter your Last name" 
+                        [(ngModel)]="this.registerFormInfo.lastName" name="lastname" id="lastname" #lastname="ngModel">
                 </div>
             </div>
             <div class="form-group">
-                <label>Username <span>(*)</span>:</label>
-                <input type="text" class="form-control" placeholder="Enter your Username:">
+                <label>Choose a Username <span>(*)</span>:</label>
+                <input type="text"  class="form-control" placeholder="Enter your Username" 
+                    required minlength="6" maxlength="20" pattern="^[a-z0-9_-]{6,20}$"
+                    [(ngModel)]="this.registerFormInfo.username" name="username" id="username" #username="ngModel">
+                <div *ngIf="username.invalid && (username.dirty || username.touched)" class="form-mess">
+                    <div *ngIf="username.errors.required" class="error-mess">
+                        This information is required
+                    </div>
+                    <div *ngIf="username.errors.minlength || username.errors.maxlength" class="error-mess">
+                        A Username has 6 - 20 charaters
+                    </div>
+                    <div *ngIf="username.errors.pattern && !(username.errors.minlength || username.errors.maxlength) " class="error-mess">
+                        A Username just includes charaters a-z, number, "_" and "-"
+                    </div>
+                </div>
             </div>
             <div class="form-group">
-                <label>Password  <span>(*)</span>:</label>
-                <input type="text" class="form-control" placeholder="Enter your Password:">
+                <label>Password <span>(*)</span>:</label>
+                <input type="password" [(ngModel)]="this.registerFormInfo.password" class="form-control" placeholder="Enter your Password:" name="password"
+                    required>
             </div>
             <div class="form-group">
                 <label>Confirm Password <span>(*)</span>:</label>
-                <input type="text" class="form-control" placeholder="Re-enter your Password">
+                <input type="password" [(ngModel)]="this.registerFormInfo.confirmPassword" class="form-control" placeholder="Re-enter your Password"
+                    name="confirmpassword" required>
             </div>
             <div class="form-group">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                    <label class="form-check-label" for="gridCheck">
-                        I read
-                    </label>
+                <div class="form-check-inline">
+                    <input class="form-check-input" [(ngModel)]="this.registerFormInfo.acceptPolicies" type="checkbox" id="gridCheck" name="acceptPolicies"
+                        required>
+                    <p>Text</p>
                 </div>
             </div>
             <div class="form-row">
-                <button type="submit" class="btn btn-success">Register</button>
-                <button type="submit" class="btn btn-danger">Back to Home</button>
+                <button type="submit" (click)="registerUser()" class="btn btn-success"
+                    [disabled]="firstname.invalid || username.invalid">
+                    Register
+                </button>
+                <button type="button" (click)="redirecToHome()" class="btn btn-danger">Back to Home</button>
             </div>
         </form>
     </div>

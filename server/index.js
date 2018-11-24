@@ -2,6 +2,7 @@
 // Include js file
 const config = require('./_config');
 const database = require('./app/database.js');
+const authetication = require('./app/authentication.js');
 
 // Include library
 const express = require('express');
@@ -141,4 +142,23 @@ app.post('/create-search-history', (req, res) => {
             })
     }
 });
+
+app.get('/auth/exist-username', (req, res) => {
+
+    username = req.param('username');
+
+    authetication.isExistUsername(username.trim())
+    .then((result) => {
+        res.status(200).json({
+            message: 'Check exist username is successed',
+            data: result
+        });
+    })
+    .catch(() => {
+        res.status(500).json({
+            message: 'Check exist username is fail',
+            data: false
+        });
+    });
+})
 /** Routing - END */

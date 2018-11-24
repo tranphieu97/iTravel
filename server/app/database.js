@@ -10,7 +10,8 @@ const iTravelDB = {
     Menu: 'Menu',
     Feedback: 'Feedback',
     Posts: 'Posts',
-    SearchHistory: 'SearchHistory'
+    SearchHistory: 'SearchHistory',
+    Users: 'Users'
 }
 
 exports.iTravelDB = iTravelDB;
@@ -35,6 +36,7 @@ exports.getCollection = async function(collectionName) {
             deferred.resolve(collection);
         }
     });
+    
     return deferred.promise;
 }
 

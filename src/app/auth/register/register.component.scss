@@ -22,6 +22,9 @@
 
         label, input, button {
             font-size: 17px;
+        }
+
+        input, button {
             min-height: 35px;
         }
 
@@ -41,6 +44,25 @@
             margin: 5px;
             flex: 1;
             min-height: 35px;
+        }
+
+        p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .form-mess {
+            font-size: 12px;
+            height: fit-content;
+            margin-top: 5px;
+        }
+
+        .error-mess {
+            color: $RED;
+        }
+
+        .success-mess {
+            color: $GREEN;
         }
     } 
 }
