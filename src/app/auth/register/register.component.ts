@@ -11,6 +11,10 @@ import { AuthenticationService } from '../../core/services/authentication.servic
 export class RegisterComponent implements OnInit {
 
   registerMessage: String = '';
+  isShowRegisterMessage: any = {
+    success: false,
+    error: false
+  };
 
   // registerFormInfo: any = {
   //   username: '',
@@ -51,6 +55,9 @@ export class RegisterComponent implements OnInit {
       this.registerMessage = 'Password and confirm password is not matched';
       return;
     }
+    this.authentication.registerUser(this.registerForm).subscribe((res) => {
+      console.log(res);
+    });
   }
 
   isMatchPassword(): boolean {
@@ -64,7 +71,7 @@ export class RegisterComponent implements OnInit {
   isExistUsername(): boolean {
     const username = this.registerForm.get('username').value;
 
-    if (!isNaN(username) && username !== '') {
+    if (username !== '') {
       this.authentication.checkExistUsername(username).subscribe((res) => {
         if (!isNaN(res.data)) {
           return res.data;

@@ -4,8 +4,24 @@ var MongoClient = require('mongodb').MongoClient;
 var config = require('../_config');
 var database = require('../app/database');
 var Q = require('q');
+const bcrypt = require('bcrypt');
+const saltRounds = 3;
 
 exports = module.exports = {};
+
+exports.hashPassword = async (password) => {
+    var deferred = Q.defer();
+
+    bcrypt.hash(password, saltRounds, function(err, hash) {
+        if (err) {
+            deferred.reject(new Error(err));
+        } else {
+            deferred.resolve(hash);
+        }
+    });
+    
+    return deferred.promise;
+}
 
 /**
  * Check an username existed in DB collection Users 
@@ -37,6 +53,8 @@ exports.isExistUsername = async (username) => {
                 });
             })
         }
+        
+        client.close();
     });
 
     return deferred.promise;
