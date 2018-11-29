@@ -3,14 +3,13 @@
 const config = require('./_config');
 const database = require('./app/database.js');
 const authetication = require('./app/authentication.js');
-const User = require('./app/model/user.model').User;
+const User = require('./model/user.model').User;
 
 // Include library
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 var Q = require('q');
-var model = require('nodejs-model');
 
 const app = express();
 
@@ -165,6 +164,8 @@ app.get('/auth/exist-username', (req, res) => {
 })
 
 app.post('/auth/register-user', async (req, res) => {
+
+    // Get POST REQUEST'S BODY DATA
     const username = req.body.username;
     const password = req.body.password;
     const firstName = req.body.firstName;
@@ -172,36 +173,45 @@ app.post('/auth/register-user', async (req, res) => {
     const confirmPassword = req.body.confirmPassword;
     const acceptPolicies = req.body.acceptPolicies;
 
+    // Validate Data
     if (acceptPolicies && username !== '' && password !== '' && firstName !== '' && password === confirmPassword) {
-        authetication.isExistUsername(username).then((isExist) => {
-            if (!isExist) {
-                authetication.hashPassword(password).then((hashPassword) => {
-                    var registerUser = User.create();
-                    // var newUser = new User({
-                    //     username: username,
-                    //     password: hashPassword,
-                    //     email: '',
-                    //     firstName: firstName,
-                    //     lastName: lastName,
-                    //     birthDay: new Date(),
-                    //     level: 'Newbie',
-                    //     hometown: '',
-                    //     point: 0,
-                    //     permission: 'Member',
-                    //     status: 'Active',
-                    //     avatar: '',
-                    //     isLogin: false,
-                    //     creationDatetime: new Date(Date.now)
-                    // });
-                    console.log(newUser);
-                });
-            } else {
-                res.status(400).json({
-                    message: 'Register new User Fail, Username is Exist',
-                    data: false
-                });
-            }
-        })
+        authetication.isExistUsername(username)
+            .then((isExist) => {
+                if (!isExist) {
+
+                    // Hash password and creat user
+                    authetication.hashPassword(password).then((hashPassword) => {
+                        var registerUser = new User(username, hashPassword, '', firstName, lastName,
+                            null, 'Newbie', '', 0, 'Member', 'Active', '', false);
+
+                        database.insertOneToColection(database.iTravelDB.Users, registerUser)
+                            .then(() => {
+                                // Check creation result
+                                authetication.isExistUsername(username)
+                                    .then((isExist) => {
+                                        if (isExist) {
+                                            res.status(201).json({
+                                                message: 'Register is success',
+                                                data: true
+                                            });
+                                        } else {
+                                            res.status(500).json({
+                                                message: 'Register User is fail',
+                                                data: false
+                                            });
+                                        }
+                                    })
+                            });
+                    }).catch((err) => {
+                        console.log(err);
+                    });
+                } else {
+                    res.status(409).json({
+                        message: 'Register new User Fail, Username is Exist',
+                        data: false
+                    });
+                }
+            });
     } else {
         res.status(400).json({
             message: 'Register new User Fail, Data invalid',

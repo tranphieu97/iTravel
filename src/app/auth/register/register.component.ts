@@ -10,7 +10,7 @@ import { AuthenticationService } from '../../core/services/authentication.servic
 })
 export class RegisterComponent implements OnInit {
 
-  registerMessage: String = '';
+  registerMessage: String = 'Test';
   isShowRegisterMessage: any = {
     success: false,
     error: false
@@ -37,11 +37,11 @@ export class RegisterComponent implements OnInit {
       lastName: [null, []],
       username: [null,
         [Validators.required, Validators.minLength(6), Validators.maxLength(30),
-          Validators.pattern('^(?=.*[a-z])[a-z0-9._@-]{1,30}$')]],
+        Validators.pattern('^(?=.*[a-z])[a-z0-9._@-]{1,30}$')]],
       password: [null, [Validators.required, Validators.minLength(8),
-        Validators.pattern('(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{1,30}$')]],
+      Validators.pattern('(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{1,30}$')]],
       confirmPassword: [null, [Validators.required, Validators.minLength(8),
-        Validators.pattern('(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{1,30}$')]],
+      Validators.pattern('(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{1,30}$')]],
       acceptPolicies: [null, [Validators.required]]
     });
   }
@@ -49,15 +49,16 @@ export class RegisterComponent implements OnInit {
   registerUser() {
     if (this.isExistUsername()) {
       this.registerMessage = 'Username is exist, please choose the others name';
+      this.isShowRegisterMessage.error = true;
       return;
-    }
-    if (!this.isMatchPassword()) {
+    } else if (!this.isMatchPassword()) {
       this.registerMessage = 'Password and confirm password is not matched';
       return;
+    } else {
+      this.authentication.registerUser(this.registerForm).subscribe((res) => {
+        console.log(res);
+      });
     }
-    this.authentication.registerUser(this.registerForm).subscribe((res) => {
-      console.log(res);
-    });
   }
 
   isMatchPassword(): boolean {
@@ -72,11 +73,14 @@ export class RegisterComponent implements OnInit {
     const username = this.registerForm.get('username').value;
 
     if (username !== '') {
-      this.authentication.checkExistUsername(username).subscribe((res) => {
-        if (!isNaN(res.data)) {
-          return res.data;
-        }
-      });
+      this.authentication.checkExistUsername(username)
+        .subscribe((res) => {
+          if (res.data) {
+            return res.data;
+          } else {
+            return false;
+          }
+        });
     } else {
       return false;
     }

@@ -1,4 +1,4 @@
-<div>
+<div style="z-index: 1;">
     <p id="backto-login" (click)="redirectToLogin()"><span><i class="fas fa-arrow-left"></i></span> Back to Login</p>
 </div>
 <div class="register-part">
@@ -6,6 +6,10 @@
         <h1>Register</h1>
     </div>
     <div>
+        <div [ngClass]="{'alert': true, 'alert-success': isShowRegisterMessage.success, 'alert-danger':isShowRegisterMessage.error}" role="alert"
+            *ngIf="isShowRegisterMessage.success || isShowRegisterMessage.error">
+            {{registerMessage}}
+        </div>
         <form [formGroup]="registerForm" novalidate>
             <div class="form-row">
                 <div class="col form-group">
@@ -26,7 +30,8 @@
             <div class="form-group">
                 <label>Choose a Username <span>(*)</span>:</label>
                 <input type="text" formControlName="username" class="form-control" placeholder="Enter your Username" name="username">
-                <div *ngIf="!registerForm.get('username').valid && (registerForm.get('username').dirty || registerForm.get('username').touched)" class="form-mess">
+                <div *ngIf="!registerForm.get('username').valid && (registerForm.get('username').dirty || registerForm.get('username').touched)"
+                    class="form-mess">
                     <div *ngIf="registerForm.get('username').hasError('required')" class="error-mess">
                         This information is required
                     </div>
@@ -41,7 +46,8 @@
             <div class="form-group">
                 <label>Password <span>(*)</span>:</label>
                 <input type="password" formControlName="password" class="form-control" placeholder="Enter your Password:" name="password">
-                <div *ngIf="!registerForm.get('password').valid && (registerForm.get('password').dirty || registerForm.get('password').touched)" class="form-mess">
+                <div *ngIf="!registerForm.get('password').valid && (registerForm.get('password').dirty || registerForm.get('password').touched)"
+                    class="form-mess">
                     <div *ngIf="registerForm.get('password').hasError('required')" class="error-mess">
                         This information is required
                     </div>
@@ -56,7 +62,8 @@
             <div class="form-group">
                 <label>Confirm Password <span>(*)</span>:</label>
                 <input type="password" formControlName="confirmPassword" class="form-control" placeholder="Re-enter your Password">
-                <div *ngIf="!registerForm.get('confirmPassword').valid && (registerForm.get('confirmPassword').dirty || registerForm.get('confirmPassword').touched)" class="form-mess">
+                <div *ngIf="!registerForm.get('confirmPassword').valid && (registerForm.get('confirmPassword').dirty || registerForm.get('confirmPassword').touched)"
+                    class="form-mess">
                     <div *ngIf="registerForm.get('confirmPassword').hasError('required')" class="error-mess">
                         This information is required
                     </div>
