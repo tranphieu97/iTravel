@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { AuthenticationService } from '../../core/services/authentication.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -47,43 +48,43 @@ export class RegisterComponent implements OnInit {
   }
 
   registerUser() {
-    if (this.isExistUsername()) {
-      this.registerMessage = 'Username is exist, please choose the others name';
-      this.isShowRegisterMessage.error = true;
-      return;
-    } else if (!this.isMatchPassword()) {
-      this.registerMessage = 'Password and confirm password is not matched';
-      return;
-    } else {
-      this.authentication.registerUser(this.registerForm).subscribe((res) => {
-        console.log(res);
+    // if (this.isExistUsername()) {
+    //   this.registerMessage = 'Username is exist, please choose the others name';
+    //   this.isShowRegisterMessage.error = true;
+    //   return;
+    // } else if ( !this.isMatchPassword()) {
+    //   this.registerMessage = 'Password and confirm password is not matched';
+    //   return;
+    // } else {
+    //   this.authentication.registerUser(this.registerForm).subscribe((res) => {
+    //     console.log(res);
+    //   });
+    // }
+    return this.authentication.checkExistUsername(this.registerForm.get('username').value)
+      .subscribe((checkExistResponse) => {
+        if (checkExistResponse.data) {
+          this.registerMessage = 'Username is exist, please choose the others name';
+          this.isShowRegisterMessage.error = true;
+          return;
+        } else if (!this.isMatchPassword().valueOf()) {
+          this.registerMessage = 'Password and confirm password is not matched';
+          this.isShowRegisterMessage.error = true;
+          return;
+        } else {
+          this.authentication.registerUser(this.registerForm)
+            .subscribe((registerResponse) => {
+              console.log(registerResponse.status);
+            });
+        }
       });
-    }
   }
 
   isMatchPassword(): boolean {
     if (this.registerForm.get('password').value === this.registerForm.get('confirmPassword').value) {
       return true;
-    } else {
-      return false;
     }
-  }
 
-  isExistUsername(): boolean {
-    const username = this.registerForm.get('username').value;
-
-    if (username !== '') {
-      this.authentication.checkExistUsername(username)
-        .subscribe((res) => {
-          if (res.data) {
-            return res.data;
-          } else {
-            return false;
-          }
-        });
-    } else {
-      return false;
-    }
+    return false;
   }
 
   redirectToLogin(): void {

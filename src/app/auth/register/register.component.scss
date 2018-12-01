@@ -8,10 +8,13 @@
     overflow: scroll;
     overflow-y: scroll;
 
+    #backto-login-div {
+        z-index: 1;
+    }
+
     #backto-login {
         color: $BLUE;
         cursor: pointer;
-        z-index: 1000;
     }
 
     .register-part {
