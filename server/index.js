@@ -131,7 +131,13 @@ app.post('/create-search-history', (req, res) => {
             message: 'Invalid data!'
         });
     } else {
-        database.insertOneToColection(database.iTravelDB.SearchHistory, searchHistory)
+        const searchDocument = {
+            keyword : searchHistory.keyword,
+            creationTime: new Date(searchHistory.creationTime),
+            searchBy: searchHistory.searchBy
+        }
+
+        database.insertOneToColection(database.iTravelDB.SearchHistory, searchDocument)
             .then(() => {
                 res.status(200).json({
                     message: 'Success!'
@@ -143,6 +149,40 @@ app.post('/create-search-history', (req, res) => {
             })
     }
 });
+
+app.get('/report/searchkeyword', (req, res) => {
+    startDate = new Date(req.param('startDate'));
+    endDate = new Date(req.param('endDate'));
+
+    if (startDate < endDate) {
+        const dateRangeFilter = {
+            creationTime: {
+                $gte: startDate,
+                $lte: endDate
+            }
+        }
+        database.getCollectionFilterData(database.iTravelDB.SearchHistory, dateRangeFilter)
+            .then((collectionData) => {
+                let sortedData = []
+                collectionData.forEach(record => {
+                    sortedData.push({
+                        keyword: record.keyword,
+                        count: 1
+                    });
+                });
+
+                res.status(200).json({
+                    message: 'Got search Data',
+                    data: sortedData
+                })
+            });
+    } else {
+        res.status(400).json({
+            message: 'Invalid Data',
+            data: []
+        });
+    }
+})
 
 app.get('/auth/exist-username', (req, res) => {
 

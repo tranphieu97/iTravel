@@ -16,7 +16,7 @@
             <i class="fas fa-search"></i>
         </span>  
         <div [ngClass]="{'dropdown-menu': true, 'dropdown-show-column':headerFlags.isShowSearchBox}" id="search-dropdown">
-            <form class="form-inline" onsubmit="searchByText()">
+            <form class="form-inline" (submit)="searchByText()">
                 <input type="text"  [(ngModel)]="searchBoxText" name="search"
                     class="form-control" placeholder="Enter word to search">
                 <button type="submit" (click)="searchByText()" class="btn btn-default">Search</button>

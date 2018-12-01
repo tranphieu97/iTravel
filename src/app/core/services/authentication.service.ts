@@ -13,7 +13,9 @@ export class AuthenticationService {
 
   checkExistUsername(username: string): Observable<any> {
     const params = new HttpParams().set('username', username);
+
     return this.http.get<any>(this.server.HOST + 'auth/exist-username', {
+      headers: this.server.httpOptions.headers,
       params: params
     });
   }

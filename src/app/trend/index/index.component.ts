@@ -22,55 +22,51 @@ export class IndexComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.pieChartEndDate = new Date(Date.now());
     this.pieChartStartDate = new Date(this.pieChartEndDate.getFullYear(),
-            this.pieChartEndDate.getMonth(), this.pieChartEndDate.getDay() - 7);
+      this.pieChartEndDate.getMonth(), this.pieChartEndDate.getDay() - 7);
     this.server.getReportBySearchKeyWordData(this.pieChartStartDate, this.pieChartEndDate)
       .subscribe((result) => {
-        console.log(result);
-    });
+        const searchData = result.data;
+        let searchDataLength = searchData.length;
 
-    // this.pieChart = this.amchartServices.makeChart('pie-chart-search', {
-    //   'type': 'pie',
-    //   'theme': 'light',
-    //   'dataProvider': [{
-    //     'country': 'Lithuania',
-    //     'litres': 501.9
-    //   }, {
-    //     'country': 'Czech Republic',
-    //     'litres': 301.9
-    //   }, {
-    //     'country': 'Ireland',
-    //     'litres': 201.1
-    //   }, {
-    //     'country': 'Germany',
-    //     'litres': 165.8
-    //   }, {
-    //     'country': 'Australia',
-    //     'litres': 139.9
-    //   }, {
-    //     'country': 'Austria',
-    //     'litres': 128.3
-    //   }, {
-    //     'country': 'UK',
-    //     'litres': 99
-    //   }, {
-    //     'country': 'Belgium',
-    //     'litres': 60
-    //   }, {
-    //     'country': 'The Netherlands',
-    //     'litres': 50
-    //   }],
-    //   'titleField': 'title',
-    //   'valueField': 'value',
+        // Calculator how many time search a key word
+        for (let index = 0; index < searchDataLength; index++) {
+          const record = searchData[index];
 
-    //   'labelRadius': 5,
-    //   'radius': '42%',
-    //   'innerRadius': '60%',
-    //   'labelText': '[[title]]',
-    //   'export': {
-    //     'enabled': true
-    //   }
-    // });
+          for (let indexSecondLoop = index + 1; indexSecondLoop < searchDataLength; indexSecondLoop++) {
+            const diffRecord = searchData[indexSecondLoop];
+
+            if (record.keyword === diffRecord.keyword) {
+              record.count++;
+              searchData.splice(indexSecondLoop, 1);
+              searchDataLength--;
+              indexSecondLoop--;
+            }
+          }
+          record.keyword = record.keyword.toUpperCase();
+          searchData[index] = record;
+        }
+
+        // Sort by counter
+        searchData.sort((n1, n2) => {
+          return n2.count - n1.count;
+        });
+
+        // Get top 10
+        if (searchData.length > 10) {
+          const otherRecord = searchData[9];
+          otherRecord.keyword = 'The Others';
+          for (let index = 10; index < searchDataLength; index++) {
+            const record = searchData[index];
+            otherRecord.count += record.count;
+          }
+          searchData.splice(10, searchData.length - 10);
+        }
+
+        this.createPieChart(this.pieChart, 'piechart-search', searchData);
+      });
   }
+
+
 
   ngOnDestroy(): void {
     if (this.pieChart) {
@@ -78,8 +74,22 @@ export class IndexComponent implements OnInit, OnDestroy {
     }
   }
 
-  createPieChart(chart: AmChart, divID: string) {
+  createPieChart(chart: AmChart, divID: string, chartData: any) {
+    chart = this.amchartServices.makeChart(divID, {
+      'type': 'pie',
+      'theme': 'light',
+      'dataProvider': chartData,
+      'titleField': 'keyword',
+      'valueField': 'count',
 
+      'labelRadius': 5,
+      'radius': '42%',
+      'innerRadius': '60%',
+      'labelText': '[[title]]',
+      'export': {
+        'enabled': true
+      }
+    });
   }
 
   destroyChart(chart: AmChart) {
@@ -87,5 +97,6 @@ export class IndexComponent implements OnInit, OnDestroy {
       this.amchartServices.destroyChart(chart);
     }
   }
-
 }
+
+

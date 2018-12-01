@@ -99,6 +99,7 @@ export class ServerService {
   getReportBySearchKeyWordData(startDate: Date, endDate: Date): Observable<any> {
     const params = new HttpParams().set('startDate', startDate.toString())
                                    .set('endDate', endDate.toString());
+
     return this.http.get<any>(this.HOST + 'report/searchkeyword', {headers: this.httpOptions.headers, params: params});
   }
 }

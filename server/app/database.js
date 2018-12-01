@@ -83,6 +83,47 @@ exports.getCollectionData = async (collectionName) => {
 }
 
 /**
+ * Get data in a collection have filter
+ * @param {string} collectionName 
+ * @param {object} filter 
+ */
+exports.getCollectionFilterData = async (collectionName, filter) => {
+    var deferred = Q.defer();
+    var data = null;
+
+    MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {
+        if (err) {
+            console.log("Get Connection has an error: " + err.message);
+            deferred.reject(new Error(err));
+        } else {
+
+            var db = client.db(config.DB_NAME);
+    
+            var collection = db.collection(collectionName, (err, collection) => {
+                if (err) {
+                    console.log('Error load ' + collectionName);
+                    return null;
+                }
+
+                var collectionData = collection.find(filter).toArray((err, result) => {
+                    if (err) {
+                        console.log('Error find filter data from collection ' + collectionName);
+                        return null;
+                    } else {
+                        data = result;
+                        deferred.resolve(data);
+                    }
+                });
+            });
+            
+            client.close();
+        }
+    });
+    
+    return deferred.promise;
+}
+
+/**
  * Insert a document to a colection by colection name
  * @author phieu-th
  * @async
