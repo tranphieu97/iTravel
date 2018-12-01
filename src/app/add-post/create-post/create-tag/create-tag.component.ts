@@ -8,7 +8,8 @@ import { TagService } from 'src/app/core/services/tag.service';
   styleUrls: ['./create-tag.component.scss']
 })
 export class CreateTagComponent implements OnInit {
-  @Input() tags: Array<string>;
+  @Input() tags: Tag[] = [];
+  // all tag from server to recommend with user
   private allTags: Tag[] = [];
 
   constructor(private tagService: TagService) { }
@@ -20,4 +21,27 @@ export class CreateTagComponent implements OnInit {
     });
   }
 
+  onRemoveTag(removedTag: Tag) {
+    this.tags = this.tags.filter((eachEle) => {
+      return eachEle.tagContent !== removedTag.tagContent;
+      //   // return eachEle._id !== removedCategory._id;
+    });
+  }
+
+  onAddTag(inputTagElement: HTMLInputElement) {
+    const newTag = new Tag(inputTagElement.value);
+    const sameTag = this.tags.find((eachEle) => {
+      return eachEle.tagContent === newTag.tagContent;
+    });
+    // if sameTag != null mean newTag already in tags, dont need to add again
+    if (sameTag === null || sameTag === undefined) {
+      this.tags.push(newTag);
+    }
+  }
+
+  onPressEnter(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      this.onAddTag(event.target as HTMLInputElement);
+    }
+  }
 }

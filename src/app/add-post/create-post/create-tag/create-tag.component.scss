@@ -18,7 +18,7 @@ label {
     background-color: lightgray;
     border-color: transparent;
     border-radius: 2rem;
-    cursor: pointer;
+    cursor: default;
     overflow: visible;
     position: relative;
     display: inline-block;
@@ -29,6 +29,7 @@ label {
     position: absolute;
     top: -6px;
     right: -6px;
+    cursor: pointer;
 }
 
 button {
