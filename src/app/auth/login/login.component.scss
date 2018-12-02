@@ -40,6 +40,16 @@
         i {
             font-size: 20px;
         }
+
+        .form-mess {
+            font-size: 12px;
+            height: fit-content;
+            margin-top: 5px;
+        }
+
+        .error-mess {
+            color: $RED;
+        }
     }
 
     .google-login {
