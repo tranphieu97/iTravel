@@ -3,6 +3,7 @@ import { Category } from 'src/app/model/category.model';
 import { PostCategory } from 'src/app/model/postCategory.model';
 import { PostCategoryService } from 'src/app/core/services/post-category.service';
 import { element } from '@angular/core/src/render3/instructions';
+import { Post } from 'src/app/model/post.model';
 
 @Component({
   selector: 'app-create-category',
@@ -10,7 +11,8 @@ import { element } from '@angular/core/src/render3/instructions';
   styleUrls: ['./create-category.component.scss']
 })
 export class CreateCategoryComponent implements OnInit {
-  @Input() localCategories: PostCategory[] = [];
+  // @Input() localCategories: PostCategory[] = [];
+  @Input() post: Post;
   private allCategories: PostCategory[] = [];
 
   constructor(private postCategoryService: PostCategoryService) { }
@@ -25,19 +27,22 @@ export class CreateCategoryComponent implements OnInit {
   }
 
   onSelectCategory(choosedCategory: PostCategory) {
-    const foundResult = this.localCategories.find((eachEle) => {
+    const sameCategory = this.post.categories.find((eachEle) => {
       return eachEle._id === choosedCategory._id;
     });
-    if (foundResult === undefined || foundResult === null) {
-      this.localCategories.push(choosedCategory);
+    if (sameCategory === undefined || sameCategory === null) {
+      // this.localCategories.push(choosedCategory);
+      this.post.categories.push(choosedCategory);
     }
+    // console.log(this.localCategories);
   }
 
   onRemoveCategory(removedCategory: PostCategory) {
     // console.log(removedCategory);
-    this.localCategories = this.localCategories.filter((eachEle) => {
+    this.post.categories = this.post.categories.filter((eachEle) => {
       return eachEle.name !== removedCategory.name;
       // return eachEle._id !== removedCategory._id;
     });
+    // console.log(this.localCategories);
   }
 }

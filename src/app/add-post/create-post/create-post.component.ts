@@ -47,10 +47,24 @@ export class CreatePostComponent implements OnInit {
   }
 
   onSave() {
-
+    console.log(this.post);
+    this.post._id = '';
+    this.postService.addOnePost(this.post).subscribe((resData) => {
+      console.log(resData.message);
+    });
   }
 
   onCancel() {
+    this.postService.getAllPosts();
+  }
 
+  onUpdateTitle(event: Event) {
+    // validate here
+    this.post.title = (event.target as HTMLInputElement).value;
+  }
+
+  onUpdateDescription(event: Event) {
+    // validate here
+    this.post.description = (event.target as HTMLTextAreaElement).value;
   }
 }

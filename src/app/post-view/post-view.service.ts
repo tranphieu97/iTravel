@@ -36,16 +36,29 @@ export class PostViewService {
     //     return post;
     // }
 
+    // // send a post and store in database
+    // addOnePost(newPost: Post, image: File) {
+    //     // const post: Post = this.posts[3];
+    //     const postData = new FormData();
+    //     postData.append('post', image);
+    //     // console.log(post);
+    //     // this.http.post<{ message: string }>(this.HOST + 'db/posts', post)
+    //     //     .subscribe((resData) => {
+    //     //         console.log(resData.message);
+    //     //     });
+    // }
+
     // send a post and store in database
-    addOnePost(newPost: Post, image: File) {
+    addOnePost(newPost: Post) {
         // const post: Post = this.posts[3];
-        const postData = new FormData();
-        postData.append('post', image);
+        // const postData = new FormData();
+        // postData.append('post', newPost);
         // console.log(post);
-        // this.http.post<{ message: string }>(this.HOST + 'db/posts', post)
+        // this.http.post<{ message: string }>(this.HOST + 'db/posts', newPost)
         //     .subscribe((resData) => {
         //         console.log(resData.message);
         //     });
+        return this.server.postOnePost(newPost);
     }
 
     uploadImage(image: File) {

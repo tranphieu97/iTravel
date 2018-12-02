@@ -2,6 +2,8 @@
 // Include js file
 const config = require('./_config');
 const database = require('./app/database.js');
+const authetication = require('./app/authentication.js');
+const User = require('./model/user.model').User;
 
 // Include library
 const path = require('path');
@@ -63,7 +65,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/db/provinces', (req, res) => {
-    database.getCollectionData(database.iTravelDB.pro).then((data) => {
+    database.getCollectionData(database.iTravelDB.Provinces).then((data) => {
         if (data != null) {
             res.status(200).json({
                 message: 'Load ' + database.iTravelDB.Provinces + ' success!',
@@ -259,7 +261,13 @@ app.post('/create-search-history', (req, res) => {
             message: 'Invalid data!'
         });
     } else {
-        database.insertOneToColection(database.iTravelDB.SearchHistory, searchHistory)
+        const searchDocument = {
+            keyword: searchHistory.keyword,
+            creationTime: new Date(searchHistory.creationTime),
+            searchBy: searchHistory.searchBy
+        }
+
+        database.insertOneToColection(database.iTravelDB.SearchHistory, searchDocument)
             .then(() => {
                 res.status(200).json({
                     message: 'Success!'
@@ -271,4 +279,166 @@ app.post('/create-search-history', (req, res) => {
             })
     }
 });
+
+app.get('/report/searchkeyword', (req, res) => {
+    startDate = new Date(req.param('startDate'));
+    endDate = new Date(req.param('endDate'));
+
+    if (startDate < endDate) {
+        const dateRangeFilter = {
+            creationTime: {
+                $gte: startDate,
+                $lte: endDate
+            }
+        }
+        database.getCollectionFilterData(database.iTravelDB.SearchHistory, dateRangeFilter)
+            .then((collectionData) => {
+                let sortedData = []
+                collectionData.forEach(record => {
+                    sortedData.push({
+                        keyword: record.keyword,
+                        count: 1
+                    });
+                });
+
+                res.status(200).json({
+                    message: 'Got search Data',
+                    data: sortedData
+                })
+            });
+    } else {
+        res.status(400).json({
+            message: 'Invalid Data',
+            data: []
+        });
+    }
+})
+
+app.get('/auth/exist-username', (req, res) => {
+
+    username = req.param('username');
+
+    authetication.isExistUsername(username.trim())
+        .then((result) => {
+            res.status(200).json({
+                message: 'Check exist username is successed',
+                data: result
+            });
+        })
+        .catch(() => {
+            res.status(500).json({
+                message: 'Check exist username is fail',
+                data: false
+            });
+        });
+})
+
+app.post('/auth/register-user', async (req, res) => {
+
+    // Get POST REQUEST'S BODY DATA
+    const username = req.body.username;
+    const password = req.body.password;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const confirmPassword = req.body.confirmPassword;
+    const acceptPolicies = req.body.acceptPolicies;
+
+    // Validate Data
+    if (acceptPolicies && username !== '' && password !== '' && firstName !== '' && password === confirmPassword) {
+        authetication.isExistUsername(username)
+            .then((isExist) => {
+                if (!isExist) {
+
+                    // Hash password and creat user
+                    authetication.hashPassword(password).then((hashPassword) => {
+                        var registerUser = new User(username, hashPassword, '', firstName, lastName,
+                            null, 'Newbie', '', 0, 'Member', 'Active', '', false);
+
+                        database.insertOneToColection(database.iTravelDB.Users, registerUser)
+                            .then(() => {
+                                // Check creation result
+                                authetication.isExistUsername(username)
+                                    .then((isExist) => {
+                                        if (isExist) {
+                                            res.status(201).json({
+                                                message: 'Register is success',
+                                                data: true
+                                            });
+                                        } else {
+                                            res.status(500).json({
+                                                message: 'Register User is fail',
+                                                data: false
+                                            });
+                                        }
+                                    })
+                            });
+                    }).catch((err) => {
+                        console.log(err);
+                    });
+                } else {
+                    res.status(409).json({
+                        message: 'Register new User Fail, Username is Exist',
+                        data: false
+                    });
+                }
+            });
+    } else {
+        res.status(400).json({
+            message: 'Register new User Fail, Data invalid',
+            data: false
+        });
+    }
+});
+
+app.post('/auth/login', async (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+
+    const usernameRegex = new RegExp('^(?=.*[a-z])[a-z0-9._@-]{1,30}$');
+    const passwordRegex = new RegExp('(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{1,30}$');
+
+    if (username === '' || username.length < 6 || username.length > 30
+        || password === '' || password.length < 8
+        || !usernameRegex.test(username) || !passwordRegex.test(password)) {
+        res.status(400).json({
+            message: 'Invalid Account',
+            data: false
+        });
+    } else {
+        const filterUser = {
+            username: {
+                $eq: username
+            }
+        }
+
+        database.getOneFromCollection(database.iTravelDB.Users, filterUser)
+            .then((userInfo) => {
+                if (userInfo === null || userInfo === undefined) {
+                    res.status(422).json({
+                        message: 'Invalid username',
+                        data: false
+                    });
+                } else {
+                    authetication.comparePassword(password, userInfo.password).then((isMatch) => {
+                        if (!isMatch) {
+                            res.status(422).json({
+                                message: 'Incorrect password',
+                                data: false
+                            });
+                        } else {
+                            res.status(200).json({
+                                message: 'Login success!',
+                                data: {
+                                    username: userInfo.username,
+                                    avatar: userInfo.avatar,
+                                    firstName: userInfo.firstName,
+                                    lastName: userInfo.lastName
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+    }
+})
 /** Routing - END */

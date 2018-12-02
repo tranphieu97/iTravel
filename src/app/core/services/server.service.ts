@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Province } from '../../model/province.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Menu } from '../../model/menu.model';
 import { map } from 'rxjs/operators';
 import { Category } from '../../model/category.model';
@@ -133,7 +133,8 @@ export class ServerService {
     return this.http.get<{ message: string; data: Post[] }>(this.HOST + 'db/posts');
   }
 
-  postOnePost() {
+  postOnePost(newPost: Post) {
+    return this.http.post<{ message: string }>(this.HOST + '/db/posts', newPost);
   }
 
   /**
@@ -154,5 +155,12 @@ export class ServerService {
 
   postSearchHistory(searchHistory: SearchHistory): Observable<any> {
     return this.http.post<any>(this.HOST + 'create-search-history', searchHistory, this.httpOptions);
+  }
+
+  getReportBySearchKeyWordData(startDate: Date, endDate: Date): Observable<any> {
+    const params = new HttpParams().set('startDate', startDate.toString())
+                                   .set('endDate', endDate.toString());
+
+    return this.http.get<any>(this.HOST + 'report/searchkeyword', {headers: this.httpOptions.headers, params: params});
   }
 }

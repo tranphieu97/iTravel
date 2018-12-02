@@ -1,6 +1,8 @@
-import { Category } from './category.model';
+import { PostCategory } from './postCategory.model';
 import { PostContent } from './postContent.model';
 import { Comment } from './comment.model';
+import { Tag } from './tag.model';
+import { Location } from './location.model';
 
 export class Post {
     public _id: string;
@@ -8,13 +10,13 @@ export class Post {
     constructor(
         public createdTime: Date,
         public approvedTime: Date,
-        public tags: Array<string>,
+        public tags: Array<Tag>,
         public postContents: Array<PostContent>,
         public title: string,
         public cover: string,
         public authorId: string,
         public location: Location,
-        public categories: Array<Category>,
+        public categories: Array<PostCategory>,
         public rating: number,
         public status: string,
         public comments: Array<Comment>,
