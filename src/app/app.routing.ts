@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NotFoundPageComponent } from './master-page/not-found-page/not-found-page.component';
 import { LoginComponent } from './login/login.component';
 import { IndexComponent } from './home-page/index/index.component';
-import { LayoutComponent } from './layout/layout.component';
+import { LayoutComponent } from './web-layout/layout/layout.component';
 import { AuthLayoutComponent } from './web-layout/auth-layout/auth-layout.component';
 
 const routes: Routes = [
@@ -34,7 +34,7 @@ const routes: Routes = [
     },
     {
       // only use this path at the beginning, need to add id later
-      path: 'postView',
+      path: 'view-post',
       component: LayoutComponent,
       loadChildren: 'src/app/post-view/post-view.module#PostViewModule'
     },

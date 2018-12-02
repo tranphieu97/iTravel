@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MasterPageService } from '../core/services/master-page.service';
+import { MasterPageService } from 'src/app/core/services/master-page.service';
 
 @Component({
   selector: 'app-layout',

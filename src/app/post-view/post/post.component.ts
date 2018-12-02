@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 export class PostComponent implements OnInit {
   // local post receive data from server
   // it should has init data until receiving data from server so browser will not has error
-  private post: Post = new Post(null, null, null, [], [], '', '', '', null, [], 0, '', [], '');
+  private post: Post = new Post(null, null, [], [], '', '', '', null, [], 0, '', [], '');
   // variable store Subscription for easy unSubscribe or subscribe again
   private postsSub: Subscription;
 
@@ -22,7 +22,7 @@ export class PostComponent implements OnInit {
     // this.post = this.postService.getOnePosts('');
     this.postsSub = this.postService.postsUpdated.asObservable()
       .subscribe((posts: Post[]) => {
-        this.post = posts[2];
+        this.post = posts[1];
       });
     this.postService.getAllPosts();
   }
