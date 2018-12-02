@@ -13,6 +13,15 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient, private server: ServerService) { }
 
+  loginAsMember(loginForm: FormGroup): Observable<any> {
+    const loginData = {
+      username: loginForm.get('username').value,
+      password: loginForm.get('password').value
+    };
+
+    return this.http.post<any>(this.server.HOST + 'auth/login', loginData, this.server.httpOptions);
+  }
+
   checkExistUsername(username: string): Observable<any> {
     const params = new HttpParams().set('username', username);
 

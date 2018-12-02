@@ -9,6 +9,10 @@ const saltRounds = 3;
 
 exports = module.exports = {};
 
+/**
+ * Hash a normal password to special string for save to database
+ * @param {string} password 
+ */
 exports.hashPassword = async (password) => {
     var deferred = Q.defer();
 
@@ -20,6 +24,20 @@ exports.hashPassword = async (password) => {
         }
     });
     
+    return deferred.promise;
+}
+
+exports.comparePassword = async (password, hashPassword) => {
+    var deferred = Q.defer();
+
+    bcrypt.compare(password, hashPassword, (err, result) => {
+        if (err) {
+            deferred.reject(new Error(err));
+        } else {
+            deferred.resolve(result);
+        }
+    })
+
     return deferred.promise;
 }
 

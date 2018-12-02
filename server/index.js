@@ -132,7 +132,7 @@ app.post('/create-search-history', (req, res) => {
         });
     } else {
         const searchDocument = {
-            keyword : searchHistory.keyword,
+            keyword: searchHistory.keyword,
             creationTime: new Date(searchHistory.creationTime),
             searchBy: searchHistory.searchBy
         }
@@ -259,4 +259,56 @@ app.post('/auth/register-user', async (req, res) => {
         });
     }
 });
+
+app.post('/auth/login', async (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+
+    const usernameRegex = new RegExp('^(?=.*[a-z])[a-z0-9._@-]{1,30}$');
+    const passwordRegex = new RegExp('(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{1,30}$');
+
+    if (username === '' || username.length < 6 || username.length > 30
+        || password === '' || password.length < 8
+        || !usernameRegex.test(username) || !passwordRegex.test(password)) {
+        res.status(400).json({
+            message: 'Invalid Account',
+            data: false
+        });
+    } else {
+        const filterUser = {
+            username: {
+                $eq: username
+            }
+        }
+
+        database.getOneFromCollection(database.iTravelDB.Users, filterUser)
+            .then((userInfo) => {
+                if (userInfo === null || userInfo === undefined) {
+                    res.status(422).json({
+                        message: 'Invalid username',
+                        data: false
+                    });
+                } else {
+                    authetication.comparePassword(password, userInfo.password).then((isMatch) => {
+                        if (!isMatch) {
+                            res.status(422).json({
+                                message: 'Incorrect password',
+                                data: false
+                            });
+                        } else {
+                            res.status(200).json({
+                                message: 'Login success!',
+                                data: {
+                                    username: userInfo.username,
+                                    avatar: userInfo.avatar,
+                                    firstName: userInfo.firstName,
+                                    lastName: userInfo.lastName
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+    }
+})
 /** Routing - END */

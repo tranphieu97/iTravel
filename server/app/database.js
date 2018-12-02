@@ -168,3 +168,39 @@ exports.insertOneToColection = async (collectionName, document) => {
         }
     });
 }
+
+exports.getOneFromCollection = async (collectionName, filter) => {
+    var deferred = Q.defer();
+    var data = null;
+
+    MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {
+        if (err) {
+            console.log("Get Connection has an error: " + err.message);
+            deferred.reject(new Error(err));
+        } else {
+
+            var db = client.db(config.DB_NAME);
+    
+            var collection = db.collection(collectionName, (err, collection) => {
+                if (err) {
+                    console.log('Error load ' + collectionName);
+                    return null;
+                }
+
+                var collectionData = collection.findOne(filter, (err, result) => {
+                    if (err) {
+                        console.log('Error find filter data from collection ' + collectionName);
+                        return null;
+                    } else {
+                        data = result;
+                        deferred.resolve(data);
+                    }
+                });
+            });
+            
+            client.close();
+        }
+    });
+    
+    return deferred.promise;
+}

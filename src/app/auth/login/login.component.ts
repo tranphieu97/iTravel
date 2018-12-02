@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { AuthenticationService } from '../../core/services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
   usernameRegex: RegExp = new RegExp('^(?=.*[a-z])[a-z0-9._@-]{1,30}$');
   passwordRegex: RegExp = new RegExp('(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{1,30}$');
 
-  constructor(private router: Router, private formBuilder: FormBuilder) { }
+  constructor(private router: Router, private formBuilder: FormBuilder,
+    private authentication: AuthenticationService) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -36,6 +38,16 @@ export class LoginComponent implements OnInit {
       || !this.usernameRegex.test(username) || !this.passwordRegex.test(password)) {
       this.erorMessage = 'Invalid Account';
       this.isFailLogin = true;
+    } else {
+      this.authentication.loginAsMember(this.loginForm).subscribe((result) => {
+        console.log(result.data);
+        if (!result.data) {
+          this.erorMessage = result.message;
+          this.isFailLogin = true;
+        } else {
+          console.log('success');
+        }
+      });
     }
   }
 
