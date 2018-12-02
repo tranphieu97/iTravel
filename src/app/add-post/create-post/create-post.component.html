@@ -8,7 +8,8 @@
             <label>Title:</label>
           </div>
           <div class="col-xl-10 col-md-9 col-12">
-            <input class="form-control" type="text" name="title" placeholder="enter post title" [value]="post.title">
+            <input class="form-control" type="text" name="title" placeholder="enter post title" [value]="post.title"
+              (blur)="onUpdateTitle($event)">
           </div>
         </div>
         <!-- row2 has description -->
@@ -17,7 +18,8 @@
             <label>Description:</label>
           </div>
           <div class="col-xl-10 col-md-9 col-12">
-            <textarea name="description" class="form-control" rows="2" placeholder="enter description" [value]="post.description"></textarea>
+            <textarea name="description" class="form-control" rows="2" placeholder="enter description" [value]="post.description"
+              (blur)="onUpdateDescription($event)"></textarea>
           </div>
         </div>
         <!-- row3 has add-cover-button and preview -->
@@ -34,31 +36,31 @@
         <!-- row4 has create-category component -->
         <div class="row form-group">
           <div class="col-12">
-            <app-create-category [localCategories]="post.categories"></app-create-category>
+            <app-create-category [post]="post"></app-create-category>
           </div>
         </div>
         <!-- row5 has create-tag component -->
         <div class="row form-group">
           <div class="col-12">
-            <app-create-tag [tags]="post.tags"></app-create-tag>
+            <app-create-tag [post]='post'></app-create-tag>
           </div>
         </div>
         <!-- row6 has create-location component -->
         <div class="row form-group">
           <div class="col-12">
-            <app-create-location [location]="post.location"></app-create-location>
+            <app-create-location [post]="post"></app-create-location>
           </div>
         </div>
         <!-- row7 has create-post-content component -->
         <div class="row form-group">
           <div class="col-12">
-            <app-create-post-content [postContents]="post.postContents"></app-create-post-content>
+            <app-create-post-content [post]='post'></app-create-post-content>
           </div>
         </div>
         <!-- row8 has create-post-content component -->
         <div class="row form-group">
           <div class="col-12 no-padding">
-            <button class="btn btn-warning" (click)="onCancle()">Cancel</button>
+            <button class="btn btn-warning" (click)="onCancel()">Cancel</button>
             <button class="btn btn-success" (click)="onSave()">Save</button>
           </div>
         </div>

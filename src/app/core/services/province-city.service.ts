@@ -12,12 +12,12 @@ export class ProvinceCityService {
   constructor(private http: HttpClient, private server: ServerService) { }
 
   getAllProvinceCity() {
-    this.server.getListProvinceCity()
-      .subscribe((resData) => {
-        if (resData.data) {
-          this.allProvinceCity = resData.data;
-        }
-        // else err handling
-      });
+    return this.server.getListProvinceCity();
+      // .subscribe((resData) => {
+      //   if (resData.data) {
+      //     this.allProvinceCity = resData.data;
+      //   }
+      //   // else err handling
+      // });
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Tag } from 'src/app/model/tag.model';
 import { TagService } from 'src/app/core/services/tag.service';
+import { Post } from 'src/app/model/post.model';
 
 @Component({
   selector: 'app-create-tag',
@@ -8,7 +9,8 @@ import { TagService } from 'src/app/core/services/tag.service';
   styleUrls: ['./create-tag.component.scss']
 })
 export class CreateTagComponent implements OnInit {
-  @Input() tags: Tag[] = [];
+  // @Input() tags: Tag[] = [];
+  @Input() post: Post;
   // all tag from server to recommend with user
   private allTags: Tag[] = [];
 
@@ -22,21 +24,23 @@ export class CreateTagComponent implements OnInit {
   }
 
   onRemoveTag(removedTag: Tag) {
-    this.tags = this.tags.filter((eachEle) => {
+    this.post.tags = this.post.tags.filter((eachEle) => {
       return eachEle.tagContent !== removedTag.tagContent;
       //   // return eachEle._id !== removedCategory._id;
     });
+    // console.log(this.tags);
   }
 
   onAddTag(inputTagElement: HTMLInputElement) {
     const newTag = new Tag(inputTagElement.value);
-    const sameTag = this.tags.find((eachEle) => {
+    const sameTag = this.post.tags.find((eachEle) => {
       return eachEle.tagContent === newTag.tagContent;
     });
     // if sameTag != null mean newTag already in tags, dont need to add again
     if (sameTag === null || sameTag === undefined) {
-      this.tags.push(newTag);
+      this.post.tags.push(newTag);
     }
+    // console.log(this.tags);
   }
 
   onPressEnter(event: KeyboardEvent) {

@@ -11,9 +11,9 @@
   </div>
 </div>
 <!-- row2 has list all tags added, each tags can be deleted by a 'X' button on top-right -->
-<div class="row" *ngIf="tags.length > 0">
+<div class="row" *ngIf="post.tags.length > 0">
   <div class="col-12">
-    <div class="tag" *ngFor="let tag of tags">
+    <div class="tag" *ngFor="let tag of post.tags">
       {{ tag.tagContent }}<span class="fas fa-times-circle esc-btn" (click)="onRemoveTag(tag)"></span>
     </div>
   </div>

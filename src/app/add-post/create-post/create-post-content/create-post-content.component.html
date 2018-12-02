@@ -13,7 +13,7 @@
       <div class="col-12">
 
         <!-- ngfor here, each col-12 is a row and is a post-content -->
-        <div class="row myborder" *ngFor="let postContent of postContents">
+        <div class="row myborder" *ngFor="let postContent of post.postContents">
           <div class="col-12">
             <!-- input title -->
             <br>
@@ -22,7 +22,7 @@
                 <label>Topic title:</label>
               </div>
               <div class="col-xl-10 col-md-9 col-12">
-                <input type="text" class="form-control" placeholder="enter topic title" [value]="postContent.title">
+                <input type="text" class="form-control" placeholder="enter topic title" [value]="postContent.title" (blur)="onUpdateTopicTitle(postContent, $event)">
               </div>
             </div>
 
@@ -33,7 +33,7 @@
                 <label>Content:</label>
               </div>
               <div class="col-xl-10 col-md-9 col-12">
-                <textarea rows="2" class="form-control" placeholder="enter topic content" [value]="postContent.content"></textarea>
+                <textarea rows="2" class="form-control" placeholder="enter topic content" [value]="postContent.content" (blur)="onUpdateTopicContent(postContent, $event)"></textarea>
               </div>
             </div>
 
@@ -41,34 +41,35 @@
             <br>
             <div class="row">
               <div class="col-sm-5 col-12">
-                <button class="btn btn-success bold">Add image</button>
+                <button class="btn btn-success bold" (click)="filePicker.click()">Add image</button>
+                <input class="d-none" type="file" #filePicker (change)="onImagePicked($event, postContent)">
               </div>
               <div class="col-sm-7 col-12">
                 <!-- image preview here -->
                 <div class="row" *ngIf="postContent.image.length > 0">
                   <div class="col-12">
-                    <img [src]="postContent.image" alt="hinh anh minh hoa">
-                    <span class="fas fa-times-circle del-img-btn"></span>
+                    <img [src]="postContent.image" [alt]="postContent.imageDesc">
+                    <span class="fas fa-times-circle del-img-btn" (click)="onDelImageClick(postContent)"></span>
                   </div>
                 </div>
                 <br>
                 <!-- image description here -->
                 <div class="row" *ngIf="postContent.image.length > 0">
                   <div class="col-12">
-                    <input type="text" class="form-control description" placeholder="enter image description" [value]="postContent.imageDesc">
+                    <input type="text" class="form-control description" placeholder="enter image description" [value]="postContent.imageDesc" (blur)="onUpdateImgDesc(postContent, $event)">
                   </div>
                 </div>
               </div>
             </div>
             <br>
             <!-- button for delete topic-content -->
-            <span class="fas fa-times-circle del-content-btn"></span>
+            <span class="fas fa-times-circle del-content-btn" (click)="onRemovePostContent(postContent)"></span>
           </div>
         </div>
         <!-- last row has '+' button -->
         <div class="row">
           <div class="col-12 no-padding">
-            <button type="button" class="btn btn-success right"><span class="fas fa-plus"></span></button>
+            <button type="button" class="btn btn-success right" (click)="onAddPostContent()"><span class="fas fa-plus"></span></button>
           </div>
         </div>
       </div>

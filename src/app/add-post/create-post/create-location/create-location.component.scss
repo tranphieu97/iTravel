@@ -31,7 +31,7 @@ select {
     border-color: transparent;
     border-radius: 0.5rem;
     background-color: lightgray;
-    cursor: pointer;
+    cursor: default;
     overflow: visible;
     position: relative;
     width: fit-content;
@@ -43,4 +43,5 @@ select {
     position: absolute;
     top: -6px;
     right: -6px;
+    cursor: pointer;
 }

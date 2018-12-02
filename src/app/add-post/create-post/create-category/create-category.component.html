@@ -13,7 +13,7 @@
 <!-- row2 has list all postCategories added, each category can delete by a X button on top-right -->
 <div class="row">
     <div class="col-12">
-        <div class="tag" *ngFor="let category of localCategories">
+        <div class="tag" *ngFor="let category of post.categories">
             {{ category.name }}<span class="fas fa-times-circle remove-btn" (click)="onRemoveCategory(category)"></span>
         </div>
     </div>
