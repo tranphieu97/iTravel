@@ -65,7 +65,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/db/provinces', (req, res) => {
-    database.getCollectionData(database.iTravelDB.pro).then((data) => {
+    database.getCollectionData(database.iTravelDB.Provinces).then((data) => {
         if (data != null) {
             res.status(200).json({
                 message: 'Load ' + database.iTravelDB.Provinces + ' success!',
