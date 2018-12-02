@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 
 import { NotFoundPageComponent } from './master-page/not-found-page/not-found-page.component';
 import { AppRoutingModule } from './app.routing';
-import { LayoutComponent } from './layout/layout.component';
+import { LayoutComponent } from './web-layout/layout/layout.component';
 import { HeaderComponent } from './master-page/header/header.component';
 import { NavigationBarComponent } from './master-page/navigation-bar/navigation-bar.component';
 import { NavbarMenuComponent } from './master-page/navbar-menu/navbar-menu.component';
@@ -15,6 +15,7 @@ import { AmChartsModule } from '@amcharts/amcharts3-angular';
 import { CardViewPostComponent } from './card-view-post/card-view-post.component';
 import { UserModule } from './user/user.module';
 import { SharedModule } from './shared/shared.module';
+import { AuthLayoutComponent } from './web-layout/auth-layout/auth-layout.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { SharedModule } from './shared/shared.module';
     NavbarMenuComponent,
     NavigationBarComponent,
     NavbarMenuComponent,
-    HeaderComponent
+    HeaderComponent,
+    AuthLayoutComponent
   ],
   imports: [
     BrowserModule,

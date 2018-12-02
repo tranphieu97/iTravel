@@ -1,0 +1,89 @@
+@import 'src/styles.scss';
+
+:host {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    overflow: scroll;
+    padding: 20px;
+    overflow: scroll;
+
+    h1 {
+        margin-bottom: 20px;
+        font-weight: bold;
+        color: $ORANGE;
+        text-align: center;
+    }
+
+    .login-form {
+        span.red-span {
+            color: $RED;
+        }
+
+        label, input, button {
+            font-size: 17px;
+        }
+
+        input, button {
+            min-height: 35px;
+        }
+
+        button {
+            flex: 1;
+            font-weight: bold;
+            margin: 5px;
+        }
+
+        i {
+            font-size: 20px;
+        }
+
+        .form-mess {
+            font-size: 12px;
+            height: fit-content;
+            margin-top: 5px;
+        }
+
+        .error-mess {
+            color: $RED;
+        }
+    }
+
+    .google-login {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+
+        border-bottom: 1px solid $GRAY;
+
+        button {
+            flex: 1;
+            max-width: 50%;
+            min-height: 35px;
+            min-width: fit-content;
+        }
+    }
+
+    .auth-additional {
+        display: flex;
+        justify-content: center;
+        margin: 5px;
+
+        p {
+            font-size: 14px;
+            text-align: center;
+
+            span {
+                font-size: 14px;
+                color: $GREEN;
+                cursor: pointer;
+                font-weight: 600;
+            }
+        }
+    }
+}

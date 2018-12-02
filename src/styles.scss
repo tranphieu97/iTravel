@@ -58,3 +58,19 @@ html, body  {
     height: 95%;
     margin: 10px;
 }
+
+:host::-webkit-scrollbar {
+    display: none;
+    width: 0px;  
+    background: transparent; 
+}
+/* optional: show position indicator in red */
+:host::-webkit-scrollbar-thumb {
+    background: #FF0000;
+}
+:host { -ms-overflow-style: none; }
+:host { -ms-overflow-style: none; }
+
+div { -ms-overflow-style: none; }
+
+div { -ms-overflow-style: none; }
