@@ -133,7 +133,8 @@ export class ServerService {
     return this.http.get<{ message: string; data: Post[] }>(this.HOST + 'db/posts');
   }
 
-  postOnePost() {
+  postOnePost(newPost: Post) {
+    return this.http.post<{ message: string }>(this.HOST + '/db/posts', newPost);
   }
 
   /**

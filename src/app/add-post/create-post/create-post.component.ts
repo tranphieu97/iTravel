@@ -48,6 +48,10 @@ export class CreatePostComponent implements OnInit {
 
   onSave() {
     console.log(this.post);
+    this.post._id = '';
+    this.postService.addOnePost(this.post).subscribe((resData) => {
+      console.log(resData.message);
+    });
   }
 
   onCancel() {
