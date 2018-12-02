@@ -61,12 +61,15 @@
         align-items: stretch;
         justify-content: flex-end;
         flex: 1;
+        padding-right: 15px;
 
         .toolbar-icon {
             display: flex;
             width: 40px;
             align-items: center;
             margin: 0 5px;
+            cursor: pointer;
+
             span {
                 width: 40px;
                 height: 40px;
@@ -101,14 +104,44 @@
                     }
                 }
             }
+        }
 
-            .dropdown-show {
-                display: block;
-            }
+        .toolbar-icon-wide {
+            display: flex;
+            width: fit-content;
+            min-width: 40px;
+            align-items: center;
+            margin: 0 5px;
+            cursor: pointer;
 
-            .dropdown-show-column {
+            span {
+                margin-left: 5px;
+                width: fit-content;
+                height: 40px;
                 display: flex;
+                justify-content: center;
+                align-items: center;
+                i {
+                    color: $GRAY;
+                }
             }
+            span:hover {
+                margin-left: 5px;
+                border-radius: 15px;
+                background-color: $LIGHT;
+            }
+
+            #visitor-dropdown {
+                left: -85px;
+            }
+        }
+
+        .dropdown-show {
+            display: block;
+        }
+
+        .dropdown-show-column {
+            display: flex;
         }
     }
 

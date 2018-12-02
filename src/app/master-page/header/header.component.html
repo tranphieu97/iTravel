@@ -38,8 +38,17 @@
     <div class="toolbar-icon">
         <span><i class="fas fa-cog"></i></span>
     </div>
-    <div class="toolbar-icon">
-        <span>Hi, </span>
+    <div *ngIf="authentication.isLogin" class="toolbar-icon-wide">
+        <span>Hi, Trần Huỳnh Phiêu</span>
         <img>
+    </div>
+    <div *ngIf="!authentication.isLogin" class="toolbar-icon-wide dropdown">
+        <span (click)="changeHeaderFlagByFlagName('isShowVisiterTool')">
+            Hi, <strong> Do you want to login?</strong> 
+        </span>
+        <div [ngClass]="{'dropdown-menu': true, 'dropdown-show':headerFlags.isShowVisiterTool}" id="visiter-dropdown">
+            <a class="dropdown-item" [routerLink]="['/auth/login']" >Login</a>
+            <a class="dropdown-item" [routerLink]="['/auth/register']">Register</a>
+        </div>
     </div>
 </div>

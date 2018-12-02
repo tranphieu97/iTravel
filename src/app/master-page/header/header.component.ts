@@ -4,6 +4,9 @@ import { SharedModule } from '../../shared/shared.module';
 import { ServerService } from '../../core/services/server.service';
 import { SearchHistory } from 'src/app/model/searchHistory.model';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthenticationService } from '../../core/services/authentication.service';
+import { Router, RouterLink, RouterModule } from '@angular/router';
+
 
 @Component({
   selector: 'app-header',
@@ -20,10 +23,12 @@ export class HeaderComponent implements OnInit {
     isShowNotification: false,
     isShowLanguage: false,
     isShowSetting: false,
-    isShowUserTool: false
+    isShowUserTool: false,
+    isShowVisiterTool: false
   };
 
-  constructor(private mtpService: MasterPageService, private server: ServerService) { }
+  constructor(private mtpService: MasterPageService, private server: ServerService,
+    private authentication: AuthenticationService, private router: Router) { }
 
   ngOnInit() {
 

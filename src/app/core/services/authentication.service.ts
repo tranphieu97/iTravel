@@ -9,6 +9,8 @@ import { FormGroup } from '@angular/forms';
 })
 export class AuthenticationService {
 
+  isLogin: Boolean = false;
+
   constructor(private http: HttpClient, private server: ServerService) { }
 
   checkExistUsername(username: string): Observable<any> {
