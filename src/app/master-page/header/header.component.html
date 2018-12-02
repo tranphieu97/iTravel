@@ -11,26 +11,44 @@
 </div>
 <!--toolbar-->
 <div class="toolbar">
-    <div class="toolbar-icon">
-        <span (click)="isShowSearchBox = !isShowSearchBox">
+    <div class="toolbar-icon dropdown">
+        <span (click)="changeHeaderFlagByFlagName('isShowSearchBox')">
             <i class="fas fa-search"></i>
         </span>  
-        <div id="search-box" *ngIf="isShowSearchBox">
-            <form class="form-inline">
+        <div [ngClass]="{'dropdown-menu': true, 'dropdown-show-column':headerFlags.isShowSearchBox}" id="search-dropdown">
+            <form class="form-inline" (submit)="searchByText()">
                 <input type="text"  [(ngModel)]="searchBoxText" name="search"
                     class="form-control" placeholder="Enter word to search">
-                <button type="button" (click)="searchByText()" class="btn btn-default">Search</button>
+                <button type="submit" (click)="searchByText()" class="btn btn-default">Search</button>
             </form>
         </div>
     </div>
     <div class="toolbar-icon">
         <span><i class="far fa-bell"></i></span>
     </div>
+    <div class="toolbar-icon dropdown">
+        <span (click)="changeHeaderFlagByFlagName('isShowLanguage')">
+            <i class="fas fa-globe-asia"></i>
+        </span>
+        <div [ngClass]="{'dropdown-menu': true, 'dropdown-show':headerFlags.isShowLanguage}" id="language-dropdown">
+            <a class="dropdown-item" href="#">Vietnamese</a>
+            <a class="dropdown-item" href="#">English</a>
+        </div>
+    </div>
     <div class="toolbar-icon">
         <span><i class="fas fa-cog"></i></span>
     </div>
-    <div class="toolbar-icon">
-        <span>Hi, </span>
+    <div *ngIf="authentication.isLogin" class="toolbar-icon-wide">
+        <span>Hi, Trần Huỳnh Phiêu</span>
         <img>
+    </div>
+    <div *ngIf="!authentication.isLogin" class="toolbar-icon-wide dropdown">
+        <span (click)="changeHeaderFlagByFlagName('isShowVisiterTool')">
+            Hi, <strong> Do you want to login?</strong> 
+        </span>
+        <div [ngClass]="{'dropdown-menu': true, 'dropdown-show':headerFlags.isShowVisiterTool}" id="visiter-dropdown">
+            <a class="dropdown-item" [routerLink]="['/auth/login']" >Login</a>
+            <a class="dropdown-item" [routerLink]="['/auth/register']">Register</a>
+        </div>
     </div>
 </div>

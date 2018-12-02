@@ -2,23 +2,55 @@
 // Include js file
 const config = require('./_config');
 const database = require('./app/database.js');
+const authetication = require('./app/authentication.js');
+const User = require('./model/user.model').User;
 
 // Include library
+const path = require('path');
 const express = require('express');
+const multer = require('multer');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 var Q = require('q');
 
 const app = express();
 
+// some extention of image that allow to save on server
+const MINE_TYPE_MAP = {
+    'image/png': 'png',
+    'image/jpg': 'jpg',
+    'image/jpeg': 'jpg'
+};
+/**
+ * @author Thong
+ * @description config multer for store image on server
+ */
+const storage = multer.diskStorage({
+    destination: (req, file, cback) => {
+        // check file type is valid
+        const isValid = MINE_TYPE_MAP[file.mimetype];
+        let err = new Error('Invalid mine type');
+        if (isValid) {
+            err = null;
+        }
+        cback(err, 'server/images');
+    },
+    filename: (req, file, cback) => {
+        // remove space and replace by '-'
+        const name = file.originalname.toLowerCase().trim().split(' ').join('-');
+        const ext = MINE_TYPE_MAP[file.mimetype];
+        cback(null, name + '-' + Date.now() + '.' + ext);
+    }
+});
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
+// allow outside connect to /images and map to server/images folder on server
+app.use('/images', express.static(path.join("server/images")))
 
 app.listen(config.APP_PORT, () => {
     console.log('Server is running at http://localhost:' + config.APP_PORT + '/');
 });
-
-app.use(bodyParser.json());
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', ['*']);
@@ -33,7 +65,6 @@ app.get('/', (req, res) => {
 });
 
 app.get('/db/provinces', (req, res) => {
-    // const COLECTION_NAME = 'Provinces';
     database.getCollectionData(database.iTravelDB.Provinces).then((data) => {
         if (data != null) {
             res.status(200).json({
@@ -43,6 +74,21 @@ app.get('/db/provinces', (req, res) => {
         } else {
             res.status(500).json({
                 message: 'Load' + database.iTravelDB.Provinces + 'fail!'
+            })
+        }
+    });
+});
+
+app.get('/db/province-city', (req, res) => {
+    database.getCollectionData(database.iTravelDB.ProvinceCity).then((data) => {
+        if (data != null) {
+            res.status(200).json({
+                message: 'Load ' + database.iTravelDB.ProvinceCity + ' success!',
+                data: data
+            })
+        } else {
+            res.status(500).json({
+                message: 'Load' + database.iTravelDB.ProvinceCity + 'fail!'
             })
         }
     });
@@ -80,20 +126,106 @@ app.get('/db/posts', (req, res) => {
     });
 });
 
+/**
+ * @name POST-new-post
+ * @author Thong
+ * @param request
+ * @description receive request from serverService, include a postData in requestBody
+ * then insert that post to mongodb, send back response with message
+ */
 app.post('/db/posts', (req, res, next) => {
-    let post = req.body;
+    const post = req.body;
     // pass a post to insertOneToColection(), function will upload to server automaticaly
     database.insertOneToColection(database.iTravelDB.Posts, post)
         .then(() => {
             res.status(201).json({
-                message: 'Insert post successfuly'
+                message: 'Upload post successfuly'
             });
         })
         .catch(() => {
             res.status(500).json({
-                message: 'Insert post fail!'
+                message: 'Upload post fail!'
             });
-        })
+        });
+});
+
+app.post('/upload-image', multer({ storage: storage }).single('image'), (req, res, next) => {
+    const imageUrl = req.protocol + '://' // http://
+        + req.get("host") // http://localhost:7979
+        + "/images/" // http://localhost:7979/images/
+        + req.file.filename; // http://localhost:7979/images/abc.jpg
+    // if (req.file !== undefined || req.file) {
+    res.status(201).json({
+        message: 'Upload image successfuly',
+        imageUrl: imageUrl
+    });
+    // }
+});
+
+/**
+ * @name GET-tags
+ * @author Thong
+ * @param request
+ * @description receive request from serverService
+ * then call to fetch all tags from mongodb, send back response with message and data if successful
+ */
+app.get('/db/tags', (req, res, next) => {
+    database.getCollectionData(database.iTravelDB.Tags).then((data) => {
+        if (data != null) {
+            res.status(200).json({
+                message: 'Load ' + database.iTravelDB.Tags + ' success!',
+                data: data
+            })
+        } else {
+            res.status(500).json({
+                message: 'Load' + database.iTravelDB.Tags + 'fail!'
+            })
+        }
+    });
+});
+
+/**
+ * @name GET-locations
+ * @author Thong
+ * @param request
+ * @description receive request from serverService
+ * then call to fetch all locations from mongodb, send back response with message and data if successful
+ */
+app.get('/db/locations', (req, res, next) => {
+    database.getCollectionData(database.iTravelDB.Locations).then((data) => {
+        if (data != null) {
+            res.status(200).json({
+                message: 'Load ' + database.iTravelDB.Locations + ' success!',
+                data: data
+            })
+        } else {
+            res.status(500).json({
+                message: 'Load' + database.iTravelDB.Locations + 'fail!'
+            })
+        }
+    });
+});
+
+/**
+ * @name GET-post-categories
+ * @author Thong
+ * @param request
+ * @description receive request from serverService
+ * then call to fetch all tags from mongodb, send back response with message and data if successful
+ */
+app.get('/db/post-categories', (req, res, next) => {
+    database.getCollectionData(database.iTravelDB.PostCategories).then((data) => {
+        if (data != null) {
+            res.status(200).json({
+                message: 'Load ' + database.iTravelDB.PostCategories + ' success!',
+                data: data
+            })
+        } else {
+            res.status(500).json({
+                message: 'Load' + database.iTravelDB.PostCategories + 'fail!'
+            })
+        }
+    });
 });
 
 app.post('/create-feedback', (req, res) => {
@@ -129,7 +261,13 @@ app.post('/create-search-history', (req, res) => {
             message: 'Invalid data!'
         });
     } else {
-        database.insertOneToColection(database.iTravelDB.SearchHistory, searchHistory)
+        const searchDocument = {
+            keyword: searchHistory.keyword,
+            creationTime: new Date(searchHistory.creationTime),
+            searchBy: searchHistory.searchBy
+        }
+
+        database.insertOneToColection(database.iTravelDB.SearchHistory, searchDocument)
             .then(() => {
                 res.status(200).json({
                     message: 'Success!'
@@ -141,4 +279,166 @@ app.post('/create-search-history', (req, res) => {
             })
     }
 });
+
+app.get('/report/searchkeyword', (req, res) => {
+    startDate = new Date(req.param('startDate'));
+    endDate = new Date(req.param('endDate'));
+
+    if (startDate < endDate) {
+        const dateRangeFilter = {
+            creationTime: {
+                $gte: startDate,
+                $lte: endDate
+            }
+        }
+        database.getCollectionFilterData(database.iTravelDB.SearchHistory, dateRangeFilter)
+            .then((collectionData) => {
+                let sortedData = []
+                collectionData.forEach(record => {
+                    sortedData.push({
+                        keyword: record.keyword,
+                        count: 1
+                    });
+                });
+
+                res.status(200).json({
+                    message: 'Got search Data',
+                    data: sortedData
+                })
+            });
+    } else {
+        res.status(400).json({
+            message: 'Invalid Data',
+            data: []
+        });
+    }
+})
+
+app.get('/auth/exist-username', (req, res) => {
+
+    username = req.param('username');
+
+    authetication.isExistUsername(username.trim())
+        .then((result) => {
+            res.status(200).json({
+                message: 'Check exist username is successed',
+                data: result
+            });
+        })
+        .catch(() => {
+            res.status(500).json({
+                message: 'Check exist username is fail',
+                data: false
+            });
+        });
+})
+
+app.post('/auth/register-user', async (req, res) => {
+
+    // Get POST REQUEST'S BODY DATA
+    const username = req.body.username;
+    const password = req.body.password;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const confirmPassword = req.body.confirmPassword;
+    const acceptPolicies = req.body.acceptPolicies;
+
+    // Validate Data
+    if (acceptPolicies && username !== '' && password !== '' && firstName !== '' && password === confirmPassword) {
+        authetication.isExistUsername(username)
+            .then((isExist) => {
+                if (!isExist) {
+
+                    // Hash password and creat user
+                    authetication.hashPassword(password).then((hashPassword) => {
+                        var registerUser = new User(username, hashPassword, '', firstName, lastName,
+                            null, 'Newbie', '', 0, 'Member', 'Active', '', false);
+
+                        database.insertOneToColection(database.iTravelDB.Users, registerUser)
+                            .then(() => {
+                                // Check creation result
+                                authetication.isExistUsername(username)
+                                    .then((isExist) => {
+                                        if (isExist) {
+                                            res.status(201).json({
+                                                message: 'Register is success',
+                                                data: true
+                                            });
+                                        } else {
+                                            res.status(500).json({
+                                                message: 'Register User is fail',
+                                                data: false
+                                            });
+                                        }
+                                    })
+                            });
+                    }).catch((err) => {
+                        console.log(err);
+                    });
+                } else {
+                    res.status(409).json({
+                        message: 'Register new User Fail, Username is Exist',
+                        data: false
+                    });
+                }
+            });
+    } else {
+        res.status(400).json({
+            message: 'Register new User Fail, Data invalid',
+            data: false
+        });
+    }
+});
+
+app.post('/auth/login', async (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+
+    const usernameRegex = new RegExp('^(?=.*[a-z])[a-z0-9._@-]{1,30}$');
+    const passwordRegex = new RegExp('(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{1,30}$');
+
+    if (username === '' || username.length < 6 || username.length > 30
+        || password === '' || password.length < 8
+        || !usernameRegex.test(username) || !passwordRegex.test(password)) {
+        res.status(400).json({
+            message: 'Invalid Account',
+            data: false
+        });
+    } else {
+        const filterUser = {
+            username: {
+                $eq: username
+            }
+        }
+
+        database.getOneFromCollection(database.iTravelDB.Users, filterUser)
+            .then((userInfo) => {
+                if (userInfo === null || userInfo === undefined) {
+                    res.status(422).json({
+                        message: 'Invalid username',
+                        data: false
+                    });
+                } else {
+                    authetication.comparePassword(password, userInfo.password).then((isMatch) => {
+                        if (!isMatch) {
+                            res.status(422).json({
+                                message: 'Incorrect password',
+                                data: false
+                            });
+                        } else {
+                            res.status(200).json({
+                                message: 'Login success!',
+                                data: {
+                                    username: userInfo.username,
+                                    avatar: userInfo.avatar,
+                                    firstName: userInfo.firstName,
+                                    lastName: userInfo.lastName
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+    }
+})
 /** Routing - END */

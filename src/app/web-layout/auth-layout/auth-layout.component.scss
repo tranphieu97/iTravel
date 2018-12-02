@@ -1,0 +1,29 @@
+@import 'src/styles.scss';
+
+:host {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100vh;
+    overflow: scroll;
+
+    .index-part {
+        display: flex;
+        flex: 1 1;
+        align-items: center;
+        vertical-align: middle;
+        background-color: $NAVBAR_BACKGROUND_COLOR;
+
+        img {
+            width: 60%;
+            margin-left: 20%;
+            margin-right: 20%;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+
+        .content-box {
+            padding: 10px;
+        }
+    }
+}

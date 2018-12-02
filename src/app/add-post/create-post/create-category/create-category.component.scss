@@ -1,6 +1,7 @@
 select {
-    width: 100%; // height: auto;
+    width: 100%;
     font-size: 17px;
+    height: auto;
     option {
         font-size: 17px;
     }
@@ -15,20 +16,21 @@ label {
     font-size: 14px;
     font-weight: bold;
     margin-top: 15px;
-    margin-left: 5px;
-    margin-right: 7px;
+    margin-right: 15px;
     padding: 10px;
     border-color: transparent;
     border-radius: 0.5rem;
     background-color: lightgray;
-    cursor: pointer;
     overflow: visible;
     position: relative;
+    display: inline-block;
+    cursor: default;
 }
 
-.esc-btn {
+.remove-btn {
     font-size: 14px;
     position: absolute;
     top: -6px;
     right: -6px;
+    cursor: pointer;
 }

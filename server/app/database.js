@@ -10,7 +10,13 @@ const iTravelDB = {
     Menu: 'Menu',
     Feedback: 'Feedback',
     Posts: 'Posts',
-    SearchHistory: 'SearchHistory'
+    SearchHistory: 'SearchHistory',
+    Tags: 'Tags',
+    PostCategories: 'PostCategories',
+    ProvinceCity: 'ProvinceCity',
+    Locations: 'Locations',
+    Users: 'Users'
+
 }
 
 exports.iTravelDB = iTravelDB;
@@ -21,7 +27,7 @@ exports.iTravelDB = iTravelDB;
  * @async
  * @param {string} collectionName 
  */
-exports.getCollection = async function(collectionName) {
+exports.getCollection = async function (collectionName) {
     var deferred = Q.defer();
     MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {
         if (err) {
@@ -29,12 +35,13 @@ exports.getCollection = async function(collectionName) {
             deferred.reject(new Error(err));
         } else {
             var db = client.db(config.DB_NAME);
-    
+
             var collection = db.collection(collectionName);
-    
+
             deferred.resolve(collection);
         }
     });
+
     return deferred.promise;
 }
 
@@ -55,7 +62,7 @@ exports.getCollectionData = async (collectionName) => {
         } else {
 
             var db = client.db(config.DB_NAME);
-    
+
             var collection = db.collection(collectionName, (err, collection) => {
                 if (err) {
                     console.log('Error load ' + collectionName);
@@ -72,11 +79,52 @@ exports.getCollectionData = async (collectionName) => {
                     }
                 });
             });
-            
+
             client.close();
         }
     });
-    
+
+    return deferred.promise;
+}
+
+/**
+ * Get data in a collection have filter
+ * @param {string} collectionName 
+ * @param {object} filter 
+ */
+exports.getCollectionFilterData = async (collectionName, filter) => {
+    var deferred = Q.defer();
+    var data = null;
+
+    MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {
+        if (err) {
+            console.log("Get Connection has an error: " + err.message);
+            deferred.reject(new Error(err));
+        } else {
+
+            var db = client.db(config.DB_NAME);
+
+            var collection = db.collection(collectionName, (err, collection) => {
+                if (err) {
+                    console.log('Error load ' + collectionName);
+                    return null;
+                }
+
+                var collectionData = collection.find(filter).toArray((err, result) => {
+                    if (err) {
+                        console.log('Error find filter data from collection ' + collectionName);
+                        return null;
+                    } else {
+                        data = result;
+                        deferred.resolve(data);
+                    }
+                });
+            });
+
+            client.close();
+        }
+    });
+
     return deferred.promise;
 }
 
@@ -97,7 +145,7 @@ exports.insertOneToColection = async (collectionName, document) => {
         } else {
 
             var db = client.db(config.DB_NAME);
-    
+
             var collection = db.collection(collectionName, (err, collection) => {
                 if (err) {
                     console.log('Error load ' + collectionName);
@@ -107,7 +155,7 @@ exports.insertOneToColection = async (collectionName, document) => {
                 try {
                     var insertOne = collection.insertOne(document, (err) => {
                         if (err) {
-                            console.log('Error insert data to '+ collectionName);
+                            console.log('Error insert data to ' + collectionName);
                             return null;
                         }
                         return 1;
@@ -115,13 +163,49 @@ exports.insertOneToColection = async (collectionName, document) => {
                     deferred.reject(insertOne);
                 }
                 catch (e) {
-                    console.log('Error insert data to '+ collectionName);
+                    console.log('Error insert data to ' + collectionName);
                     console.log(e.message);
                     deferred.reject(new Error(e.message));
                 }
             });
-            
+
             client.close();
         }
     });
+}
+
+exports.getOneFromCollection = async (collectionName, filter) => {
+    var deferred = Q.defer();
+    var data = null;
+
+    MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {
+        if (err) {
+            console.log("Get Connection has an error: " + err.message);
+            deferred.reject(new Error(err));
+        } else {
+
+            var db = client.db(config.DB_NAME);
+
+            var collection = db.collection(collectionName, (err, collection) => {
+                if (err) {
+                    console.log('Error load ' + collectionName);
+                    return null;
+                }
+
+                var collectionData = collection.findOne(filter, (err, result) => {
+                    if (err) {
+                        console.log('Error find filter data from collection ' + collectionName);
+                        return null;
+                    } else {
+                        data = result;
+                        deferred.resolve(data);
+                    }
+                });
+            });
+
+            client.close();
+        }
+    });
+
+    return deferred.promise;
 }
