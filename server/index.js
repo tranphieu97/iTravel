@@ -10,6 +10,7 @@ const path = require('path');
 const express = require('express');
 const multer = require('multer');
 const jwt = require('jsonwebtoken');
+const expressJwt = require('express-jwt');
 const bodyParser = require('body-parser');
 var Q = require('q');
 
@@ -426,14 +427,19 @@ app.post('/auth/login', async (req, res) => {
                                 data: false
                             });
                         } else {
-                            res.status(201).json({
-                                message: 'Login success!',
-                                data: {
-                                    username: userInfo.username,
-                                    avatar: userInfo.avatar,
-                                    firstName: userInfo.firstName,
-                                    lastName: userInfo.lastName
-                                }
+                            const userData = {
+                                _id: userInfo._id,
+                                username: userInfo.username,
+                                avatar: userInfo.avatar,
+                                firstName: userInfo.firstName,
+                                lastName: userInfo.lastName
+                            }
+
+                            jwt.sign(userData, config.SECRET_KEY, {expiresIn: '23h'}, (err, jwtToken) => {
+                                res.status(201).json({
+                                    message: 'Login success!',
+                                    token: jwtToken
+                                });
                             });
                         }
                     });

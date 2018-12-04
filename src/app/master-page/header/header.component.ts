@@ -4,8 +4,8 @@ import { SharedModule } from '../../shared/shared.module';
 import { ServerService } from '../../core/services/server.service';
 import { SearchHistory } from 'src/app/model/searchHistory.model';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthenticationService } from '../../core/services/authentication.service';
 import { Router, RouterLink, RouterModule } from '@angular/router';
+import { UserService } from '../../core/services/user.service';
 
 
 @Component({
@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
   };
 
   constructor(private mtpService: MasterPageService, private server: ServerService,
-    private authentication: AuthenticationService, private router: Router) { }
+    private user: UserService, private router: Router) { }
 
   ngOnInit() {
 

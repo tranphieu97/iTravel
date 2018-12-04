@@ -40,7 +40,6 @@ export class LoginComponent implements OnInit {
       this.isFailLogin = true;
     } else {
       this.authentication.loginAsMember(this.loginForm).subscribe((result) => {
-        console.log(result.data);
         if (!result.data) {
           this.loginMessage = result.message;
           this.isFailLogin = true;
