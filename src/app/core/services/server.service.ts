@@ -8,6 +8,11 @@ import { Category } from '../../model/category.model';
 import { CardViewPost } from '../../model/cardViewPost.model';
 import { Feedback } from '../../model/feedback.model';
 import { SearchHistory } from '../../model/searchHistory.model';
+import { Post } from 'src/app/model/post.model';
+import { Tag } from 'src/app/model/tag.model';
+import { PostCategory } from 'src/app/model/postCategory.model';
+import { ProvinceCity } from 'src/app/model/province-city.model';
+import { Location } from 'src/app/model/location.model';
 
 
 
@@ -86,6 +91,62 @@ export class ServerService {
       });
       return cardViewPosts;
     }));
+  }
+
+  /**
+     * @author Thong
+     * @description send get-request to node server for get list all Tag from Tags collection
+     */
+  getListTags() {
+    return this.http.get<{ message: string; data: Tag[] }>(this.HOST + 'db/tags');
+  }
+
+  /**
+     * @author Thong
+     * @description send get-request to node server for get list all Location from Locations collection
+     */
+  getListLocations() {
+    return this.http.get<{ message: string; data: Location[] }>(this.HOST + 'db/locations');
+  }
+
+  /**
+     * @author Thong
+     * @description send get-request to node server for get list all ProvinceCity from ProvinceCity collection
+     */
+  getListProvinceCity() {
+    return this.http.get<{ message: string; data: ProvinceCity[] }>(this.HOST + 'db/province-city');
+  }
+
+  /**
+     * @author Thong
+     * @description send get-request to node server for list all PostCategory from PostCategories collection
+     */
+  getListPostCategories() {
+    return this.http.get<{ message: string; data: PostCategory[] }>(this.HOST + 'db/post-categories');
+  }
+
+  /**
+   * @author Thong
+   * @description send get-request to node server for listAllPost from Posts collection
+   */
+  getListPosts() {
+    return this.http.get<{ message: string; data: Post[] }>(this.HOST + 'db/posts');
+  }
+
+  postOnePost(newPost: Post) {
+    return this.http.post<{ message: string }>(this.HOST + '/db/posts', newPost);
+  }
+
+  /**
+   * @author Thong
+   * @param {File} image
+   * @description send a POST request to upload an image to server
+   */
+  uploadImage(image: File) {
+    // convert to FormData before send to multer
+    const uploadImage = new FormData();
+    uploadImage.append('image', image);
+    return this.http.post<{ message: string, imageUrl: string }>(this.HOST + 'upload-image', uploadImage);
   }
 
   postFeedback(feedback: Feedback): Observable<any> {

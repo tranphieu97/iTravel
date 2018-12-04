@@ -16,6 +16,7 @@ import { CreateCategoryComponent } from './create-post/create-category/create-ca
     AddPostRoutingModule
   ],
   exports: [],
-  declarations: [AddPostInformationComponent, CreatePostComponent, CreateTagComponent, CreatePostContentComponent, CreateLocationComponent, CreateCategoryComponent]
+  declarations: [AddPostInformationComponent, CreatePostComponent,
+    CreateTagComponent, CreatePostContentComponent, CreateLocationComponent, CreateCategoryComponent]
 })
 export class AddPostModule { }
