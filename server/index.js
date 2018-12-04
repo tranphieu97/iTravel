@@ -246,7 +246,7 @@ app.post('/auth/register-user', async (req, res) => {
                         console.log(err);
                     });
                 } else {
-                    res.status(409).json({
+                    res.status(200).json({
                         message: 'Register new User Fail, Username is Exist',
                         data: false
                     });
@@ -284,19 +284,19 @@ app.post('/auth/login', async (req, res) => {
         database.getOneFromCollection(database.iTravelDB.Users, filterUser)
             .then((userInfo) => {
                 if (userInfo === null || userInfo === undefined) {
-                    res.status(422).json({
-                        message: 'Invalid username',
+                    res.status(200).json({
+                        message: 'Invalid Username',
                         data: false
                     });
                 } else {
                     authetication.comparePassword(password, userInfo.password).then((isMatch) => {
                         if (!isMatch) {
-                            res.status(422).json({
+                            res.status(200).json({
                                 message: 'Incorrect password',
                                 data: false
                             });
                         } else {
-                            res.status(200).json({
+                            res.status(201).json({
                                 message: 'Login success!',
                                 data: {
                                     username: userInfo.username,

@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   isFailLogin: Boolean = false;
-  erorMessage: String = '';
+  loginMessage: String = '';
 
   usernameRegex: RegExp = new RegExp('^(?=.*[a-z])[a-z0-9._@-]{1,30}$');
   passwordRegex: RegExp = new RegExp('(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{1,30}$');
@@ -36,16 +36,17 @@ export class LoginComponent implements OnInit {
     if (username === '' || username.length < 6 || username.length > 30
       || password === '' || password.length < 8
       || !this.usernameRegex.test(username) || !this.passwordRegex.test(password)) {
-      this.erorMessage = 'Invalid Account';
+      this.loginMessage = 'Invalid Account';
       this.isFailLogin = true;
     } else {
       this.authentication.loginAsMember(this.loginForm).subscribe((result) => {
         console.log(result.data);
         if (!result.data) {
-          this.erorMessage = result.message;
+          this.loginMessage = result.message;
           this.isFailLogin = true;
         } else {
-          console.log('success');
+          console.log('Success!');
+          this.router.navigate(['home']);
         }
       });
     }
