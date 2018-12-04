@@ -134,7 +134,7 @@ export class ServerService {
   }
 
   postOnePost(newPost: Post) {
-    return this.http.post<{ message: string }>(this.HOST + '/db/posts', newPost);
+    return this.http.post<{ message: string }>(this.HOST + 'db/posts', newPost);
   }
 
   /**
@@ -159,8 +159,8 @@ export class ServerService {
 
   getReportBySearchKeyWordData(startDate: Date, endDate: Date): Observable<any> {
     const params = new HttpParams().set('startDate', startDate.toString())
-                                   .set('endDate', endDate.toString());
+      .set('endDate', endDate.toString());
 
-    return this.http.get<any>(this.HOST + 'report/searchkeyword', {headers: this.httpOptions.headers, params: params});
+    return this.http.get<any>(this.HOST + 'report/searchkeyword', { headers: this.httpOptions.headers, params: params });
   }
 }

@@ -3,6 +3,7 @@ import { PostViewService } from 'src/app/post-view/post-view.service';
 import { ServerService } from 'src/app/core/services/server.service';
 import { Post } from 'src/app/model/post.model';
 import { Subscription } from 'rxjs';
+import { ConstantService } from 'src/app/core/services/constant.service';
 
 @Component({
   selector: 'app-create-post',
@@ -16,7 +17,7 @@ export class CreatePostComponent implements OnInit {
   // variable store Subscription for easy unSubscribe or subscribe again
   private postsSub: Subscription;
 
-  constructor(private postService: PostViewService, private server: ServerService) { }
+  constructor(private postService: PostViewService, private server: ServerService, private constant: ConstantService) { }
 
   ngOnInit() {
     this.postsSub = this.postService.postsUpdated.asObservable()
@@ -47,10 +48,15 @@ export class CreatePostComponent implements OnInit {
   }
 
   onSave() {
-    console.log(this.post);
-    this.post._id = '';
+    // fix some default infomation for post
+    this.post._id = null;
+    this.post.createdTime = new Date();
+    this.post.approvedTime = null;
+    // this.post.authorId
+    this.post.rating = 0;
+    this.post.status = this.constant.POST_STATUS.NEW;
     this.postService.addOnePost(this.post).subscribe((resData) => {
-      console.log(resData.message);
+      //
     });
   }
 
