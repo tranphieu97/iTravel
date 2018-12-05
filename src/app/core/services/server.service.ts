@@ -150,17 +150,17 @@ export class ServerService {
   }
 
   postFeedback(feedback: Feedback): Observable<any> {
-    return this.http.post<any>(this.HOST + 'create-feedback', feedback, this.httpOptions);
+    return this.http.post<any>(this.HOST + 'db/create-feedback', feedback, this.httpOptions);
   }
 
   postSearchHistory(searchHistory: SearchHistory): Observable<any> {
-    return this.http.post<any>(this.HOST + 'create-search-history', searchHistory, this.httpOptions);
+    return this.http.post<any>(this.HOST + 'db/create-search-history', searchHistory, this.httpOptions);
   }
 
   getReportBySearchKeyWordData(startDate: Date, endDate: Date): Observable<any> {
     const params = new HttpParams().set('startDate', startDate.toString())
                                    .set('endDate', endDate.toString());
 
-    return this.http.get<any>(this.HOST + 'report/searchkeyword', {headers: this.httpOptions.headers, params: params});
+    return this.http.get<any>(this.HOST + 'db/report/searchkeyword', {headers: this.httpOptions.headers, params: params});
   }
 }

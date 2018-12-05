@@ -9,6 +9,7 @@ export class User {
     public level: string;
     public hometown: string;
     public point: number;
+    public isAdmin: boolean;
     public permission: string;
 
     constructor(_id: string, username: string, firstName: string, lastName: string ) {

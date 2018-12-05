@@ -29,6 +29,11 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  /**
+   * Validation login data was enterd and login if it valid
+   * @name validateData
+   * @author phieu-th
+   */
   validateData() {
     const username = this.loginForm.get('username').value;
     const password = this.loginForm.get('password').value;
@@ -44,13 +49,17 @@ export class LoginComponent implements OnInit {
           this.loginMessage = result.message;
           this.isFailLogin = true;
         } else {
-          console.log('Success!');
           this.router.navigate(['home']);
         }
       });
     }
   }
 
+  /**
+   * Redirect to Register screen
+   * @name redirectToRegister
+   * @author phieu-th
+   */
   redirectToRegister() {
     this.router.navigate(['auth/register']);
   }

@@ -56,7 +56,7 @@ app.listen(config.APP_PORT, () => {
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', ['*']);
     res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, Content-Type,Accept, X-Auth-Token, App-Auth, X-XSRF-TOKEN, Authorization');
     next();
 });
 
@@ -229,7 +229,7 @@ app.get('/db/post-categories', (req, res, next) => {
     });
 });
 
-app.post('/create-feedback', (req, res) => {
+app.post('/db/create-feedback', (req, res) => {
 
     const feedback = req.body;
 
@@ -252,7 +252,7 @@ app.post('/create-feedback', (req, res) => {
     }
 });
 
-app.post('/create-search-history', (req, res) => {
+app.post('/db/create-search-history', (req, res) => {
 
     const searchHistory = req.body;
 
@@ -281,7 +281,7 @@ app.post('/create-search-history', (req, res) => {
     }
 });
 
-app.get('/report/searchkeyword', (req, res) => {
+app.get('/db/report/searchkeyword', (req, res) => {
     startDate = new Date(req.param('startDate'));
     endDate = new Date(req.param('endDate'));
 
@@ -427,18 +427,33 @@ app.post('/auth/login', async (req, res) => {
                                 data: false
                             });
                         } else {
+                            const isAdmin = false;
+
+                            if (userInfo.permission === 'Admin') {
+                                isAdmin = true;
+                            }
+
                             const userData = {
                                 _id: userInfo._id,
                                 username: userInfo.username,
-                                avatar: userInfo.avatar,
-                                firstName: userInfo.firstName,
-                                lastName: userInfo.lastName
+                                isAdmin: isAdmin
                             }
 
-                            jwt.sign(userData, config.SECRET_KEY, {expiresIn: '23h'}, (err, jwtToken) => {
+                            
+                            
+                            const data = {
+                                username: userInfo.username,
+                                firstName: userInfo.firstName,
+                                lastName: userInfo.lastName,
+                                avatar: userInfo.avatar,
+                                isAdmin: isAdmin
+                            }
+
+                            jwt.sign(userData, config.SECRET_KEY, { expiresIn: '23h' }, (err, jwtToken) => {
                                 res.status(201).json({
                                     message: 'Login success!',
-                                    token: jwtToken
+                                    token: jwtToken,
+                                    data: data
                                 });
                             });
                         }
