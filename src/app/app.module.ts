@@ -9,7 +9,6 @@ import { LayoutComponent } from './web-layout/layout/layout.component';
 import { HeaderComponent } from './master-page/header/header.component';
 import { NavigationBarComponent } from './master-page/navigation-bar/navigation-bar.component';
 import { NavbarMenuComponent } from './master-page/navbar-menu/navbar-menu.component';
-import { LoginComponent } from './login/login.component';
 import { HomePageModule } from './home-page/home-page.module';
 import { AmChartsModule } from '@amcharts/amcharts3-angular';
 import { CardViewPostComponent } from './card-view-post/card-view-post.component';
@@ -20,7 +19,6 @@ import { AuthLayoutComponent } from './web-layout/auth-layout/auth-layout.compon
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     NotFoundPageComponent,
     LayoutComponent,
     HeaderComponent,
