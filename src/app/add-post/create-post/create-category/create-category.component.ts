@@ -13,7 +13,7 @@ import { Post } from 'src/app/model/post.model';
 export class CreateCategoryComponent implements OnInit {
   // @Input() localCategories: PostCategory[] = [];
   @Input() post: Post;
-  private allCategories: PostCategory[] = [];
+  allCategories: PostCategory[] = [];
 
   constructor(private postCategoryService: PostCategoryService) { }
 

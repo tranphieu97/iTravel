@@ -13,7 +13,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 export class PostComponent implements OnInit {
   // local post receive data from server
   // it should has init data until receiving data from server so browser will not has error
-  private post: Post = new Post(null, null, [], [], '', '', '', null, [], 0, '', [], '');
+  post: Post = new Post(null, null, [], [], '', '', '', null, [], 0, '', [], '');
   private postId;
 
   constructor(private serverService: ServerService, private route: ActivatedRoute, private router: Router) { }
