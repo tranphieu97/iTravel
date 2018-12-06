@@ -14,8 +14,6 @@ import { PostCategory } from 'src/app/model/postCategory.model';
 import { ProvinceCity } from 'src/app/model/province-city.model';
 import { Location } from 'src/app/model/location.model';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -131,8 +129,24 @@ export class ServerService {
    */
   getListPosts() {
     return this.http.get<{ message: string; data: Post[] }>(this.HOST + 'api/posts');
+
   }
 
+  /**
+   * @author Thong
+   * @description send get-request to query one post by Id
+   */
+  getOnePost(postId: string) {
+    console.log(postId);
+    const listParams = new HttpParams().set('postId', postId);
+    // tslint:disable-next-line:max-line-length
+    return this.http.get<{ message: string, data: Post }>(this.HOST + 'api/post', { headers: this.httpOptions.headers, params: listParams });
+  }
+
+  /**
+   * @author Thong
+   * @description send POST-request to node server for store new post to Posts collection
+   */
   postOnePost(newPost: Post) {
     return this.http.post<{ message: string }>(this.HOST + 'api/posts', newPost);
   }

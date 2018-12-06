@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { PostComponent } from './post/post.component';
 
 const postViewRoutes: Routes = [
-    { path: '', component: PostComponent }
+    { path: ':id', component: PostComponent },
+    { path: '**', redirectTo: '/not-found' }
 ];
 
 @NgModule({

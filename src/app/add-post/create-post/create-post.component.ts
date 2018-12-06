@@ -4,6 +4,7 @@ import { ServerService } from 'src/app/core/services/server.service';
 import { Post } from 'src/app/model/post.model';
 import { Subscription } from 'rxjs';
 import { ConstantService } from 'src/app/core/services/constant.service';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-create-post',
@@ -17,7 +18,11 @@ export class CreatePostComponent implements OnInit {
   // variable store Subscription for easy unSubscribe or subscribe again
   private postsSub: Subscription;
 
-  constructor(private postService: PostViewService, private server: ServerService, private constant: ConstantService) { }
+  constructor(
+    private postService: PostViewService,
+    private server: ServerService,
+    private constant: ConstantService,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.postsSub = this.postService.postsUpdated.asObservable()
@@ -26,6 +31,13 @@ export class CreatePostComponent implements OnInit {
         // console.log(this.post.location);
       });
     this.postService.getAllPosts();
+    this.route.params
+      .subscribe(
+        (params: Params) => {
+          this.post._id = params['id'];
+
+        }
+      );
   }
 
   onImagePicked(event: Event) {

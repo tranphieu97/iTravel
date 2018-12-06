@@ -8,60 +8,64 @@ import { LayoutComponent } from './web-layout/layout/layout.component';
 import { AuthLayoutComponent } from './web-layout/auth-layout/auth-layout.component';
 
 const routes: Routes = [
-    {
-      path: 'login',
-      component: LoginComponent
-    },
-    {
-      path: 'auth',
-      component: AuthLayoutComponent,
-      loadChildren: 'src/app/auth/auth.module#AuthModule'
-    },
-    {
-      path: '',
-      redirectTo: 'home',
-      pathMatch: 'full'
-    },
-    {
-      path: 'create-post',
-      component: LayoutComponent,
-      loadChildren: 'src/app/add-post/add-post.module#AddPostModule'
-    },
-    {
-      path: 'home',
-      component: LayoutComponent,
-      loadChildren: 'src/app/home-page/home-page.module#HomePageModule'
-    },
-    {
-      // only use this path at the beginning, need to add id later
-      path: 'view-post',
-      component: LayoutComponent,
-      loadChildren: 'src/app/post-view/post-view.module#PostViewModule'
-    },
-    {
-      path: 'user',
-      component: LayoutComponent,
-      loadChildren: 'src/app/user/user.module#UserModule'
-    },
-    {
-      path: 'additional',
-      component: LayoutComponent,
-      loadChildren: 'src/app/additional/additional.module#AdditionalModule'
-    },
-    {
-      path: 'region',
-      component: LayoutComponent,
-      loadChildren: 'src/app/region/region.module#RegionModule'
-    },
-    {
-      path: 'trend',
-      component: LayoutComponent,
-      loadChildren: 'src/app/trend/trend.module#TrendModule'
-    },
-    {
-      path: '**',
-      component: NotFoundPageComponent
-    }
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'auth',
+    component: AuthLayoutComponent,
+    loadChildren: 'src/app/auth/auth.module#AuthModule'
+  },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
+  {
+    path: 'create-post',
+    component: LayoutComponent,
+    loadChildren: 'src/app/add-post/add-post.module#AddPostModule'
+  },
+  {
+    path: 'home',
+    component: LayoutComponent,
+    loadChildren: 'src/app/home-page/home-page.module#HomePageModule'
+  },
+  {
+    // only use this path at the beginning, need to add id later
+    path: 'view-post',
+    component: LayoutComponent,
+    loadChildren: 'src/app/post-view/post-view.module#PostViewModule'
+  },
+  {
+    path: 'user',
+    component: LayoutComponent,
+    loadChildren: 'src/app/user/user.module#UserModule'
+  },
+  {
+    path: 'additional',
+    component: LayoutComponent,
+    loadChildren: 'src/app/additional/additional.module#AdditionalModule'
+  },
+  {
+    path: 'region',
+    component: LayoutComponent,
+    loadChildren: 'src/app/region/region.module#RegionModule'
+  },
+  {
+    path: 'trend',
+    component: LayoutComponent,
+    loadChildren: 'src/app/trend/trend.module#TrendModule'
+  },
+  {
+    path: 'not-found',
+    component: NotFoundPageComponent
+  },
+  {
+    path: '**',
+    redirectTo: '/not-found'
+  }
 ];
 
 @NgModule({
