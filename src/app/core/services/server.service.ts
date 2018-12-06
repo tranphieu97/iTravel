@@ -14,8 +14,6 @@ import { PostCategory } from 'src/app/model/postCategory.model';
 import { ProvinceCity } from 'src/app/model/province-city.model';
 import { Location } from 'src/app/model/location.model';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -98,7 +96,7 @@ export class ServerService {
      * @description send get-request to node server for get list all Tag from Tags collection
      */
   getListTags() {
-    return this.http.get<{ message: string; data: Tag[] }>(this.HOST + 'db/tags');
+    return this.http.get<{ message: string, data: Tag[] }>(this.HOST + 'db/tags');
   }
 
   /**
@@ -106,7 +104,7 @@ export class ServerService {
      * @description send get-request to node server for get list all Location from Locations collection
      */
   getListLocations() {
-    return this.http.get<{ message: string; data: Location[] }>(this.HOST + 'db/locations');
+    return this.http.get<{ message: string, data: Location[] }>(this.HOST + 'db/locations');
   }
 
   /**
@@ -114,7 +112,7 @@ export class ServerService {
      * @description send get-request to node server for get list all ProvinceCity from ProvinceCity collection
      */
   getListProvinceCity() {
-    return this.http.get<{ message: string; data: ProvinceCity[] }>(this.HOST + 'db/province-city');
+    return this.http.get<{ message: string, data: ProvinceCity[] }>(this.HOST + 'db/province-city');
   }
 
   /**
@@ -122,7 +120,7 @@ export class ServerService {
      * @description send get-request to node server for list all PostCategory from PostCategories collection
      */
   getListPostCategories() {
-    return this.http.get<{ message: string; data: PostCategory[] }>(this.HOST + 'db/post-categories');
+    return this.http.get<{ message: string, data: PostCategory[] }>(this.HOST + 'db/post-categories');
   }
 
   /**
@@ -130,9 +128,23 @@ export class ServerService {
    * @description send get-request to node server for listAllPost from Posts collection
    */
   getListPosts() {
-    return this.http.get<{ message: string; data: Post[] }>(this.HOST + 'db/posts');
+    return this.http.get<{ message: string, data: Post[] }>(this.HOST + 'db/posts');
   }
 
+  /**
+   * @author Thong
+   * @description send get-request to query one post by Id
+   */
+  getOnePost(postId: string) {
+    console.log(postId);
+    const listParams = new HttpParams().set('postId', postId);
+    return this.http.get<{ message: string, data: Post }>(this.HOST + 'db/post', { headers: this.httpOptions.headers, params: listParams });
+  }
+
+  /**
+   * @author Thong
+   * @description send POST-request to node server for store new post to Posts collection
+   */
   postOnePost(newPost: Post) {
     return this.http.post<{ message: string }>(this.HOST + 'db/posts', newPost);
   }

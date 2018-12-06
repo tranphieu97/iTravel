@@ -8,6 +8,7 @@ const User = require('./model/user.model').User;
 // Include library
 const path = require('path');
 const express = require('express');
+var ObjectId = require('mongodb').ObjectId;
 const multer = require('multer');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
@@ -127,6 +128,39 @@ app.get('/db/posts', (req, res) => {
 });
 
 /**
+ * @name GET-one-post
+ * @author Thong
+ * @param {postId}
+ * @description receive request from serverService, include a postId in request
+ * then query the post has that Id
+ */
+app.get('/db/post', (req, res) => {
+    if (req.param('postId') === null || req.param('postId') === undefined || req.param('postId').length !== 24) {
+        res.status(200).json({
+            message: 'Invalid post Id'
+        })
+    }
+    else {
+        // in request has post Id, create query object from that
+        const queryObj = { _id: new ObjectId(req.param('postId')) }
+
+        database.getCollectionFilterData(database.iTravelDB.Posts, queryObj)
+            .then((receiceData) => {
+                if (receiceData !== null && receiceData !== undefined && receiceData.length > 0) {
+                    res.status(200).json({
+                        message: 'Get one post by id successfuly!',
+                        data: receiceData[0] // because receiceData is an array
+                    })
+                } else {
+                    res.status(200).json({
+                        message: 'Failed! Please make sure post Id is exist'
+                    })
+                }
+            });
+    }
+});
+
+/**
  * @name POST-new-post
  * @author Thong
  * @param request
@@ -149,6 +183,12 @@ app.post('/db/posts', (req, res, next) => {
         });
 });
 
+/**
+ * @name POST-image
+ * @author Thong
+ * @param request
+ * @description receive request include a file and store on server
+ */
 app.post('/upload-image', multer({ storage: storage }).single('image'), (req, res, next) => {
     const imageUrl = req.protocol + '://' // http://
         + req.get("host") // http://localhost:7979
