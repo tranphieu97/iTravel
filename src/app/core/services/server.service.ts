@@ -32,7 +32,7 @@ export class ServerService {
   constructor(private http: HttpClient) { }
 
   getListProvinces(): Observable<Province[]> {
-    return this.http.get<any>(this.HOST + 'db/provinces/').pipe(map((res: any) => {
+    return this.http.get<any>(this.HOST + 'api/provinces/').pipe(map((res: any) => {
       const provinces: Province[] = res.data.map((resItem) => {
         const province = new Province(
           resItem.ProvinceID,
@@ -49,7 +49,7 @@ export class ServerService {
   }
 
   getMenu(): Observable<Menu[]> {
-    return this.http.get<any>(this.HOST + 'db/menu/').pipe(map((res: any) => {
+    return this.http.get<any>(this.HOST + 'api/menu/').pipe(map((res: any) => {
       const menu: Menu[] = res.data.map((resItem) => {
 
         const resItemCategories: Category[] = resItem.Categories.map((resItemCategory) => {
@@ -77,7 +77,7 @@ export class ServerService {
   }
 
   GetCardViewPost(): Observable<CardViewPost[]> {
-    return this.http.get<any>(this.HOST + 'db/posts').pipe(map((res: any) => {
+    return this.http.get<any>(this.HOST + 'api/posts').pipe(map((res: any) => {
       const cardViewPosts: CardViewPost[] = res.data.map((resItem) => {
         const cardViewPost: CardViewPost = new CardViewPost(
           resItem._id,
@@ -98,7 +98,7 @@ export class ServerService {
      * @description send get-request to node server for get list all Tag from Tags collection
      */
   getListTags() {
-    return this.http.get<{ message: string; data: Tag[] }>(this.HOST + 'db/tags');
+    return this.http.get<{ message: string; data: Tag[] }>(this.HOST + 'api/tags');
   }
 
   /**
@@ -106,7 +106,7 @@ export class ServerService {
      * @description send get-request to node server for get list all Location from Locations collection
      */
   getListLocations() {
-    return this.http.get<{ message: string; data: Location[] }>(this.HOST + 'db/locations');
+    return this.http.get<{ message: string; data: Location[] }>(this.HOST + 'api/locations');
   }
 
   /**
@@ -114,7 +114,7 @@ export class ServerService {
      * @description send get-request to node server for get list all ProvinceCity from ProvinceCity collection
      */
   getListProvinceCity() {
-    return this.http.get<{ message: string; data: ProvinceCity[] }>(this.HOST + 'db/province-city');
+    return this.http.get<{ message: string; data: ProvinceCity[] }>(this.HOST + 'api/province-city');
   }
 
   /**
@@ -122,7 +122,7 @@ export class ServerService {
      * @description send get-request to node server for list all PostCategory from PostCategories collection
      */
   getListPostCategories() {
-    return this.http.get<{ message: string; data: PostCategory[] }>(this.HOST + 'db/post-categories');
+    return this.http.get<{ message: string; data: PostCategory[] }>(this.HOST + 'api/post-categories');
   }
 
   /**
@@ -130,11 +130,11 @@ export class ServerService {
    * @description send get-request to node server for listAllPost from Posts collection
    */
   getListPosts() {
-    return this.http.get<{ message: string; data: Post[] }>(this.HOST + 'db/posts');
+    return this.http.get<{ message: string; data: Post[] }>(this.HOST + 'api/posts');
   }
 
   postOnePost(newPost: Post) {
-    return this.http.post<{ message: string }>(this.HOST + '/db/posts', newPost);
+    return this.http.post<{ message: string }>(this.HOST + 'api/posts', newPost);
   }
 
   /**
@@ -146,21 +146,29 @@ export class ServerService {
     // convert to FormData before send to multer
     const uploadImage = new FormData();
     uploadImage.append('image', image);
-    return this.http.post<{ message: string, imageUrl: string }>(this.HOST + 'upload-image', uploadImage);
+    return this.http.post<{ message: string, imageUrl: string }>(this.HOST + 'api/upload-image', uploadImage);
   }
 
   postFeedback(feedback: Feedback): Observable<any> {
-    return this.http.post<any>(this.HOST + 'db/create-feedback', feedback, this.httpOptions);
+    return this.http.post<any>(this.HOST + 'api/create-feedback', feedback, this.httpOptions);
   }
 
   postSearchHistory(searchHistory: SearchHistory): Observable<any> {
-    return this.http.post<any>(this.HOST + 'db/create-search-history', searchHistory, this.httpOptions);
+    return this.http.post<any>(this.HOST + 'api/create-search-history', searchHistory, this.httpOptions);
   }
 
+  /**
+   * Get data search by search bar was saved in log
+   * @name getReportBySearchKeyWordData
+   * @author phieu-th
+   * @param startDate
+   * @param endDate
+   */
   getReportBySearchKeyWordData(startDate: Date, endDate: Date): Observable<any> {
-    const params = new HttpParams().set('startDate', startDate.toString())
-                                   .set('endDate', endDate.toString());
+    const params = new HttpParams()
+      .set('startDate', startDate.toString())
+      .set('endDate', endDate.toString());
 
-    return this.http.get<any>(this.HOST + 'db/report/searchkeyword', {headers: this.httpOptions.headers, params: params});
+    return this.http.get<any>(this.HOST + 'api/report/searchkeyword', {headers: this.httpOptions.headers, params: params});
   }
 }
