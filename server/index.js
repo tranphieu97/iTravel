@@ -52,7 +52,6 @@ app.use('/images', express.static(path.join("server/images")))
 
 app.listen(config.APP_PORT, () => {
     console.log('Server is running at http://localhost:' + config.APP_PORT + '/');
-    
 });
 
 app.use((req, res, next) => {
@@ -77,7 +76,7 @@ app.get('/', (req, res) => {
     res.send('http://localhost:7979/');
 });
 
-app.get('/db/provinces', (req, res) => {
+app.get('/api/provinces', (req, res) => {
     database.getCollectionData(database.iTravelDB.Provinces).then((data) => {
         if (data != null) {
             res.status(200).json({
@@ -92,7 +91,7 @@ app.get('/db/provinces', (req, res) => {
     });
 });
 
-app.get('/db/province-city', (req, res) => {
+app.get('/api/province-city', (req, res) => {
     database.getCollectionData(database.iTravelDB.ProvinceCity).then((data) => {
         if (data != null) {
             res.status(200).json({
@@ -107,7 +106,7 @@ app.get('/db/province-city', (req, res) => {
     });
 });
 
-app.get('/db/menu', (req, res) => {
+app.get('/api/menu', (req, res) => {
     // const COLECTION_NAME = 'Menu';
     database.getCollectionData(database.iTravelDB.Menu).then((data) => {
         if (data != null) {
@@ -123,7 +122,7 @@ app.get('/db/menu', (req, res) => {
     });
 });
 
-app.get('/db/posts', (req, res) => {
+app.get('/api/posts', (req, res) => {
     // const COLECTION_NAME = 'Posts';
     database.getCollectionData(database.iTravelDB.Posts).then((data) => {
         if (data != null) {
@@ -179,7 +178,7 @@ app.get('/api/post', (req, res) => {
  * @description receive request from serverService, include a postData in requestBody
  * then insert that post to mongodb, send back response with message
  */
-app.post('/db/posts', (req, res, next) => {
+app.post('/api/posts', (req, res, next) => {
     const post = req.body;
     // pass a post to insertOneToColection(), function will upload to server automaticaly
     database.insertOneToColection(database.iTravelDB.Posts, post)
@@ -221,7 +220,7 @@ app.post('/upload-image', multer({ storage: storage }).single('image'), (req, re
  * @description receive request from serverService
  * then call to fetch all tags from mongodb, send back response with message and data if successful
  */
-app.get('/db/tags', (req, res, next) => {
+app.get('/api/tags', (req, res, next) => {
     database.getCollectionData(database.iTravelDB.Tags).then((data) => {
         if (data != null) {
             res.status(200).json({
@@ -243,7 +242,7 @@ app.get('/db/tags', (req, res, next) => {
  * @description receive request from serverService
  * then call to fetch all locations from mongodb, send back response with message and data if successful
  */
-app.get('/db/locations', (req, res, next) => {
+app.get('/api/locations', (req, res, next) => {
     database.getCollectionData(database.iTravelDB.Locations).then((data) => {
         if (data != null) {
             res.status(200).json({
@@ -265,7 +264,7 @@ app.get('/db/locations', (req, res, next) => {
  * @description receive request from serverService
  * then call to fetch all tags from mongodb, send back response with message and data if successful
  */
-app.get('/db/post-categories', (req, res, next) => {
+app.get('/api/post-categories', (req, res, next) => {
     database.getCollectionData(database.iTravelDB.PostCategories).then((data) => {
         if (data != null) {
             res.status(200).json({
@@ -280,7 +279,7 @@ app.get('/db/post-categories', (req, res, next) => {
     });
 });
 
-app.post('/db/create-feedback', (req, res) => {
+app.post('/api/create-feedback', (req, res) => {
 
     const feedback = req.body;
 
@@ -303,7 +302,7 @@ app.post('/db/create-feedback', (req, res) => {
     }
 });
 
-app.post('/db/create-search-history', (req, res) => {
+app.post('/api/create-search-history', (req, res) => {
 
     const searchHistory = req.body;
 
@@ -332,7 +331,7 @@ app.post('/db/create-search-history', (req, res) => {
     }
 });
 
-app.get('/db/report/searchkeyword', (req, res) => {
+app.get('/api/report/searchkeyword', (req, res) => {
     startDate = new Date(req.param('startDate'));
     endDate = new Date(req.param('endDate'));
 
