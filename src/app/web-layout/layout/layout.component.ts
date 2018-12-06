@@ -8,7 +8,7 @@ import { MasterPageService } from 'src/app/core/services/master-page.service';
 })
 export class LayoutComponent implements OnInit {
 
-  constructor(private mtpService: MasterPageService) { }
+  constructor(public mtpService: MasterPageService) { }
 
   ngOnInit() {
   }

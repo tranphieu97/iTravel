@@ -27,8 +27,8 @@ export class HeaderComponent implements OnInit {
     isShowVisiterTool: false
   };
 
-  constructor(private mtpService: MasterPageService, private server: ServerService,
-    private user: UserService, private router: Router) { }
+  constructor(public mtpService: MasterPageService, private server: ServerService,
+    public user: UserService, private router: Router) { }
 
   ngOnInit() {
 

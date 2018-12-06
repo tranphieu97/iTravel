@@ -16,7 +16,7 @@ export class NavbarMenuComponent implements OnInit {
 
   isSingleMenu: Boolean = false;
 
-  constructor(private mtpService: MasterPageService, private route: Router) { }
+  constructor(public mtpService: MasterPageService, private route: Router) { }
 
   ngOnInit() {
     if (this.inputMenu.categories.length > 0) {
