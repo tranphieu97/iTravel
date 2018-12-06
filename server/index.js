@@ -144,7 +144,7 @@ app.get('/api/posts', (req, res) => {
  * @description receive request from serverService, include a postId in request
  * then query the post has that Id
  */
-app.get('/db/post', (req, res) => {
+app.get('/api/post', (req, res) => {
     if (req.param('postId') === null || req.param('postId') === undefined || req.param('postId').length !== 24) {
         res.status(200).json({
             message: 'Invalid post Id'

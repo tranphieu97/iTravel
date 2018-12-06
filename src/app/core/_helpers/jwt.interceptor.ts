@@ -3,7 +3,9 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/c
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../services/authentication.service';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+  })
 export class JWTInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
