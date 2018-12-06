@@ -52,6 +52,7 @@ app.use('/images', express.static(path.join("server/images")))
 
 app.listen(config.APP_PORT, () => {
     console.log('Server is running at http://localhost:' + config.APP_PORT + '/');
+    
 });
 
 app.use((req, res, next) => {
