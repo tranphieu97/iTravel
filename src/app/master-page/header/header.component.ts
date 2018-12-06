@@ -6,6 +6,7 @@ import { SearchHistory } from 'src/app/model/searchHistory.model';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { UserService } from '../../core/services/user.service';
+import { LanguageService } from '../../core/services/language.service';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class HeaderComponent implements OnInit {
     isShowVisiterTool: false
   };
 
-  constructor(public mtpService: MasterPageService, private server: ServerService,
+  constructor(public mtpService: MasterPageService, private server: ServerService, private language: LanguageService,
     public user: UserService, private router: Router) { }
 
   ngOnInit() {

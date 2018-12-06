@@ -29,16 +29,17 @@
             <i class="fas fa-globe-asia"></i>
         </span>
         <div [ngClass]="{'dropdown-menu': true, 'dropdown-show':headerFlags.isShowLanguage}" id="language-dropdown">
-            <a class="dropdown-item" href="#">Vietnamese</a>
-            <a class="dropdown-item" href="#">English</a>
+            <a class="dropdown-item" (click)="this.language.setVietnamese()">{{language.currentLanguage.headerVietnamese}}</a>
+            <a class="dropdown-item" (click)="this.language.setEnglish()">{{language.currentLanguage.headerEnglish}}</a>
         </div>
     </div>
     <div class="toolbar-icon">
         <span><i class="fas fa-cog"></i></span>
     </div>
     <div *ngIf="user.isLogin" class="toolbar-icon-wide dropdown">
-        <span (click)="changeHeaderFlagByFlagName('isShowUserTool')">Hi, <strong>{{this.user.currentUser.fullName}}</strong>
-            </span>
+        <span (click)="changeHeaderFlagByFlagName('isShowUserTool')">
+            {{language.currentLanguage.headerHi}} <strong>{{this.user.currentUser.fullName}}</strong>
+        </span>
         <img [src]="this.user.currentUser.avatar" (click)="changeHeaderFlagByFlagName('isShowUserTool')" id="user-avatar">
         <div [ngClass]="{'dropdown-menu': true, 'dropdown-show':headerFlags.isShowUserTool}" id="user-dropdown">
             <a class="dropdown-item">Personal Information</a>
@@ -47,11 +48,11 @@
     </div>
     <div *ngIf="!user.isLogin" class="toolbar-icon-wide dropdown">
         <span (click)="changeHeaderFlagByFlagName('isShowVisiterTool')" id="login-span">
-            Hi, <strong> Do you want to login?</strong>
+            {{language.currentLanguage.headerHi}} <strong>{{language.currentLanguage.headerQuestionToLogin}}</strong>
         </span>
         <div [ngClass]="{'dropdown-menu': true, 'dropdown-show':headerFlags.isShowVisiterTool}" id="visiter-dropdown">
-            <a class="dropdown-item" [routerLink]="['/auth/login']">Login</a>
-            <a class="dropdown-item" [routerLink]="['/auth/register']">Register</a>
+            <a class="dropdown-item" [routerLink]="['/auth/login']">{{language.currentLanguage.headerLogin}}</a>
+            <a class="dropdown-item" [routerLink]="['/auth/register']">{{language.currentLanguage.headerRegister}}</a>
         </div>
     </div>
 </div>
