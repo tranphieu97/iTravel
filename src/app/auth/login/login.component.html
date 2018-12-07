@@ -1,5 +1,5 @@
 <div>
-  <h1>Sign In</h1>
+  <h1>{{language.currentLanguage.loginTitle}}</h1>
 </div>
 <div class="login-form">
   <div class="alert alert-danger" *ngIf="isFailLogin"
@@ -8,7 +8,7 @@
   </div>
   <form [formGroup]="loginForm" novalidate>
     <div class="form-group">
-      <label>Username <span class="red-span">(*)</span>:</label>
+      <label>{{language.currentLanguage.loginUsername}} <span class="red-span">(*)</span>:</label>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1"><i class="far fa-user"></i></span>
@@ -17,18 +17,18 @@
       </div>
       <div *ngIf="!loginForm.get('username').valid && (loginForm.get('username').dirty || loginForm.get('username').touched)" class="form-mess">
         <div *ngIf="loginForm.get('username').hasError('required')" class="error-mess">
-          This information is required
+            {{language.currentLanguage.loginErrorUsernameRequired}}
         </div>
         <div *ngIf="loginForm.get('username').hasError('minlength') || loginForm.get('username').hasError('maxlength')" class="error-mess">
-          An Username has 6 - 30 charaters
+            {{language.currentLanguage.loginErrorUsernameLength}}
         </div>
         <div *ngIf="loginForm.get('username').hasError('pattern')" class="error-mess">
-          An Username just includes charaters a-z, number, "_" and "-"
+            {{language.currentLanguage.loginErrorUsernamePattern}}
         </div>
       </div>
     </div>
     <div class="form-group">
-      <label>Password <span class="red-span">(*)</span>:</label>
+      <label>{{language.currentLanguage.loginPassword}} <span class="red-span">(*)</span>:</label>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1"><i class="fas fa-unlock-alt"></i></span>
@@ -37,23 +37,25 @@
       </div>
       <div *ngIf="!loginForm.get('password').valid && (loginForm.get('password').dirty || loginForm.get('password').touched)" class="form-mess">
         <div *ngIf="loginForm.get('password').hasError('required')" class="error-mess">
-          This information is required
+            {{language.currentLanguage.loginErrorPasswordRequired}}
         </div>
         <div *ngIf="loginForm.get('password').hasError('minlength')" class="error-mess">
-          A Password has least 8 charaters
+            {{language.currentLanguage.loginErrorPasswordLength}}
         </div>
       </div>
     </div>
     <div class="form-row">
-      <button type="submit" (click)="validateData()" class="btn btn-success" [disabled]="loginForm.invalid" >Sign In</button>
+      <button type="submit" (click)="validateData()" class="btn btn-success" [disabled]="loginForm.invalid" >
+        {{language.currentLanguage.loginSignIn}}
+      </button>
     </div>
   </form>
 </div>
 <div class="google-login">
   <button type="button" class="btn btn-danger btn-block" [disabled]="true">
-    <span><i class="fab fa-google"></i></span> Sign in with <b>Google</b>
+    <span><i class="fab fa-google"></i></span>{{language.currentLanguage.loginSignInWithGoogle}}<b>Google</b>
   </button>
 </div>
 <div class="auth-additional">
-  <p>Not Registered? <span (click)="redirectToRegister()" id="create-account-link">Create an Account</span></p>
+  <p>{{language.currentLanguage.loginNotRegister}}<span (click)="redirectToRegister()" id="create-account-link">{{language.currentLanguage.loginCreatAnAccount}}</span></p>
 </div>

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../../core/services/authentication.service';
+import { LanguageService } from '../../core/services/language.service';
 
 @Component({
   selector: 'app-login',
@@ -15,11 +16,11 @@ export class LoginComponent implements OnInit {
   isFailLogin: Boolean = false;
   loginMessage: String = '';
 
-  usernameRegex: RegExp = new RegExp('^(?=.*[a-z])[a-z0-9._@-]{1,30}$');
-  passwordRegex: RegExp = new RegExp('(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{1,30}$');
+  private usernameRegex: RegExp = new RegExp('^(?=.*[a-z])[a-z0-9._@-]{1,30}$');
+  private passwordRegex: RegExp = new RegExp('(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{1,30}$');
 
   constructor(private router: Router, private formBuilder: FormBuilder,
-    private authentication: AuthenticationService) { }
+    private authentication: AuthenticationService, private language: LanguageService) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({

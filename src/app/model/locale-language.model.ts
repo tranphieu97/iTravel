@@ -18,6 +18,11 @@ export class LocaleLanguage {
     loginSignInWithGoogle: string;
     loginNotRegister: string;
     loginCreatAnAccount: string;
+    loginErrorUsernameRequired: string;
+    loginErrorUsernameLength: string;
+    loginErrorUsernamePattern: string;
+    loginErrorPasswordRequired: string;
+    loginErrorPasswordLength: string;
 
     // For Register Component
     registerTitle: string;
@@ -30,6 +35,13 @@ export class LocaleLanguage {
     registerRegister: string;
     registerBackToHome: string;
     registerBackToLogin: string;
+    registerErrorFirstNameRequired: string;
+    registerErrorUsernameRequired: string;
+    registerErrorUsernameLength: string;
+    registerErrorUsernamePattern: string;
+    registerErrorPasswordRequired: string;
+    registerErrorPasswordLength: string;
+    registerErrorPasswordPattern: string;
 
     constructor() {}
 }
