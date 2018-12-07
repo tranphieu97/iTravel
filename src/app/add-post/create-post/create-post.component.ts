@@ -14,9 +14,9 @@ import { ActivatedRoute, Params } from '@angular/router';
 export class CreatePostComponent implements OnInit {
   // local post receive data from service
   // it should has init data until receiving data from server so browser will not has error
-  private post: Post = new Post(null, null, [], [], '', '', '', null, [], 0, '', [], '');
+  post: Post = new Post(null, null, [], [], '', '', '', null, [], 0, '', [], '');
   // variable store Subscription for easy unSubscribe or subscribe again
-  private postsSub: Subscription;
+  postsSub: Subscription;
 
   constructor(
     private postService: PostViewService,

@@ -11,16 +11,16 @@ import { Province } from '../../model/province.model';
 })
 export class VietNamMapComponent implements OnInit {
 
-  private pathPosition_X: number;
-  private pathPosition_Y: number;
+  pathPosition_X: number;
+  pathPosition_Y: number;
 
-  private isFocusLocation: Boolean = false;
-  private isFocusPopup: Boolean = false;
+  isFocusLocation: Boolean = false;
+  isFocusPopup: Boolean = false;
 
-  private mousePosition_X: number;
-  private mousePosition_Y: number;
+  mousePosition_X: number;
+  mousePosition_Y: number;
 
-  private listProvinces: Province[];
+  listProvinces: Province[];
 
   private popupInfo: any = {
     ProvinceName: '',

@@ -1,6 +1,6 @@
 
 export class CardViewPost {
-    id: string;
+    _id: string;
     title: string;
     cover: string;
     categories: string[];
@@ -9,7 +9,7 @@ export class CardViewPost {
 
     constructor(id: string, title: string, cover: string,
     categories: string[], createdTime: Date, description: string) {
-        this.id = id;
+        this._id = id;
         this.title = title;
         this.cover = cover;
         this.categories = categories;

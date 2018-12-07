@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { JWTInterceptor } from '../core/_helpers/jwt.interceptor';
 
 
 @NgModule({
@@ -29,7 +30,11 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     ModalModule,
     ReactiveFormsModule
   ],
-  declarations: [],
-  providers: []
+  declarations: [
+
+  ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JWTInterceptor, multi: true }
+  ]
 })
 export class SharedModule { }
