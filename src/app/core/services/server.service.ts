@@ -157,9 +157,10 @@ export class ServerService {
    */
   uploadImage(image: File) {
     // convert to FormData before send to multer
+    // console.log(image);
     const uploadImage = new FormData();
     uploadImage.append('image', image);
-    return this.http.post<{ message: string, imageUrl: string }>(this.HOST + 'upload-image', uploadImage);
+    return this.http.post<{ message: string, imageUrl: string }>(this.HOST + 'api/upload-image', uploadImage);
   }
 
   postFeedback(feedback: Feedback): Observable<any> {
@@ -172,8 +173,8 @@ export class ServerService {
 
   getReportBySearchKeyWordData(startDate: Date, endDate: Date): Observable<any> {
     const params = new HttpParams().set('startDate', startDate.toString())
-                                   .set('endDate', endDate.toString());
+      .set('endDate', endDate.toString());
 
-    return this.http.get<any>(this.HOST + 'api/report/searchkeyword', {headers: this.httpOptions.headers, params: params});
+    return this.http.get<any>(this.HOST + 'api/report/searchkeyword', { headers: this.httpOptions.headers, params: params });
   }
 }

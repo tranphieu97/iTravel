@@ -17,34 +17,6 @@ var Q = require('q');
 
 const app = express();
 
-// some extention of image that allow to save on server
-const MINE_TYPE_MAP = {
-    'image/png': 'png',
-    'image/jpg': 'jpg',
-    'image/jpeg': 'jpg'
-};
-/**
- * @author Thong
- * @description config multer for store image on server
- */
-const storage = multer.diskStorage({
-    destination: (req, file, cback) => {
-        // check file type is valid
-        const isValid = MINE_TYPE_MAP[file.mimetype];
-        let err = new Error('Invalid mine type');
-        if (isValid) {
-            err = null;
-        }
-        cback(err, 'server/images');
-    },
-    filename: (req, file, cback) => {
-        // remove space and replace by '-'
-        const name = file.originalname.toLowerCase().trim().split(' ').join('-');
-        const ext = MINE_TYPE_MAP[file.mimetype];
-        cback(null, name + '-' + Date.now() + '.' + ext);
-    }
-});
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 // allow outside connect to /images and map to server/images folder on server
@@ -58,7 +30,7 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', ['*']);
     res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, Content-Type,Accept, X-Auth-Token, App-Auth, X-XSRF-TOKEN, Authorization');
-    
+
     // check token
     const url = req.url;
     const token = req.headers.authorization;
@@ -67,7 +39,7 @@ app.use((req, res, next) => {
             message: 'Unauthorize'
         });
     }
-    
+
     next();
 });
 
@@ -195,12 +167,34 @@ app.post('/api/posts', (req, res, next) => {
 });
 
 /**
+ * @author Thong
+ * @description config multer for store image on server
+ */
+const storage = multer.diskStorage({
+    destination: (req, file, cback) => {
+        // check file type is valid
+        const isValid = config.MINE_TYPE_MAP[file.mimetype];
+        let err = new Error('Invalid mine type');
+        if (isValid) {
+            err = null;
+        }
+        cback(err, 'server/images');
+    },
+    filename: (req, file, cback) => {
+        // remove space and replace by '-'
+        const name = file.originalname.toLowerCase().trim().split(' ').join('-');
+        const ext = config.MINE_TYPE_MAP[file.mimetype];
+        cback(null, name + '-' + Date.now() + '.' + ext);
+    }
+});
+
+/**
  * @name POST-image
  * @author Thong
  * @param request
  * @description receive request include a file and store on server
  */
-app.post('/upload-image', multer({ storage: storage }).single('image'), (req, res, next) => {
+app.post('/api/upload-image', multer({ storage: storage }).single('image'), (req, res, next) => {
     const imageUrl = req.protocol + '://' // http://
         + req.get("host") // http://localhost:7979
         + "/images/" // http://localhost:7979/images/
@@ -489,8 +483,8 @@ app.post('/auth/login', async (req, res) => {
                                 isAdmin: isAdmin
                             }
 
-                            
-                            
+
+
                             const data = {
                                 username: userInfo.username,
                                 firstName: userInfo.firstName,

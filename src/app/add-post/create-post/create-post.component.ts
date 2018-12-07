@@ -4,7 +4,8 @@ import { ServerService } from 'src/app/core/services/server.service';
 import { Post } from 'src/app/model/post.model';
 import { Subscription } from 'rxjs';
 import { ConstantService } from 'src/app/core/services/constant.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Location } from 'src/app/model/location.model';
 
 @Component({
   selector: 'app-create-post',
@@ -14,39 +15,48 @@ import { ActivatedRoute, Params } from '@angular/router';
 export class CreatePostComponent implements OnInit {
   // local post receive data from service
   // it should has init data until receiving data from server so browser will not has error
-  post: Post = new Post(null, null, [], [], '', '', '', null, [], 0, '', [], '');
+  post: Post = new Post(null, null, [], [], '', '', '', new Location('', [], '', ''), [], 0, '', [], '');
+  // if postId == '' => create new post
+  // if postId != '' => edit post
+  postId = '';
   // variable store Subscription for easy unSubscribe or subscribe again
-  postsSub: Subscription;
+  // postsSub: Subscription;
 
   constructor(
     private postService: PostViewService,
-    private server: ServerService,
+    private serverService: ServerService,
     private constant: ConstantService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
-    this.postsSub = this.postService.postsUpdated.asObservable()
-      .subscribe((posts: Post[]) => {
-        this.post = posts[1];
-        // console.log(this.post.location);
-      });
-    this.postService.getAllPosts();
-    this.route.params
-      .subscribe(
-        (params: Params) => {
-          this.post._id = params['id'];
-
+    this.route.params.subscribe((params: Params) => {
+      // check empty param or not
+      if (params['id'] !== undefined) {
+        this.postId = params['id'];
+      }
+      // check valid post Id or not
+      if (this.postId.length !== 24) {
+        if (this.postId === '') {
+          // if id === '', component load as create new post
+        } else {
+          // invalid Id => not-found
+          this.router.navigate(['/not-found']);
         }
-      );
+      } else {
+        this.serverService.getOnePost(this.postId).subscribe((resData) => {
+          if (resData.data !== null && resData.data !== undefined) {
+            this.post = resData.data;
+          } else {
+            this.router.navigate(['/not-found']);
+          }
+        });
+      }
+    });
   }
 
   onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
-    // const reader = new FileReader();
-    // reader.onload = () => {
-    //   this.post.cover = reader.result.toString();
-    // };
-    // reader.readAsDataURL(file);
 
     this.postService.uploadImage(file).subscribe((resData) => {
       if (resData.imageUrl !== '') {
@@ -60,16 +70,20 @@ export class CreatePostComponent implements OnInit {
   }
 
   onSave() {
-    // fix some default infomation for post
-    this.post._id = null;
-    this.post.createdTime = new Date();
-    this.post.approvedTime = null;
-    // this.post.authorId
-    this.post.rating = 0;
-    this.post.status = this.constant.POST_STATUS.NEW;
-    this.postService.addOnePost(this.post).subscribe((resData) => {
-      //
-    });
+    if (this.postId === '') {
+      // fix some default infomation for post
+      this.post._id = null;
+      this.post.createdTime = new Date();
+      this.post.approvedTime = null;
+      // this.post.authorId
+      this.post.rating = 0;
+      this.post.status = this.constant.POST_STATUS.NEW;
+      this.postService.addOnePost(this.post).subscribe((resData) => {
+        //
+      });
+    } else {
+      // save edited post
+    }
   }
 
   onCancel() {

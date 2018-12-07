@@ -62,8 +62,6 @@ export class PostViewService {
     }
 
     uploadImage(image: File) {
-        // const newImage = new FormData();
-        // newImage.append('image', image);
         return this.server.uploadImage(image);
     }
 }

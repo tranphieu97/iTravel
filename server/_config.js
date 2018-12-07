@@ -17,6 +17,13 @@ const verifyOptions = {
     algorithm: ["RS256"]
 }
 
+// some extention of image that allow to save on server
+const MINE_TYPE_MAP = {
+    'image/png': 'png',
+    'image/jpg': 'jpg',
+    'image/jpeg': 'jpg'
+};
+
 module.exports = {
     APP_PORT: APP_PORT,
     DB_HOST: DB_HOST,
@@ -25,5 +32,6 @@ module.exports = {
     SECRET_KEY: SECRET_KEY,
     PUBLIC_KEY: PUBLIC_KEY,
     signOptions: signOptions,
-    verifyOptions: verifyOptions
+    verifyOptions: verifyOptions,
+    MINE_TYPE_MAP: MINE_TYPE_MAP
 };

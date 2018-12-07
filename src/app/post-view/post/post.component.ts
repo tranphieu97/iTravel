@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PostViewService } from '../post-view.service';
 import { Post } from 'src/app/model/post.model';
-import { Subscription } from 'rxjs';
 import { ServerService } from 'src/app/core/services/server.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Location } from 'src/app/model/location.model';
 
 @Component({
   selector: 'app-post',
@@ -13,7 +12,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 export class PostComponent implements OnInit {
   // local post receive data from server
   // it should has init data until receiving data from server so browser will not has error
-  post: Post = new Post(null, null, [], [], '', '', '', null, [], 0, '', [], '');
+  post: Post = new Post(null, null, [], [], '', '', '', new Location('', [], '', ''), [], 0, '', [], '');
   private postId;
 
   constructor(private serverService: ServerService, private route: ActivatedRoute, private router: Router) { }
