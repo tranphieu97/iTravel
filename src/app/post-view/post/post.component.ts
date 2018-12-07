@@ -21,14 +21,22 @@ export class PostComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.postId = params['id'];
-    });
-    this.serverService.getOnePost(this.postId).subscribe((resData) => {
-      if (resData.data !== null && resData.data !== undefined) {
-        this.post = resData.data;
-      } else {
+      // check valid post Id or not
+      if (this.postId.length !== 24) {
+        // invalid => not-found
         this.router.navigate(['/not-found']);
+      } else {
+        this.serverService.getOnePost(this.postId).subscribe((resData) => {
+          if (resData.data !== null && resData.data !== undefined) {
+            this.post = resData.data;
+          } else {
+            this.router.navigate(['/not-found']);
+          }
+        });
       }
     });
+
+
     // this.postsSub = this.postService.postsUpdated.asObservable()
     //   .subscribe((posts: Post[]) => {
     //     this.post = posts[1];
