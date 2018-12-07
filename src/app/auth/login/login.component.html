@@ -13,7 +13,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1"><i class="far fa-user"></i></span>
         </div>
-        <input formControlName="username" type="text" class="form-control" placeholder="Enter your Username" name="username">
+        <input formControlName="username" type="text" class="form-control" [placeholder]="language.currentLanguage.loginEnterUsername" name="username">
       </div>
       <div *ngIf="!loginForm.get('username').valid && (loginForm.get('username').dirty || loginForm.get('username').touched)" class="form-mess">
         <div *ngIf="loginForm.get('username').hasError('required')" class="error-mess">
@@ -33,7 +33,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1"><i class="fas fa-unlock-alt"></i></span>
         </div>
-        <input formControlName="password" type="password" class="form-control" placeholder="Enter your Username" name="password">
+        <input formControlName="password" type="password" class="form-control" [placeholder]="language.currentLanguage.loginEnterPassword" name="password">
       </div>
       <div *ngIf="!loginForm.get('password').valid && (loginForm.get('password').dirty || loginForm.get('password').touched)" class="form-mess">
         <div *ngIf="loginForm.get('password').hasError('required')" class="error-mess">

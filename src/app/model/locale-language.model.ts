@@ -23,6 +23,8 @@ export class LocaleLanguage {
     loginErrorUsernamePattern: string;
     loginErrorPasswordRequired: string;
     loginErrorPasswordLength: string;
+    loginEnterUsername: string;
+    loginEnterPassword: string;
 
     // For Register Component
     registerTitle: string;
@@ -42,6 +44,11 @@ export class LocaleLanguage {
     registerErrorPasswordRequired: string;
     registerErrorPasswordLength: string;
     registerErrorPasswordPattern: string;
+    registerEnterFirstname: string;
+    registerEnterLastname: string;
+    registerEnterUsername: string;
+    registerEnterPassword: string;
+    registerEnterConfirmPassword: string;
 
     constructor() {}
 }

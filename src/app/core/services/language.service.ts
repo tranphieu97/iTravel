@@ -40,6 +40,8 @@ export class LanguageService {
     this.vnLanguage.loginErrorUsernamePattern = 'Tên đăng nhập bao gồm chữ, số, dấu _, @ và - ';
     this.vnLanguage.loginErrorPasswordRequired = 'Mật khẩu là bắt buộc';
     this.vnLanguage.loginErrorPasswordLength = 'Mật khẩu dài từ 8 ký tự';
+    this.vnLanguage.loginEnterUsername = 'Nhập Tên đăng nhập';
+    this.vnLanguage.loginEnterPassword = 'Nhập Mật khẩu';
 
     // For Register Component
     this.vnLanguage.registerTitle = 'ĐĂNG KÝ';
@@ -59,6 +61,11 @@ export class LanguageService {
     this.vnLanguage.registerErrorPasswordRequired = 'Mật khẩu là bắt buộc';
     this.vnLanguage.registerErrorPasswordLength = 'Mật khẩu dài từ 8 ký tự';
     this.vnLanguage.registerErrorPasswordPattern = 'Mật khẩu gồm chữ in hoa, chữ thường và số';
+    this.vnLanguage.registerEnterFirstname = 'Nhập tên';
+    this.vnLanguage.registerEnterLastname = 'Nhập họ';
+    this.vnLanguage.registerEnterUsername = 'Nhập Tên đăng nhập';
+    this.vnLanguage.registerEnterPassword = 'Nhập mật khẩu';
+    this.vnLanguage.registerEnterConfirmPassword = 'Nhập lại mật khẩu';
   }
 
   createEnglishDictionary() {
@@ -84,6 +91,8 @@ export class LanguageService {
     this.enLanguage.loginErrorUsernamePattern = 'An Username just includes charaters a-z, number, _, @ and -';
     this.enLanguage.loginErrorPasswordRequired = 'Password is required';
     this.enLanguage.loginErrorPasswordLength = 'A Password has least 8 charaters';
+    this.enLanguage.loginEnterUsername = 'Enter your Username';
+    this.enLanguage.loginEnterPassword = 'Enter your Password';
 
     // For Register Component
     this.enLanguage.registerTitle = 'REGISTER';
@@ -103,6 +112,12 @@ export class LanguageService {
     this.enLanguage.registerErrorPasswordRequired = 'Password is required';
     this.enLanguage.registerErrorPasswordLength = 'A Password has least 8 charaters';
     this.enLanguage.registerErrorPasswordPattern = 'A Password need includes upper case charaters, lower case charaters, numbers';
+    this.enLanguage.registerEnterFirstname = 'Enter your First name';
+    this.enLanguage.registerEnterLastname = 'Enter your Last name';
+    this.enLanguage.registerEnterUsername = 'Enter your Username';
+    this.enLanguage.registerEnterPassword = 'Enter your Password';
+    this.enLanguage.registerEnterConfirmPassword = 'Re-enter your Password';
+
   }
 
   setVietnamese() {
