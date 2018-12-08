@@ -20,7 +20,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 // allow outside connect to /images and map to server/images folder on server
-app.use('/images', express.static(path.join("server/images")))
+app.use('/api/images', express.static(path.join("server/images")))
 
 app.listen(config.APP_PORT, () => {
     console.log('Server is running at http://localhost:' + config.APP_PORT + '/');
@@ -197,7 +197,7 @@ const storage = multer.diskStorage({
 app.post('/api/upload-image', multer({ storage: storage }).single('image'), (req, res, next) => {
     const imageUrl = req.protocol + '://' // http://
         + req.get("host") // http://localhost:7979
-        + "/images/" // http://localhost:7979/images/
+        + "/api/images/" // http://localhost:7979/images/
         + req.file.filename; // http://localhost:7979/images/abc.jpg
     // if (req.file !== undefined || req.file) {
     res.status(201).json({
