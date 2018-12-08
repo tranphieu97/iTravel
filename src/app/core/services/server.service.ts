@@ -156,11 +156,9 @@ export class ServerService {
    */
   uploadImage(image: File) {
     // convert to FormData before send to multer
-    // console.log(image);
     const uploadImage = new FormData();
     uploadImage.append('image', image);
-    console.log(this.http.post<{ message: string, imageUrl: string }>(this.HOST + 'api/upload-image', uploadImage, this.httpOptions));
-    return this.http.post<{ message: string, imageUrl: string }>(this.HOST + 'api/upload-image', uploadImage, this.httpOptions);
+    return this.http.post<{ message: string, imageUrl: string }>(this.HOST + 'api/upload-image', uploadImage);
   }
 
   postFeedback(feedback: Feedback): Observable<any> {
