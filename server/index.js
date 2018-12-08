@@ -27,7 +27,7 @@ app.listen(config.APP_PORT, () => {
 });
 
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', ['*']);
+    res.setHeader('Access-Control-Allow-Origin', ['*','http://localhost:4200']);
     res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, Content-Type,Accept, X-Auth-Token, App-Auth, X-XSRF-TOKEN, Authorization');
 

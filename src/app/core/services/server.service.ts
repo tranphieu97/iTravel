@@ -136,7 +136,6 @@ export class ServerService {
    * @description send get-request to query one post by Id
    */
   getOnePost(postId: string) {
-    console.log(postId);
     const listParams = new HttpParams().set('postId', postId);
     // tslint:disable-next-line:max-line-length
     return this.http.get<{ message: string, data: Post }>(this.HOST + 'api/post', { headers: this.httpOptions.headers, params: listParams });
@@ -160,7 +159,8 @@ export class ServerService {
     // console.log(image);
     const uploadImage = new FormData();
     uploadImage.append('image', image);
-    return this.http.post<{ message: string, imageUrl: string }>(this.HOST + 'api/upload-image', uploadImage);
+    console.log(this.http.post<{ message: string, imageUrl: string }>(this.HOST + 'api/upload-image', uploadImage, this.httpOptions));
+    return this.http.post<{ message: string, imageUrl: string }>(this.HOST + 'api/upload-image', uploadImage, this.httpOptions);
   }
 
   postFeedback(feedback: Feedback): Observable<any> {

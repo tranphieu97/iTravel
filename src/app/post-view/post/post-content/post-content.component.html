@@ -12,7 +12,9 @@
     </div>
     <!-- row 3 has an image and description -->
     <div class="row" *ngIf="postContent.image.length > 0">
-      <img [src]="postContent.image" [alt]="postContent.imageDesc" class="img-fluid">
+      <div class="col-12 img-frame">
+        <img [src]="postContent.image" [alt]="postContent.imageDesc" class="img-fluid">
+      </div>
     </div>
     <!-- row 3 has an image and description -->
     <div class="row bottom">

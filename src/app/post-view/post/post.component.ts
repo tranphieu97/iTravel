@@ -13,6 +13,8 @@ export class PostComponent implements OnInit {
   // local post receive data from server
   // it should has init data until receiving data from server so browser will not has error
   post: Post = new Post(null, null, [], [], '', '', '', new Location('', [], '', ''), [], 0, '', [], '');
+  postAuthorName = '';
+  postCreateTime = '';
   private postId;
 
   constructor(private serverService: ServerService, private route: ActivatedRoute, private router: Router) { }
@@ -28,13 +30,14 @@ export class PostComponent implements OnInit {
         this.serverService.getOnePost(this.postId).subscribe((resData) => {
           if (resData.data !== null && resData.data !== undefined) {
             this.post = resData.data;
+            // convert data to string to show on view
+            this.postCreateTime = this.post.approvedTime.getDay.toString();
           } else {
             this.router.navigate(['/not-found']);
           }
         });
       }
     });
-
 
     // this.postsSub = this.postService.postsUpdated.asObservable()
     //   .subscribe((posts: Post[]) => {

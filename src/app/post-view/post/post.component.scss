@@ -16,6 +16,22 @@
     }
     .container {
         margin: 0px;
+        background-color: #e1e1ef;
+        height: 90vh;
+    }
+    .content {
+        margin: 10px;
+        background-color: #fff;
+        border-radius: 1rem;
+        max-height: 89vh;
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+    .content::-webkit-scrollbar {
+        // width: 0px;
+        // background: transparent;
+        /* make scrollbar transparent */
+        display: none;
     }
     .row {
         padding: 5px;
