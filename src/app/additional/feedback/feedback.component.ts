@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Feedback } from '../../model/feedback.model';
 import { ServerService } from '../../core/services/server.service';
 import { Router } from '@angular/router';
+import { LanguageService } from '../../core/services/language.service';
+import { UserService } from '../../core/services/user.service';
 
 
 @Component({
@@ -16,12 +18,16 @@ export class FeedbackComponent implements OnInit {
   isSuccess: Boolean = false;
   isFail: Boolean = false;
 
-  constructor(private server: ServerService, private router: Router) { }
+  constructor(private server: ServerService, private router: Router,
+    private language: LanguageService, private user: UserService) { }
 
   ngOnInit() {
     this.feedback = new Feedback();
     this.feedback.creationDatetime = new Date(Date.now());
-    this.feedback.from = 'Example@gmail.com';
+
+    if (this.user.isLogin && this.user.currentUser.username !== '') {
+      this.feedback.from = this.user.currentUser.username;
+    }
 
     this.message = '';
     this.isFail = false;
@@ -30,17 +36,17 @@ export class FeedbackComponent implements OnInit {
 
   validationForm(): boolean {
     if (this.feedback.name.trim() === '') {
-      this.message = 'Feedback name is required';
+      this.message = this.language.currentLanguage.feedbackErrorNameRequired;
       return false;
     }
 
     if (this.feedback.kindOf.trim() === '') {
-      this.message = 'Choose kind of feedback is required';
+      this.message = this.language.currentLanguage.feedbackErrorKindOfRequired;
       return false;
     }
 
     if (this.feedback.content.trim() === '') {
-      this.message = 'Feedback content is required';
+      this.message = this.language.currentLanguage.feedbackErrorContentRequired;
       return false;
     }
 
@@ -51,16 +57,19 @@ export class FeedbackComponent implements OnInit {
     if (this.validationForm()) {
       this.server.postFeedback(this.feedback).subscribe((res) => {
         if (res.message === 'Success!') {
-          this.message = 'Feedback Success! Thanks for your feedback';
+          this.message = this.language.currentLanguage.feedbackSuccess;
           this.isSuccess = true;
+          this.isFail = false;
           this.feedback = new Feedback();
         } else {
-          this.message = 'Feedback Fail! Please try again';
+          this.message = this.language.currentLanguage.feedbackFail;
           this.isFail = true;
+          this.isSuccess = false;
         }
       });
     } else {
       this.isFail = true;
+      this.isSuccess = false;
     }
   }
 

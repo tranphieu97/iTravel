@@ -26,6 +26,8 @@ export class LanguageService {
     this.vnLanguage.headerRegister = 'Đăng ký';
     this.vnLanguage.headerQuestionToLogin = 'Bạn muốn đăng nhập chứ?';
     this.vnLanguage.headerSearch = 'Tìm kiếm';
+    this.vnLanguage.headerPersonalInfo = 'Thông tin cá nhân';
+    this.vnLanguage.headerLogOut = 'Đăng xuất';
 
     // For Login
     this.vnLanguage.loginTitle = 'ĐĂNG NHẬP';
@@ -66,6 +68,30 @@ export class LanguageService {
     this.vnLanguage.registerEnterUsername = 'Nhập Tên đăng nhập';
     this.vnLanguage.registerEnterPassword = 'Nhập mật khẩu';
     this.vnLanguage.registerEnterConfirmPassword = 'Nhập lại mật khẩu';
+
+    // For Feedback Component
+    this.vnLanguage.feedbackTitle = 'Phản hồi';
+    this.vnLanguage.feedbackName = 'Tên Phản hồi';
+    this.vnLanguage.feedbackKindOf = 'Loại phản hồi';
+    this.vnLanguage.feedbackUsername = 'Tên người gửi';
+    this.vnLanguage.feedbackAdditionalContact = 'Thông tin liên hệ bổ sung';
+    this.vnLanguage.feedbackContent = 'Nội dung Phản hồi';
+    this.vnLanguage.feedbackAboutSystem = 'Về Hệ thống';
+    this.vnLanguage.feedbackAboutContent = 'Về Nội dung';
+    this.vnLanguage.feedbackAboutUser = 'Về Người dùng';
+    this.vnLanguage.feedbackAboutPolicies = 'Về Chính sách sử dụng';
+    this.vnLanguage.feedbackAboutOthers = 'Về các nội dung khác';
+    this.vnLanguage.feedbackEnterName = 'Nhập Tên phản hồi';
+    this.vnLanguage.feedbackEnterUsername = 'Nhập Tên người phản hồi';
+    this.vnLanguage.feedbackEnterAdditionalContact = 'Nhập thông tin liên hệ bổ sung';
+    this.vnLanguage.feedbackEnterContent = 'Nhập nội dung phản hồi';
+    this.vnLanguage.feedbackSubmit = 'Gửi phản hồi';
+    this.vnLanguage.feedbackCancel = 'Hủy';
+    this.vnLanguage.feedbackErrorNameRequired = 'Tên Phản hồi là bắt buộc';
+    this.vnLanguage.feedbackErrorKindOfRequired = 'Chọn loại Phản hồi là bắt buộc';
+    this.vnLanguage.feedbackErrorContentRequired = 'Điền nội dung phản hồi là bắt buộc';
+    this.vnLanguage.feedbackSuccess = 'Gửi phản hồi thành công, cảm ơn bạn đã đóng góp';
+    this.vnLanguage.feedbackFail = 'Phản hồi thất bại, vui lòng thử lại';
   }
 
   createEnglishDictionary() {
@@ -77,6 +103,8 @@ export class LanguageService {
     this.enLanguage.headerRegister = 'Register';
     this.enLanguage.headerQuestionToLogin = 'Do you want to login?';
     this.enLanguage.headerSearch = 'Search';
+    this.enLanguage.headerPersonalInfo = 'Personal Information';
+    this.enLanguage.headerLogOut = 'Sign Out';
 
     // For Login Component
     this.enLanguage.loginTitle = 'SIGN IN';
@@ -118,6 +146,29 @@ export class LanguageService {
     this.enLanguage.registerEnterPassword = 'Enter your Password';
     this.enLanguage.registerEnterConfirmPassword = 'Re-enter your Password';
 
+    // For Feedback Component
+    this.enLanguage.feedbackTitle = 'Feedback';
+    this.enLanguage.feedbackName = 'Feedback Name ';
+    this.enLanguage.feedbackKindOf = 'Kind of Feedback ';
+    this.enLanguage.feedbackUsername = 'Username';
+    this.enLanguage.feedbackAdditionalContact = 'Additional Contact';
+    this.enLanguage.feedbackContent = 'Feedback Content ';
+    this.enLanguage.feedbackAboutSystem = 'About System';
+    this.enLanguage.feedbackAboutContent = 'About Content';
+    this.enLanguage.feedbackAboutUser = 'About User';
+    this.enLanguage.feedbackAboutPolicies = 'About Policies';
+    this.enLanguage.feedbackAboutOthers = 'The Others';
+    this.enLanguage.feedbackEnterName = 'Enter Feedback Name';
+    this.enLanguage.feedbackEnterUsername = 'Enter Username';
+    this.enLanguage.feedbackEnterAdditionalContact = 'Enter Additional Contact Information';
+    this.enLanguage.feedbackEnterContent = 'Enter Feedback Content';
+    this.enLanguage.feedbackSubmit = 'Submit';
+    this.enLanguage.feedbackCancel = 'Go back';
+    this.enLanguage.feedbackErrorNameRequired = 'Feedback name is required';
+    this.enLanguage.feedbackErrorKindOfRequired = 'Choose kind of feedback is required';
+    this.enLanguage.feedbackErrorContentRequired = 'Feedback content is required';
+    this.enLanguage.feedbackSuccess = 'Feedback Success! Thanks for your feedback';
+    this.enLanguage.feedbackFail = 'Feedback Fail! Please try again';
   }
 
   setVietnamese() {

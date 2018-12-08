@@ -1,4 +1,3 @@
-
 export class LocaleLanguage {
 
     // For Header Component
@@ -9,6 +8,8 @@ export class LocaleLanguage {
     headerLogin: string;
     headerRegister: string;
     headerQuestionToLogin: string;
+    headerPersonalInfo: string;
+    headerLogOut: string;
 
     // For Login Component
     loginTitle: string;
@@ -49,6 +50,30 @@ export class LocaleLanguage {
     registerEnterUsername: string;
     registerEnterPassword: string;
     registerEnterConfirmPassword: string;
+
+    // For Feedback Component
+    feedbackTitle: string;
+    feedbackName: string;
+    feedbackKindOf: string;
+    feedbackUsername: string;
+    feedbackAdditionalContact: string;
+    feedbackContent: string;
+    feedbackAboutSystem: string;
+    feedbackAboutContent: string;
+    feedbackAboutUser: string;
+    feedbackAboutPolicies: string;
+    feedbackAboutOthers: string;
+    feedbackEnterName: string;
+    feedbackEnterUsername: string;
+    feedbackEnterAdditionalContact: string;
+    feedbackEnterContent: string;
+    feedbackSubmit: string;
+    feedbackCancel: string;
+    feedbackErrorNameRequired: string;
+    feedbackErrorKindOfRequired: string;
+    feedbackErrorContentRequired: string;
+    feedbackSuccess: string;
+    feedbackFail: string;
 
     constructor() {}
 }
