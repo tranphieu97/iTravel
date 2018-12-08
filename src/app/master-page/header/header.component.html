@@ -42,8 +42,8 @@
         </span>
         <img [src]="this.user.currentUser.avatar" (click)="changeHeaderFlagByFlagName('isShowUserTool')" id="user-avatar">
         <div [ngClass]="{'dropdown-menu': true, 'dropdown-show':headerFlags.isShowUserTool}" id="user-dropdown">
-            <a class="dropdown-item">Personal Information</a>
-            <a class="dropdown-item" (click)="this.user.logOut()">Log out</a>
+            <a class="dropdown-item">{{language.currentLanguage.headerPersonalInfo}}</a>
+            <a class="dropdown-item" (click)="this.user.logOut()">{{language.currentLanguage.headerLogOut}}</a>
         </div>
     </div>
     <div *ngIf="!user.isLogin" class="toolbar-icon-wide dropdown">

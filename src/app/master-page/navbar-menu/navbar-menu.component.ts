@@ -19,7 +19,7 @@ export class NavbarMenuComponent implements OnInit {
   constructor(public mtpService: MasterPageService, private route: Router) { }
 
   ngOnInit() {
-    if (this.inputMenu.categories.length > 0) {
+    if (this.inputMenu.listItem.length > 0) {
       this.isSingleMenu = false;
     } else {
       this.isSingleMenu = true;
@@ -27,7 +27,7 @@ export class NavbarMenuComponent implements OnInit {
   }
 
   ClickMenuName() {
-    if (this.inputMenu.categories.length > 0) {
+    if (this.inputMenu.listItem.length > 0) {
       this.isShowFullMenu = !this.isShowFullMenu;
     } else {
       if (this.inputMenu.link == null || this.inputMenu.link === '') {

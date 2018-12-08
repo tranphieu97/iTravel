@@ -1,52 +1,52 @@
 <div class="feedback-form">
-  <h3>Feedback</h3>
+  <h3>{{language.currentLanguage.feedbackTitle}}</h3>
   <div [ngClass]="{'alert': true, 'alert-success': isSuccess, 'alert-danger': isFail}" *ngIf="isSuccess || isFail" role="alert">
     {{this.message}}
   </div>
   <form>
     <div class="feedback-row two-col">
       <div>
-        <label for="name" >Feedback Name <span>(*)</span> </label>
+        <label for="name" >{{language.currentLanguage.feedbackName}} <span>(*)</span> </label>
         <input type="text" [(ngModel)]="feedback.name" name="name"
-          class="form-control" id="name" placeholder="Enter Feedback Name" required >
+          class="form-control" id="name" [placeholder]="language.currentLanguage.feedbackEnterName" required >
       </div>
       <div>
-        <label for="kindof" >Kind of Feedback <span>(*)</span></label>
+        <label for="kindof" >{{language.currentLanguage.feedbackKindOf}} <span>(*)</span></label>
         <select class="form-control" id="kindof" [(ngModel)]="feedback.kindOf" name="kindof">
-          <option selected="selected">About Content</option>
-          <option>About System</option>
-          <option>About User</option>
-          <option>About Policies</option>
-          <option>The Others</option>
+          <option selected="selected">{{language.currentLanguage.feedbackAboutContent}}</option>
+          <option>{{language.currentLanguage.feedbackAboutSystem}}</option>
+          <option>{{language.currentLanguage.feedbackAboutUser}}</option>
+          <option>{{language.currentLanguage.feedbackAboutPolicies}}</option>
+          <option>{{language.currentLanguage.feedbackAboutOthers}}</option>
         </select>
       </div>
     </div>
 
     <div class="feedback-row two-col">
       <div>
-        <label for="username" >Username <span>(*)</span></label>
-        <input type="text" [(ngModel)]="feedback.from" name="username"
-          class="form-control" id="username" placeholder="Enter User Name" required>
+        <label for="username" >{{language.currentLanguage.feedbackUsername}} <span>(*)</span></label>
+        <input type="text" [(ngModel)]="feedback.from" name="username" [disabled]="user.isLogin"
+          class="form-control" id="username" [placeholder]="language.currentLanguage.feedbackEnterUsername" required>
       </div>
       <div>
-        <label for="contact" >Additional Contact</label>
+        <label for="contact" >{{language.currentLanguage.feedbackAdditionalContact}}</label>
         <input type="datetime" [(ngModel)]="feedback.contact" name="contact"
-          class="form-control" id="contact" placeholder="Enter Additional Contact Infomation">
+          class="form-control" id="contact" [placeholder]="language.currentLanguage.feedbackEnterAdditionalContact">
       </div>
     </div>
 
     <div class="feedback-row">
       <div>
-        <label for="content" >Feedback Content <span>(*)</span></label>
+        <label for="content" >{{language.currentLanguage.feedbackContent}} <span>(*)</span></label>
         <textarea [(ngModel)]="this.feedback.content" name="content"
-          class="form-control" id="content" rows="11" placeholder="Enter Feedback Content" required></textarea>
+          class="form-control" id="content" rows="11" [placeholder]="language.currentLanguage.feedbackEnterContent" required></textarea>
       </div>
     </div>
 
     <div class="feedback-row row-center">
       <div>
-        <button type="submit" (click)="submitForm()" class="btn btn-success">Submit</button>
-        <button (click)="cancelForm()" class="btn btn-danger">Go back</button>
+        <button type="submit" (click)="submitForm()" class="btn btn-success">{{language.currentLanguage.feedbackSubmit}}</button>
+        <button (click)="cancelForm()" class="btn btn-danger">{{language.currentLanguage.feedbackCancel}}</button>
       </div>
     </div>
   </form>
