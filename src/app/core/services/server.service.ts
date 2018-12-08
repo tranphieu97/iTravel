@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Province } from '../../model/province.model';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Menu } from '../../model/menu.model';
 import { map } from 'rxjs/operators';
-import { Category } from '../../model/category.model';
 import { CardViewPost } from '../../model/cardViewPost.model';
 import { Feedback } from '../../model/feedback.model';
 import { SearchHistory } from '../../model/searchHistory.model';
@@ -46,33 +44,33 @@ export class ServerService {
     }));
   }
 
-  getMenu(): Observable<Menu[]> {
-    return this.http.get<any>(this.HOST + 'api/menu/').pipe(map((res: any) => {
-      const menu: Menu[] = res.data.map((resItem) => {
+  // getMenu(): Observable<Menu[]> {
+  //   return this.http.get<any>(this.HOST + 'api/menu/').pipe(map((res: any) => {
+  //     const menu: Menu[] = res.data.map((resItem) => {
 
-        const resItemCategories: Category[] = resItem.Categories.map((resItemCategory) => {
-          const category: Category = new Category(
-            resItemCategory.Name,
-            resItemCategory.Link,
-            resItemCategory.Tags,
-          );
+  //       const resItemCategories: Category[] = resItem.Categories.map((resItemCategory) => {
+  //         const category: Category = new Category(
+  //           resItemCategory.Name,
+  //           resItemCategory.Link,
+  //           resItemCategory.Tags,
+  //         );
 
-          return category;
-        });
+  //         return category;
+  //       });
 
-        const resMenu = new Menu(
-          resItem.Name,
-          resItem.Image,
-          resItem.Link,
-          resItemCategories,
-          resItem.Position
-        );
+  //       const resMenu = new Menu(
+  //         resItem.Name,
+  //         resItem.Image,
+  //         resItem.Link,
+  //         resItemCategories,
+  //         resItem.Position
+  //       );
 
-        return resMenu;
-      });
-      return menu.sort((a, b) => a.position - b.position);
-    }));
-  }
+  //       return resMenu;
+  //     });
+  //     return menu.sort((a, b) => a.position - b.position);
+  //   }));
+  // }
 
   GetCardViewPost(): Observable<CardViewPost[]> {
     return this.http.get<any>(this.HOST + 'api/posts').pipe(map((res: any) => {

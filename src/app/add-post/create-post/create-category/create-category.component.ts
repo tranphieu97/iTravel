@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Category } from 'src/app/model/category.model';
 import { PostCategory } from 'src/app/model/postCategory.model';
 import { PostCategoryService } from 'src/app/core/services/post-category.service';
 import { element } from '@angular/core/src/render3/instructions';

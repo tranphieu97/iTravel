@@ -51,6 +51,29 @@ export class LocaleLanguage {
     registerEnterPassword: string;
     registerEnterConfirmPassword: string;
 
+    // For Menu in NavigationBar Component
+    menuHome: string;
+    menuVNRegions: string;
+    menuTravel: string;
+    menuCuisine: string;
+    menuPlans: string;
+    menuTrend: string;
+    menuPersonal: string;
+    menuAbout: string;
+    menuItemTheNorth: string;
+    menuItemTheCentral: string;
+    menuItemTheSourth: string;
+    menuItemHot: string;
+    menuItemMostRecent: string;
+    menuItemOneDay: string;
+    menuItemOneWeek: string;
+    menuItemMoreThanAWeek: string;
+    menuItemProfile: string;
+    menuItemChangePassword: string;
+    menuItemContribution: string;
+    menuItemPolicies: string;
+    menuItemFeedback: string;
+
     // For Feedback Component
     feedbackTitle: string;
     feedbackName: string;
@@ -75,5 +98,5 @@ export class LocaleLanguage {
     feedbackSuccess: string;
     feedbackFail: string;
 
-    constructor() {}
+    constructor() { }
 }

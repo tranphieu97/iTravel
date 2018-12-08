@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { LocaleLanguage } from 'src/app/model/locale-language.model';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LanguageService {
+
+  hasChangeLanguage: Subject<any> = new Subject<any>();
 
   currentLanguage: LocaleLanguage;
 
@@ -92,6 +95,29 @@ export class LanguageService {
     this.vnLanguage.feedbackErrorContentRequired = 'Điền nội dung phản hồi là bắt buộc';
     this.vnLanguage.feedbackSuccess = 'Gửi phản hồi thành công, cảm ơn bạn đã đóng góp';
     this.vnLanguage.feedbackFail = 'Phản hồi thất bại, vui lòng thử lại';
+
+    // For Menu in NavigationBar Component
+    this.vnLanguage.menuHome = 'Trang chủ';
+    this.vnLanguage.menuVNRegions = 'Vùng miền Việt Nam';
+    this.vnLanguage.menuTravel = 'Du lịch';
+    this.vnLanguage.menuCuisine = 'Ẩm thực';
+    this.vnLanguage.menuPlans = 'Kế hoạch';
+    this.vnLanguage.menuTrend = 'Xu hướng';
+    this.vnLanguage.menuPersonal = 'Cá nhân';
+    this.vnLanguage.menuAbout = 'Về chúng tôi';
+    this.vnLanguage.menuItemTheNorth = 'Miền Bắc';
+    this.vnLanguage.menuItemTheCentral = 'Miền Trung';
+    this.vnLanguage.menuItemTheSourth = 'Miền Nam';
+    this.vnLanguage.menuItemHot = 'Nổi bật';
+    this.vnLanguage.menuItemMostRecent = 'Gần đây nhất';
+    this.vnLanguage.menuItemOneDay = '1 Ngày';
+    this.vnLanguage.menuItemOneWeek = '2 - 7 Ngày';
+    this.vnLanguage.menuItemMoreThanAWeek = 'Từ 7 ngày';
+    this.vnLanguage.menuItemProfile = 'Thông tin cá nhân';
+    this.vnLanguage.menuItemChangePassword = 'Thay đổi mật khẩu';
+    this.vnLanguage.menuItemContribution = 'Đóng góp';
+    this.vnLanguage.menuItemPolicies = 'Chính sách sử dụng';
+    this.vnLanguage.menuItemFeedback = 'Phản hồi';
   }
 
   createEnglishDictionary() {
@@ -169,13 +195,38 @@ export class LanguageService {
     this.enLanguage.feedbackErrorContentRequired = 'Feedback content is required';
     this.enLanguage.feedbackSuccess = 'Feedback Success! Thanks for your feedback';
     this.enLanguage.feedbackFail = 'Feedback Fail! Please try again';
+
+    // For Menu in NavigationBar Component
+    this.enLanguage.menuHome = 'Home';
+    this.enLanguage.menuVNRegions = 'Vietnam\'s Regions';
+    this.enLanguage.menuTravel = 'Travel';
+    this.enLanguage.menuCuisine = 'Cuisine';
+    this.enLanguage.menuPlans = 'Plans';
+    this.enLanguage.menuTrend = 'Trend';
+    this.enLanguage.menuPersonal = 'Personal';
+    this.enLanguage.menuAbout = 'About Us';
+    this.enLanguage.menuItemTheNorth = 'The North';
+    this.enLanguage.menuItemTheCentral = 'The Central';
+    this.enLanguage.menuItemTheSourth = 'The Sourth';
+    this.enLanguage.menuItemHot = 'Hot';
+    this.enLanguage.menuItemMostRecent = 'Most Recent';
+    this.enLanguage.menuItemOneDay = '1 day';
+    this.enLanguage.menuItemOneWeek = '2 - 7 days';
+    this.enLanguage.menuItemMoreThanAWeek = 'More than 7 days';
+    this.enLanguage.menuItemProfile = 'Personal Information';
+    this.enLanguage.menuItemChangePassword = 'Change Password';
+    this.enLanguage.menuItemContribution = 'Contribution';
+    this.enLanguage.menuItemPolicies = 'Policies';
+    this.enLanguage.menuItemFeedback = 'Feedback';
   }
 
   setVietnamese() {
     this.currentLanguage = this.vnLanguage;
+    this.hasChangeLanguage.next();
   }
 
   setEnglish() {
     this.currentLanguage = this.enLanguage;
+    this.hasChangeLanguage.next();
   }
 }

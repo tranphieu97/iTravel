@@ -1,4 +1,3 @@
-
 <table class="table table-hover">
     <tr (click)='ClickMenuName()'>
         <th class="navbar-menu-icon">
@@ -8,17 +7,16 @@
             <p>{{inputMenu.name}}</p>
         </th>
         <th [hidden]='!this.mtpService.isShowFullNavBar || isSingleMenu' class="navbar-side-toggle">
-            <i [ngClass] ="{'fas':true, 'fa-chevron-down':isShowFullMenu, 'fa-chevron-right':!isShowFullMenu, 'fa-xs':true} "></i>
+            <i [ngClass]="{'fas':true, 'fa-chevron-down':isShowFullMenu, 'fa-chevron-right':!isShowFullMenu, 'fa-xs':true} "></i>
         </th>
     </tr>
-    <tr [hidden]='(!isShowFullMenu && this.mtpService.isShowFullNavBar) || !this.mtpService.isShowFullNavBar' 
-        *ngFor="let category of inputMenu.categories"
-        (click)='RedirectByMenu(category.link)'>
+    <tr [hidden]='(!isShowFullMenu && this.mtpService.isShowFullNavBar) || !this.mtpService.isShowFullNavBar' *ngFor="let item of inputMenu.listItem"
+        (click)='RedirectByMenu(item.link)'>
         <td class="navbar-menu-dot">
             <i class="fas fa-circle"></i>
         </td>
         <td>
-            {{category.name}}
+            {{item.name}}
         </td>
         <td>
         </td>
