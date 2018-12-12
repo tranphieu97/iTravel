@@ -25,6 +25,33 @@
             flex: 1;
             background-color: $CONTENT_BACKGROUND_COLOR;
         }
+
+        .user-toolbar {
+            height: 100%;
+            width: 50px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            border-top: 1px solid $GRAY;
+            padding-top: 2px;
+            overflow: hidden;
+            
+            span {
+                width: 40px;
+                height: 40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                
+                i {
+                    font-size: 16px;
+                }
+            }
+
+            span:hover {
+                background-color: $SECONDARY;
+            }
+        }
     }
 
     app-header {
