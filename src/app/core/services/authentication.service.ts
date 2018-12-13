@@ -96,6 +96,12 @@ export class AuthenticationService {
     return this.http.post<any>(this.server.HOST + 'auth/register-user', registerData, this.server.httpOptions);
   }
 
+  getUserProfile(username: string): Observable<any> {
+    const params = new HttpParams().set('username', username);
+
+    return this.http.get(this.server.HOST + 'user/profile', {headers: this.server.httpOptions.headers, params: params});
+  }
+
   /**
    * Delete access token was saved in localstorage
    * @name clearToken

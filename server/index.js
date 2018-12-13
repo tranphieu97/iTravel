@@ -14,9 +14,11 @@ const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
 const bodyParser = require('body-parser');
 var Q = require('q');
+var cors = require('cors')({origin: true});
 
 const app = express();
 
+app.use(cors);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 // allow outside connect to /images and map to server/images folder on server
@@ -33,10 +35,11 @@ app.use((req, res, next) => {
 
     // check token
     const url = req.url;
-    const token = req.headers.authorization;
+    const token = req.headers.authorization.split(' ')[1];
+
     if (url.indexOf('/api/') === -1 && url.indexOf('/auth/') === -1 && (token === null || token === undefined)) {
         res.status(401).json({
-            message: 'Unauthorize'
+            message: 'Unauthorized'
         });
     }
 
@@ -483,8 +486,6 @@ app.post('/auth/login', async (req, res) => {
                                 isAdmin: isAdmin
                             }
 
-
-
                             const data = {
                                 username: userInfo.username,
                                 firstName: userInfo.firstName,
@@ -504,6 +505,50 @@ app.post('/auth/login', async (req, res) => {
                     });
                 }
             });
+    }
+})
+
+app.get('/user/profile', async (req, res) => {
+    const username = req.param('username');
+    const token = req.headers.authetication.split(' ')[1];
+
+    if (token === undefined || token === null) {
+        res.status(401).json({
+            message: 'Unauthorized'
+        });
+    } else {
+        const tokenData = jwt.verify(token, config.SECRET_KEY);
+
+        if (tokenData.username === undefined || tokenData.username !== username) {
+            res.status(401).json({
+                message: 'Unauthorized'
+            });
+        } else {
+            const userFilter = {
+                username: {
+                    $eq: username
+                }
+            }
+            database.getOneFromCollection(database.iTravelDB.Users, userFilter)
+                .then((userInfo) => {
+                    if (userInfo === null) {
+                        res.status(404).json({
+                            message: 'Not found Username'
+                        });
+                    } else {
+                        const userData = {
+                            
+                        }
+                        res.status(200).json({
+                            message: 'Success',
+                            data = userData
+                        });
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
     }
 })
 /** Routing - END */

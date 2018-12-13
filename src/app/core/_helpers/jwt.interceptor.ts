@@ -25,10 +25,15 @@ export class JWTInterceptor implements HttpInterceptor {
         } else {
             const jwtToken = JSON.parse(localStorage.getItem('itravel_currentUser'));
             if (jwtToken) {
-                const headers = req.headers
-                    .set('Content-Type', 'application/json')
-                    .set('Authorization', 'Bearer ' + jwtToken);
-                const authReq = req.clone({ headers });
+                // const headers = req.headers
+                //     // .set('Content-Type', 'application/json')
+                //     .set('Authorization', 'Bearer ' + jwtToken);
+                const authReq = req.clone({
+                    setHeaders: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${jwtToken}`
+                    }
+                });
                 return next.handle(authReq);
             }
         }

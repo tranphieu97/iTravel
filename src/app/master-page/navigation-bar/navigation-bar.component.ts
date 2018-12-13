@@ -4,6 +4,7 @@ import { Menu } from '../../model/menu.model';
 import { MasterPageService } from '../../core/services/master-page.service';
 import { LanguageService } from '../../core/services/language.service';
 import { MenuItem } from '../../model/menu-item.model';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -46,7 +47,7 @@ export class NavigationBarComponent implements OnInit {
   menuItemMoreThanAWeek: MenuItem = new MenuItem(this.language.currentLanguage.menuItemMoreThanAWeek, '');
 
   // Menu Item Personal Information
-  menuItemPersonalInfo: MenuItem = new MenuItem(this.language.currentLanguage.menuItemProfile, '');
+  menuItemPersonalInfo: MenuItem = new MenuItem(this.language.currentLanguage.menuItemProfile, 'user/profile');
   menuItemChangePassword: MenuItem = new MenuItem(this.language.currentLanguage.menuItemChangePassword, '');
   menuItemContribution: MenuItem = new MenuItem(this.language.currentLanguage.menuItemContribution, '');
 
@@ -55,7 +56,7 @@ export class NavigationBarComponent implements OnInit {
   menuItemFeedback: MenuItem = new MenuItem(this.language.currentLanguage.menuItemFeedback, 'additional/feedback');
 
   constructor(private server: ServerService, private masterPage: MasterPageService,
-    private language: LanguageService) { }
+    private language: LanguageService, private user: UserService) { }
 
   ngOnInit() {
     this.setMenu();
