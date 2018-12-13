@@ -44,34 +44,6 @@ export class ServerService {
     }));
   }
 
-  // getMenu(): Observable<Menu[]> {
-  //   return this.http.get<any>(this.HOST + 'api/menu/').pipe(map((res: any) => {
-  //     const menu: Menu[] = res.data.map((resItem) => {
-
-  //       const resItemCategories: Category[] = resItem.Categories.map((resItemCategory) => {
-  //         const category: Category = new Category(
-  //           resItemCategory.Name,
-  //           resItemCategory.Link,
-  //           resItemCategory.Tags,
-  //         );
-
-  //         return category;
-  //       });
-
-  //       const resMenu = new Menu(
-  //         resItem.Name,
-  //         resItem.Image,
-  //         resItem.Link,
-  //         resItemCategories,
-  //         resItem.Position
-  //       );
-
-  //       return resMenu;
-  //     });
-  //     return menu.sort((a, b) => a.position - b.position);
-  //   }));
-  // }
-
   GetCardViewPost(): Observable<CardViewPost[]> {
     return this.http.get<any>(this.HOST + 'api/posts').pipe(map((res: any) => {
       const cardViewPosts: CardViewPost[] = res.data.map((resItem) => {

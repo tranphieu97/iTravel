@@ -10,7 +10,7 @@
             <router-outlet></router-outlet>
         </div>
         <div class="user-toolbar" *ngIf="this.user.isLogin">
-            <span><i class="fas fa-edit"></i></span>
+            <span [routerLink]="['/create-post']"><i class="fas fa-edit"></i></span>
         </div>
     </div>
 </div>
