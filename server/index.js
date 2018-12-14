@@ -35,7 +35,11 @@ app.use((req, res, next) => {
 
     // check token
     const url = req.url;
-    const token = req.headers.authorization.split(' ')[1];
+    let token = req.headers.authorization;
+
+    if (token !== undefined) {
+        token = token.split(' ')[1];
+    }
 
     if (url.indexOf('/api/') === -1 && url.indexOf('/auth/') === -1 && (token === null || token === undefined)) {
         res.status(401).json({
@@ -510,7 +514,11 @@ app.post('/auth/login', async (req, res) => {
 
 app.get('/user/profile', async (req, res) => {
     const username = req.param('username');
-    const token = req.headers.authetication.split(' ')[1];
+    let token = req.headers.authorization;
+
+    if (token !== undefined) {
+        token = token.split(' ')[1];
+    }
 
     if (token === undefined || token === null) {
         res.status(401).json({
@@ -536,12 +544,19 @@ app.get('/user/profile', async (req, res) => {
                             message: 'Not found Username'
                         });
                     } else {
-                        const userData = {
-                            
+                        const returnedUserData = {
+                            email: userInfo.email,
+                            firstName: userInfo.firstName,
+                            lastName: userInfo.lastName,
+                            birthDay: userInfo.birthDay,
+                            level: userInfo.level,
+                            hometown: userInfo.hometown,
+                            point: userInfo.point,
+                            permission: userInfo.permission
                         }
                         res.status(200).json({
                             message: 'Success',
-                            data = userData
+                            data: returnedUserData
                         });
                     }
                 })
