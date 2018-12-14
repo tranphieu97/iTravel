@@ -1,5 +1,6 @@
 .container {
     margin: 0px;
+    display: block;
 }
 
 .row {
@@ -17,16 +18,26 @@ textarea {
 }
 
 .comp {
-    border-radius: 1rem; //box-shadow: 1px 0px 13px 0px rgba(82, 63, 105, 0.05);
-    background-color: #fff; //height: 95%;
-    margin: 10px;
-    padding-top: 10px; //overflow: scroll; //height: 80%;
+    background-color: #e1e1ef;
+    height: 100%;
+}
+.hidden-scroll {
+    height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
-    max-height: 88vh;
 }
-
-.comp::-webkit-scrollbar {
+.max-height {
+    // co thi ko bi tran, ko hieu tai sao
+    // so px ko quan trong
+    max-height: 100px;
+}
+.content {
+    background-color: #fff;
+    border-radius: 5px;
+}
+.hidden-scroll::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
     display: none;
 }
 

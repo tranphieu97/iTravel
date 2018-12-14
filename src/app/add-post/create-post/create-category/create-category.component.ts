@@ -25,23 +25,31 @@ export class CreateCategoryComponent implements OnInit {
     this.postCategoryService.getAllCategories();
   }
 
-  onSelectCategory(choosedCategory: PostCategory) {
+  onSelectCategory(event: Event) {
+    // get selectedCategory
+    const selectedCategory = (event.target as HTMLSelectElement).value;
+    // check if post has selectedCategory or not
     const sameCategory = this.post.categories.find((eachEle) => {
-      return eachEle._id === choosedCategory._id;
+      return eachEle.name === selectedCategory;
     });
     if (sameCategory === undefined || sameCategory === null) {
-      // this.localCategories.push(choosedCategory);
-      this.post.categories.push(choosedCategory);
+      // if not yet, create newCategory from allCategories
+      const newCategory = this.allCategories.find((eachEleInALL) => {
+        return eachEleInALL.name.toLowerCase() === selectedCategory.toLocaleLowerCase();
+      });
+      // push that newCategory to post.categories
+      this.post.categories.push(newCategory);
     }
-    // console.log(this.localCategories);
   }
 
-  onRemoveCategory(removedCategory: PostCategory) {
-    // console.log(removedCategory);
+  onRemoveCategory(removedCategory: PostCategory, selectEle: HTMLSelectElement) {
+    // filt out the removedCategory
     this.post.categories = this.post.categories.filter((eachEle) => {
       return eachEle.name !== removedCategory.name;
-      // return eachEle._id !== removedCategory._id;
     });
-    // console.log(this.localCategories);
+    // reset the value of select element because the select subscibe onChange
+    // if user choose and remove and choose the same category
+    // there no change happen, so we need reset to make change
+    selectEle.value = '';
   }
 }
