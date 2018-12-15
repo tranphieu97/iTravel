@@ -118,6 +118,9 @@ export class LanguageService {
     this.vnLanguage.menuItemContribution = 'Đóng góp';
     this.vnLanguage.menuItemPolicies = 'Chính sách sử dụng';
     this.vnLanguage.menuItemFeedback = 'Phản hồi';
+
+    // For Notification
+    this.vnLanguage.notificationFrom = 'Từ ';
   }
 
   createEnglishDictionary() {
@@ -218,6 +221,9 @@ export class LanguageService {
     this.enLanguage.menuItemContribution = 'Contribution';
     this.enLanguage.menuItemPolicies = 'Policies';
     this.enLanguage.menuItemFeedback = 'Feedback';
+
+    // For Notification
+    this.enLanguage.notificationFrom = 'From ';
   }
 
   setVietnamese() {

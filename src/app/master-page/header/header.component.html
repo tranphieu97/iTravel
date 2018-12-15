@@ -21,8 +21,13 @@
             </form>
         </div>
     </div>
-    <div class="toolbar-icon">
-        <span><i class="far fa-bell"></i></span>
+    <div class="toolbar-icon dropdown">
+        <span (click)="changeHeaderFlagByFlagName('isShowNotification')">
+            <i class="far fa-bell"></i>
+        </span>
+        <div [ngClass]="{'dropdown-menu': true, 'dropdown-show':headerFlags.isShowNotification}" id="notification-dropdown">
+            
+        </div>
     </div>
     <div class="toolbar-icon dropdown">
         <span (click)="changeHeaderFlagByFlagName('isShowLanguage')">

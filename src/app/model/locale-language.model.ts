@@ -98,5 +98,8 @@ export class LocaleLanguage {
     feedbackSuccess: string;
     feedbackFail: string;
 
+    // For Notification
+    notificationFrom: string;
+
     constructor() { }
 }
