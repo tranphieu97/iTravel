@@ -25,8 +25,11 @@ export class UserProfileComponent implements OnInit {
     if (this.currentUser === undefined || this.currentUser === null) {
       this.router.navigate(['home']);
     } else {
-      this.authentication.getUserProfile(this.user.currentUser.username).subscribe((userProfile) => {
-
+      this.authentication.getUserProfile(this.user.currentUser.username).subscribe((res) => {
+        if (res.data) {
+          this.user.currentUser = res.data;
+          console.log(this.user.currentUser.permission);
+        }
       });
     }
   }

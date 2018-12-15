@@ -13,8 +13,22 @@ export class UserService {
 
   hasChangeUser: Subject<any> = new Subject<any>();
 
-  constructor() {
+  constructor(private authentication: AuthenticationService) {
     this.currentUser = new User('', '', '', '');
+
+    if (this.isLogin === false && this.authentication.getLocalToken()
+      && this.authentication.validToken(this.authentication.getLocalToken())) {
+      this.authentication.loginByLocalToken().subscribe((res) => {
+        const userData = res.data;
+
+        if (this.authentication.validUserInfoByToken(userData.username, userData.isAdmin)) {
+          this.setCurrentUser(userData._id, userData.username, userData.firstName, userData.lastName);
+          this.currentUser.avatar = userData.avatar;
+          this.currentUser.isAdmin = userData.isAdmin;
+          this.isLogin = true;
+        }
+      });
+    }
   }
 
   /**

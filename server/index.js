@@ -14,7 +14,7 @@ const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
 const bodyParser = require('body-parser');
 var Q = require('q');
-var cors = require('cors')({origin: true});
+var cors = require('cors')({ origin: true });
 
 const app = express();
 
@@ -510,7 +510,74 @@ app.post('/auth/login', async (req, res) => {
                 }
             });
     }
-})
+});
+
+app.post('/user/token-login', async (req, res) => {
+    let token = req.headers.authorization;
+
+    if (token !== undefined) {
+        token = token.split(' ')[1];
+    }
+    if (token === undefined || token === null) {
+        res.status(401).json({
+            message: 'Unauthorized'
+        });
+    } else {
+        const tokenData = jwt.verify(token, config.SECRET_KEY);
+
+        if (tokenData.username === undefined || tokenData.exp < Date.now().valueOf /1000) {
+            res.status(401).json({
+                message: 'Unauthorized'
+            });
+        } else {
+            const filterUser = {
+                username: {
+                    $eq: tokenData.username
+                }
+            }
+
+            database.getOneFromCollection(database.iTravelDB.Users, filterUser)
+                .then((userInfo) => {
+                    if (userInfo === null || userInfo === undefined) {
+                        res.status(200).json({
+                            message: 'Invalid Username',
+                            data: false
+                        });
+                    } else {
+                        const isAdmin = false;
+
+                        if (userInfo.permission === 'Admin') {
+                            isAdmin = true;
+                        }
+
+                        const userData = {
+                            _id: userInfo._id,
+                            username: userInfo.username,
+                            isAdmin: isAdmin
+                        }
+
+                        const data = {
+                            _id: userInfo._id,
+                            username: userInfo.username,
+                            firstName: userInfo.firstName,
+                            lastName: userInfo.lastName,
+                            avatar: userInfo.avatar,
+                            isAdmin: isAdmin
+                        }
+
+                        jwt.sign(userData, config.SECRET_KEY, { expiresIn: '23h' }, (err, jwtToken) => {
+                            res.status(201).json({
+                                message: 'Login success!',
+                                token: jwtToken,
+                                data: data
+                            });
+                        });
+                    }
+                }
+                );
+        }
+    }
+});
 
 app.get('/user/profile', async (req, res) => {
     const username = req.param('username');
@@ -565,5 +632,5 @@ app.get('/user/profile', async (req, res) => {
                 });
         }
     }
-})
+});
 /** Routing - END */
