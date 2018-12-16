@@ -478,7 +478,7 @@ app.post('/auth/login', async (req, res) => {
                                 data: false
                             });
                         } else {
-                            const isAdmin = false;
+                            let isAdmin = false;
 
                             if (userInfo.permission === 'Admin') {
                                 isAdmin = true;
@@ -525,7 +525,7 @@ app.post('/user/token-login', async (req, res) => {
     } else {
         const tokenData = jwt.verify(token, config.SECRET_KEY);
 
-        if (tokenData.username === undefined || tokenData.exp < Date.now().valueOf /1000) {
+        if (tokenData.username === undefined || tokenData.exp < Date.now().valueOf / 1000) {
             res.status(401).json({
                 message: 'Unauthorized'
             });
@@ -544,7 +544,7 @@ app.post('/user/token-login', async (req, res) => {
                             data: false
                         });
                     } else {
-                        const isAdmin = false;
+                        let isAdmin = false;
 
                         if (userInfo.permission === 'Admin') {
                             isAdmin = true;
@@ -573,8 +573,7 @@ app.post('/user/token-login', async (req, res) => {
                             });
                         });
                     }
-                }
-                );
+                });
         }
     }
 });

@@ -101,5 +101,18 @@ export class LocaleLanguage {
     // For Notification
     notificationFrom: string;
 
+    // For Post Manager
+    postManagementTitle: string;
+    postManagementStartDate: string;
+    postManagementEndDate: string;
+    postManagementApproveded: string;
+    postManagementPendding: string;
+    postManagementDenied: string;
+    postManagementAllPost: string;
+    postManagementErrorEmptyDate: string;
+    postManagementErrorInvalidDate: string;
+    postManagementErrorStartAfterEnd: string;
+    postManagementFilter: string;
+
     constructor() { }
 }

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { NotFoundPageComponent } from './master-page/not-found-page/not-found-page.component';
-import { IndexComponent } from './home-page/index/index.component';
 import { LayoutComponent } from './web-layout/layout/layout.component';
 import { AuthLayoutComponent } from './web-layout/auth-layout/auth-layout.component';
 
@@ -52,6 +51,11 @@ const routes: Routes = [
     path: 'trend',
     component: LayoutComponent,
     loadChildren: 'src/app/trend/trend.module#TrendModule'
+  },
+  {
+    path: 'manager',
+    component: LayoutComponent,
+    loadChildren: 'src/app/manager/manager.module#ManagerModule'
   },
   {
     path: 'not-found',

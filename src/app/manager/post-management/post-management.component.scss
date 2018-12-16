@@ -1,0 +1,51 @@
+@import 'src/styles.scss';
+
+:host {
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    .post-management {
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+
+        .post-management-title {
+            height: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-bottom: 1px solid $GRAY;
+
+            h4 {
+                font-weight: bolder;
+            }
+        }
+
+        .post-management-content {
+            flex: 1 1;
+
+            .post-management-control {
+                height: 45px;
+                padding: 5px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                flex-wrap: wrap;
+
+                .form-group {
+                    margin: 5px;
+                }
+
+                label.control-title {
+                    margin: 10px;
+                }
+
+                button, input, label {
+                    height: 35px;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}

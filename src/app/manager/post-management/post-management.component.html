@@ -1,0 +1,59 @@
+<div class="content-box post-management">
+  <div class="post-management-title">
+    <h4>
+      {{language.currentLanguage.postManagementTitle}}
+    </h4>
+  </div>
+  <div class="post-management-content">
+    <div class="post-management-control">
+      <form class="form-inline">
+        <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="chosenKindOfPost">
+          <label ngbButtonLabel class="btn-primary">
+            <input ngbButton type="radio" [value]="flagKindOfPost.all"> {{language.currentLanguage.postManagementAllPost}}
+          </label>
+          <label ngbButtonLabel class="btn-success">
+            <input ngbButton type="radio" [value]="flagKindOfPost.approveded"> {{language.currentLanguage.postManagementApproveded}}
+          </label>
+          <label ngbButtonLabel class="btn-warning">
+            <input ngbButton type="radio" value="flagKindOfPost.pendding"> {{language.currentLanguage.postManagementPendding}}
+          </label>
+          <label ngbButtonLabel class="btn-danger">
+            <input ngbButton type="radio" [value]="flagKindOfPost.denied"> {{language.currentLanguage.postManagementDenied}}
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="control-title">{{language.currentLanguage.postManagementStartDate}}</label>
+          <div class="input-group">
+            <input class="form-control" placeholder="yyyy-mm-dd" name="startDate" (focus)="resetError()"
+            [(ngModel)]="startDate" ngbDatepicker #startdate="ngbDatepicker" #modelstartdate="ngModel">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="startdate.toggle()" type="button">
+                <span><i class="fas fa-calendar-alt"></i></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-title">{{language.currentLanguage.postManagementEndDate}}</label>
+          <div class="input-group">
+            <input class="form-control" placeholder="yyyy-mm-dd" name="endDate" (focus)="resetError()"
+              [(ngModel)]="endDate" ngbDatepicker #enddate="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="enddate.toggle()" type="button">
+                <span><i class="fas fa-calendar-alt"></i></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button (click)="validateDateForm()" class="btn btn-success" type="button" [disabled]="startDate === undefined || endDate === undefined">
+            {{language.currentLanguage.postManagementFilter}}
+          </button>
+        </div>
+      </form>
+    </div>
+    <div *ngIf="this.hasError" class="alert alert-danger" role="alert">
+      {{this.errorMessage}}
+    </div>
+  </div>
+</div>
