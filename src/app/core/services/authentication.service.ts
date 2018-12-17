@@ -79,6 +79,7 @@ export class AuthenticationService {
             this.setLocalToken(token);
           }
         } catch (ex) {
+
         }
       }
 

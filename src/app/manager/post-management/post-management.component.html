@@ -75,7 +75,9 @@
             <td>{{post.authorId}}</td>
             <td>{{post.createdTime | date}}</td>
             <td>{{post.categories}}</td>
-            <td [ngClass]="{'green-text': post.status.indexOf('ACCEPT') !== -1}"><i class="fas fa-circle tiny-icon"></i> {{post.status | titlecase}}</td>
+            <td [ngClass]="{'green-text': post.status.indexOf(this.constant.POST_STATUS.APPROVED) !== -1, 'red-text': post.status.indexOf(this.constant.POST_STATUS.DENY) !== -1, 'yellow-text': post.status.indexOf(this.constant.POST_STATUS.PENDING) !== -1}">
+              <i class="fas fa-circle tiny-icon"></i> {{post.status | titlecase}}
+            </td>
             <td class="action-cell">
               <span class="action-icon" (click)="open(content)"><i class="fas fa-eye"></i></span>
               <span class="action-icon"><i class="fas fa-bars"></i></span>
@@ -88,7 +90,7 @@
 </div>
 
 
-<ng-template #content let-modal>
+<!-- <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -111,4 +113,4 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
   </div>
-</ng-template>
+</ng-template> -->

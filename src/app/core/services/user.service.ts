@@ -14,16 +14,17 @@ export class UserService {
   hasChangeUser: Subject<any> = new Subject<any>();
 
   constructor(private authentication: AuthenticationService) {
-    this.currentUser = new User('', '', '', '');
+    this.currentUser = new User();
 
+    // Check is exist user token in local
     if (this.isLogin === false && this.authentication.getLocalToken()
       && this.authentication.validToken(this.authentication.getLocalToken())) {
       this.authentication.loginByLocalToken().subscribe((res) => {
         const userData = res.data;
 
+        // Re-login if token is valid
         if (this.authentication.validUserInfoByToken(userData.username, userData.isAdmin)) {
-          this.setCurrentUser(userData._id, userData.username, userData.firstName, userData.lastName);
-          this.currentUser.avatar = userData.avatar;
+          this.currentUser.setUserRequiredInfo(userData._id, userData.username, userData.firstName, userData.lastName, userData.avatar);
           this.currentUser.isAdmin = userData.isAdmin;
           this.isLogin = true;
         }
@@ -32,30 +33,14 @@ export class UserService {
   }
 
   /**
-   * Set unique user is login information
-   * @name setCurrentUser
-   * @author phieu-th
-   * @param _id
-   * @param username
-   * @param firstName
-   * @param lastName
-   */
-  setCurrentUser(_id: string, username: string, firstName: string, lastName: string) {
-    this.currentUser = new User(_id, username, firstName, lastName);
-    this.isLogin = true;
-
-    this.hasChangeUser.next();
-  }
-
-  /**
    * User logout
    * @name logOut
    * @author phieu-th
    */
   logOut() {
-    this.currentUser = null;
+    this.currentUser = new User();
     this.isLogin = false;
-    localStorage.removeItem('itravel_currentUser');
+    this.authentication.clearToken();
     this.hasChangeUser.next();
   }
 }

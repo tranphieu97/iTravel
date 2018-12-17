@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LanguageService } from '../../core/services/language.service';
 import { NgbDateStruct, NgbCalendar, NgbDate, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ServerService } from '../../core/services/server.service';
-import { Post } from '../../model/post.model';
+import { ConstantService } from 'src/app/core/services/constant.service';
 
 @Component({
   selector: 'app-post-management',
@@ -32,7 +32,7 @@ export class PostManagementComponent implements OnInit {
   closeResult: string;
 
   constructor(private language: LanguageService, private calendar: NgbCalendar, private server: ServerService,
-    private modalService: NgbModal) { }
+    private modalService: NgbModal, private constant: ConstantService) { }
 
   ngOnInit() {
     this.server.getPostsByManager().subscribe((res) => {
