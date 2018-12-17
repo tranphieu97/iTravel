@@ -44,35 +44,12 @@ export class ServerService {
     }));
   }
 
-  // getMenu(): Observable<Menu[]> {
-  //   return this.http.get<any>(this.HOST + 'api/menu/').pipe(map((res: any) => {
-  //     const menu: Menu[] = res.data.map((resItem) => {
-
-  //       const resItemCategories: Category[] = resItem.Categories.map((resItemCategory) => {
-  //         const category: Category = new Category(
-  //           resItemCategory.Name,
-  //           resItemCategory.Link,
-  //           resItemCategory.Tags,
-  //         );
-
-  //         return category;
-  //       });
-
-  //       const resMenu = new Menu(
-  //         resItem.Name,
-  //         resItem.Image,
-  //         resItem.Link,
-  //         resItemCategories,
-  //         resItem.Position
-  //       );
-
-  //       return resMenu;
-  //     });
-  //     return menu.sort((a, b) => a.position - b.position);
-  //   }));
-  // }
-
-  GetCardViewPost(): Observable<CardViewPost[]> {
+  /**
+   * Get all post is approveded and map to card view
+   * @name getCardViewPost
+   * @author phieu-th
+   */
+  getCardViewPost(): Observable<CardViewPost[]> {
     return this.http.get<any>(this.HOST + 'api/posts').pipe(map((res: any) => {
       const cardViewPosts: CardViewPost[] = res.data.map((resItem) => {
         const cardViewPost: CardViewPost = new CardViewPost(
@@ -159,18 +136,41 @@ export class ServerService {
     return this.http.post<{ message: string, imageUrl: string }>(this.HOST + 'api/upload-image', uploadImage);
   }
 
+  /**
+   * POST a feedback
+   * @name postFeedback
+   * @author phieu-th
+   * @param feedback
+   */
   postFeedback(feedback: Feedback): Observable<any> {
     return this.http.post<any>(this.HOST + 'api/create-feedback', feedback, this.httpOptions);
   }
 
+  /**
+   * POST a key word be search by user
+   * @name postSearchHistory
+   * @author phieu-th
+   * @param searchHistory
+   */
   postSearchHistory(searchHistory: SearchHistory): Observable<any> {
     return this.http.post<any>(this.HOST + 'api/create-search-history', searchHistory, this.httpOptions);
   }
 
+  /**
+   * GET data was search from startDate to endDate
+   * @name getReportBySearchKeyWordData
+   * @author phieu-th
+   * @param startDate
+   * @param endDate
+   */
   getReportBySearchKeyWordData(startDate: Date, endDate: Date): Observable<any> {
     const params = new HttpParams().set('startDate', startDate.toString())
       .set('endDate', endDate.toString());
 
     return this.http.get<any>(this.HOST + 'api/report/searchkeyword', { headers: this.httpOptions.headers, params: params });
+  }
+
+  getPostsByManager(): Observable<any> {
+    return this.http.get<any>(this.HOST + 'manager/posts');
   }
 }

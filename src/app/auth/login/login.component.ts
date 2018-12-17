@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@ang
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../../core/services/authentication.service';
 import { LanguageService } from '../../core/services/language.service';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
   private usernameRegex: RegExp = new RegExp('^(?=.*[a-z])[a-z0-9._@-]{1,30}$');
   private passwordRegex: RegExp = new RegExp('(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{1,30}$');
 
-  constructor(private router: Router, private formBuilder: FormBuilder,
+  constructor(private router: Router, private formBuilder: FormBuilder, private user: UserService,
     private authentication: AuthenticationService, private language: LanguageService) { }
 
   ngOnInit() {
@@ -45,11 +46,15 @@ export class LoginComponent implements OnInit {
       this.loginMessage = 'Invalid Account';
       this.isFailLogin = true;
     } else {
-      this.authentication.loginAsMember(this.loginForm).subscribe((result) => {
-        if (!result.data) {
-          this.loginMessage = result.message;
+      this.authentication.loginByBasicInput(this.loginForm).subscribe((res) => {
+        if (!res.data) {
+          this.loginMessage = res.message;
           this.isFailLogin = true;
         } else {
+          this.user.setCurrentUser(res.data._id, res.data.username, res.data.firstName, res.data.lastName);
+          this.user.currentUser.avatar = res.data.avatar;
+          this.user.currentUser.isAdmin = res.data.isAdmin;
+          this.user.isLogin = true;
           this.router.navigate(['home']);
         }
       });

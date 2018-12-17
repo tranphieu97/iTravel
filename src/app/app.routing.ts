@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { NotFoundPageComponent } from './master-page/not-found-page/not-found-page.component';
-import { IndexComponent } from './home-page/index/index.component';
 import { LayoutComponent } from './web-layout/layout/layout.component';
 import { AuthLayoutComponent } from './web-layout/auth-layout/auth-layout.component';
+import { AuthGuard } from './core/_guards/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -36,7 +36,8 @@ const routes: Routes = [
   {
     path: 'user',
     component: LayoutComponent,
-    loadChildren: 'src/app/user/user.module#UserModule'
+    loadChildren: 'src/app/user/user.module#UserModule',
+    canActivate: [AuthGuard]
   },
   {
     path: 'additional',
@@ -52,6 +53,11 @@ const routes: Routes = [
     path: 'trend',
     component: LayoutComponent,
     loadChildren: 'src/app/trend/trend.module#TrendModule'
+  },
+  {
+    path: 'manager',
+    component: LayoutComponent,
+    loadChildren: 'src/app/manager/manager.module#ManagerModule'
   },
   {
     path: 'not-found',

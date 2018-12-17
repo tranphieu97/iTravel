@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../core/services/user.service';
+import { User } from '../../model/user.model';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '../../core/services/authentication.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -7,9 +11,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
 
-  constructor() { }
+  currentUser: User;
+
+  constructor(private user: UserService, private router: Router, private authentication: AuthenticationService) { }
 
   ngOnInit() {
+    this.currentUser = this.user.currentUser;
+
+    this.user.hasChangeUser.subscribe(() => {
+      this.currentUser = this.user.currentUser;
+    });
+
+    if (this.currentUser === undefined || this.currentUser === null) {
+      this.router.navigate(['home']);
+    } else {
+      this.authentication.getUserProfile(this.user.currentUser.username).subscribe((res) => {
+        if (res.data) {
+          this.user.currentUser = res.data;
+          console.log(this.user.currentUser.permission);
+        }
+      });
+    }
   }
 
 }

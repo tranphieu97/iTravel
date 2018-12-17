@@ -118,6 +118,28 @@ export class LanguageService {
     this.vnLanguage.menuItemContribution = 'Đóng góp';
     this.vnLanguage.menuItemPolicies = 'Chính sách sử dụng';
     this.vnLanguage.menuItemFeedback = 'Phản hồi';
+
+    // For Notification
+    this.vnLanguage.notificationFrom = 'Từ ';
+
+    // For Post Management
+    this.vnLanguage.postManagementTitle = 'Quản lý bài viết';
+    this.vnLanguage.postManagementStartDate = 'Từ:';
+    this.vnLanguage.postManagementEndDate = 'Đến:';
+    this.vnLanguage.postManagementApproved = 'Đã duyệt';
+    this.vnLanguage.postManagementPending = 'Đang chờ';
+    this.vnLanguage.postManagementDenied = 'Từ chối';
+    this.vnLanguage.postManagementAllPost = 'Tất cả';
+    this.vnLanguage.postManagementErrorEmptyDate = 'Nhập ngày bắt đầu và ngày kết thúc để lọc';
+    this.vnLanguage.postManagementErrorInvalidDate = 'Định dạng ngày tháng chưa đúng';
+    this.vnLanguage.postManagementErrorStartAfterEnd = 'Ngày bắt đầu cần nhỏ hơn hoặc bằng ngày kết thúc';
+    this.vnLanguage.postManagementFilter = 'Lọc';
+    this.vnLanguage.postManagementTablePostName = 'Tên Bài viết';
+    this.vnLanguage.postManagementTablePostAuthor = 'Tác giả';
+    this.vnLanguage.postManagementTablePostCreationTime = 'Thời gian';
+    this.vnLanguage.postManagementTablePostCategories = 'Thể loại';
+    this.vnLanguage.postManagementTablePostStatus = 'Trạng thái';
+    this.vnLanguage.postManagementTableAction = 'Hành động';
   }
 
   createEnglishDictionary() {
@@ -218,6 +240,29 @@ export class LanguageService {
     this.enLanguage.menuItemContribution = 'Contribution';
     this.enLanguage.menuItemPolicies = 'Policies';
     this.enLanguage.menuItemFeedback = 'Feedback';
+
+    // For Notification
+    this.enLanguage.notificationFrom = 'From ';
+
+    // For Post Management
+    this.enLanguage.postManagementTitle = 'Post Management';
+    this.enLanguage.postManagementStartDate = 'From: ';
+    this.enLanguage.postManagementEndDate = 'To: ';
+    this.enLanguage.postManagementApproved = 'Approved';
+    this.enLanguage.postManagementPending = 'Pending';
+    this.enLanguage.postManagementDenied = 'Denied';
+    this.enLanguage.postManagementAllPost = 'All Posts';
+    this.enLanguage.postManagementErrorEmptyDate = 'Empty start date or end date, enter them to filter';
+    this.enLanguage.postManagementErrorInvalidDate = 'Invalid date format';
+    this.enLanguage.postManagementErrorStartAfterEnd = 'Start date need equal or earlier than end date';
+    this.enLanguage.postManagementFilter = 'Filter';
+    this.enLanguage.postManagementTablePostName = 'Title';
+    this.enLanguage.postManagementTablePostAuthor = 'Author';
+    this.enLanguage.postManagementTablePostCreationTime = 'Creation Time';
+    this.enLanguage.postManagementTablePostCategories = 'Categories';
+    this.enLanguage.postManagementTablePostStatus = 'Status';
+    this.enLanguage.postManagementTableAction = 'Action';
+
   }
 
   setVietnamese() {

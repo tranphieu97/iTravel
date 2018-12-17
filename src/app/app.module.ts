@@ -15,6 +15,8 @@ import { CardViewPostComponent } from './card-view-post/card-view-post.component
 import { UserModule } from './user/user.module';
 import { SharedModule } from './shared/shared.module';
 import { AuthLayoutComponent } from './web-layout/auth-layout/auth-layout.component';
+import { HorizontalCardViewPostComponent } from './card-view-style/horizontal-card-view-post/horizontal-card-view-post.component';
+import { NotificationComponent } from './master-page/notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { AuthLayoutComponent } from './web-layout/auth-layout/auth-layout.compon
     NavigationBarComponent,
     NavbarMenuComponent,
     HeaderComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
+    HorizontalCardViewPostComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,

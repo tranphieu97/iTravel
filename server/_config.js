@@ -24,6 +24,11 @@ const MINE_TYPE_MAP = {
     'image/jpeg': 'jpg'
 };
 
+const USER_PERMISSION = {
+    Member: 'Member',
+    Admin: 'Admin'
+};
+
 module.exports = {
     APP_PORT: APP_PORT,
     DB_HOST: DB_HOST,
@@ -33,5 +38,6 @@ module.exports = {
     PUBLIC_KEY: PUBLIC_KEY,
     signOptions: signOptions,
     verifyOptions: verifyOptions,
-    MINE_TYPE_MAP: MINE_TYPE_MAP
+    MINE_TYPE_MAP: MINE_TYPE_MAP,
+    USER_PERMISSION: USER_PERMISSION
 };

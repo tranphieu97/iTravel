@@ -21,8 +21,13 @@
             </form>
         </div>
     </div>
-    <div class="toolbar-icon">
-        <span><i class="far fa-bell"></i></span>
+    <div class="toolbar-icon dropdown">
+        <span (click)="changeHeaderFlagByFlagName('isShowNotification')">
+            <i class="far fa-bell"></i>
+        </span>
+        <div [ngClass]="{'dropdown-menu': true, 'dropdown-show':headerFlags.isShowNotification}" id="notification-dropdown">
+            
+        </div>
     </div>
     <div class="toolbar-icon dropdown">
         <span (click)="changeHeaderFlagByFlagName('isShowLanguage')">
@@ -42,7 +47,7 @@
         </span>
         <img [src]="this.user.currentUser.avatar" (click)="changeHeaderFlagByFlagName('isShowUserTool')" id="user-avatar">
         <div [ngClass]="{'dropdown-menu': true, 'dropdown-show':headerFlags.isShowUserTool}" id="user-dropdown">
-            <a class="dropdown-item">{{language.currentLanguage.headerPersonalInfo}}</a>
+            <a class="dropdown-item" [routerLink]="['/user/profile']" routerLinkActive="router-link-active" >{{language.currentLanguage.headerPersonalInfo}}</a>
             <a class="dropdown-item" (click)="this.user.logOut()">{{language.currentLanguage.headerLogOut}}</a>
         </div>
     </div>

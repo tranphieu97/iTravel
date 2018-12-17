@@ -98,5 +98,27 @@ export class LocaleLanguage {
     feedbackSuccess: string;
     feedbackFail: string;
 
+    // For Notification
+    notificationFrom: string;
+
+    // For Post Manager
+    postManagementTitle: string;
+    postManagementStartDate: string;
+    postManagementEndDate: string;
+    postManagementApproved: string;
+    postManagementPending: string;
+    postManagementDenied: string;
+    postManagementAllPost: string;
+    postManagementErrorEmptyDate: string;
+    postManagementErrorInvalidDate: string;
+    postManagementErrorStartAfterEnd: string;
+    postManagementFilter: string;
+    postManagementTablePostName: string;
+    postManagementTablePostAuthor: string;
+    postManagementTablePostCreationTime: string;
+    postManagementTablePostCategories: string;
+    postManagementTablePostStatus: string;
+    postManagementTableAction: string;
+
     constructor() { }
 }

@@ -7,7 +7,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { JWTInterceptor } from '../core/_helpers/jwt.interceptor';
-
+import { NgbModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -18,7 +18,9 @@ import { JWTInterceptor } from '../core/_helpers/jwt.interceptor';
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule,
+    NgbAlertModule
   ],
   exports: [
     CommonModule,
@@ -28,7 +30,9 @@ import { JWTInterceptor } from '../core/_helpers/jwt.interceptor';
     BsDropdownModule,
     TooltipModule,
     ModalModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule,
+    NgbAlertModule
   ],
   declarations: [
 

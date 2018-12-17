@@ -1,0 +1,13 @@
+<div class="cardview-img">
+  <img [src]="inputPost.cover" *ngIf="inputPost.cover != null && inputPost.cover!==''">
+</div>
+<div class="cardview-content">
+    <h4>{{inputPost.title}}</h4>
+    <div>
+      <span><i class="far fa-calendar-alt"></i> {{inputPost.createdTime | date}}  </span>
+      <span *ngFor="let category of inputPost.categories">
+        <i class="fas fa-tag"></i> {{category.name | titlecase}} 
+      </span>
+    </div>
+    <p>{{inputPost.description}}</p>
+</div>

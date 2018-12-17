@@ -14,9 +14,11 @@ const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
 const bodyParser = require('body-parser');
 var Q = require('q');
+var cors = require('cors')({ origin: true });
 
 const app = express();
 
+app.use(cors);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 // allow outside connect to /images and map to server/images folder on server
@@ -33,10 +35,15 @@ app.use((req, res, next) => {
 
     // check token
     const url = req.url;
-    const token = req.headers.authorization;
+    let token = req.headers.authorization;
+
+    if (token !== undefined) {
+        token = token.split(' ')[1];
+    }
+
     if (url.indexOf('/api/') === -1 && url.indexOf('/auth/') === -1 && (token === null || token === undefined)) {
         res.status(401).json({
-            message: 'Unauthorize'
+            message: 'Unauthorized'
         });
     }
 
@@ -471,7 +478,7 @@ app.post('/auth/login', async (req, res) => {
                                 data: false
                             });
                         } else {
-                            const isAdmin = false;
+                            let isAdmin = false;
 
                             if (userInfo.permission === 'Admin') {
                                 isAdmin = true;
@@ -482,8 +489,6 @@ app.post('/auth/login', async (req, res) => {
                                 username: userInfo.username,
                                 isAdmin: isAdmin
                             }
-
-
 
                             const data = {
                                 username: userInfo.username,
@@ -504,6 +509,199 @@ app.post('/auth/login', async (req, res) => {
                     });
                 }
             });
+    }
+});
+
+app.post('/user/token-login', async (req, res) => {
+    let token = req.headers.authorization;
+
+    if (token !== undefined) {
+        token = token.split(' ')[1];
+    }
+    if (token === undefined || token === null) {
+        res.status(401).json({
+            message: 'Unauthorized'
+        });
+    } else {
+        const tokenData = jwt.verify(token, config.SECRET_KEY);
+
+        if (tokenData.username === undefined || tokenData.exp < Date.now().valueOf / 1000) {
+            res.status(401).json({
+                message: 'Unauthorized'
+            });
+        } else {
+            const filterUser = {
+                username: {
+                    $eq: tokenData.username
+                }
+            }
+
+            database.getOneFromCollection(database.iTravelDB.Users, filterUser)
+                .then((userInfo) => {
+                    if (userInfo === null || userInfo === undefined) {
+                        res.status(200).json({
+                            message: 'Invalid Username',
+                            data: false
+                        });
+                    } else {
+                        let isAdmin = false;
+
+                        if (userInfo.permission === 'Admin') {
+                            isAdmin = true;
+                        }
+
+                        const userData = {
+                            _id: userInfo._id,
+                            username: userInfo.username,
+                            isAdmin: isAdmin
+                        }
+
+                        const data = {
+                            _id: userInfo._id,
+                            username: userInfo.username,
+                            firstName: userInfo.firstName,
+                            lastName: userInfo.lastName,
+                            avatar: userInfo.avatar,
+                            isAdmin: isAdmin
+                        }
+
+                        jwt.sign(userData, config.SECRET_KEY, { expiresIn: '23h' }, (err, jwtToken) => {
+                            res.status(201).json({
+                                message: 'Login success!',
+                                token: jwtToken,
+                                data: data
+                            });
+                        });
+                    }
+                });
+        }
+    }
+});
+
+app.get('/user/profile', async (req, res) => {
+    const username = req.param('username');
+    let token = req.headers.authorization;
+
+    if (token !== undefined) {
+        token = token.split(' ')[1];
+    }
+
+    if (token === undefined || token === null) {
+        res.status(401).json({
+            message: 'Unauthorized'
+        });
+    } else {
+        const tokenData = jwt.verify(token, config.SECRET_KEY);
+
+        if (tokenData.username === undefined || tokenData.username !== username) {
+            res.status(401).json({
+                message: 'Unauthorized'
+            });
+        } else {
+            const userFilter = {
+                username: {
+                    $eq: username
+                }
+            }
+            database.getOneFromCollection(database.iTravelDB.Users, userFilter)
+                .then((userInfo) => {
+                    if (userInfo === null) {
+                        res.status(404).json({
+                            message: 'Not found Username'
+                        });
+                    } else {
+                        const returnedUserData = {
+                            email: userInfo.email,
+                            firstName: userInfo.firstName,
+                            lastName: userInfo.lastName,
+                            birthDay: userInfo.birthDay,
+                            level: userInfo.level,
+                            hometown: userInfo.hometown,
+                            point: userInfo.point,
+                            permission: userInfo.permission
+                        }
+                        res.status(200).json({
+                            message: 'Success',
+                            data: returnedUserData
+                        });
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    }
+});
+
+app.get('/manager/posts', async (req, res) => {
+    let token = req.headers.authorization;
+
+    if (token !== undefined) {
+        token = token.split(' ')[1];
+    }
+
+    if (token === undefined || token === null) {
+        res.status(401).json({
+            message: 'Unauthorized'
+        });
+    } else {
+        const tokenData = jwt.verify(token, config.SECRET_KEY);
+
+        if (tokenData.username === undefined || !tokenData.isAdmin) {
+            res.status(401).json({
+                message: 'Unauthorized'
+            });
+        } else {
+            const userFilter = {
+                username: {
+                    $eq: tokenData.username
+                },
+                permission: {
+                    $eq: config.USER_PERMISSION.Admin
+                }
+            }
+            database.getOneFromCollection(database.iTravelDB.Users, userFilter)
+                .then((userInfo) => {
+                    if (userInfo === null) {
+                        res.status(401).json({
+                            message: 'Unauthorized'
+                        });
+                    } else {
+                        database.getCollectionData(database.iTravelDB.Posts)
+                            .then((listPost) => {
+                                var postsManagementData = []
+
+                                listPost.forEach((post) => {
+                                    postsManagementData.push({
+                                        _id: post._id,
+                                        title: post.title,
+                                        authorId: post.authorId,
+                                        createdTime: post.createdTime,
+                                        status: post.status,
+                                        categories: post.categories.map(x => x.name)
+                                    })
+                                });
+
+                                res.status(200).json({
+                                    message: 'Success',
+                                    data: postsManagementData
+                                });
+                            })
+                            .catch((err) => {
+                                console.log(err);
+                                res.status(500).json({
+                                    message: 'Fail'
+                                });
+                            });
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                    res.status(500).json({
+                        message: 'Fail'
+                    });
+                });
+        }
     }
 })
 /** Routing - END */
