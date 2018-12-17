@@ -17,9 +17,9 @@ export class PostManagementComponent implements OnInit {
 
   flagKindOfPost: any = {
     all: 'All',
-    approveded: 'Approveded',
-    pendding: 'Pendding',
-    denied: 'Denied'
+    approved: this.constant.POST_STATUS.APPROVED,
+    pending: this.constant.POST_STATUS.PENDING,
+    denied: this.constant.POST_STATUS.DENY
   };
   chosenKindOfPost = this.flagKindOfPost.all;
 
@@ -44,7 +44,7 @@ export class PostManagementComponent implements OnInit {
   }
 
   open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -57,7 +57,7 @@ export class PostManagementComponent implements OnInit {
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
       return 'by clicking on a backdrop';
     } else {
-      return  `with: ${reason}`;
+      return `with: ${reason}`;
     }
   }
 
@@ -123,5 +123,16 @@ export class PostManagementComponent implements OnInit {
   resetError() {
     this.hasError = false;
     this.errorMessage = '';
+  }
+
+  filterListPostByPostStatus(postStatusFilter: string) {
+    if (postStatusFilter === this.constant.POST_STATUS.APPROVED
+      || postStatusFilter === this.constant.POST_STATUS.DENY
+      || postStatusFilter === this.constant.POST_STATUS.PENDING) {
+        this.listShowPost = [];
+        this.listShowPost = this.listAllPost.filter(post => post.status === postStatusFilter);
+    } else {
+      this.listShowPost = this.listAllPost;
+    }
   }
 }
