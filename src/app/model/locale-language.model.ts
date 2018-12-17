@@ -105,8 +105,8 @@ export class LocaleLanguage {
     postManagementTitle: string;
     postManagementStartDate: string;
     postManagementEndDate: string;
-    postManagementApproveded: string;
-    postManagementPendding: string;
+    postManagementApproved: string;
+    postManagementPending: string;
     postManagementDenied: string;
     postManagementAllPost: string;
     postManagementErrorEmptyDate: string;
