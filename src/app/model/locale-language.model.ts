@@ -113,6 +113,12 @@ export class LocaleLanguage {
     postManagementErrorInvalidDate: string;
     postManagementErrorStartAfterEnd: string;
     postManagementFilter: string;
+    postManagementTablePostName: string;
+    postManagementTablePostAuthor: string;
+    postManagementTablePostCreationTime: string;
+    postManagementTablePostCategories: string;
+    postManagementTablePostStatus: string;
+    postManagementTableAction: string;
 
     constructor() { }
 }

@@ -134,6 +134,12 @@ export class LanguageService {
     this.vnLanguage.postManagementErrorInvalidDate = 'Định dạng ngày tháng chưa đúng';
     this.vnLanguage.postManagementErrorStartAfterEnd = 'Ngày bắt đầu cần nhỏ hơn hoặc bằng ngày kết thúc';
     this.vnLanguage.postManagementFilter = 'Lọc';
+    this.vnLanguage.postManagementTablePostName = 'Tên Bài viết';
+    this.vnLanguage.postManagementTablePostAuthor = 'Tác giả';
+    this.vnLanguage.postManagementTablePostCreationTime = 'Thời gian';
+    this.vnLanguage.postManagementTablePostCategories = 'Thể loại';
+    this.vnLanguage.postManagementTablePostStatus = 'Trạng thái';
+    this.vnLanguage.postManagementTableAction = 'Hành động';
   }
 
   createEnglishDictionary() {
@@ -250,6 +256,13 @@ export class LanguageService {
     this.enLanguage.postManagementErrorInvalidDate = 'Invalid date format';
     this.enLanguage.postManagementErrorStartAfterEnd = 'Start date need equal or earlier than end date';
     this.enLanguage.postManagementFilter = 'Filter';
+    this.enLanguage.postManagementTablePostName = 'Title';
+    this.enLanguage.postManagementTablePostAuthor = 'Author';
+    this.enLanguage.postManagementTablePostCreationTime = 'Creation Time';
+    this.enLanguage.postManagementTablePostCategories = 'Categories';
+    this.enLanguage.postManagementTablePostStatus = 'Status';
+    this.enLanguage.postManagementTableAction = 'Action';
+
   }
 
   setVietnamese() {

@@ -632,4 +632,76 @@ app.get('/user/profile', async (req, res) => {
         }
     }
 });
+
+app.get('/manager/posts', async (req, res) => {
+    let token = req.headers.authorization;
+
+    if (token !== undefined) {
+        token = token.split(' ')[1];
+    }
+
+    if (token === undefined || token === null) {
+        res.status(401).json({
+            message: 'Unauthorized'
+        });
+    } else {
+        const tokenData = jwt.verify(token, config.SECRET_KEY);
+
+        if (tokenData.username === undefined || !tokenData.isAdmin) {
+            res.status(401).json({
+                message: 'Unauthorized'
+            });
+        } else {
+            const userFilter = {
+                username: {
+                    $eq: tokenData.username
+                },
+                permission: {
+                    $eq: config.USER_PERMISSION.Admin
+                }
+            }
+            database.getOneFromCollection(database.iTravelDB.Users, userFilter)
+                .then((userInfo) => {
+                    if (userInfo === null) {
+                        res.status(401).json({
+                            message: 'Unauthorized'
+                        });
+                    } else {
+                        database.getCollectionData(database.iTravelDB.Posts)
+                            .then((listPost) => {
+                                var postsManagementData = []
+
+                                listPost.forEach((post) => {
+                                    postsManagementData.push({
+                                        _id: post._id,
+                                        title: post.title,
+                                        authorId: post.authorId,
+                                        createdTime: post.createdTime,
+                                        status: post.status,
+                                        categories: post.categories.map(x => x.name)
+                                    })
+                                });
+
+                                res.status(200).json({
+                                    message: 'Success',
+                                    data: postsManagementData
+                                });
+                            })
+                            .catch((err) => {
+                                console.log(err);
+                                res.status(500).json({
+                                    message: 'Fail'
+                                });
+                            });
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                    res.status(500).json({
+                        message: 'Fail'
+                    });
+                });
+        }
+    }
+})
 /** Routing - END */

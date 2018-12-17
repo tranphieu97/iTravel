@@ -14,7 +14,7 @@ export class IndexComponent implements OnInit {
   constructor(private server: ServerService) { }
 
   ngOnInit() {
-    this.server.GetCardViewPost().subscribe((result) => {
+    this.server.getCardViewPost().subscribe((result) => {
       this.cardViewPosts = result;
     });
   }
