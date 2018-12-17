@@ -75,7 +75,7 @@
             <td>{{post.authorId}}</td>
             <td>{{post.createdTime | date}}</td>
             <td>{{post.categories}}</td>
-            <td [ngClass]="{'red-text': post.status.indexOf('ACCEPT') !== -1}"><i class="fas fa-circle tiny-icon"></i> {{post.status | titlecase}}</td>
+            <td [ngClass]="{'green-text': post.status.indexOf('ACCEPT') !== -1}"><i class="fas fa-circle tiny-icon"></i> {{post.status | titlecase}}</td>
             <td class="action-cell">
               <span class="action-icon" (click)="open(content)"><i class="fas fa-eye"></i></span>
               <span class="action-icon"><i class="fas fa-bars"></i></span>
