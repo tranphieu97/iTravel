@@ -8,9 +8,9 @@ export class ConstantService {
   POST_STATUS =
     {
       NEW: 'NEW',
-      PENDDING: 'PENDDING',
-      ALLOW: 'ALLOW',
-      NOT_ALLOW: 'NOT_ALLOW',
+      PENDING: 'PENDING',
+      APPROVED: 'APPROVED',
+      DENY: 'DENY',
       NEED_REPAIR: 'NEED_REPAIR'
     };
 
