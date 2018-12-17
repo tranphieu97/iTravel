@@ -25,7 +25,7 @@ export class NavigationBarComponent implements OnInit {
   menuCuisine: Menu = new Menu(this.language.currentLanguage.menuCuisine, 'assets/menu-icon/icon-cuisine.png', '', 4);
   menuPlans: Menu = new Menu(this.language.currentLanguage.menuPlans, 'assets/menu-icon/icon-plans.png', '', 5);
   menuTrend: Menu = new Menu(this.language.currentLanguage.menuTrend, 'assets/menu-icon/icon-trend.png', 'trend', 6);
-  menuPersonal: Menu = new Menu(this.language.currentLanguage.menuPersonal, 'assets/menu-icon/icon-user.png', '', 7);
+  // menuPersonal: Menu = new Menu(this.language.currentLanguage.menuPersonal, 'assets/menu-icon/icon-user.png', '', 7);
   menuAbout: Menu = new Menu(this.language.currentLanguage.menuAbout, 'assets/menu-icon/icon-about.png', '', 8);
 
   // Menu Item Regions
@@ -47,9 +47,9 @@ export class NavigationBarComponent implements OnInit {
   menuItemMoreThanAWeek: MenuItem = new MenuItem(this.language.currentLanguage.menuItemMoreThanAWeek, '');
 
   // Menu Item Personal Information
-  menuItemPersonalInfo: MenuItem = new MenuItem(this.language.currentLanguage.menuItemProfile, 'user/profile');
-  menuItemChangePassword: MenuItem = new MenuItem(this.language.currentLanguage.menuItemChangePassword, '');
-  menuItemContribution: MenuItem = new MenuItem(this.language.currentLanguage.menuItemContribution, '');
+  // menuItemPersonalInfo: MenuItem = new MenuItem(this.language.currentLanguage.menuItemProfile, 'user/profile');
+  // menuItemChangePassword: MenuItem = new MenuItem(this.language.currentLanguage.menuItemChangePassword, '');
+  // menuItemContribution: MenuItem = new MenuItem(this.language.currentLanguage.menuItemContribution, '');
 
   // Menu Item About Us
   menuItemPolicies: MenuItem = new MenuItem(this.language.currentLanguage.menuItemPolicies, '');
@@ -73,7 +73,7 @@ export class NavigationBarComponent implements OnInit {
     this.menuCuisine.name = this.language.currentLanguage.menuCuisine;
     this.menuPlans.name = this.language.currentLanguage.menuPlans;
     this.menuTrend.name = this.language.currentLanguage.menuTrend;
-    this.menuPersonal.name = this.language.currentLanguage.menuPersonal;
+    // this.menuPersonal.name = this.language.currentLanguage.menuPersonal;
     this.menuAbout.name = this.language.currentLanguage.menuAbout;
     this.menuItemTheNorth.name = this.language.currentLanguage.menuItemTheNorth;
     this.menuItemTheCentral.name = this.language.currentLanguage.menuItemTheCentral;
@@ -85,9 +85,9 @@ export class NavigationBarComponent implements OnInit {
     this.menuItemOneDay.name = this.language.currentLanguage.menuItemOneDay;
     this.menuItemOneWeek.name = this.language.currentLanguage.menuItemOneWeek;
     this.menuItemMoreThanAWeek.name = this.language.currentLanguage.menuItemMoreThanAWeek;
-    this.menuItemPersonalInfo.name = this.language.currentLanguage.menuItemProfile;
-    this.menuItemChangePassword.name = this.language.currentLanguage.menuItemChangePassword;
-    this.menuItemContribution.name = this.language.currentLanguage.menuItemContribution;
+    // this.menuItemPersonalInfo.name = this.language.currentLanguage.menuItemProfile;
+    // this.menuItemChangePassword.name = this.language.currentLanguage.menuItemChangePassword;
+    // this.menuItemContribution.name = this.language.currentLanguage.menuItemContribution;
     this.menuItemPolicies.name = this.language.currentLanguage.menuItemPolicies;
     this.menuItemFeedback.name = this.language.currentLanguage.menuItemFeedback;
   }
@@ -102,7 +102,7 @@ export class NavigationBarComponent implements OnInit {
       this.menuCuisine,
       this.menuPlans,
       this.menuTrend,
-      this.menuPersonal,
+      // this.menuPersonal,
       this.menuAbout
     );
   }
@@ -112,7 +112,7 @@ export class NavigationBarComponent implements OnInit {
     this.menuTravel.listItem.push(this.menuItemHotTravel, this.menuItemRecentTravel);
     this.menuCuisine.listItem.push(this.menuItemHotCuisine, this.menuItemRecentCuisine);
     this.menuPlans.listItem.push(this.menuItemOneDay, this.menuItemOneWeek, this.menuItemMoreThanAWeek);
-    this.menuPersonal.listItem.push(this.menuItemPersonalInfo, this.menuItemChangePassword, this.menuItemContribution);
+    // this.menuPersonal.listItem.push(this.menuItemPersonalInfo, this.menuItemChangePassword, this.menuItemContribution);
     this.menuAbout.listItem.push(this.menuItemPolicies, this.menuItemFeedback);
   }
 
