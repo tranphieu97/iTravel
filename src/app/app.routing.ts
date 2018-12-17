@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NotFoundPageComponent } from './master-page/not-found-page/not-found-page.component';
 import { LayoutComponent } from './web-layout/layout/layout.component';
 import { AuthLayoutComponent } from './web-layout/auth-layout/auth-layout.component';
+import { AuthGuard } from './core/_guards/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -35,7 +36,8 @@ const routes: Routes = [
   {
     path: 'user',
     component: LayoutComponent,
-    loadChildren: 'src/app/user/user.module#UserModule'
+    loadChildren: 'src/app/user/user.module#UserModule',
+    canActivate: [AuthGuard]
   },
   {
     path: 'additional',
