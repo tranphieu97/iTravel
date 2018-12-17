@@ -35,12 +35,7 @@ export class PostManagementComponent implements OnInit {
     private modalService: NgbModal, private constant: ConstantService) { }
 
   ngOnInit() {
-    this.server.getPostsByManager().subscribe((res) => {
-      if (res.data) {
-        this.listAllPost = res.data;
-        this.listShowPost = this.listAllPost;
-      }
-    });
+    this.refreshListPost();
   }
 
   open(content) {
@@ -77,6 +72,11 @@ export class PostManagementComponent implements OnInit {
         } else {
           this.errorMessage = this.language.currentLanguage.postManagementErrorStartAfterEnd;
           this.hasError = true;
+
+          const startD = new Date(this.startDate.year, this.startDate.month, this.startDate.day, 0, 0, 0, 0);
+          const endD = new Date(this.endDate.year, this.endDate.month, this.endDate.day, 0, 0, 0, 0);
+
+          this.filterListPostByDate(startD, endD);
         }
       } else {
         this.errorMessage = this.language.currentLanguage.postManagementErrorInvalidDate;
@@ -125,6 +125,12 @@ export class PostManagementComponent implements OnInit {
     this.errorMessage = '';
   }
 
+  /**
+   * Filter list post be show by their status
+   * @name filterListPostByPostStatus
+   * @author phieu-th
+   * @param postStatusFilter
+   */
   filterListPostByPostStatus(postStatusFilter: string) {
     if (postStatusFilter === this.constant.POST_STATUS.APPROVED
       || postStatusFilter === this.constant.POST_STATUS.DENY
@@ -134,5 +140,25 @@ export class PostManagementComponent implements OnInit {
     } else {
       this.listShowPost = this.listAllPost;
     }
+  }
+
+  filterListPostByDate(startDate: Date, endDate: Date) {
+    if (startDate <= endDate) {
+      this.listShowPost = this.listShowPost.filter(post => post.createdTime >= startDate && post.createdTime <= endDate);
+    }
+  }
+
+  /**
+   * Get list post from server
+   * @name refreshListPost
+   * @author phieu-th
+   */
+  refreshListPost() {
+    this.server.getPostsByManager().subscribe((res) => {
+      if (res.data) {
+        this.listAllPost = res.data;
+        this.listShowPost = this.listAllPost;
+      }
+    });
   }
 }
