@@ -13,6 +13,7 @@ import { CommentItemComponent } from './post/post-comment/comment-item/comment-i
     CommonModule,
     PostViewRoutingModule
   ],
+  exports: [PostComponent],
   declarations: [
     PostComponent,
     PostContentComponent,

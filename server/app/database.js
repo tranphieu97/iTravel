@@ -15,8 +15,8 @@ const iTravelDB = {
     PostCategories: 'PostCategories',
     ProvinceCity: 'ProvinceCity',
     Locations: 'Locations',
-    Users: 'Users'
-
+    Users: 'Users',
+    SignInHistory: 'SignInHistory'
 }
 
 exports.iTravelDB = iTravelDB;

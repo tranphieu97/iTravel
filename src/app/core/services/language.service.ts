@@ -20,6 +20,11 @@ export class LanguageService {
     this.currentLanguage = this.enLanguage;
   }
 
+  /**
+   * Set Vietnamese for language variabales
+   * @name createVietnameseDictionary
+   * @author phieu-th
+   */
   createVietnameseDictionary() {
     // For Header Component
     this.vnLanguage.headerVietnamese = 'Tiếng Việt';
@@ -126,7 +131,7 @@ export class LanguageService {
     this.vnLanguage.postManagementTitle = 'Quản lý bài viết';
     this.vnLanguage.postManagementStartDate = 'Từ:';
     this.vnLanguage.postManagementEndDate = 'Đến:';
-    this.vnLanguage.postManagementApproved = 'Đã duyệt';
+    this.vnLanguage.postManagementApproved = 'Đã phê duyệt';
     this.vnLanguage.postManagementPending = 'Đang chờ';
     this.vnLanguage.postManagementDenied = 'Từ chối';
     this.vnLanguage.postManagementAllPost = 'Tất cả';
@@ -140,8 +145,15 @@ export class LanguageService {
     this.vnLanguage.postManagementTablePostCategories = 'Thể loại';
     this.vnLanguage.postManagementTablePostStatus = 'Trạng thái';
     this.vnLanguage.postManagementTableAction = 'Hành động';
+    this.vnLanguage.postManagementPostViewTitle = 'Xem trước bài viết';
+    this.vnLanguage.postManagementPostViewOk = 'Ok';
   }
 
+  /**
+   * Set English for language variables
+   * @name createEnglishDictionary
+   * @author phieu-th
+   */
   createEnglishDictionary() {
     // For Header Component
     this.enLanguage.headerVietnamese = 'Vietnamese';
@@ -262,14 +274,26 @@ export class LanguageService {
     this.enLanguage.postManagementTablePostCategories = 'Categories';
     this.enLanguage.postManagementTablePostStatus = 'Status';
     this.enLanguage.postManagementTableAction = 'Action';
+    this.enLanguage.postManagementPostViewTitle = 'Review';
+    this.enLanguage.postManagementPostViewOk = 'Ok';
 
   }
 
+  /**
+   * Set language is using is Vietnamese
+   * @name setVietnamese
+   * @author phieu-th
+   */
   setVietnamese() {
     this.currentLanguage = this.vnLanguage;
     this.hasChangeLanguage.next();
   }
 
+  /**
+   * Set language is using is English
+   * @name setEnglish
+   * @author phieu-th
+   */
   setEnglish() {
     this.currentLanguage = this.enLanguage;
     this.hasChangeLanguage.next();

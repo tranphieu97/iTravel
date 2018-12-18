@@ -119,6 +119,8 @@ export class LocaleLanguage {
     postManagementTablePostCategories: string;
     postManagementTablePostStatus: string;
     postManagementTableAction: string;
+    postManagementPostViewTitle: string;
+    postManagementPostViewOk: string;
 
     constructor() { }
 }

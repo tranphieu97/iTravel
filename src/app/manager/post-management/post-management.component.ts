@@ -31,6 +31,8 @@ export class PostManagementComponent implements OnInit {
 
   closeResult: string;
 
+  postViewId = '';
+
   constructor(private language: LanguageService, private calendar: NgbCalendar, private server: ServerService,
     private modalService: NgbModal, private constant: ConstantService) { }
 
@@ -38,7 +40,8 @@ export class PostManagementComponent implements OnInit {
     this.refreshListPost();
   }
 
-  open(content) {
+  open(content, postId) {
+    this.postViewId = postId;
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -54,6 +57,14 @@ export class PostManagementComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  openPostViewDialog(contentId, postId: string) {
+    this.modalService.open(contentId, { ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+
+    }).catch ((err) => {
+      console.log(err);
+    });
   }
 
   /**

@@ -497,6 +497,8 @@ app.post('/auth/login', async (req, res) => {
                                 avatar: userInfo.avatar,
                                 isAdmin: isAdmin
                             }
+                            
+                            authetication.insertUserSignInLog(userInfo.username);
 
                             jwt.sign(userData, config.SECRET_KEY, { expiresIn: '23h' }, (err, jwtToken) => {
                                 res.status(201).json({
@@ -564,7 +566,7 @@ app.post('/user/token-login', async (req, res) => {
                             avatar: userInfo.avatar,
                             isAdmin: isAdmin
                         }
-
+                        authetication.insertUserSignInLog(userInfo.username);
                         jwt.sign(userData, config.SECRET_KEY, { expiresIn: '23h' }, (err, jwtToken) => {
                             res.status(201).json({
                                 message: 'Login success!',
@@ -573,6 +575,8 @@ app.post('/user/token-login', async (req, res) => {
                             });
                         });
                     }
+                }). catch((err) => {
+                    console.log(err);
                 });
         }
     }
