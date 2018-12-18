@@ -98,8 +98,8 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
-    <app-post [postId]="postViewId"></app-post>
+  <div class="modal-body review-post-body">
+    <app-post id="review-post" [postId]="postViewId"></app-post>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="modal.close()">{{this.language.currentLanguage.postManagementPostViewOk}}</button>
