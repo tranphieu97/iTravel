@@ -1,0 +1,52 @@
+<!-- <div class="row m-0 p-3 comp">
+  <div class="col-12 p-2 content"> -->
+<div class="row m-0 p-0 hidden-scroll">
+  <div class="col-12 p-0 max-height">
+    <!-- row 1 with title -->
+    <div class="row m-0">
+      <div class="col-12 p-2">
+        <h2 class="title">{{ post.title }}</h2>
+      </div>
+    </div>
+    <!-- info -->
+    <div class="row m-0">
+      <div class="col-12 p-2">
+        <p class="info"><a href="#" class="author">{{ post.authorId }}</a> - <span>{{ post.postCreateTime }}</span></p>
+      </div>
+    </div>
+    <!-- include post description -->
+    <div class="row m-0">
+      <div class="col-12 p-2">
+        <p class="desc">{{ post.description }}</p>
+      </div>
+    </div>
+    <!-- add ngFor here for post contents -->
+    <div class="row m-0">
+      <div class="col-12 p-2">
+        <app-post-content *ngFor="let content of post.postContents" [postContent]="content"></app-post-content>
+      </div>
+    </div>
+    <!-- post feature -->
+    <div class="row m-0">
+      <div class="col-12 p-2">
+        <app-post-rating [post]="post"></app-post-rating>
+      </div>
+    </div>
+    <!-- add ngFor for tags -->
+    <div class="row m-0">
+      <div class="col-12 p-2">
+        <span class="tag">Tag:</span>
+        <span class="tag tag-item">Province</span>
+        <span *ngFor="let tag of post.tags" class="tag tag-item">{{ tag }}</span>
+      </div>
+    </div>
+    <!-- post comments-->
+    <div class="row m-0">
+      <div class="col-12 p-2">
+        <app-post-comment [post]="post"></app-post-comment>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- </div>
+</div> -->

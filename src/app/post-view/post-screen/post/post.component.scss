@@ -18,10 +18,6 @@
         color: black;
         font-weight: bold;
     }
-    .comp {
-        background-color: #e1e1ef;
-        height: 100%;
-    }
     .hidden-scroll {
         height: 100%;
         overflow-y: scroll;
@@ -31,10 +27,6 @@
         // co thi ko bi tran, ko hieu tai sao
         // so px ko quan trong
         max-height: 100px;
-    }
-    .content {
-        background-color: #fff;
-        border-radius: 5px;
     }
     .hidden-scroll::-webkit-scrollbar {
         width: 0px;
