@@ -21,32 +21,32 @@ export class CreatePostContentComponent implements OnInit {
 
   onImagePicked(event: Event, addedImgPostContent: PostContent) {
     // find the post-content need add image
-    const needAddPContent = this.post.postContents.find((eachEle) => {
-      return eachEle._id === addedImgPostContent._id;
-    });
+    // const needAddPContent = this.post.postContents.find((eachEle) => {
+    //   return eachEle._id === addedImgPostContent._id;
+    // });
     // if found needAddPContent, go to add image
-    if (needAddPContent !== null && needAddPContent !== undefined) {
+    if (addedImgPostContent !== null && addedImgPostContent !== undefined) {
       const file = (event.target as HTMLInputElement).files[0];
-      // const reader = new FileReader();
-      // reader.onload = () => {
-      //   this.post.cover = reader.result.toString();
-      // };
-      // reader.readAsDataURL(file);
+      // emit file and id of postContent
+      this.postService.hasNewImage.next({ imgFile: file, contentId: addedImgPostContent._id });
 
-      this.postService.uploadImage(file).subscribe((resData) => {
-        if (resData.imageUrl !== '') {
-          needAddPContent.image = resData.imageUrl;
-        }
-      });
+      // this.postService.uploadImage(file).subscribe((resData) => {
+      //   if (resData.imageUrl !== '') {
+      //     addedImgPostContent.image = resData.imageUrl;
+      //   }
+      // });
     }
   }
 
   onDelImageClick(removedImgPostContent: PostContent) {
     // find the post-content need remove image
-    const needRemovedPContent = this.post.postContents.find((eachEle) => {
-      return eachEle._id === removedImgPostContent._id;
-    });
-    needRemovedPContent.image = '';
+    // const needRemovedPContent = this.post.postContents.find((eachEle) => {
+    //   return eachEle._id === removedImgPostContent._id;
+    // });
+    // delete image url
+    removedImgPostContent.image = '';
+    // emit event hasImgDeleted
+    this.postService.hasImgDeleted.next(removedImgPostContent._id);
   }
 
   onRemovePostContent(removedPostContent: PostContent) {
@@ -54,13 +54,20 @@ export class CreatePostContentComponent implements OnInit {
     // const needRemovedPContent = this.postContents.find((eachEle) => {
     //   return eachEle._id === removedPostContent._id;
     // });
+    // filt out the removed postContent
     this.post.postContents = this.post.postContents.filter((eachEle) => {
       return eachEle._id !== removedPostContent._id;
     });
+    // emit event hasImgDeleted
+    this.postService.hasImgDeleted.next(removedPostContent._id);
   }
 
   onAddPostContent() {
-    this.post.postContents.push(new PostContent('', '', '', ''));
+    // create temp PostContent with fake Id
+    const tempPostContent = new PostContent('', '', '', '');
+    // fake Id
+    tempPostContent._id = new Date().toUTCString();
+    this.post.postContents.push(tempPostContent);
   }
 
   onUpdateTopicTitle(updatedPostContent: PostContent, event: Event) {
