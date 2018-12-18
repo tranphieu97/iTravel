@@ -56,18 +56,24 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/provinces', (req, res) => {
-    database.getCollectionData(database.iTravelDB.Provinces).then((data) => {
-        if (data != null) {
-            res.status(200).json({
-                message: 'Load ' + database.iTravelDB.Provinces + ' success!',
-                data: data
-            })
-        } else {
+    database.getCollectionData(database.iTravelDB.ProvinceCity)
+        .then((data) => {
+            if (data != null) {
+                res.status(200).json({
+                    message: 'Load ' + database.iTravelDB.ProvinceCity + ' success!',
+                    data: data
+                });
+            } else {
+                res.status(500).json({
+                    message: 'Load' + database.iTravelDB.ProvinceCity + 'fail!'
+                });
+            }
+        })
+        .catch((err) => {
             res.status(500).json({
-                message: 'Load' + database.iTravelDB.Provinces + 'fail!'
-            })
-        }
-    });
+                message: 'Load' + database.iTravelDB.ProvinceCity + 'fail!'
+            });
+        });
 });
 
 app.get('/api/province-city', (req, res) => {
@@ -497,7 +503,7 @@ app.post('/auth/login', async (req, res) => {
                                 avatar: userInfo.avatar,
                                 isAdmin: isAdmin
                             }
-                            
+
                             authetication.insertUserSignInLog(userInfo.username);
 
                             jwt.sign(userData, config.SECRET_KEY, { expiresIn: '23h' }, (err, jwtToken) => {
@@ -575,7 +581,7 @@ app.post('/user/token-login', async (req, res) => {
                             });
                         });
                     }
-                }). catch((err) => {
+                }).catch((err) => {
                     console.log(err);
                 });
         }

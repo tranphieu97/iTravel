@@ -2,6 +2,8 @@ import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
 import { AmChartsService, AmChart, AmChartsModule } from '@amcharts/amcharts3-angular';
 import { ServerService } from '../../core/services/server.service';
 import { Province } from '../../model/province.model';
+import { MasterPageService } from '../../core/services/master-page.service';
+import { ProvinceCity } from '../../model/province-city.model';
 
 
 @Component({
@@ -20,13 +22,13 @@ export class VietNamMapComponent implements OnInit {
   mousePosition_X: number;
   mousePosition_Y: number;
 
-  listProvinces: Province[];
+  listProvinces: ProvinceCity[];
 
   private popupInfo: any = {
-    ProvinceName: '',
-    PostCount: 0,
-    Position_X: '-100px',
-    Position_Y: '-100px'
+    provinceName: '',
+    postCount: 0,
+    position_X: '-100px',
+    position_Y: '-100px'
   };
 
   @HostListener('document:mousemove', ['$event'])
@@ -35,61 +37,97 @@ export class VietNamMapComponent implements OnInit {
     this.mousePosition_Y = event.clientY;
   }
 
-  constructor(private server: ServerService) { }
+  constructor(private server: ServerService, private masterPage: MasterPageService) { }
 
   ngOnInit() {
-    this.server.getListProvinces().subscribe(res => {
-      this.listProvinces = res;
-    });
+    if (this.masterPage.listProvinces === undefined || this.masterPage.listProvinces.length === 0) {
+      this.server.getListProvinces().subscribe((listProvinces) => {
+        this.masterPage.listProvinces = listProvinces;
+        this.listProvinces = listProvinces;
+      });
+    } else {
+      this.listProvinces = this.masterPage.listProvinces;
+    }
 
-    this.ResetPopup();
+    this.resetPopup();
 
     this.mousePosition_X = 0;
     this.mousePosition_Y = 0;
   }
 
 
-  GetPathInformation(event, provinceID): void {
+  /**
+   * Set a province information when hover to it path
+   * @name getPathInformation
+   * @author phieu-th
+   * @param event
+   * @param provinceId
+   */
+  getPathInformation(event, provinceId): void {
     this.isFocusLocation = true;
 
     this.pathPosition_X = event.clientX;
     this.pathPosition_Y = event.clientY;
 
-    this.popupInfo.Position_X = (this.pathPosition_X - 70) + 'px';
-    this.popupInfo.Position_Y = (this.pathPosition_Y + 15) + 'px';
+    this.popupInfo.position_X = (this.pathPosition_X - 70) + 'px';
+    this.popupInfo.position_Y = (this.pathPosition_Y + 15) + 'px';
 
-    this.popupInfo.ProvinceName = this.listProvinces.find(x => x.provinceID === provinceID).provinceName;
+    this.popupInfo.provinceName = this.listProvinces.find(x => x.provinceId === provinceId).provinceName;
 
   }
 
-  LeavePath(): void {
+  /**
+   * Change flag to hide popup
+   * @name leavePath
+   * @author phieu-th
+   */
+  leavePath(): void {
     this.isFocusLocation = false;
   }
 
-  FocusPopup(): void {
+  /**
+   * Change flag to block popup position
+   * @name focusPopup
+   * @author phieu-th
+   */
+  focusPopup(): void {
     this.isFocusPopup = true;
   }
 
-  LeavePopup(): void {
+  /**
+   * Hide popup after leave
+   * @name leavePopup
+   * @author phieu-th
+   */
+  leavePopup(): void {
     this.isFocusPopup = false;
-    this.ResetPopup();
+    this.resetPopup();
   }
 
-  IsShowPopup(): boolean {
+  /**
+   * Check popup can be showed
+   * @name isShowPopup
+   * @author phieu-th
+   */
+  isShowPopup(): boolean {
     if (this.isFocusLocation
-        || this.isFocusPopup
-        || (this.pathPosition_X - 45 <= this.mousePosition_X
-              && this.pathPosition_X + 45 >= this.mousePosition_X
-              && this.pathPosition_Y + 55 >= this.mousePosition_Y
-              && this.pathPosition_Y <= this.mousePosition_Y)) {
+      || this.isFocusPopup
+      || (this.pathPosition_X - 45 <= this.mousePosition_X
+        && this.pathPosition_X + 45 >= this.mousePosition_X
+        && this.pathPosition_Y + 55 >= this.mousePosition_Y
+        && this.pathPosition_Y <= this.mousePosition_Y)) {
       return true;
     }
 
     return false;
   }
 
-  ResetPopup() {
-
+  /**
+   * Hide and reset popup position
+   * @name resetPopup
+   * @author phieu-th
+   */
+  resetPopup() {
     this.popupInfo.PostCount = 0;
     this.popupInfo.ProvinceName = '';
 

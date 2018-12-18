@@ -27,14 +27,21 @@ export class ServerService {
 
   constructor(private http: HttpClient) { }
 
-  getListProvinces(): Observable<Province[]> {
+  /**
+   * Get list 63 VietNam's provinces
+   * @name getListProvinces
+   * @author phieu-th
+   */
+  getListProvinces(): Observable<ProvinceCity[]> {
     return this.http.get<any>(this.HOST + 'api/provinces/').pipe(map((res: any) => {
-      const provinces: Province[] = res.data.map((resItem) => {
-        const province = new Province(
-          resItem.ProvinceID,
-          resItem.ProvinceName,
-          resItem.District,
-          resItem.MapID
+      const provinces: ProvinceCity[] = res.data.map((resItem) => {
+        const province = new ProvinceCity(
+          resItem._id,
+          resItem.provinceId,
+          resItem.provinceName,
+          resItem.districts,
+          resItem.regionOfCountry,
+          resItem.mapId
         );
 
         return province;
