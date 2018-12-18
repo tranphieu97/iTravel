@@ -20,17 +20,15 @@ export class PostComponent implements OnInit, OnChanges {
   constructor(private serverService: ServerService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.route.params.subscribe((params: Params) => {
-      this.postId = params['id'];
-      this.getPostByPostId();
-    });
+    // this.route.params.subscribe((params: Params) => {
+    //   this.postId = params['id'];
+    //   this.getPostByPostId();
+    // });
+    this.getPostByPostId();
   }
 
   ngOnChanges() {
-    // if id of post changed, navigate to the post has that id
-    if (this.postId !== this.post._id) {
-      this.router.navigate(['/view-post', this.postId]);
-    }
+
   }
 
   getPostByPostId() {
