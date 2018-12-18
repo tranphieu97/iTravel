@@ -13,12 +13,29 @@
         .post-management-title {
             height: 50px;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
             border-bottom: 1px solid $GRAY;
 
             h4 {
                 font-weight: bolder;
+            }
+
+            span {
+                padding: 5px;
+                margin-right: 3px;
+                cursor: pointer;
+
+                i {
+                    color: $GRAY;
+                    font-size: 14px;
+                }
+            }
+
+            span:hover {
+                background-color: $CYAN;
+                border-radius: 5px;
             }
         }
 

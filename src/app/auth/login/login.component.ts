@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { AuthenticationService } from '../../core/services/authentication.service';
 import { LanguageService } from '../../core/services/language.service';
 import { UserService } from '../../core/services/user.service';
+import { User } from '../../model/user.model';
 
 @Component({
   selector: 'app-login',
@@ -51,8 +52,9 @@ export class LoginComponent implements OnInit {
           this.loginMessage = res.message;
           this.isFailLogin = true;
         } else {
-          this.user.setCurrentUser(res.data._id, res.data.username, res.data.firstName, res.data.lastName);
-          this.user.currentUser.avatar = res.data.avatar;
+          this.user.currentUser = new User();
+          this.user.currentUser.setUserRequiredInfo(res.data._id, res.data.username,
+            res.data.firstName, res.data.lastName, res.data.avatar);
           this.user.currentUser.isAdmin = res.data.isAdmin;
           this.user.isLogin = true;
           this.router.navigate(['home']);

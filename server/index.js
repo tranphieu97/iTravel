@@ -611,6 +611,8 @@ app.get('/user/profile', async (req, res) => {
                         });
                     } else {
                         const returnedUserData = {
+                            _id: userInfo._id,
+                            username: userInfo.username,
                             email: userInfo.email,
                             firstName: userInfo.firstName,
                             lastName: userInfo.lastName,
@@ -618,7 +620,8 @@ app.get('/user/profile', async (req, res) => {
                             level: userInfo.level,
                             hometown: userInfo.hometown,
                             point: userInfo.point,
-                            permission: userInfo.permission
+                            permission: userInfo.permission,
+                            avatar: userInfo.avatar
                         }
                         res.status(200).json({
                             message: 'Success',

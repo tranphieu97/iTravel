@@ -17,18 +17,26 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser = this.user.currentUser;
+    console.log(this.currentUser);
 
-    this.user.hasChangeUser.subscribe(() => {
-      this.currentUser = this.user.currentUser;
-    });
-
-    if (this.currentUser === undefined || this.currentUser === null) {
-      this.router.navigate(['home']);
+    if (this.currentUser === undefined || this.currentUser.username === null) {
+      this.router.navigate(['/auth/login']);
     } else {
-      this.authentication.getUserProfile(this.user.currentUser.username).subscribe((res) => {
-        if (res.data) {
-          this.user.currentUser = res.data;
-          console.log(this.user.currentUser.permission);
+      this.authentication.getUserProfile(this.currentUser.username).subscribe((res) => {
+        if (res.data && this.currentUser.username === res.data.username) {
+          this.currentUser.setFullUserInfo(
+            res.data._id,
+            res.data.username,
+            res.data.email,
+            res.data.firstName,
+            res.data.lastName,
+            res.data.avatar,
+            res.data.birthDay,
+            res.data.level,
+            res.data.hometown,
+            res.data.point,
+            res.data.permission
+          );
         }
       });
     }
