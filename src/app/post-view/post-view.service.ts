@@ -16,6 +16,7 @@ export class PostViewService {
     // create an Observable will emit event that an image was deleted
     hasImgDeleted = new Subject<string>();
 
+    // constructor(private http: HttpClient, private server: ServerService) { }
     constructor(private http: HttpClient, private server: ServerService) { }
 
     // get all posts from database
@@ -53,19 +54,19 @@ export class PostViewService {
     // }
 
     // send a post and store in database
-    addOnePost(newPost: Post) {
-        // const post: Post = this.posts[3];
-        // const postData = new FormData();
-        // postData.append('post', newPost);
-        // console.log(post);
-        // this.http.post<{ message: string }>(this.HOST + 'db/posts', newPost)
-        //     .subscribe((resData) => {
-        //         console.log(resData.message);
-        //     });
-        return this.server.postOnePost(newPost);
-    }
+    // addOnePost(newPost: Post) {
+    //     // const post: Post = this.posts[3];
+    //     // const postData = new FormData();
+    //     // postData.append('post', newPost);
+    //     // console.log(post);
+    //     // this.http.post<{ message: string }>(this.HOST + 'db/posts', newPost)
+    //     //     .subscribe((resData) => {
+    //     //         console.log(resData.message);
+    //     //     });
+    //     return this.server.postOnePost(newPost);
+    // }
 
-    uploadImage(image: File) {
-        return this.server.uploadImage(image);
-    }
+    // uploadImage(image: File) {
+    //     return this.server.uploadImage(image);
+    // }
 }

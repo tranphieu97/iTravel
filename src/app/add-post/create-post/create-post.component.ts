@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PostViewService } from 'src/app/post-view/post-view.service';
 import { ServerService } from 'src/app/core/services/server.service';
 import { Post } from 'src/app/model/post.model';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject, Observable } from 'rxjs';
 import { ConstantService } from 'src/app/core/services/constant.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Location } from 'src/app/model/location.model';
@@ -22,8 +22,9 @@ export class CreatePostComponent implements OnInit {
   // array store new image need to upload to server
   newImageFiles: { imgFile: File, contentId: string }[] = [];
   coverFile: File = null;
-  // variable store Subscription for easy unSubscribe or subscribe again
-  // postsSub: Subscription;
+  // variable store Observable uploadImgComplete
+  private imageUploaded = 0;
+  coverUploaded = false;
 
   constructor(
     private postService: PostViewService,
@@ -78,7 +79,6 @@ export class CreatePostComponent implements OnInit {
         this.newImageFiles.push(newImageInfo);
         // line below only for test
         // this.uploadAllImage();
-        console.log(this.newImageFiles);
       });
   }
 
@@ -96,65 +96,63 @@ export class CreatePostComponent implements OnInit {
   onImagePicked(event: Event) {
     // get file of new image from event
     const file = (event.target as HTMLInputElement).files[0];
+    // config reader to read file and show preview
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.post.cover = reader.result.toString();
+    };
+    reader.readAsDataURL(file);
     // store image temporary in newImages arra
-    this.coverFile = file;
     // this cover will be store on server when user click save
-
+    this.coverFile = file;
     // line below only for test
     // this.uploadAllImage();
   }
 
-  /**
-   * @description when user click save, go to upload all images in the new post include postCover
-   * and many images in many postContents
-   */
-  uploadAllImage() {
-    // first, upload cover
-    if (this.coverFile !== null) {
-      this.postService.uploadImage(this.coverFile).subscribe((resData) => {
-        if (resData.imageUrl !== '') {
-          // update cover url
-          this.post.cover = resData.imageUrl;
-        }
-      });
-    }
-
-    // second, upload all image from all postContents in newImageFiles
-    for (const item of this.newImageFiles) {
-      this.postService.uploadImage(item.imgFile).subscribe((resData) => {
-        if (resData.imageUrl !== '') {
+  onSave() {
+    // add cover to newImageFiles before upload all images to server
+    this.newImageFiles.push({ imgFile: this.coverFile, contentId: 'cover' });
+    this.serverService.uploadImage(this.newImageFiles).subscribe((resData) => {
+      if (resData) {
+        // update all images url before save
+        this.newImageFiles.forEach((imageFileItem, index) => {
           // find true postContent has this image to update url
           const needUpdateImageUrl = this.post.postContents.find((eachEle) => {
-            return eachEle._id === item.contentId;
+            return eachEle._id === imageFileItem.contentId;
           });
           if (needUpdateImageUrl !== null && needUpdateImageUrl !== undefined) {
-            // found the true postContent, go to update url
-            needUpdateImageUrl.image = resData.imageUrl;
+            needUpdateImageUrl.image = resData.imageUrls[index];
           }
+        });
+        // update cover url, that url located at the end of the array
+        this.post.cover = resData.imageUrls[resData.imageUrls.length - 1];
+        // save post, if id == '', => this is new post and need create new post
+        // if id already exist, => this is old post and need update post
+        if (this.postId === '') {
+          // fix some default infomation for post
+          this.post._id = null;
+          // fix all post content_id = null
+          for (const postContent of this.post.postContents) {
+            postContent._id = null;
+          }
+          this.post.createdTime = new Date();
+          this.post.approvedTime = null;
+          // this.post.authorId
+          this.post.rating = 0;
+          this.post.status = this.constant.POST_STATUS.PENDING;
+          this.serverService.postOnePost(this.post).subscribe(() => {
+          });
+        } else {
+          // save edited post
         }
-      });
-    }
+      } else {
+        // can not get response
+      }
+    });
   }
 
   onDelImageClick() {
     this.post.cover = '';
-  }
-
-  onSave() {
-    if (this.postId === '') {
-      // fix some default infomation for post
-      this.post._id = null;
-      this.post.createdTime = new Date();
-      this.post.approvedTime = null;
-      // this.post.authorId
-      this.post.rating = 0;
-      this.post.status = this.constant.POST_STATUS.NEW;
-      this.postService.addOnePost(this.post).subscribe((resData) => {
-        //
-      });
-    } else {
-      // save edited post
-    }
   }
 
   onCancel() {
