@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Menu } from '../../model/menu.model';
 import { ProvinceCity } from '../../model/province-city.model';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,5 +12,9 @@ export class MasterPageService {
   listProvinces: ProvinceCity[] = [];
   listMenu: Menu[];
 
-  constructor() { }
+  hasChangeSelectedProvince: Subject<any> = new Subject<any>();
+  selectedProvince: string;
+
+  constructor() {
+  }
 }

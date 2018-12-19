@@ -150,6 +150,9 @@ export class LanguageService {
 
     // For Policies
     this.vnLanguage.policiesTitle = 'Chính sách sử dụng';
+
+    // For Home Page
+    this.vnLanguage.homeIndexPostIn = 'Bài viết tại ';
   }
 
   /**
@@ -282,6 +285,8 @@ export class LanguageService {
 
     // For Policies
     this.enLanguage.policiesTitle = 'Chính sách sử dụng';
+
+    this.enLanguage.homeIndexPostIn = 'Posts in ';
   }
 
   /**

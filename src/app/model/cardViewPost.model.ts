@@ -1,3 +1,4 @@
+import { Location } from './location.model';
 
 export class CardViewPost {
     _id: string;
@@ -6,14 +7,16 @@ export class CardViewPost {
     categories: object[];
     createdTime: Date;
     description: string;
+    location: Location;
 
     constructor(id: string, title: string, cover: string,
-    categories: object[], createdTime: Date, description: string) {
+    categories: object[], createdTime: Date, description: string, location: Location) {
         this._id = id;
         this.title = title;
         this.cover = cover;
         this.categories = categories;
         this.createdTime = createdTime;
         this.description = description;
+        this.location = location;
     }
 }

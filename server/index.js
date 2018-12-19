@@ -125,7 +125,8 @@ app.get('/api/cardview-post', (req, res) => {
                     cover: post.cover,
                     categories: post.categories,
                     createdTime: post.createdTime,
-                    description: post.description
+                    description: post.description,
+                    location: post.location
                 });
             })
 

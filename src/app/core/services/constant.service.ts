@@ -14,5 +14,7 @@ export class ConstantService {
       NEED_REPAIR: 'NEED_REPAIR'
     };
 
+  ALL_PROVINCE = 'Việt Nam';
+
   constructor() { }
 }

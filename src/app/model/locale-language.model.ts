@@ -125,5 +125,8 @@ export class LocaleLanguage {
     // For Policies
     policiesTitle: string;
 
+    // For HomePage
+    homeIndexPostIn: string;
+
     constructor() { }
 }

@@ -65,7 +65,8 @@ export class ServerService {
           resItem.cover,
           resItem.categories,
           resItem.createdTime,
-          resItem.description
+          resItem.description,
+          resItem.location
         );
         return cardViewPost;
       });
