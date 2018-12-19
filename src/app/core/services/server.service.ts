@@ -178,7 +178,20 @@ export class ServerService {
     return this.http.get<any>(this.HOST + 'api/report/searchkeyword', { headers: this.httpOptions.headers, params: params });
   }
 
+  /**
+   * GET all post in database for management
+   * @name getPostsByManager
+   * @author phieu-th
+   */
   getPostsByManager(): Observable<any> {
     return this.http.get<any>(this.HOST + 'manager/posts');
+  }
+
+  updatePostStatus(postId: string, status: any): Observable<any> {
+    const params = {
+      postId: postId,
+      status: status
+    };
+    return this.http.patch(this.HOST + 'manager/approve-post', params);
   }
 }

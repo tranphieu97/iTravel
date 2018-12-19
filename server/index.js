@@ -735,5 +735,57 @@ app.get('/manager/posts', async (req, res) => {
                 });
         }
     }
-})
+});
+
+app.patch('/manager/approve-post', async (req, res) => {
+    const postId = req.body.postId;
+    const status = req.body.status;
+    let token = req.headers.authorization;
+
+    if (token !== undefined) {
+        token = token.split(' ')[1];
+    }
+
+    if (token === undefined || token === null) {
+        res.status(401).json({
+            message: 'Unauthorized'
+        });
+    } else {
+        const tokenData = jwt.verify(token, config.SECRET_KEY);
+
+        authetication.isAdminUser(tokenData.username)
+            .then((result) => {
+                if (!result) {
+                    res.status(403).json({
+                        message: 'Forbidden'
+                    });
+                } else {
+                    const idFilter = {
+                        "_id":  new ObjectId(postId)
+                    };
+                    const statusChange = {
+                        "status": status
+                    };
+                    database.updateDocumentById(database.iTravelDB.Posts, idFilter, statusChange)
+                        .then((updateResult) => {
+                            if (updateResult.matchedCount === 1) {
+                                res.status(201).json({
+                                    message: 'Approved'
+                                });
+                            } else {
+                                res.status(404).json({
+                                    message: 'Not found file'
+                                });
+                            }
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        })
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+});
 /** Routing - END */

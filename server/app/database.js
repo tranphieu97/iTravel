@@ -245,9 +245,10 @@ exports.updateDocumentById = async (collectionName, documentFiler, changePropert
                 }
 
                 try {
-
-                    const updateResult = collection.updateOne(documentFiler, { $set: changeProperties }, { upsert: false });
-                    deferred.reject(updateResult);
+                    collection.updateOne(documentFiler, { $set: changeProperties })
+                        .then((result) => {
+                            deferred.resolve(result);
+                        })
                 }
                 catch (e) {
                     console.log('Error update ' + documentId + 'data to ' + collectionName);
@@ -259,4 +260,6 @@ exports.updateDocumentById = async (collectionName, documentFiler, changePropert
             client.close();
         }
     });
+
+    return deferred.promise;
 }

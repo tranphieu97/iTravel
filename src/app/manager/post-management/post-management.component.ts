@@ -40,25 +40,6 @@ export class PostManagementComponent implements OnInit {
     this.refreshListPost();
   }
 
-  // open(content, postId) {
-  //   this.postViewId = postId;
-  //   this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'lg' }).result.then((result) => {
-  //     this.closeResult = `Closed with: ${result}`;
-  //   }, (reason) => {
-  //     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-  //   });
-  // }
-
-  // private getDismissReason(reason: any): string {
-  //   if (reason === ModalDismissReasons.ESC) {
-  //     return 'by pressing ESC';
-  //   } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-  //     return 'by clicking on a backdrop';
-  //   } else {
-  //     return `with: ${reason}`;
-  //   }
-  // }
-
   /**
    * Show dialog review post
    * @name openPostViewDialog
@@ -160,6 +141,13 @@ export class PostManagementComponent implements OnInit {
     }
   }
 
+  /**
+   * Filter list post by date set in Date input
+   * @name filterListPostByDate
+   * @author phieu-th
+   * @param startDate
+   * @param endDate
+   */
   filterListPostByDate(startDate: Date, endDate: Date) {
     if (startDate <= endDate) {
       this.listShowPost = this.listShowPost.filter(post => post.createdTime >= startDate && post.createdTime <= endDate);
@@ -180,7 +168,15 @@ export class PostManagementComponent implements OnInit {
     });
   }
 
+  /**
+   * Approve a post by post id
+   * @param postId
+   */
   approvePost(postId: string) {
-    
+    this.server.updatePostStatus(postId, this.constant.POST_STATUS.APPROVED).subscribe((result) => {
+      if (result.message.indexOf('Approve') !== -1) {
+        this.refreshListPost();
+      }
+    });
   }
 }

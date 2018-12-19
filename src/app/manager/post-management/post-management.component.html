@@ -124,6 +124,6 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-danger" (click)="modal.close()">{{this.language.currentLanguage.postManagementCancel}}</button>
-    <button type="button" class="btn btn-success" (click)="modal.close()">{{this.language.currentLanguage.postManagementApprove}}</button>
+    <button type="button" class="btn btn-success" (click)="modal.close(); approvePost(postViewId)">{{this.language.currentLanguage.postManagementApprove}}</button>
   </div>
 </ng-template>
