@@ -107,13 +107,31 @@ app.get('/api/menu', (req, res) => {
     });
 });
 
-app.get('/api/posts', (req, res) => {
+app.get('/api/cardview-post', (req, res) => {
     // const COLECTION_NAME = 'Posts';
-    database.getCollectionData(database.iTravelDB.Posts).then((data) => {
+    const approvedPostFilter = {
+        status: {
+            $eq: config.POST_STATUS.APPROVED
+        }
+    }
+    database.getCollectionFilterData(database.iTravelDB.Posts, approvedPostFilter).then((data) => {
         if (data != null) {
+            postSimpleData = []
+
+            data.forEach((post) => {
+                postSimpleData.push({
+                    _id: post._id,
+                    title: post.title,
+                    cover: post.cover,
+                    categories: post.categories,
+                    createdTime: post.createdTime,
+                    description: post.description
+                });
+            })
+
             res.status(200).json({
                 message: 'Load ' + database.iTravelDB.Posts + ' success!',
-                data: data
+                data: postSimpleData
             })
         } else {
             res.status(500).json({

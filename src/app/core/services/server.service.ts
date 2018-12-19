@@ -57,7 +57,7 @@ export class ServerService {
    * @author phieu-th
    */
   getCardViewPost(): Observable<CardViewPost[]> {
-    return this.http.get<any>(this.HOST + 'api/posts').pipe(map((res: any) => {
+    return this.http.get<any>(this.HOST + 'api/cardview-post').pipe(map((res: any) => {
       const cardViewPosts: CardViewPost[] = res.data.map((resItem) => {
         const cardViewPost: CardViewPost = new CardViewPost(
           resItem._id,
