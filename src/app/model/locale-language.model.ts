@@ -122,5 +122,8 @@ export class LocaleLanguage {
     postManagementPostViewTitle: string;
     postManagementPostViewOk: string;
 
+    // For Policies
+    policiesTitle: string;
+
     constructor() { }
 }

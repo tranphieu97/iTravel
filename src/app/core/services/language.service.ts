@@ -147,6 +147,9 @@ export class LanguageService {
     this.vnLanguage.postManagementTableAction = 'Hành động';
     this.vnLanguage.postManagementPostViewTitle = 'Xem trước bài viết';
     this.vnLanguage.postManagementPostViewOk = 'Ok';
+
+    // For Policies
+    this.vnLanguage.policiesTitle = 'Chính sách sử dụng';
   }
 
   /**
@@ -277,6 +280,8 @@ export class LanguageService {
     this.enLanguage.postManagementPostViewTitle = 'Review';
     this.enLanguage.postManagementPostViewOk = 'Ok';
 
+    // For Policies
+    this.enLanguage.policiesTitle = 'Chính sách sử dụng';
   }
 
   /**

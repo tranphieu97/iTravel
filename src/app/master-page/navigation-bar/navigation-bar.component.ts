@@ -52,7 +52,7 @@ export class NavigationBarComponent implements OnInit {
   // menuItemContribution: MenuItem = new MenuItem(this.language.currentLanguage.menuItemContribution, '');
 
   // Menu Item About Us
-  menuItemPolicies: MenuItem = new MenuItem(this.language.currentLanguage.menuItemPolicies, '');
+  menuItemPolicies: MenuItem = new MenuItem(this.language.currentLanguage.menuItemPolicies, 'additional/policies');
   menuItemFeedback: MenuItem = new MenuItem(this.language.currentLanguage.menuItemFeedback, 'additional/feedback');
 
   constructor(private server: ServerService, private masterPage: MasterPageService,
