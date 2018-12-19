@@ -174,6 +174,14 @@ exports.insertOneToColection = async (collectionName, document) => {
     });
 }
 
+/**
+ * Get only one document match with filter
+ * @name getOneFromCollection
+ * @author phieu-th
+ * @async
+ * @param {string} collectionName 
+ * @param {object} filter 
+ */
 exports.getOneFromCollection = async (collectionName, filter) => {
     var deferred = Q.defer();
     var data = null;
@@ -208,4 +216,47 @@ exports.getOneFromCollection = async (collectionName, filter) => {
     });
 
     return deferred.promise;
+}
+
+/**
+ * Update only one document be chosen by filter with new properties
+ * @name updateDocumentById
+ * @async
+ * @author phieu-th
+ * @param {string} collectionName 
+ * @param {object} documentFiler 
+ * @param {object} changeProperties 
+ */
+exports.updateDocumentById = async (collectionName, documentFiler, changeProperties) => {
+    var deferred = Q.defer();
+
+    MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {
+        if (err) {
+            console.log("Get Connection has an error: " + err.message);
+            deferred.reject(new Error(err));
+        } else {
+
+            var db = client.db(config.DB_NAME);
+
+            var collection = db.collection(collectionName, (err, collection) => {
+                if (err) {
+                    console.log('Error load ' + collectionName);
+                    return null;
+                }
+
+                try {
+
+                    const updateResult = collection.updateOne(documentFiler, { $set: changeProperties }, { upsert: false });
+                    deferred.reject(updateResult);
+                }
+                catch (e) {
+                    console.log('Error update ' + documentId + 'data to ' + collectionName);
+                    console.log(e.message);
+                    deferred.reject(new Error(e.message));
+                }
+            });
+
+            client.close();
+        }
+    });
 }

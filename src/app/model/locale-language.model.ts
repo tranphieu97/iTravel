@@ -121,6 +121,9 @@ export class LocaleLanguage {
     postManagementTableAction: string;
     postManagementPostViewTitle: string;
     postManagementPostViewOk: string;
+    postManagementApprove: string;
+    postManagementDeny: string;
+    postManagementCancel: string;
 
     // For Policies
     policiesTitle: string;

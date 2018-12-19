@@ -40,28 +40,35 @@ export class PostManagementComponent implements OnInit {
     this.refreshListPost();
   }
 
-  open(content, postId) {
-    this.postViewId = postId;
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'lg' }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
+  // open(content, postId) {
+  //   this.postViewId = postId;
+  //   this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', size: 'lg' }).result.then((result) => {
+  //     this.closeResult = `Closed with: ${result}`;
+  //   }, (reason) => {
+  //     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  //   });
+  // }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
+  // private getDismissReason(reason: any): string {
+  //   if (reason === ModalDismissReasons.ESC) {
+  //     return 'by pressing ESC';
+  //   } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+  //     return 'by clicking on a backdrop';
+  //   } else {
+  //     return `with: ${reason}`;
+  //   }
+  // }
 
+  /**
+   * Show dialog review post
+   * @name openPostViewDialog
+   * @author phieu-th
+   * @param contentId
+   * @param postId
+   */
   openPostViewDialog(contentId, postId: string) {
-    this.modalService.open(contentId, { ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-
+    this.postViewId = postId;
+    this.modalService.open(contentId, { ariaLabelledBy: 'modal-basic-title', size: 'lg' }).result.then((result) => {
     }).catch ((err) => {
       console.log(err);
     });
@@ -171,5 +178,9 @@ export class PostManagementComponent implements OnInit {
         this.listShowPost = this.listAllPost;
       }
     });
+  }
+
+  approvePost(postId: string) {
+    
   }
 }

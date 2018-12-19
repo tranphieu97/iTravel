@@ -147,6 +147,9 @@ export class LanguageService {
     this.vnLanguage.postManagementTableAction = 'Hành động';
     this.vnLanguage.postManagementPostViewTitle = 'Xem trước bài viết';
     this.vnLanguage.postManagementPostViewOk = 'Ok';
+    this.vnLanguage.postManagementApprove = 'Phê duyệt';
+    this.vnLanguage.postManagementDeny = 'Từ chối';
+    this.vnLanguage.postManagementCancel = 'Hủy';
 
     // For Policies
     this.vnLanguage.policiesTitle = 'Chính sách sử dụng';
@@ -282,6 +285,9 @@ export class LanguageService {
     this.enLanguage.postManagementTableAction = 'Action';
     this.enLanguage.postManagementPostViewTitle = 'Review';
     this.enLanguage.postManagementPostViewOk = 'Ok';
+    this.enLanguage.postManagementApprove = 'Approve';
+    this.enLanguage.postManagementDeny = 'Deny';
+    this.enLanguage.postManagementCancel = 'Cancel';
 
     // For Policies
     this.enLanguage.policiesTitle = 'Chính sách sử dụng';
