@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PostContent } from 'src/app/model/postContent.model';
-import { PostViewService } from 'src/app/post-view/post-view.service';
+import { PostService } from 'src/app/core/services/post.service';
 import { Post } from 'src/app/model/post.model';
 
 @Component({
@@ -13,7 +13,7 @@ export class CreatePostContentComponent implements OnInit {
   // @Input() postContents: PostContent[] = [];
   @Input() post: Post;
 
-  constructor(private postService: PostViewService) { }
+  constructor(private postService: PostService) { }
 
   ngOnInit() {
 

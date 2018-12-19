@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PostViewService } from 'src/app/post-view/post-view.service';
+import { PostService } from 'src/app/core/services/post.service';
 import { ServerService } from 'src/app/core/services/server.service';
 import { Post } from 'src/app/model/post.model';
 import { Subscription, Subject, Observable } from 'rxjs';
@@ -27,7 +27,7 @@ export class CreatePostComponent implements OnInit {
   coverUploaded = false;
 
   constructor(
-    private postService: PostViewService,
+    private postService: PostService,
     private serverService: ServerService,
     private constant: ConstantService,
     private route: ActivatedRoute,
