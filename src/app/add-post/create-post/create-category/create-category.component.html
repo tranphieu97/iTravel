@@ -1,20 +1,25 @@
-<!-- row1 has label, dropdown and button Add -->
-<div class="row">
-    <div class="col-xl-2 col-md-3">
-        <label>Category:</label>
-    </div>
-    <div class="col-xl-10 col-md-9">
-        <select class="form-control">
-            <option [value]="postCategory.name" *ngFor="let postCategory of allCategories" (click)="onSelectCategory(postCategory)">{{
-                postCategory.name }}</option>
-        </select>
-    </div>
-</div>
-<!-- row2 has list all postCategories added, each category can delete by a X button on top-right -->
-<div class="row">
-    <div class="col-12">
-        <div class="tag" *ngFor="let category of post.categories">
-            {{ category.name }}<span class="fas fa-times-circle remove-btn" (click)="onRemoveCategory(category)"></span>
+<div class="row m-0">
+    <div class="col-12 p-0">
+        <!-- row1 has label, dropdown and button Add -->
+        <div class="row">
+            <div class="col-xl-2 col-md-3">
+                <label>Category:</label>
+            </div>
+            <div class="col-xl-10 col-md-9">
+                <select class="form-control" #selectCate (change)="onSelectCategory($event)">
+                <!-- <select class="form-control"> -->
+                    <option [value]="postCategory.name" *ngFor="let postCategory of allCategories">{{
+                        postCategory.name }}</option>
+                </select>
+            </div>
+        </div>
+        <!-- row2 has list all postCategories added, each category can delete by a X button on top-right -->
+        <div class="row d-block">
+            <div class="col-12">
+                <div class="tag" *ngFor="let category of post.categories">
+                    {{ category.name }}<span class="fas fa-times-circle remove-btn" (click)="onRemoveCategory(category, selectCate)"></span>
+                </div>
+            </div>
         </div>
     </div>
 </div>

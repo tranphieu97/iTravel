@@ -2,27 +2,27 @@
 	<svg x="0px" y="0px" viewBox="0 0 750 870"
 		xmlns="http://www.w3.org/2000/svg" xmlns:amcharts="http://amcharts.com/ammap" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">	
 		<g>
-			<path *ngFor="let province of listProvinces" [id]="province.provinceID" 
-					class="land" [attr.d]="province.mapID"
-			(mouseenter)="GetPathInformation($event, province.provinceID)" (mouseleave)="LeavePath()">
+			<path *ngFor="let province of listProvinces" [id]="province.provinceId" 
+					class="land" [attr.d]="province.mapId"
+			(mouseenter)="getPathInformation($event, province.provinceId)" (mouseleave)="leavePath()">
 			</path>
 		</g>
 	</svg>
 </div>
 <div id="location-popup" 
-	*ngIf="IsShowPopup()" 
-	[style.top]="this.popupInfo.Position_Y"
-	[style.left]="this.popupInfo.Position_X"
-	(mouseenter)="FocusPopup()" (mouseleave)="LeavePopup()">
+	*ngIf="isShowPopup()" 
+	[style.top]="this.popupInfo.position_Y"
+	[style.left]="this.popupInfo.position_X"
+	(mouseenter)="focusPopup()" (mouseleave)="leavePopup()">
 	<div id="popup-header" class="rounded-top border border-success">
-		<p>{{this.popupInfo.ProvinceName}}</p>
+		<p>{{this.popupInfo.provinceName}}</p>
 	</div>
 	<div id="popup-content" class="rounded-bottom border border-success">
 	  <div>
 		<p>{{this.popupInfo.postCount}} posts</p>
 	  </div>
-	  <div>
+	  <!-- <div>
 		  <button class="btn btn-sm btn-success"><span class="glyphicon glyphicon-send">Find</span></button>
-	  </div>
+	  </div> -->
 	</div>
 </div>

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { AuthenticationService } from '../../core/services/authentication.service';
 import { Observable } from 'rxjs';
+import { LanguageService } from '../../core/services/language.service';
 
 @Component({
   selector: 'app-register',
@@ -30,7 +31,7 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
 
   constructor(private router: Router, private formBuilder: FormBuilder,
-    private authentication: AuthenticationService) { }
+    private authentication: AuthenticationService, private language: LanguageService) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({

@@ -1,0 +1,24 @@
+<div class="row comp">
+  <div class="col-md-12">
+    <!-- row 1 has title of the paragraph -->
+    <div class="row" *ngIf="postContent.title.length > 0">
+      <strong>
+        <p>{{ postContent.title }}</p>
+      </strong>
+    </div>
+    <!-- row 2 has paragraph -->
+    <div class="row" *ngIf="postContent.content.length > 0">
+      <p>{{ postContent.content }}</p>
+    </div>
+    <!-- row 3 has an image and description -->
+    <div class="row" *ngIf="postContent.image.length > 0">
+      <div class="col-12 img-frame">
+        <img [src]="postContent.image" [alt]="postContent.imageDesc" class="img-fluid">
+      </div>
+    </div>
+    <!-- row 3 has an image and description -->
+    <div class="row bottom">
+      <p class="desc">{{ postContent.imageDesc }}</p>
+    </div>
+  </div>
+</div>

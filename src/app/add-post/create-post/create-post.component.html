@@ -1,7 +1,7 @@
-<div class="container comp col-xl-7 col-md-8 col-12">
-  <form>
-    <div class="row">
-      <div class="col-12">
+<div class="row m-0 p-3 comp">
+  <div class="col-md-7 p-2 content">
+    <div class="row m-0 p-0 hidden-scroll">
+      <div class="col-12 p-0 max-height">
         <!-- row1 has title -->
         <div class="row form-group">
           <div class="col-xl-2 col-md-3 col-12">
@@ -52,13 +52,13 @@
           </div>
         </div>
         <!-- row7 has create-post-content component -->
-        <div class="row form-group">
+        <div class="row form-group m-0">
           <div class="col-12">
             <app-create-post-content [post]='post'></app-create-post-content>
           </div>
         </div>
         <!-- row8 has save button -->
-        <div class="row form-group">
+        <div class="row form-group m-0">
           <div class="col-12 no-padding">
             <button class="btn btn-warning" (click)="onCancel()">Cancel</button>
             <button class="btn btn-success" (click)="onSave()">Save</button>
@@ -66,5 +66,5 @@
         </div>
       </div>
     </div>
-  </form>
+  </div>
 </div>

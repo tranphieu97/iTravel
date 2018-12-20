@@ -1,4 +1,3 @@
-
 <div [ngClass]="{'header': true, 'navbar-show':this.mtpService.isShowFullNavBar, 'navbar-hide':!this.mtpService.isShowFullNavBar}">
     <div class="logo" *ngIf="this.mtpService.isShowFullNavBar">
         <a href="#">
@@ -6,7 +5,7 @@
         </a>
     </div>
     <div class="slide-icon" (click)='this.mtpService.isShowFullNavBar = !this.mtpService.isShowFullNavBar'>
-        <i class="fas fa-bars" ></i>
+        <i class="fas fa-bars"></i>
     </div>
 </div>
 <!--toolbar-->
@@ -14,41 +13,51 @@
     <div class="toolbar-icon dropdown">
         <span (click)="changeHeaderFlagByFlagName('isShowSearchBox')">
             <i class="fas fa-search"></i>
-        </span>  
+        </span>
         <div [ngClass]="{'dropdown-menu': true, 'dropdown-show-column':headerFlags.isShowSearchBox}" id="search-dropdown">
             <form class="form-inline" (submit)="searchByText()">
-                <input type="text"  [(ngModel)]="searchBoxText" name="search"
-                    class="form-control" placeholder="Enter word to search">
+                <input type="text" [(ngModel)]="searchBoxText" name="search" class="form-control" placeholder="Enter word to search">
                 <button type="submit" (click)="searchByText()" class="btn btn-default">Search</button>
             </form>
         </div>
     </div>
-    <div class="toolbar-icon">
-        <span><i class="far fa-bell"></i></span>
+    <div class="toolbar-icon dropdown">
+        <span (click)="changeHeaderFlagByFlagName('isShowNotification')">
+            <i class="far fa-bell"></i>
+        </span>
+        <div [ngClass]="{'dropdown-menu': true, 'dropdown-show':headerFlags.isShowNotification}" id="notification-dropdown">
+            
+        </div>
     </div>
     <div class="toolbar-icon dropdown">
         <span (click)="changeHeaderFlagByFlagName('isShowLanguage')">
             <i class="fas fa-globe-asia"></i>
         </span>
         <div [ngClass]="{'dropdown-menu': true, 'dropdown-show':headerFlags.isShowLanguage}" id="language-dropdown">
-            <a class="dropdown-item" href="#">Vietnamese</a>
-            <a class="dropdown-item" href="#">English</a>
+            <a class="dropdown-item" (click)="this.language.setVietnamese()">{{language.currentLanguage.headerVietnamese}}</a>
+            <a class="dropdown-item" (click)="this.language.setEnglish()">{{language.currentLanguage.headerEnglish}}</a>
         </div>
     </div>
     <div class="toolbar-icon">
         <span><i class="fas fa-cog"></i></span>
     </div>
-    <div *ngIf="authentication.isLogin" class="toolbar-icon-wide">
-        <span>Hi, Trần Huỳnh Phiêu</span>
-        <img>
+    <div *ngIf="user.isLogin" class="toolbar-icon-wide dropdown">
+        <span (click)="changeHeaderFlagByFlagName('isShowUserTool')">
+            {{language.currentLanguage.headerHi}} <strong>{{this.user.currentUser.fullName}}</strong>
+        </span>
+        <img [src]="this.user.currentUser.avatar" (click)="changeHeaderFlagByFlagName('isShowUserTool')" id="user-avatar">
+        <div [ngClass]="{'dropdown-menu': true, 'dropdown-show':headerFlags.isShowUserTool}" id="user-dropdown">
+            <a class="dropdown-item" [routerLink]="['/user/profile']" routerLinkActive="router-link-active" >{{language.currentLanguage.headerPersonalInfo}}</a>
+            <a class="dropdown-item" (click)="this.user.logOut()">{{language.currentLanguage.headerLogOut}}</a>
+        </div>
     </div>
-    <div *ngIf="!authentication.isLogin" class="toolbar-icon-wide dropdown">
-        <span (click)="changeHeaderFlagByFlagName('isShowVisiterTool')">
-            Hi, <strong> Do you want to login?</strong> 
+    <div *ngIf="!user.isLogin" class="toolbar-icon-wide dropdown">
+        <span (click)="changeHeaderFlagByFlagName('isShowVisiterTool')" id="login-span">
+            {{language.currentLanguage.headerHi}} <strong>{{language.currentLanguage.headerQuestionToLogin}}</strong>
         </span>
         <div [ngClass]="{'dropdown-menu': true, 'dropdown-show':headerFlags.isShowVisiterTool}" id="visiter-dropdown">
-            <a class="dropdown-item" [routerLink]="['/auth/login']" >Login</a>
-            <a class="dropdown-item" [routerLink]="['/auth/register']">Register</a>
+            <a class="dropdown-item" [routerLink]="['/auth/login']">{{language.currentLanguage.headerLogin}}</a>
+            <a class="dropdown-item" [routerLink]="['/auth/register']">{{language.currentLanguage.headerRegister}}</a>
         </div>
     </div>
 </div>

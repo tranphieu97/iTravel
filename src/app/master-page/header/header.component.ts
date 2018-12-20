@@ -4,8 +4,9 @@ import { SharedModule } from '../../shared/shared.module';
 import { ServerService } from '../../core/services/server.service';
 import { SearchHistory } from 'src/app/model/searchHistory.model';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthenticationService } from '../../core/services/authentication.service';
 import { Router, RouterLink, RouterModule } from '@angular/router';
+import { UserService } from '../../core/services/user.service';
+import { LanguageService } from '../../core/services/language.service';
 
 
 @Component({
@@ -27,8 +28,8 @@ export class HeaderComponent implements OnInit {
     isShowVisiterTool: false
   };
 
-  constructor(private mtpService: MasterPageService, private server: ServerService,
-    private authentication: AuthenticationService, private router: Router) { }
+  constructor(public mtpService: MasterPageService, private server: ServerService, private language: LanguageService,
+    public user: UserService, private router: Router) { }
 
   ngOnInit() {
 

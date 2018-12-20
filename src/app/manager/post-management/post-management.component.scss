@@ -1,0 +1,122 @@
+@import 'src/styles.scss';
+
+:host {
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    .post-management {
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+
+        .post-management-title {
+            height: 50px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid $GRAY;
+
+            h4 {
+                font-weight: bolder;
+            }
+
+            span {
+                padding: 5px;
+                margin-right: 3px;
+                cursor: pointer;
+
+                i {
+                    color: $GRAY;
+                    font-size: 14px;
+                }
+            }
+
+            span:hover {
+                background-color: $CYAN;
+                border-radius: 5px;
+            }
+        }
+
+        .post-management-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            flex: 1 1;
+
+            .post-management-control {
+                padding: 5px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                flex-wrap: wrap;
+
+                .form-group {
+                    margin: 5px;
+                }
+
+                label.control-title {
+                    margin: 10px;
+                }
+
+                button, input, label {
+                    height: 35px;
+                    font-size: 14px;
+                }
+            }
+
+            .post-management-table {
+                flex: 1 1;
+                padding: 5px;
+                overflow: scroll;
+
+                table {
+                    tr {
+                        .action-cell {
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: center;
+                        }
+
+                        .action-icon {
+                            padding: 3px;
+                            margin-left: 3px;
+                            margin-right: 3px;
+                            cursor: pointer;
+                        }
+
+                        .action-icon:hover {
+                            background-color: $CYAN;
+                            border-radius: 10%;
+                        }
+
+                        .red-text {
+                            color: $RED;
+                        }
+
+                        .green-text {
+                            color: $GREEN;
+                        }
+
+                        .yellow-text {
+                            color: $YELLOW;
+                        }
+
+                        .tiny-icon {
+                            font-size: 5px;
+                        }
+                    }
+                }
+            }
+
+            .post-management-table::-webkit-scrollbar {
+                display: none;
+                width: 0px;  
+                background: transparent; 
+            }
+
+            .post-management-table { -ms-overflow-style: none; }
+        }
+    }
+}

@@ -1,0 +1,7 @@
+<div class="row comp">
+  <div class="col-12">
+    <!-- <button class="btn btn-success">Like <span class="far fa-thumbs-up pull-left"></span></button> -->
+    <span *ngFor="let index of ratingArr" [ngClass]="{ratingColor: index < post.rating}" (click)="onRated(index+1)"
+      class="fas fa-star"></span>
+  </div>
+</div>

@@ -11,21 +11,25 @@ export class PostViewService {
     posts: Post[] = [];
     // create an Observable will emit Post[]
     postsUpdated = new Subject<Post[]>();
+    // create an Observable will emit new image when user upload new image to post
+    hasNewImage = new Subject<{ imgFile: File, contentId: string }>();
+    // create an Observable will emit event that an image was deleted
+    hasImgDeleted = new Subject<string>();
 
     constructor(private http: HttpClient, private server: ServerService) { }
 
     // get all posts from database
-    getAllPosts() {
-        this.server.getListPosts().subscribe(resData => {
-            if (resData.data) {
-                this.posts = resData.data;
-                this.postsUpdated.next([...this.posts]);
-                // toán tử ... dùng đại diện cho toàn bộ phần tử của this.posts
-                // ở đây gửi đi một bản copy của posts
-            }
-            // else err handling
-        });
-    }
+    // getAllPosts() {
+    //     this.server.getListPosts().subscribe(resData => {
+    //         if (resData.data) {
+    //             this.posts = resData.data;
+    //             this.postsUpdated.next([...this.posts]);
+    //             // toán tử ... dùng đại diện cho toàn bộ phần tử của this.posts
+    //             // ở đây gửi đi một bản copy của posts
+    //         }
+    //         // else err handling
+    //     });
+    // }
 
     // used in next time
     // getOnePosts(id: string) {
@@ -62,8 +66,6 @@ export class PostViewService {
     }
 
     uploadImage(image: File) {
-        // const newImage = new FormData();
-        // newImage.append('image', image);
         return this.server.uploadImage(image);
     }
 }

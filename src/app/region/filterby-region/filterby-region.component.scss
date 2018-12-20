@@ -1,0 +1,19 @@
+@import 'src/styles.scss';
+
+:host {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+
+    .filter-box {
+        flex: 1 1;
+        height: 95%;
+        display: flex;
+        flex-direction: column;
+
+        .filter-box-title {
+            height: 50px;
+        }
+    }
+}

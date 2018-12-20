@@ -6,7 +6,7 @@
     <div>
       <span><i class="far fa-calendar-alt"></i> {{inputPost.createdTime | date}}  </span>
       <span *ngFor="let category of inputPost.categories">
-        <i class="fas fa-tag"></i> {{category}} 
+        <i class="fas fa-tag"></i> {{category.name | titlecase}} 
       </span>
     </div>
     <p>{{inputPost.description}}</p>

@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Category } from 'src/app/model/category.model';
 import { PostCategory } from 'src/app/model/postCategory.model';
 import { PostCategoryService } from 'src/app/core/services/post-category.service';
 import { element } from '@angular/core/src/render3/instructions';
@@ -13,7 +12,7 @@ import { Post } from 'src/app/model/post.model';
 export class CreateCategoryComponent implements OnInit {
   // @Input() localCategories: PostCategory[] = [];
   @Input() post: Post;
-  private allCategories: PostCategory[] = [];
+  allCategories: PostCategory[] = [];
 
   constructor(private postCategoryService: PostCategoryService) { }
 
@@ -26,23 +25,31 @@ export class CreateCategoryComponent implements OnInit {
     this.postCategoryService.getAllCategories();
   }
 
-  onSelectCategory(choosedCategory: PostCategory) {
+  onSelectCategory(event: Event) {
+    // get selectedCategory
+    const selectedCategory = (event.target as HTMLSelectElement).value;
+    // check if post has selectedCategory or not
     const sameCategory = this.post.categories.find((eachEle) => {
-      return eachEle._id === choosedCategory._id;
+      return eachEle.name === selectedCategory;
     });
     if (sameCategory === undefined || sameCategory === null) {
-      // this.localCategories.push(choosedCategory);
-      this.post.categories.push(choosedCategory);
+      // if not yet, create newCategory from allCategories
+      const newCategory = this.allCategories.find((eachEleInALL) => {
+        return eachEleInALL.name.toLowerCase() === selectedCategory.toLocaleLowerCase();
+      });
+      // push that newCategory to post.categories
+      this.post.categories.push(newCategory);
     }
-    // console.log(this.localCategories);
   }
 
-  onRemoveCategory(removedCategory: PostCategory) {
-    // console.log(removedCategory);
+  onRemoveCategory(removedCategory: PostCategory, selectEle: HTMLSelectElement) {
+    // filt out the removedCategory
     this.post.categories = this.post.categories.filter((eachEle) => {
       return eachEle.name !== removedCategory.name;
-      // return eachEle._id !== removedCategory._id;
     });
-    // console.log(this.localCategories);
+    // reset the value of select element because the select subscibe onChange
+    // if user choose and remove and choose the same category
+    // there no change happen, so we need reset to make change
+    selectEle.value = '';
   }
 }

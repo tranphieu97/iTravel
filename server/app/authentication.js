@@ -27,6 +27,11 @@ exports.hashPassword = async (password) => {
     return deferred.promise;
 }
 
+/**
+ * Compare input password match with a hash password
+ * @name comparePassword
+ * @author phieu-th
+ */
 exports.comparePassword = async (password, hashPassword) => {
     var deferred = Q.defer();
 
@@ -76,4 +81,35 @@ exports.isExistUsername = async (username) => {
     });
 
     return deferred.promise;
+}
+
+/**
+ * Save log user Sign In to system. This funtion don't need to return
+ * @name insertUserSignInLog
+ * @author phieu-th
+ * @param {string} username 
+ */
+exports.insertUserSignInLog = async (username) => {
+
+    MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {
+        if (err) {
+            console.log("Get Connection has an error: " + err.message);
+            deferred.reject(new Error(err));
+        } else {
+
+            var db = client.db(config.DB_NAME);
+
+            collection = db.collection(database.iTravelDB.SignInHistory, (err, signInHistoryCollection) => {
+                var dateTimeSignIn = new Date()
+                var signInLog = {
+                    username: username,
+                    creationTime: dateTimeSignIn
+                }
+
+                signInHistoryCollection.insertOne(signInLog);
+            })
+        }
+        
+        client.close();
+    });
 }

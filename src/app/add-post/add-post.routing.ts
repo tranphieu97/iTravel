@@ -4,6 +4,8 @@ import { CreatePostComponent } from './create-post/create-post.component';
 
 const routes: Routes = [
   { path: '', component: CreatePostComponent },
+  { path: ':id', component: CreatePostComponent },
+  { path: '**', redirectTo: '/not-found' }
 ];
 
 @NgModule({

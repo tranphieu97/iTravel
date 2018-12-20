@@ -1,9 +1,10 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { PostComponent } from './post/post.component';
+import { PostScreenComponent } from './post-screen/post-screen.component';
 
 const postViewRoutes: Routes = [
-    { path: '', component: PostComponent }
+    { path: ':id', component: PostScreenComponent },
+    { path: '**', redirectTo: '/not-found' }
 ];
 
 @NgModule({
