@@ -191,6 +191,11 @@ export class ServerService {
     return this.http.get(this.HOST + 'api/policies');
   }
 
+  getPostByRegion(region: string): Observable<any> {
+    const params = new HttpParams().set('region', region);
+    return this.http.get(this.HOST + 'api/region-posts', {params: params});
+  }
+
   /**
    * GET all post in database for management
    * @name getPostsByManager

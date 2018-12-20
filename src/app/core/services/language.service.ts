@@ -113,7 +113,7 @@ export class LanguageService {
     this.vnLanguage.menuAbout = 'Về chúng tôi';
     this.vnLanguage.menuItemTheNorth = 'Miền Bắc';
     this.vnLanguage.menuItemTheCentral = 'Miền Trung';
-    this.vnLanguage.menuItemTheSourth = 'Miền Nam';
+    this.vnLanguage.menuItemTheSouth = 'Miền Nam';
     this.vnLanguage.menuItemHot = 'Nổi bật';
     this.vnLanguage.menuItemMostRecent = 'Gần đây nhất';
     this.vnLanguage.menuItemOneDay = '1 Ngày';
@@ -166,6 +166,13 @@ export class LanguageService {
 
     // For Home Page
     this.vnLanguage.homeIndexPostIn = 'Bài viết tại ';
+
+    // For Region
+    this.vnLanguage.regionTravel = 'Du lịch tại ';
+    this.vnLanguage.regionCuisine = 'Ẩm thực tại ';
+    this.vnLanguage.regionTheNorth = 'Miền Bắc';
+    this.vnLanguage.regionTheCentral = 'Miền Trung';
+    this.vnLanguage.regionTheSouth = 'Miền Nam';
   }
 
   /**
@@ -260,7 +267,7 @@ export class LanguageService {
     this.enLanguage.menuAbout = 'About Us';
     this.enLanguage.menuItemTheNorth = 'The North';
     this.enLanguage.menuItemTheCentral = 'The Central';
-    this.enLanguage.menuItemTheSourth = 'The Sourth';
+    this.enLanguage.menuItemTheSouth = 'The South';
     this.enLanguage.menuItemHot = 'Hot';
     this.enLanguage.menuItemMostRecent = 'Most Recent';
     this.enLanguage.menuItemOneDay = '1 day';
@@ -311,7 +318,15 @@ export class LanguageService {
     // For Policies
     this.enLanguage.policiesTitle = 'Using Policies';
 
+    // For Home Page
     this.enLanguage.homeIndexPostIn = 'Posts in ';
+
+    // For Region
+    this.enLanguage.regionTravel = 'Travel in ';
+    this.enLanguage.regionCuisine = 'Cuisine in';
+    this.enLanguage.regionTheNorth = 'The North';
+    this.enLanguage.regionTheCentral = 'The Central';
+    this.enLanguage.regionTheSouth = 'The South';
   }
 
   /**

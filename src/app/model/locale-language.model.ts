@@ -62,7 +62,7 @@ export class LocaleLanguage {
     menuAbout: string;
     menuItemTheNorth: string;
     menuItemTheCentral: string;
-    menuItemTheSourth: string;
+    menuItemTheSouth: string;
     menuItemHot: string;
     menuItemMostRecent: string;
     menuItemOneDay: string;
@@ -139,6 +139,13 @@ export class LocaleLanguage {
 
     // For HomePage
     homeIndexPostIn: string;
+
+    // For Region
+    regionTravel: string;
+    regionCuisine: string;
+    regionTheNorth: string;
+    regionTheCentral: string;
+    regionTheSouth: string;
 
     constructor() { }
 }

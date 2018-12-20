@@ -31,7 +31,7 @@ export class NavigationBarComponent implements OnInit {
   // Menu Item Regions
   menuItemTheNorth: MenuItem = new MenuItem(this.language.currentLanguage.menuItemTheNorth, 'region/north');
   menuItemTheCentral: MenuItem = new MenuItem(this.language.currentLanguage.menuItemTheCentral, 'region/central');
-  menuItemTheSouth: MenuItem = new MenuItem(this.language.currentLanguage.menuItemTheSourth, 'region/south');
+  menuItemTheSouth: MenuItem = new MenuItem(this.language.currentLanguage.menuItemTheSouth, 'region/south');
 
   // Menu Item Travel
   menuItemHotTravel: MenuItem = new MenuItem(this.language.currentLanguage.menuItemHot, '');
@@ -77,7 +77,7 @@ export class NavigationBarComponent implements OnInit {
     this.menuAbout.name = this.language.currentLanguage.menuAbout;
     this.menuItemTheNorth.name = this.language.currentLanguage.menuItemTheNorth;
     this.menuItemTheCentral.name = this.language.currentLanguage.menuItemTheCentral;
-    this.menuItemTheSouth.name = this.language.currentLanguage.menuItemTheSourth;
+    this.menuItemTheSouth.name = this.language.currentLanguage.menuItemTheSouth;
     this.menuItemHotTravel.name = this.language.currentLanguage.menuItemHot;
     this.menuItemRecentTravel.name = this.language.currentLanguage.menuItemMostRecent;
     this.menuItemHotCuisine.name = this.language.currentLanguage.menuItemHot;

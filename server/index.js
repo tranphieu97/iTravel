@@ -434,7 +434,64 @@ app.get('/api/report/searchkeyword', (req, res) => {
     }
 })
 
-app.get('/auth/exist-username', (req, res) => {
+app.get('/api/region-posts', async (req, res) => {
+    let region = req.param('region');
+
+    if (region === undefined) {
+        res.status(404).json({
+            message: 'Not found region'
+        });
+    } else {
+        // Get region's name in Vietnamese
+        region = config.REGION_NAME[region.toUpperCase()];
+
+        if (region === undefined) {
+            res.status(404).json({
+                message: 'Not found region'
+            });
+        } else {
+            regionFilter = {
+                regionOfCountry: {
+                    $eq: region
+                }
+            }
+
+            database.getCollectionFilterData(database.iTravelDB.ProvinceCity, regionFilter)
+                .then((listProvince) => {
+                    if (listProvince) {
+                        listProvince = listProvince.map(province => province.provinceName);
+
+                        // Filter in array provinceCity least had an element in listProvince 
+                        postFilter = {
+                            'location.provinceCity': {
+                                $elemMatch: {
+                                    $in: listProvince
+                                }
+                            },
+                            'status': {
+                                $eq: config.POST_STATUS.APPROVED
+                            }
+                        }
+
+                        database.getCollectionFilterData(database.iTravelDB.Posts, postFilter)
+                            .then((listPost) => {
+                                res.status(200).json({
+                                    message: 'Get success',
+                                    data: listPost
+                                });
+                            })
+                            .catch((err) => {
+                                res.status(400).json({
+                                    message: 'Get fail'
+                                });
+                            });
+                    }
+                });
+        }
+    }
+})
+
+app.get('/auth/exist-username', async (req, res) => {
 
     username = req.param('username');
 

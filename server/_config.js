@@ -38,6 +38,12 @@ const POST_STATUS =
     NEED_REPAIR: 'NEED_REPAIR'
 };
 
+const REGION_NAME = {
+    NORTH: 'miền bắc',
+    CENTRAL: 'miền trung',
+    SOUTH: 'miền nam'
+}
+
 module.exports = {
     APP_PORT: APP_PORT,
     DB_HOST: DB_HOST,
@@ -49,5 +55,6 @@ module.exports = {
     verifyOptions: verifyOptions,
     MINE_TYPE_MAP: MINE_TYPE_MAP,
     USER_PERMISSION: USER_PERMISSION,
-    POST_STATUS: POST_STATUS
+    POST_STATUS: POST_STATUS,
+    REGION_NAME: REGION_NAME
 };

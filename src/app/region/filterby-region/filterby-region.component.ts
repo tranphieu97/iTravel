@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LanguageService } from '../../core/services/language.service';
+import { ServerService } from '../../core/services/server.service';
 
 @Component({
   selector: 'app-filterby-region',
@@ -15,7 +17,9 @@ export class FilterbyRegionComponent implements OnInit {
   };
 
   partID: string;
-  constructor(private activatedRoute: ActivatedRoute, private route: Router) { }
+
+  constructor(private activatedRoute: ActivatedRoute, private route: Router, private language: LanguageService,
+    private server: ServerService) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {
@@ -26,6 +30,10 @@ export class FilterbyRegionComponent implements OnInit {
         && this.partID !== this.RegionPartParamID.TheSouth) {
         this.route.navigate(['/notfound']);
       }
+
+      this.server.getPostByRegion(this.partID).subscribe((res) => {
+
+      });
     });
   }
 
