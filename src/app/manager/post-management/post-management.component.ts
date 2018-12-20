@@ -3,6 +3,7 @@ import { LanguageService } from '../../core/services/language.service';
 import { NgbDateStruct, NgbCalendar, NgbDate, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ServerService } from '../../core/services/server.service';
 import { ConstantService } from 'src/app/core/services/constant.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-post-management',
@@ -33,36 +34,53 @@ export class PostManagementComponent implements OnInit {
 
   postViewId = '';
 
+  denyForm: FormGroup;
+
   constructor(private language: LanguageService, private calendar: NgbCalendar, private server: ServerService,
-    private modalService: NgbModal, private constant: ConstantService) { }
+    private modalService: NgbModal, private constant: ConstantService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.refreshListPost();
-  }
 
-  open(content, postId) {
-    this.postViewId = postId;
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    // Set deny form
+    this.denyForm = this.formBuilder.group({
+      postId: [null, [Validators.required]],
+      postTitle: [null, [Validators.required]],
+      denyReason: [null, [Validators.required]]
     });
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
+  /**
+   * Show dialog review post
+   * @name openPostViewDialog
+   * @author phieu-th
+   * @param contentId
+   * @param postId
+   */
+  openPostViewDialog(contentId, postId: string) {
+    this.postViewId = postId;
+    this.modalService.open(contentId, { ariaLabelledBy: 'modal-basic-title', size: 'lg' }).result.then((result) => {
+    }).catch((err) => {
+      console.log(err);
+    });
   }
 
-  openPostViewDialog(contentId, postId: string) {
-    this.modalService.open(contentId, { ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+  /**
+   * Show dialog deny a post and set default value for dialog
+   * @name openPostDenyDialog
+   * @author phieu-th
+   * @param contentId
+   * @param postId
+   * @param postTitle
+   */
+  openPostDenyDialog(contentId, postId: string, postTitle: string) {
+    this.denyForm.get('postId').setValue(postId);
+    this.denyForm.get('postTitle').setValue(postTitle);
+    this.denyForm.get('denyReason').setValue('');
+    this.postViewId = postId;
 
-    }).catch ((err) => {
+    this.modalService.open(contentId, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+    }).catch((err) => {
       console.log(err);
     });
   }
@@ -146,13 +164,20 @@ export class PostManagementComponent implements OnInit {
     if (postStatusFilter === this.constant.POST_STATUS.APPROVED
       || postStatusFilter === this.constant.POST_STATUS.DENY
       || postStatusFilter === this.constant.POST_STATUS.PENDING) {
-        this.listShowPost = [];
-        this.listShowPost = this.listAllPost.filter(post => post.status === postStatusFilter);
+      this.listShowPost = [];
+      this.listShowPost = this.listAllPost.filter(post => post.status === postStatusFilter);
     } else {
       this.listShowPost = this.listAllPost;
     }
   }
 
+  /**
+   * Filter list post by date set in Date input
+   * @name filterListPostByDate
+   * @author phieu-th
+   * @param startDate
+   * @param endDate
+   */
   filterListPostByDate(startDate: Date, endDate: Date) {
     if (startDate <= endDate) {
       this.listShowPost = this.listShowPost.filter(post => post.createdTime >= startDate && post.createdTime <= endDate);
@@ -171,5 +196,53 @@ export class PostManagementComponent implements OnInit {
         this.listShowPost = this.listAllPost;
       }
     });
+  }
+
+  /**
+   * Approve a post by post id
+   * @param postId
+   */
+  approvePost(postId: string) {
+    this.server.updatePostStatus(postId, this.constant.POST_STATUS.APPROVED, null).subscribe((result) => {
+      if (result.message.indexOf('Approved Success') !== -1) {
+        this.refreshListPost();
+      } else if (result.message.indexOf('It was approved before') !== -1) {
+        this.hasError = true;
+        this.errorMessage = this.language.currentLanguage.postManagementPostApprovedBefore;
+      } else if (result.message.indexOf('Not found post') !== -1) {
+        this.hasError = true;
+        this.errorMessage = this.language.currentLanguage.postManagementPostNotFound;
+      } else {
+        this.hasError = true;
+        this.errorMessage = this.language.currentLanguage.postManagementErrorChangeStatus;
+      }
+    });
+  }
+
+  denyPost(postId: string) {
+    const formControlPostId = this.denyForm.get('postId').value;
+    const formControlReasion = this.denyForm.get('denyReason').value;
+
+    if (formControlPostId !== postId || formControlReasion === '') {
+      this.hasError = true;
+      this.errorMessage = this.language.currentLanguage.postManagementErrorInvalidDenyData;
+    } else {
+      this.server.updatePostStatus(postId, this.constant.POST_STATUS.DENY, formControlReasion).subscribe((res) => {
+        if (res) {
+          if (res.message.indexOf('Denied Success') !== -1) {
+            this.refreshListPost();
+          } else if (res.message.indexOf('It was denied before') !== -1) {
+            this.hasError = true;
+            this.errorMessage = this.language.currentLanguage.postManagementErrorPostDenied;
+          } else if (res.message.indexOf('Not found post') !== -1) {
+            this.hasError = true;
+            this.errorMessage = this.language.currentLanguage.postManagementPostNotFound;
+          } else {
+            this.hasError = true;
+            this.errorMessage = this.language.currentLanguage.postManagementErrorChangeStatus;
+          }
+        }
+      });
+    }
   }
 }

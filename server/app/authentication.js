@@ -112,4 +112,35 @@ exports.insertUserSignInLog = async (username) => {
         
         client.close();
     });
+};
+
+exports.isAdminUser = async (username) => {
+    var deferred = Q.defer();
+
+    MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {
+        if (err) {
+            console.log("Get Connection has an error: " + err.message);
+            deferred.reject(new Error(err));
+        } else {
+
+            var db = client.db(config.DB_NAME);
+
+            collection = db.collection(database.iTravelDB.Users, (err, userCollection) => {
+                var find = userCollection.findOne({ username: { $eq: username } }, (err, result) => {
+                    if (err) {
+                        deferred.resolve(false);
+                    } else {
+                        if (result && result.permission === config.USER_PERMISSION.Admin) {
+                            deferred.resolve(true);
+                        }
+                        deferred.resolve(false);
+                    }
+                });
+            })
+        }
+        
+        client.close();
+    });
+
+    return deferred.promise;
 }

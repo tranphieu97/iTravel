@@ -106,6 +106,10 @@
                         .tiny-icon {
                             font-size: 5px;
                         }
+
+                        #post-management-action-dropdown {
+                            left: -85px !important;
+                        }
                     }
                 }
             }
@@ -120,3 +124,17 @@
         }
     }
 }
+
+#review-post {
+    height: 400px;
+}
+
+textarea {
+    resize: none;
+}
+
+.error-mess {
+    color: $RED;
+    margin: 3px;
+}
+

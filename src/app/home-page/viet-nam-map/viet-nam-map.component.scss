@@ -28,6 +28,7 @@
                 stroke:white;
                 stroke-opacity: 1;
                 stroke-width:0.5;
+                cursor: pointer;
             }
     
             path:hover {
@@ -45,6 +46,13 @@
         background-color: $SECONDARY;
         opacity: 0.8;
         position: fixed;
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none; /* Non-prefixed version, currently
+                            supported by Chrome and Opera */
 
         div#popup-header {
             vertical-align: middle;

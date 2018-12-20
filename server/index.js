@@ -107,13 +107,67 @@ app.get('/api/menu', (req, res) => {
     });
 });
 
-app.get('/api/posts', (req, res) => {
+app.get('/api/policies', (req, res) => {
+    database.getCollectionData(database.iTravelDB.Policies)
+        .then((result) => {
+            var vnPolicies = [];
+            var enPolicies = [];
+
+            result.forEach(policy => {
+                vnPolicies.push({
+                    title: policy.vnTitle,
+                    content: policy.vnContent
+                });
+                enPolicies.push({
+                    title: policy.enTitle,
+                    content: policy.enContent
+                });
+            });
+
+            var listPolciesMoreLanguage = {
+                vnPolicies: vnPolicies,
+                enPolicies: enPolicies
+            };
+
+            res.status(200).json({
+                message: 'Get policies success',
+                data: listPolciesMoreLanguage
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({
+                message: 'Get policies fail'
+            });
+        })
+})
+
+app.get('/api/cardview-post', (req, res) => {
     // const COLECTION_NAME = 'Posts';
-    database.getCollectionData(database.iTravelDB.Posts).then((data) => {
+    const approvedPostFilter = {
+        status: {
+            $eq: config.POST_STATUS.APPROVED
+        }
+    }
+    database.getCollectionFilterData(database.iTravelDB.Posts, approvedPostFilter).then((data) => {
         if (data != null) {
+            postSimpleData = []
+
+            data.forEach((post) => {
+                postSimpleData.push({
+                    _id: post._id,
+                    title: post.title,
+                    cover: post.cover,
+                    categories: post.categories,
+                    createdTime: post.createdTime,
+                    description: post.description,
+                    location: post.location
+                });
+            })
+
             res.status(200).json({
                 message: 'Load ' + database.iTravelDB.Posts + ' success!',
-                data: data
+                data: postSimpleData
             })
         } else {
             res.status(500).json({
@@ -724,5 +778,163 @@ app.get('/manager/posts', async (req, res) => {
                 });
         }
     }
-})
+});
+
+app.patch('/manager/approve-post', async (req, res) => {
+    const postId = req.body.postId;
+    const status = req.body.status;
+    let token = req.headers.authorization;
+
+    if (token !== undefined) {
+        token = token.split(' ')[1];
+    }
+
+    if (token === undefined || token === null) {
+        res.status(401).json({
+            message: 'Unauthorized'
+        });
+    } else {
+        const tokenData = jwt.verify(token, config.SECRET_KEY);
+
+        authetication.isAdminUser(tokenData.username)
+            .then((result) => {
+                if (!result || status !== config.POST_STATUS.APPROVED) {
+                    res.status(403).json({
+                        message: 'Forbidden'
+                    });
+                } else {
+                    // Check post status
+                    const postFilter = {
+                        "_id": {
+                            $eq: new ObjectId(postId)
+                        }
+                    };
+
+                    // Get post by Id, check exist and havent been approved
+                    database.getOneFromCollection(database.iTravelDB.Posts, postFilter)
+                        .then((result) => {
+                            if (result) {
+                                if (result.status === config.POST_STATUS.APPROVED) {
+                                    res.status(200).json({
+                                        message: 'It was approved before'
+                                    });
+                                } else {
+                                    // Update status to approved 
+                                    const idFilter = {
+                                        "_id": new ObjectId(postId)
+                                    };
+
+                                    const fieldChange = {
+                                        "status": status,
+                                        "approvedTime": new Date()
+                                    };
+                                    database.updateDocumentById(database.iTravelDB.Posts, idFilter, fieldChange)
+                                        .then((updateResult) => {
+                                            // matchedCount is defult result will be returned by mongodb
+                                            if (updateResult.matchedCount === 1) {
+                                                res.status(201).json({
+                                                    message: 'Approved Success'
+                                                });
+                                            } else {
+                                                res.status(200).json({
+                                                    message: 'Not found post'
+                                                });
+                                            }
+                                        })
+                                        .catch((err) => {
+                                            console.log(err);
+                                        })
+                                }
+                            } else {
+                                res.status(200).json({
+                                    message: 'Not found post'
+                                });
+                            }
+                        })
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+});
+
+app.patch('/manager/deny-post', async (req, res) => {
+    const postId = req.body.postId;
+    const status = req.body.status;
+    const reason = req.body.reason;
+    let token = req.headers.authorization;
+
+    if (token !== undefined) {
+        token = token.split(' ')[1];
+    }
+
+    if (token === undefined || token === null) {
+        res.status(401).json({
+            message: 'Unauthorized'
+        });
+    } else {
+        const tokenData = jwt.verify(token, config.SECRET_KEY);
+
+        authetication.isAdminUser(tokenData.username)
+            .then((result) => {
+                if (!result || status !== config.POST_STATUS.DENY) {
+                    res.status(403).json({
+                        message: 'Forbidden'
+                    });
+                } else {
+                    // Check post status
+                    const postFilter = {
+                        "_id": {
+                            $eq: new ObjectId(postId)
+                        }
+                    };
+
+                    // Get post by Id, check exist and havent been approved
+                    database.getOneFromCollection(database.iTravelDB.Posts, postFilter)
+                        .then((result) => {
+                            if (result) {
+                                if (result.status === config.POST_STATUS.DENY) {
+                                    res.status(200).json({
+                                        message: 'It was denied before'
+                                    });
+                                } else {
+                                    // Update status to approved 
+                                    const idFilter = {
+                                        "_id": new ObjectId(postId)
+                                    };
+
+                                    const fieldChange = {
+                                        "status": status
+                                    };
+                                    database.updateDocumentById(database.iTravelDB.Posts, idFilter, fieldChange)
+                                        .then((updateResult) => {
+                                            // matchedCount is defult result will be returned by mongodb
+                                            if (updateResult.matchedCount === 1) {
+                                                res.status(201).json({
+                                                    message: 'Denied Success'
+                                                });
+                                            } else {
+                                                res.status(200).json({
+                                                    message: 'Not found post'
+                                                });
+                                            }
+                                        })
+                                        .catch((err) => {
+                                            console.log(err);
+                                        })
+                                }
+                            } else {
+                                res.status(200).json({
+                                    message: 'Not found post'
+                                });
+                            }
+                        })
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+});
 /** Routing - END */

@@ -4,6 +4,8 @@ import { ServerService } from '../../core/services/server.service';
 import { Province } from '../../model/province.model';
 import { MasterPageService } from '../../core/services/master-page.service';
 import { ProvinceCity } from '../../model/province-city.model';
+import { Subject } from 'rxjs';
+import { ConstantService } from '../../core/services/constant.service';
 
 
 @Component({
@@ -37,7 +39,7 @@ export class VietNamMapComponent implements OnInit {
     this.mousePosition_Y = event.clientY;
   }
 
-  constructor(private server: ServerService, private masterPage: MasterPageService) { }
+  constructor(private server: ServerService, private masterPage: MasterPageService, private constant: ConstantService) { }
 
   ngOnInit() {
     if (this.masterPage.listProvinces === undefined || this.masterPage.listProvinces.length === 0) {
@@ -70,7 +72,7 @@ export class VietNamMapComponent implements OnInit {
     this.pathPosition_Y = event.clientY;
 
     this.popupInfo.position_X = (this.pathPosition_X - 70) + 'px';
-    this.popupInfo.position_Y = (this.pathPosition_Y + 15) + 'px';
+    this.popupInfo.position_Y = (this.pathPosition_Y + 30) + 'px';
 
     this.popupInfo.provinceName = this.listProvinces.find(x => x.provinceId === provinceId).provinceName;
 
@@ -110,12 +112,12 @@ export class VietNamMapComponent implements OnInit {
    * @author phieu-th
    */
   isShowPopup(): boolean {
-    if (this.isFocusLocation
-      || this.isFocusPopup
-      || (this.pathPosition_X - 45 <= this.mousePosition_X
-        && this.pathPosition_X + 45 >= this.mousePosition_X
-        && this.pathPosition_Y + 55 >= this.mousePosition_Y
-        && this.pathPosition_Y <= this.mousePosition_Y)) {
+    if (this.isFocusLocation) {
+      // || this.isFocusPopup
+      // || (this.pathPosition_X - 45 <= this.mousePosition_X
+      //   && this.pathPosition_X + 45 >= this.mousePosition_X
+      //   && this.pathPosition_Y + 55 >= this.mousePosition_Y
+      //   && this.pathPosition_Y <= this.mousePosition_Y)) {
       return true;
     }
 
@@ -138,5 +140,21 @@ export class VietNamMapComponent implements OnInit {
     this.popupInfo.Position_Y = this.pathPosition_Y + 'px';
 
     this.isFocusPopup = false;
+  }
+
+  /**
+   * Set provinceName to MasterPage Services for Home Index change list post
+   * @name setSelectProvince
+   * @author phieu-th
+   * @param provinceId
+   */
+  setSelectProvince(provinceId: string) {
+    const provinceCity = this.listProvinces.find(x => x.provinceId === provinceId);
+    if (provinceCity !== undefined) {
+      this.masterPage.selectedProvince = provinceCity.provinceName;
+    } else {
+      this.masterPage.selectedProvince = this.constant.ALL_PROVINCE;
+    }
+    this.masterPage.hasChangeSelectedProvince.next();
   }
 }

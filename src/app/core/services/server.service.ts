@@ -11,6 +11,7 @@ import { Tag } from 'src/app/model/tag.model';
 import { PostCategory } from 'src/app/model/postCategory.model';
 import { ProvinceCity } from 'src/app/model/province-city.model';
 import { Location } from 'src/app/model/location.model';
+import { ConstantService } from './constant.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class ServerService {
     })
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private constant: ConstantService) { }
 
   /**
    * Get list 63 VietNam's provinces
@@ -57,7 +58,7 @@ export class ServerService {
    * @author phieu-th
    */
   getCardViewPost(): Observable<CardViewPost[]> {
-    return this.http.get<any>(this.HOST + 'api/posts').pipe(map((res: any) => {
+    return this.http.get<any>(this.HOST + 'api/cardview-post').pipe(map((res: any) => {
       const cardViewPosts: CardViewPost[] = res.data.map((resItem) => {
         const cardViewPost: CardViewPost = new CardViewPost(
           resItem._id,
@@ -65,7 +66,8 @@ export class ServerService {
           resItem.cover,
           resItem.categories,
           resItem.createdTime,
-          resItem.description
+          resItem.description,
+          resItem.location
         );
         return cardViewPost;
       });
@@ -180,7 +182,38 @@ export class ServerService {
     return this.http.get<any>(this.HOST + 'api/report/searchkeyword', { headers: this.httpOptions.headers, params: params });
   }
 
+  /**
+   * Get list web's policies
+   * @name getPolicies
+   * @author phieu-th
+   */
+  getPolicies(): Observable<any> {
+    return this.http.get(this.HOST + 'api/policies');
+  }
+
+  /**
+   * GET all post in database for management
+   * @name getPostsByManager
+   * @author phieu-th
+   */
   getPostsByManager(): Observable<any> {
     return this.http.get<any>(this.HOST + 'manager/posts');
+  }
+
+  updatePostStatus(postId: string, status: any, reason: string): Observable<any> {
+    if (status === this.constant.POST_STATUS.APPROVED) {
+      const params = {
+        postId: postId,
+        status: status
+      };
+      return this.http.patch(this.HOST + 'manager/approve-post', params);
+    } else {
+      const params = {
+        postId: postId,
+        status: status,
+        reason: reason
+      };
+      return this.http.patch(this.HOST + 'manager/deny-post', params);
+    }
   }
 }

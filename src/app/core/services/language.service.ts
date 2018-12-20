@@ -18,6 +18,7 @@ export class LanguageService {
     this.createEnglishDictionary();
     this.createVietnameseDictionary();
     this.currentLanguage = this.enLanguage;
+    this.hasChangeLanguage.next('en');
   }
 
   /**
@@ -147,6 +148,24 @@ export class LanguageService {
     this.vnLanguage.postManagementTableAction = 'Hành động';
     this.vnLanguage.postManagementPostViewTitle = 'Xem trước bài viết';
     this.vnLanguage.postManagementPostViewOk = 'Ok';
+    this.vnLanguage.postManagementApprove = 'Phê duyệt';
+    this.vnLanguage.postManagementDeny = 'Từ chối';
+    this.vnLanguage.postManagementCancel = 'Hủy';
+    this.vnLanguage.postManagementPostApprovedBefore = 'Bài viết đã được duyệt trước đó';
+    this.vnLanguage.postManagementPostNotFound = 'Không tìm thấy bài viết';
+    this.vnLanguage.postManagementErrorChangeStatus = 'Lỗi khi thay đổi trạng thái';
+    this.vnLanguage.postManagementDenyTitle = 'Từ chối bài viết';
+    this.vnLanguage.postManagementDenyPostId = 'Mã bài viết';
+    this.vnLanguage.postManagementDenyReason = 'Lý do';
+    this.vnLanguage.postManagementErrorEmptyReason = 'Lý do từ chối là bắt buộc';
+    this.vnLanguage.postManagementErrorInvalidDenyData = 'Thông tin bài viết khớp';
+    this.vnLanguage.postManagementErrorPostDenied = 'Bài viết đã từ chối trước đó';
+
+    // For Policies
+    this.vnLanguage.policiesTitle = 'Chính sách sử dụng';
+
+    // For Home Page
+    this.vnLanguage.homeIndexPostIn = 'Bài viết tại ';
   }
 
   /**
@@ -276,7 +295,23 @@ export class LanguageService {
     this.enLanguage.postManagementTableAction = 'Action';
     this.enLanguage.postManagementPostViewTitle = 'Review';
     this.enLanguage.postManagementPostViewOk = 'Ok';
+    this.enLanguage.postManagementApprove = 'Approve';
+    this.enLanguage.postManagementDeny = 'Deny';
+    this.enLanguage.postManagementCancel = 'Cancel';
+    this.enLanguage.postManagementPostApprovedBefore = 'This post was approved before';
+    this.enLanguage.postManagementPostNotFound = 'Post not found';
+    this.enLanguage.postManagementErrorChangeStatus = 'Change post status has error, please try again';
+    this.enLanguage.postManagementDenyTitle = 'Deny a post';
+    this.enLanguage.postManagementDenyPostId = 'Post ID';
+    this.enLanguage.postManagementDenyReason = 'Reason';
+    this.enLanguage.postManagementErrorEmptyReason = 'Deny reason is required';
+    this.enLanguage.postManagementErrorInvalidDenyData = 'Post information is not match';
+    this.enLanguage.postManagementErrorPostDenied = 'Post was denied before';
 
+    // For Policies
+    this.enLanguage.policiesTitle = 'Using Policies';
+
+    this.enLanguage.homeIndexPostIn = 'Posts in ';
   }
 
   /**
@@ -286,7 +321,7 @@ export class LanguageService {
    */
   setVietnamese() {
     this.currentLanguage = this.vnLanguage;
-    this.hasChangeLanguage.next();
+    this.hasChangeLanguage.next('vn');
   }
 
   /**
@@ -296,6 +331,6 @@ export class LanguageService {
    */
   setEnglish() {
     this.currentLanguage = this.enLanguage;
-    this.hasChangeLanguage.next();
+    this.hasChangeLanguage.next('en');
   }
 }

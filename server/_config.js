@@ -29,6 +29,15 @@ const USER_PERMISSION = {
     Admin: 'Admin'
 };
 
+const POST_STATUS =
+{
+    NEW: 'NEW',
+    PENDING: 'PENDING',
+    APPROVED: 'APPROVED',
+    DENY: 'DENY',
+    NEED_REPAIR: 'NEED_REPAIR'
+};
+
 module.exports = {
     APP_PORT: APP_PORT,
     DB_HOST: DB_HOST,
@@ -39,5 +48,6 @@ module.exports = {
     signOptions: signOptions,
     verifyOptions: verifyOptions,
     MINE_TYPE_MAP: MINE_TYPE_MAP,
-    USER_PERMISSION: USER_PERMISSION
+    USER_PERMISSION: USER_PERMISSION,
+    POST_STATUS: POST_STATUS
 };

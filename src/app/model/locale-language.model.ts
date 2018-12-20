@@ -121,6 +121,24 @@ export class LocaleLanguage {
     postManagementTableAction: string;
     postManagementPostViewTitle: string;
     postManagementPostViewOk: string;
+    postManagementApprove: string;
+    postManagementDeny: string;
+    postManagementCancel: string;
+    postManagementPostApprovedBefore: string;
+    postManagementPostNotFound: string;
+    postManagementErrorChangeStatus: string;
+    postManagementDenyTitle: string;
+    postManagementDenyPostId: string;
+    postManagementDenyReason: string;
+    postManagementErrorEmptyReason: string;
+    postManagementErrorInvalidDenyData: string;
+    postManagementErrorPostDenied: string;
+
+    // For Policies
+    policiesTitle: string;
+
+    // For HomePage
+    homeIndexPostIn: string;
 
     constructor() { }
 }

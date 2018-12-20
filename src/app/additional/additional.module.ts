@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { AdditionalRoutingModule } from './additionnal.routing';
 import { FeedbackComponent } from './feedback/feedback.component';
+import { PoliciesComponent } from './policies/policies.component';
 
 @NgModule({
   imports: [
@@ -10,6 +11,6 @@ import { FeedbackComponent } from './feedback/feedback.component';
     SharedModule,
     AdditionalRoutingModule
   ],
-  declarations: [FeedbackComponent]
+  declarations: [FeedbackComponent, PoliciesComponent]
 })
 export class AdditionalModule { }
