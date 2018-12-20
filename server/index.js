@@ -816,10 +816,11 @@ app.patch('/manager/approve-post', async (req, res) => {
                                         "_id": new ObjectId(postId)
                                     };
 
-                                    const statusChange = {
-                                        "status": status
+                                    const fieldChange = {
+                                        "status": status,
+                                        "approvedTime": new Date()
                                     };
-                                    database.updateDocumentById(database.iTravelDB.Posts, idFilter, statusChange)
+                                    database.updateDocumentById(database.iTravelDB.Posts, idFilter, fieldChange)
                                         .then((updateResult) => {
                                             // matchedCount is defult result will be returned by mongodb
                                             if (updateResult.matchedCount === 1) {

@@ -85,7 +85,7 @@
                 <span ngbDropdownToggle id="post-management-action"><i class="fas fa-bars"></i></span>
                 <div ngbDropdownMenu aria-labelledby="post-management-action" id="post-management-action-dropdown">
                   <button (click)="openPostViewDialog(approve, post._id)" class="dropdown-item">{{language.currentLanguage.postManagementApprove}}</button>
-                  <button class="dropdown-item">{{language.currentLanguage.postManagementDeny}}</button>
+                  <button (click)="openPostDenyDialog(deny, post._id, post.title)" class="dropdown-item">{{language.currentLanguage.postManagementDeny}}</button>
                 </div>
               </div>
             </td>
@@ -125,5 +125,37 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-danger" (click)="modal.close()">{{this.language.currentLanguage.postManagementCancel}}</button>
     <button type="button" class="btn btn-success" (click)="modal.close(); approvePost(postViewId)">{{this.language.currentLanguage.postManagementApprove}}</button>
+  </div>
+</ng-template>
+
+<ng-template #deny let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{this.language.currentLanguage.postManagementDeny}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body review-post-body">
+    <form [formGroup]="denyForm" novalidate>
+      <div class="form-group">
+        <label>{{language.currentLanguage.postManagementDenyPostId}}</label>
+        <input formControlName="postId" class="form-control" type="text" disabled>
+      </div>
+      <div class="form-group">
+        <label>{{language.currentLanguage.postManagementTablePostName}}</label>
+        <input formControlName="postTitle" class="form-control" type="text" disabled>
+      </div>
+      <div class="form-group">
+        <label>{{language.currentLanguage.postManagementDenyReason}}</label>
+        <textarea formControlName="denyReason" class="form-control" rows="5"></textarea>
+        <div *ngIf="denyForm.get('denyReason').hasError('required') && (denyForm.get('denyReason').dirty || denyForm.get('denyReason').touched)" class="error-mess">
+          {{language.currentLanguage.postManagementErrorEmptyReason}}
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="modal.close()">{{this.language.currentLanguage.postManagementCancel}}</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close()" [disabled]="denyForm.invalid">{{this.language.currentLanguage.postManagementDeny}}</button>
   </div>
 </ng-template>
