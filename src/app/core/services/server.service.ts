@@ -197,15 +197,20 @@ export class ServerService {
     return this.http.get<any>(this.HOST + 'manager/posts');
   }
 
-  updatePostStatus(postId: string, status: any): Observable<any> {
-    const params = {
-      postId: postId,
-      status: status
-    };
+  updatePostStatus(postId: string, status: any, reason: string): Observable<any> {
     if (status === this.constant.POST_STATUS.APPROVED) {
+      const params = {
+        postId: postId,
+        status: status
+      };
       return this.http.patch(this.HOST + 'manager/approve-post', params);
     } else {
-      return this.http.patch(this.HOST + 'manager/approve-post', params);
+      const params = {
+        postId: postId,
+        status: status,
+        reason: reason
+      };
+      return this.http.patch(this.HOST + 'manager/deny-post', params);
     }
   }
 }

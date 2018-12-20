@@ -156,6 +156,6 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-success" (click)="modal.close()">{{this.language.currentLanguage.postManagementCancel}}</button>
-    <button type="button" class="btn btn-danger" (click)="modal.close()" [disabled]="denyForm.invalid">{{this.language.currentLanguage.postManagementDeny}}</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close(); denyPost(postViewId)" [disabled]="denyForm.invalid">{{this.language.currentLanguage.postManagementDeny}}</button>
   </div>
 </ng-template>

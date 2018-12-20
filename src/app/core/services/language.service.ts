@@ -158,7 +158,7 @@ export class LanguageService {
     this.vnLanguage.postManagementDenyPostId = 'Mã bài viết';
     this.vnLanguage.postManagementDenyReason = 'Lý do';
     this.vnLanguage.postManagementErrorEmptyReason = 'Lý do từ chối là bắt buộc';
-    this.vnLanguage.postManagementErrorInvalidPost = 'Thông tin bài viết khớp';
+    this.vnLanguage.postManagementErrorInvalidDenyData = 'Thông tin bài viết khớp';
     this.vnLanguage.postManagementErrorPostDenied = 'Bài viết đã từ chối trước đó';
 
     // For Policies
@@ -305,7 +305,7 @@ export class LanguageService {
     this.enLanguage.postManagementDenyPostId = 'Post ID';
     this.enLanguage.postManagementDenyReason = 'Reason';
     this.enLanguage.postManagementErrorEmptyReason = 'Deny reason is required';
-    this.enLanguage.postManagementErrorInvalidPost = 'Post information is not match';
+    this.enLanguage.postManagementErrorInvalidDenyData = 'Post information is not match';
     this.enLanguage.postManagementErrorPostDenied = 'Post was denied before';
 
     // For Policies

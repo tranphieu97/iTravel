@@ -76,6 +76,9 @@ export class PostManagementComponent implements OnInit {
   openPostDenyDialog(contentId, postId: string, postTitle: string) {
     this.denyForm.get('postId').setValue(postId);
     this.denyForm.get('postTitle').setValue(postTitle);
+    this.denyForm.get('denyReason').setValue('');
+    this.postViewId = postId;
+
     this.modalService.open(contentId, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
     }).catch((err) => {
       console.log(err);
@@ -200,13 +203,13 @@ export class PostManagementComponent implements OnInit {
    * @param postId
    */
   approvePost(postId: string) {
-    this.server.updatePostStatus(postId, this.constant.POST_STATUS.APPROVED).subscribe((result) => {
+    this.server.updatePostStatus(postId, this.constant.POST_STATUS.APPROVED, null).subscribe((result) => {
       if (result.message.indexOf('Approved Success') !== -1) {
         this.refreshListPost();
       } else if (result.message.indexOf('It was approved before') !== -1) {
         this.hasError = true;
         this.errorMessage = this.language.currentLanguage.postManagementPostApprovedBefore;
-      } else if (result.message.indexOf('Not found file') !== -1) {
+      } else if (result.message.indexOf('Not found post') !== -1) {
         this.hasError = true;
         this.errorMessage = this.language.currentLanguage.postManagementPostNotFound;
       } else {
@@ -216,14 +219,30 @@ export class PostManagementComponent implements OnInit {
     });
   }
 
-  denyPost(postId: string, postTitle: string) {
-    const formControlPostId = this.denyForm.get('postId').value();
-    const formControlPostTitle = this.denyForm.get('postTitle').value();
-    const formControlReasion = this.denyForm.get('denyReason').value();
+  denyPost(postId: string) {
+    const formControlPostId = this.denyForm.get('postId').value;
+    const formControlReasion = this.denyForm.get('denyReason').value;
 
-    if (formControlPostId !== postId || formControlPostTitle !== postTitle || formControlReasion === '') {
+    if (formControlPostId !== postId || formControlReasion === '') {
       this.hasError = true;
-      this.errorMessage = this.language.currentLanguage.postManagementErrorChangeStatus;
+      this.errorMessage = this.language.currentLanguage.postManagementErrorInvalidDenyData;
+    } else {
+      this.server.updatePostStatus(postId, this.constant.POST_STATUS.DENY, formControlReasion).subscribe((res) => {
+        if (res) {
+          if (res.message.indexOf('Denied Success') !== -1) {
+            this.refreshListPost();
+          } else if (res.message.indexOf('It was denied before') !== -1) {
+            this.hasError = true;
+            this.errorMessage = this.language.currentLanguage.postManagementErrorPostDenied;
+          } else if (res.message.indexOf('Not found post') !== -1) {
+            this.hasError = true;
+            this.errorMessage = this.language.currentLanguage.postManagementPostNotFound;
+          } else {
+            this.hasError = true;
+            this.errorMessage = this.language.currentLanguage.postManagementErrorChangeStatus;
+          }
+        }
+      });
     }
   }
 }

@@ -131,7 +131,7 @@ export class LocaleLanguage {
     postManagementDenyPostId: string;
     postManagementDenyReason: string;
     postManagementErrorEmptyReason: string;
-    postManagementErrorInvalidPost: string;
+    postManagementErrorInvalidDenyData: string;
     postManagementErrorPostDenied: string;
 
     // For Policies

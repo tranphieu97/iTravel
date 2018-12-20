@@ -829,7 +829,7 @@ app.patch('/manager/approve-post', async (req, res) => {
                                                 });
                                             } else {
                                                 res.status(200).json({
-                                                    message: 'Not found file'
+                                                    message: 'Not found post'
                                                 });
                                             }
                                         })
@@ -839,7 +839,86 @@ app.patch('/manager/approve-post', async (req, res) => {
                                 }
                             } else {
                                 res.status(200).json({
-                                    message: 'Not found file'
+                                    message: 'Not found post'
+                                });
+                            }
+                        })
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+});
+
+app.patch('/manager/deny-post', async (req, res) => {
+    const postId = req.body.postId;
+    const status = req.body.status;
+    const reason = req.body.reason;
+    let token = req.headers.authorization;
+
+    if (token !== undefined) {
+        token = token.split(' ')[1];
+    }
+
+    if (token === undefined || token === null) {
+        res.status(401).json({
+            message: 'Unauthorized'
+        });
+    } else {
+        const tokenData = jwt.verify(token, config.SECRET_KEY);
+
+        authetication.isAdminUser(tokenData.username)
+            .then((result) => {
+                if (!result || status !== config.POST_STATUS.DENY) {
+                    res.status(403).json({
+                        message: 'Forbidden'
+                    });
+                } else {
+                    // Check post status
+                    const postFilter = {
+                        "_id": {
+                            $eq: new ObjectId(postId)
+                        }
+                    };
+
+                    // Get post by Id, check exist and havent been approved
+                    database.getOneFromCollection(database.iTravelDB.Posts, postFilter)
+                        .then((result) => {
+                            if (result) {
+                                if (result.status === config.POST_STATUS.DENY) {
+                                    res.status(200).json({
+                                        message: 'It was denied before'
+                                    });
+                                } else {
+                                    // Update status to approved 
+                                    const idFilter = {
+                                        "_id": new ObjectId(postId)
+                                    };
+
+                                    const fieldChange = {
+                                        "status": status
+                                    };
+                                    database.updateDocumentById(database.iTravelDB.Posts, idFilter, fieldChange)
+                                        .then((updateResult) => {
+                                            // matchedCount is defult result will be returned by mongodb
+                                            if (updateResult.matchedCount === 1) {
+                                                res.status(201).json({
+                                                    message: 'Denied Success'
+                                                });
+                                            } else {
+                                                res.status(200).json({
+                                                    message: 'Not found post'
+                                                });
+                                            }
+                                        })
+                                        .catch((err) => {
+                                            console.log(err);
+                                        })
+                                }
+                            } else {
+                                res.status(200).json({
+                                    message: 'Not found post'
                                 });
                             }
                         })
