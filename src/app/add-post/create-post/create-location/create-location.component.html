@@ -6,7 +6,7 @@
   <div class="col-xl-10 col-md-9 col-12">
     <!-- <input type="text" name="place" class="form-control" placeholder="Nha Trang beach"> -->
     <input type="text" name="place" class="form-control" placeholder="Nha Trang beach" [value]="post.location.locationName"
-      (blur)="onUpdatePlace($event)">
+      (blur)="onUpdatePlace($event)" maxlength="200">
   </div>
 </div>
 <br>
@@ -18,7 +18,7 @@
   <div class="col-xl-10 col-md-9 col-12">
     <!-- <input type="text" name="address" class="form-control" placeholder="No.1 Vo Van Ngan"> -->
     <input type="text" name="address" class="form-control" placeholder="No.1 Vo Van Ngan" [value]="post.location.address"
-      (blur)="onUpdateAddress($event)">
+      (blur)="onUpdateAddress($event)" maxlength="300">
   </div>
 </div>
 <br>

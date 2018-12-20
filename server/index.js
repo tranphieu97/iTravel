@@ -219,6 +219,8 @@ app.get('/api/post', (req, res) => {
  */
 app.post('/api/posts', (req, res, next) => {
     const post = req.body;
+    // fix createdTime from string to Date type
+    post.createdTime = new Date(post.createdTime);
     // pass a post to insertOneToColection(), function will upload to server automaticaly
     database.insertOneToColection(database.iTravelDB.Posts, post)
         .then(() => {
@@ -261,17 +263,23 @@ const storage = multer.diskStorage({
  * @param request
  * @description receive request include a file and store on server
  */
-app.post('/api/upload-image', multer({ storage: storage }).single('image'), (req, res, next) => {
-    const imageUrl = req.protocol + '://' // http://
-        + req.get("host") // http://localhost:7979
-        + "/api/images/" // http://localhost:7979/images/
-        + req.file.filename; // http://localhost:7979/images/abc.jpg
-    // if (req.file !== undefined || req.file) {
+app.post('/api/upload-image', multer({ storage: storage }).array('images'), (req, res, next) => {
+    // variable store imageUrls to send response
+    imageUrls = [];
+    // some variable used for construct image url
+    urlProtocol = req.protocol + '://'; // => http://
+    urlHost = req.get("host"); // => localhost:7979
+    // create url foreach image
+    for (const file of req.files) {
+        const imageUrl = urlProtocol + urlHost
+            + "/api/images/" // => http://localhost:7979/api/images/
+            + file.filename; // => http://localhost:7979/api/images/abc.jpg
+        imageUrls.push(imageUrl);
+    }
     res.status(201).json({
         message: 'Upload image successfuly',
-        imageUrl: imageUrl
+        imageUrls: imageUrls
     });
-    // }
 });
 
 /**

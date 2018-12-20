@@ -138,11 +138,14 @@ export class ServerService {
    * @param {File} image
    * @description send a POST request to upload an image to server
    */
-  uploadImage(image: File) {
+  uploadImage(images: { imgFile: File, contentId: string }[]) {
     // convert to FormData before send to multer
     const uploadImage = new FormData();
-    uploadImage.append('image', image);
-    return this.http.post<{ message: string, imageUrl: string }>(this.HOST + 'api/upload-image', uploadImage);
+    // add img to FormData
+    for (const img of images) {
+      uploadImage.append('images', img.imgFile);
+    }
+    return this.http.post<{ message: string, imageUrls: string[] }>(this.HOST + 'api/upload-image', uploadImage);
   }
 
   /**

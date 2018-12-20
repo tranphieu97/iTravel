@@ -2,6 +2,14 @@
   <div class="col-md-7 p-2 content">
     <div class="row m-0 p-0 hidden-scroll">
       <div class="col-12 p-0 max-height">
+        <!-- on top is invalid alert -->
+        <div class="row m-0" *ngIf="alertContent.length > 0">
+          <div class="col-12 p-3 alert alert-danger pre-line">
+            {{ alertContent }}
+            <!-- button for delete topic-content -->
+            <!-- <span class="fas fa-times-circle del-content-btn"></span> -->
+          </div>
+        </div>
         <!-- row1 has title -->
         <div class="row form-group">
           <div class="col-xl-2 col-md-3 col-12">
@@ -9,7 +17,7 @@
           </div>
           <div class="col-xl-10 col-md-9 col-12">
             <input class="form-control" type="text" name="title" placeholder="enter post title" [value]="post.title"
-              (blur)="onUpdateTitle($event)">
+              (blur)="onUpdateTitle($event)" maxlength="200">
           </div>
         </div>
         <!-- row2 has description -->
@@ -19,13 +27,14 @@
           </div>
           <div class="col-xl-10 col-md-9 col-12">
             <textarea name="description" class="form-control" rows="2" placeholder="enter description" [value]="post.description"
-              (blur)="onUpdateDescription($event)"></textarea>
+              (blur)="onUpdateDescription($event)" maxlength="500"></textarea>
           </div>
         </div>
         <!-- row3 has add-cover-button and preview -->
         <div class="row form-group">
           <div class="col-sm-5 col-12">
-            <button class="btn btn-success" type="button" (click)="filePicker.click()">Add Cover</button>
+            <button class="btn btn-success" type="button" (click)="filePicker.click()" (blur)="onLeaveImgPicker()">Add
+              Cover</button>
             <input class="d-none" type="file" #filePicker (change)="onImagePicked($event)">
           </div>
           <div class="col-sm-7 col-12" *ngIf="post.cover.length > 0">
@@ -55,6 +64,14 @@
         <div class="row form-group m-0">
           <div class="col-12">
             <app-create-post-content [post]='post'></app-create-post-content>
+          </div>
+        </div>
+        <!-- at the bottom has same invalid alert before save button-->
+        <div class="row m-0" *ngIf="alertContent.length > 0">
+          <div class="col-12 p-3 alert alert-danger pre-line">
+            {{ alertContent }}
+            <!-- button for delete topic-content -->
+            <!-- <span class="fas fa-times-circle del-content-btn"></span> -->
           </div>
         </div>
         <!-- row8 has save button -->
