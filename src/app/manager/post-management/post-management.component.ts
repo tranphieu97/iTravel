@@ -219,6 +219,11 @@ export class PostManagementComponent implements OnInit {
     });
   }
 
+  /**
+   * Deny a post by postId
+   * @name denyPost
+   * @author phieu-th
+   */
   denyPost(postId: string) {
     const formControlPostId = this.denyForm.get('postId').value;
     const formControlReasion = this.denyForm.get('denyReason').value;
