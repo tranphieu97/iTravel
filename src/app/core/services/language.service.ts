@@ -18,6 +18,7 @@ export class LanguageService {
     this.createEnglishDictionary();
     this.createVietnameseDictionary();
     this.currentLanguage = this.enLanguage;
+    this.hasChangeLanguage.next('en');
   }
 
   /**
@@ -302,7 +303,7 @@ export class LanguageService {
     this.enLanguage.postManagementDenyReason = 'Reason';
 
     // For Policies
-    this.enLanguage.policiesTitle = 'Chính sách sử dụng';
+    this.enLanguage.policiesTitle = 'Using Policies';
 
     this.enLanguage.homeIndexPostIn = 'Posts in ';
   }
@@ -314,7 +315,7 @@ export class LanguageService {
    */
   setVietnamese() {
     this.currentLanguage = this.vnLanguage;
-    this.hasChangeLanguage.next();
+    this.hasChangeLanguage.next('vn');
   }
 
   /**
@@ -324,6 +325,6 @@ export class LanguageService {
    */
   setEnglish() {
     this.currentLanguage = this.enLanguage;
-    this.hasChangeLanguage.next();
+    this.hasChangeLanguage.next('en');
   }
 }

@@ -107,6 +107,41 @@ app.get('/api/menu', (req, res) => {
     });
 });
 
+app.get('/api/policies', (req, res) => {
+    database.getCollectionData(database.iTravelDB.Policies)
+        .then((result) => {
+            var vnPolicies = [];
+            var enPolicies = [];
+
+            result.forEach(policy => {
+                vnPolicies.push({
+                    title: policy.vnTitle,
+                    content: policy.vnContent
+                });
+                enPolicies.push({
+                    title: policy.enTitle,
+                    content: policy.enContent
+                });
+            });
+
+            var listPolciesMoreLanguage = {
+                vnPolicies: vnPolicies,
+                enPolicies: enPolicies
+            };
+
+            res.status(200).json({
+                message: 'Get policies success',
+                data: listPolciesMoreLanguage
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({
+                message: 'Get policies fail'
+            });
+        })
+})
+
 app.get('/api/cardview-post', (req, res) => {
     // const COLECTION_NAME = 'Posts';
     const approvedPostFilter = {

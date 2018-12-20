@@ -180,6 +180,15 @@ export class ServerService {
   }
 
   /**
+   * Get list web's policies
+   * @name getPolicies
+   * @author phieu-th
+   */
+  getPolicies(): Observable<any> {
+    return this.http.get(this.HOST + 'api/policies');
+  }
+
+  /**
    * GET all post in database for management
    * @name getPostsByManager
    * @author phieu-th

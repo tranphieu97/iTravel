@@ -1,6 +1,13 @@
 <div class="policies-form content-box">
   <h3>{{language.currentLanguage.policiesTitle}}</h3>
-  <div>
-    
+  <div class="policies-content">
+    <div class="policy" *ngFor="let policy of this.currentLanguagePolicies">
+      <h4>
+        {{policy.title}}
+      </h4>
+      <p *ngFor="let policyContent of policy.content">
+        {{policyContent}}
+      </p>
+    </div>
   </div>
 </div>
