@@ -174,8 +174,17 @@ export class PostManagementComponent implements OnInit {
    */
   approvePost(postId: string) {
     this.server.updatePostStatus(postId, this.constant.POST_STATUS.APPROVED).subscribe((result) => {
-      if (result.message.indexOf('Approve') !== -1) {
+      if (result.message.indexOf('Approved Success') !== -1) {
         this.refreshListPost();
+      } else if (result.message.indexOf('It was approved before') !== -1) {
+        this.hasError = true;
+        this.errorMessage = this.language.currentLanguage.postManagementPostApprovedBefore;
+      } else if (result.message.indexOf('Not found file') !== -1) {
+        this.hasError = true;
+        this.errorMessage = this.language.currentLanguage.postManagementPostNotFound;
+      } else {
+        this.hasError = true;
+        this.errorMessage = this.language.currentLanguage.postManagementErrorChangeStatus;
       }
     });
   }

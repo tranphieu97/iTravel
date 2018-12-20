@@ -11,6 +11,7 @@ import { Tag } from 'src/app/model/tag.model';
 import { PostCategory } from 'src/app/model/postCategory.model';
 import { ProvinceCity } from 'src/app/model/province-city.model';
 import { Location } from 'src/app/model/location.model';
+import { ConstantService } from './constant.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class ServerService {
     })
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private constant: ConstantService) { }
 
   /**
    * Get list 63 VietNam's provinces
@@ -192,6 +193,10 @@ export class ServerService {
       postId: postId,
       status: status
     };
-    return this.http.patch(this.HOST + 'manager/approve-post', params);
+    if (status === this.constant.POST_STATUS.APPROVED) {
+      return this.http.patch(this.HOST + 'manager/approve-post', params);
+    } else {
+      return this.http.patch(this.HOST + 'manager/approve-post', params);
+    }
   }
 }

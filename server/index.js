@@ -755,31 +755,57 @@ app.patch('/manager/approve-post', async (req, res) => {
 
         authetication.isAdminUser(tokenData.username)
             .then((result) => {
-                if (!result) {
+                if (!result || status !== config.POST_STATUS.APPROVED) {
                     res.status(403).json({
                         message: 'Forbidden'
                     });
                 } else {
-                    const idFilter = {
-                        "_id":  new ObjectId(postId)
+                    // Check post status
+                    const postFilter = {
+                        "_id": {
+                            $eq: new ObjectId(postId)
+                        }
                     };
-                    const statusChange = {
-                        "status": status
-                    };
-                    database.updateDocumentById(database.iTravelDB.Posts, idFilter, statusChange)
-                        .then((updateResult) => {
-                            if (updateResult.matchedCount === 1) {
-                                res.status(201).json({
-                                    message: 'Approved'
-                                });
+
+                    // Get post by Id, check exist and havent been approved
+                    database.getOneFromCollection(database.iTravelDB.Posts, postFilter)
+                        .then((result) => {
+                            if (result) {
+                                if (result.status === config.POST_STATUS.APPROVED) {
+                                    res.status(200).json({
+                                        message: 'It was approved before'
+                                    });
+                                } else {
+                                    // Update status to approved 
+                                    const idFilter = {
+                                        "_id": new ObjectId(postId)
+                                    };
+
+                                    const statusChange = {
+                                        "status": status
+                                    };
+                                    database.updateDocumentById(database.iTravelDB.Posts, idFilter, statusChange)
+                                        .then((updateResult) => {
+                                            // matchedCount is defult result will be returned by mongodb
+                                            if (updateResult.matchedCount === 1) {
+                                                res.status(201).json({
+                                                    message: 'Approved Success'
+                                                });
+                                            } else {
+                                                res.status(200).json({
+                                                    message: 'Not found file'
+                                                });
+                                            }
+                                        })
+                                        .catch((err) => {
+                                            console.log(err);
+                                        })
+                                }
                             } else {
-                                res.status(404).json({
+                                res.status(200).json({
                                     message: 'Not found file'
                                 });
                             }
-                        })
-                        .catch((err) => {
-                            console.log(err);
                         })
                 }
             })

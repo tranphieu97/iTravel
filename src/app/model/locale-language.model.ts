@@ -124,6 +124,12 @@ export class LocaleLanguage {
     postManagementApprove: string;
     postManagementDeny: string;
     postManagementCancel: string;
+    postManagementPostApprovedBefore: string;
+    postManagementPostNotFound: string;
+    postManagementErrorChangeStatus: string;
+    postManagementDenyTitle: string;
+    postManagementDenyPostId: string;
+    postManagementDenyReason: string;
 
     // For Policies
     policiesTitle: string;

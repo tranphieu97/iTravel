@@ -150,6 +150,12 @@ export class LanguageService {
     this.vnLanguage.postManagementApprove = 'Phê duyệt';
     this.vnLanguage.postManagementDeny = 'Từ chối';
     this.vnLanguage.postManagementCancel = 'Hủy';
+    this.vnLanguage.postManagementPostApprovedBefore = 'Bài viết đã được duyệt trước đó';
+    this.vnLanguage.postManagementPostNotFound = 'Không tìm thấy bài viết';
+    this.vnLanguage.postManagementErrorChangeStatus = 'Lỗi khi thay đổi trạng thái';
+    this.vnLanguage.postManagementDenyTitle = 'Từ chối bài viết';
+    this.vnLanguage.postManagementDenyPostId = 'Mã bài viết';
+    this.vnLanguage.postManagementDenyReason = 'Lý do';
 
     // For Policies
     this.vnLanguage.policiesTitle = 'Chính sách sử dụng';
@@ -288,6 +294,12 @@ export class LanguageService {
     this.enLanguage.postManagementApprove = 'Approve';
     this.enLanguage.postManagementDeny = 'Deny';
     this.enLanguage.postManagementCancel = 'Cancel';
+    this.enLanguage.postManagementPostApprovedBefore = 'This post was approved before';
+    this.enLanguage.postManagementPostNotFound = 'Post not found';
+    this.enLanguage.postManagementErrorChangeStatus = 'Change post status has error, please try again';
+    this.enLanguage.postManagementDenyTitle = 'Deny a post';
+    this.enLanguage.postManagementDenyPostId = 'Post ID';
+    this.enLanguage.postManagementDenyReason = 'Reason';
 
     // For Policies
     this.enLanguage.policiesTitle = 'Chính sách sử dụng';
