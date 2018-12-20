@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PostCategory } from 'src/app/model/postCategory.model';
 import { PostCategoryService } from 'src/app/core/services/post-category.service';
-import { element } from '@angular/core/src/render3/instructions';
 import { Post } from 'src/app/model/post.model';
+import { PostService } from 'src/app/core/services/post.service';
 
 @Component({
   selector: 'app-create-category',
@@ -14,7 +14,7 @@ export class CreateCategoryComponent implements OnInit {
   @Input() post: Post;
   allCategories: PostCategory[] = [];
 
-  constructor(private postCategoryService: PostCategoryService) { }
+  constructor(private postCategoryService: PostCategoryService, private postService: PostService) { }
 
   ngOnInit() {
     this.postCategoryService.newCategoriesUpdated.asObservable()
@@ -29,17 +29,23 @@ export class CreateCategoryComponent implements OnInit {
     // get selectedCategory
     const selectedCategory = (event.target as HTMLSelectElement).value;
     // check if post has selectedCategory or not
-    const sameCategory = this.post.categories.find((eachEle) => {
+    const duplicateCategory = this.post.categories.find((eachEle) => {
       return eachEle.name === selectedCategory;
     });
-    if (sameCategory === undefined || sameCategory === null) {
+    if (duplicateCategory === undefined || duplicateCategory === null) {
       // if not yet, create newCategory from allCategories
       const newCategory = this.allCategories.find((eachEleInALL) => {
-        return eachEleInALL.name.toLowerCase() === selectedCategory.toLocaleLowerCase();
+        return eachEleInALL.name.toLowerCase() === selectedCategory.toLowerCase();
       });
-      // push that newCategory to post.categories
-      this.post.categories.push(newCategory);
+      if (newCategory !== null && newCategory !== undefined) {
+        // push that newCategory to post.categories
+        this.post.categories.push(newCategory);
+      } else {
+        // user choose a category that not exist => hacker
+      }
     }
+    // emit event
+    this.postService.categoryChanged.next();
   }
 
   onRemoveCategory(removedCategory: PostCategory, selectEle: HTMLSelectElement) {
@@ -51,5 +57,7 @@ export class CreateCategoryComponent implements OnInit {
     // if user choose and remove and choose the same category
     // there no change happen, so we need reset to make change
     selectEle.value = '';
+    // emit event
+    this.postService.categoryChanged.next();
   }
 }

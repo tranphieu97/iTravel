@@ -4,7 +4,8 @@
     <label>Tag:</label>
   </div>
   <div class="col-xl-8 col-md-6 col-10">
-    <input type="text" class="form-control" placeholder="add new tag" #inputTag (keyup)="onPressEnter($event)">
+    <input type="text" class="form-control" placeholder="add new tag" #inputTag (keyup)="onPressEnter($event)"
+      maxlength="40">
   </div>
   <div class="col-xl-2 col-md-3 col-12 mt-3 mt-md-0">
     <button class="btn btn-success" type="button" (click)="onAddTag(inputTag)">Add</button>
