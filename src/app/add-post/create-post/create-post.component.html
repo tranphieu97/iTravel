@@ -33,7 +33,7 @@
         <!-- row3 has add-cover-button and preview -->
         <div class="row form-group">
           <div class="col-sm-5 col-12">
-            <button class="btn btn-success" type="button" (click)="filePicker.click()" (blur)="onLeaveImgPicker()">Add
+            <button class="btn btn-success" type="button" (click)="filePicker.click()">Add
               Cover</button>
             <input class="d-none" type="file" #filePicker (change)="onImagePicked($event)">
           </div>

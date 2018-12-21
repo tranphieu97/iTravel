@@ -217,22 +217,91 @@ app.get('/api/post', (req, res) => {
  * @description receive request from serverService, include a postData in requestBody
  * then insert that post to mongodb, send back response with message
  */
-app.post('/api/posts', (req, res, next) => {
+app.post('/user/post', (req, res, next) => {
+    // get post from request
     const post = req.body;
-    // fix createdTime from string to Date type
-    post.createdTime = new Date(post.createdTime);
-    // pass a post to insertOneToColection(), function will upload to server automaticaly
-    database.insertOneToColection(database.iTravelDB.Posts, post)
-        .then(() => {
-            res.status(201).json({
-                message: 'Upload post successfuly'
-            });
-        })
-        .catch(() => {
-            res.status(500).json({
-                message: 'Upload post fail!'
-            });
+    // get token from header
+    let token = req.headers.authorization;
+    let userId = '';
+    if (token !== undefined && token !== null) {
+        token = token.split(' ')[1];
+    }
+    // decode token
+    if (token === undefined || token === null) {
+        res.status(401).json({
+            message: 'Unauthorized'
         });
+    } else {
+        const tokenData = jwt.verify(token, config.SECRET_KEY);
+        userId = tokenData._id;
+        // check user in token and in post is the same
+        if (userId !== post.authorId) {
+            res.status(401).json({
+                message: 'Unauthorized'
+            });
+        } else {
+            // go to validate on server side
+            if (// validate list postContents not empty
+                post.postContents.length <= 0
+                // validate post title
+                || post.title.length <= 0 || post.title.length > 200
+                // validate cover
+                || post.cover.length <= 0
+                // validate place
+                || post.location.locationName.length <= 0 || post.location.locationName.length > 200
+                // validate provinceCity
+                || post.location.provinceCity.length <= 0
+                // validate address
+                || post.location.address.length > 300
+                // validate category
+                || post.categories.length <= 0
+                // validate description
+                || post.description.length <= 0 || post.description.length > 500
+            ) {
+                res.status(500).json({
+                    message: 'Upload post fail!'
+                });
+            } else {
+                // fix some properties to default value
+                post._id = new ObjectId();
+                // fix createdTime from string to Date type
+                post.createdTime = new Date(post.createdTime);
+                post.approvedTime = null;
+                // fix all post tags._id = ObjectId()
+                for (const tag of post.tags) {
+                    if (tag._id.length !== 24) {
+                        tag._id = new ObjectId();
+                    }
+                }
+                // fix all post content_id = ObjectId()
+                for (const postContent of post.postContents) {
+                    if (postContent._id.length !== 24 || postContent._id === null) {
+                        postContent._id = new ObjectId();
+                    }
+                }
+                post.location._id = new ObjectId();
+                // fix all post categories._id =  ObjectId()
+                for (const category of post.categories) {
+                    category._id = new ObjectId(category._id);
+                }
+                post.rating = 0;
+                post.status = 'PENDING';
+                // fix all complete
+                // pass the post to insertOneToColection(), function will upload to server automaticaly
+                database.insertOneToColection(database.iTravelDB.Posts, post)
+                    .then(() => {
+                        res.status(201).json({
+                            message: 'Upload post successfuly'
+                        });
+                    })
+                    .catch(() => {
+                        res.status(500).json({
+                            message: 'Upload post fail!'
+                        });
+                    });
+            }
+        }
+    }
 });
 
 /**

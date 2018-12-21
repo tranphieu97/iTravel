@@ -47,6 +47,8 @@ export class CreatePostContentComponent implements OnInit {
     });
     // emit event hasImgDeleted
     this.postService.hasImgDeleted.next(removedPostContent._id);
+    // emit event postContentChanged
+    this.postService.postContentChanged.next();
   }
 
   onAddPostContent() {
@@ -55,6 +57,8 @@ export class CreatePostContentComponent implements OnInit {
     // fake Id
     tempPostContent._id = new Date().toUTCString();
     this.post.postContents.push(tempPostContent);
+    // emit event postContentChanged
+    this.postService.postContentChanged.next();
   }
 
   onUpdateTopicTitle(updatedPostContent: PostContent, event: Event) {

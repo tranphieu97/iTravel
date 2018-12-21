@@ -5,6 +5,7 @@ import { Post } from 'src/app/model/post.model';
 import { ConstantService } from 'src/app/core/services/constant.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Location } from 'src/app/model/location.model';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-create-post',
@@ -69,7 +70,8 @@ export class CreatePostComponent implements OnInit {
     private serverService: ServerService,
     private constant: ConstantService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private user: UserService) { }
 
   ngOnInit() {
     // subscribe param change
@@ -113,6 +115,9 @@ export class CreatePostComponent implements OnInit {
     });
     this.postService.addressChanged.asObservable().subscribe(() => {
       this.alertContent = this.validateAddress();
+    });
+    this.postService.postContentChanged.asObservable().subscribe(() => {
+      this.alertContent = this.validatePostContent();
     });
     this.postService.newAlert.asObservable().subscribe((location: string[]) => {
       if (location.length >= 2) {
@@ -164,8 +169,6 @@ export class CreatePostComponent implements OnInit {
     // store image temporary in newImages arra
     // this cover will be store on server when user click save
     this.coverFile = file;
-    // line below only for test
-    // this.uploadAllImage();
   }
 
   onSave() {
@@ -196,16 +199,22 @@ export class CreatePostComponent implements OnInit {
             // fix some default infomation for post
             this.post._id = null;
             // fix all post content_id = null
-            for (const postContent of this.post.postContents) {
-              postContent._id = null;
-            }
+            // for (const postContent of this.post.postContents) {
+            //   if (postContent._id.length !== 24) {
+            //     postContent._id = null;
+            //   }
+            // }
             this.post.createdTime = new Date();
             this.post.approvedTime = null;
-            // this.post.authorId
+            this.post.authorId = this.user.currentUser._id;
             this.post.rating = 0;
             this.post.status = this.constant.POST_STATUS.PENDING;
-            this.serverService.postOnePost(this.post).subscribe(() => {
-            });
+            this.serverService.postOnePost(this.post)
+              .subscribe((responseData) => {
+                if (responseData) {
+                  alert(responseData.message);
+                }
+              });
           } else {
             // save edited post
           }
@@ -228,7 +237,15 @@ export class CreatePostComponent implements OnInit {
   }
 
   onCancel() {
-    // this.postService.getAllPosts();
+    if (this.postId.length === 24) {
+      this.serverService.getOnePost(this.postId).subscribe((resData) => {
+        if (resData.data !== null && resData.data !== undefined) {
+          this.post = resData.data;
+        } else {
+          this.router.navigate(['/not-found']);
+        }
+      });
+    }
   }
 
   onUpdateTitle(event: Event) {
@@ -251,7 +268,8 @@ export class CreatePostComponent implements OnInit {
       + this.validateCategory() + '\n'
       + this.validatePlace() + '\n'
       + this.validateProvinceCity() + '\n'
-      + this.validateAddress();
+      + this.validateAddress() + '\n'
+      + this.validatePostContent();
     this.alertContent = this.alertContent.replace(/\n+/g, '\n');
     this.alertContent = this.alertContent.trim();
     if (this.alertContent === '') {
@@ -299,6 +317,16 @@ export class CreatePostComponent implements OnInit {
       return this.validateObject.validateCover.notEmpty.message;
     } else {
       this.validateObject.validateCover.notEmpty.status = true;
+      return '';
+    }
+  }
+
+  validatePostContent() {
+    if (this.post.postContents.length <= 0) {
+      this.validateObject.validatePostContent.notEmpty.status = false;
+      return this.validateObject.validatePostContent.notEmpty.message;
+    } else {
+      this.validateObject.validatePostContent.notEmpty.status = true;
       return '';
     }
   }

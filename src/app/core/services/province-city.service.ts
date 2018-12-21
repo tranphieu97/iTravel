@@ -13,11 +13,11 @@ export class ProvinceCityService {
 
   getAllProvinceCity() {
     return this.server.getListProvinceCity();
-      // .subscribe((resData) => {
-      //   if (resData.data) {
-      //     this.allProvinceCity = resData.data;
-      //   }
-      //   // else err handling
-      // });
+    // .subscribe((resData) => {
+    //   if (resData.data) {
+    //     this.allProvinceCity = resData.data;
+    //   }
+    //   // else err handling
+    // });
   }
 }

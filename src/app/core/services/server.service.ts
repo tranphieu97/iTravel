@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Province } from '../../model/province.model';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { CardViewPost } from '../../model/cardViewPost.model';
 import { Feedback } from '../../model/feedback.model';
 import { SearchHistory } from '../../model/searchHistory.model';
@@ -130,7 +131,7 @@ export class ServerService {
    * @description send POST-request to node server for store new post to Posts collection
    */
   postOnePost(newPost: Post) {
-    return this.http.post<{ message: string }>(this.HOST + 'api/posts', newPost);
+    return this.http.post<{ message: string }>(this.HOST + 'user/post', newPost);
   }
 
   /**

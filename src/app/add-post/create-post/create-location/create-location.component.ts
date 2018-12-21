@@ -21,13 +21,19 @@ export class CreateLocationComponent implements OnInit {
 
   ngOnInit() {
     // call service to get all province - city
+    // if all province are already exist in provCityService, dont need to call server
     if (this.provCityService.allProvinceCity.length > 0) {
       this.allProvCity = this.provCityService.allProvinceCity;
     } else {
+      // if all province are not already exist in provCityService, get all from server and store to service
       this.provCityService.getAllProvinceCity()
         .subscribe((resData) => {
           if (resData.data) {
-            this.provCityService.allProvinceCity = resData.data;
+            this.provCityService.allProvinceCity = resData.data.sort((provinceA, provinceB) => {
+              if (provinceA.provinceName > provinceB.provinceName) {
+                return 1;
+              } else { return -1; }
+            });
             this.allProvCity = this.provCityService.allProvinceCity;
           }
           // else err handling
