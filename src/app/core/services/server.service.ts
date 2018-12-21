@@ -193,7 +193,23 @@ export class ServerService {
 
   getPostByRegion(region: string): Observable<any> {
     const params = new HttpParams().set('region', region);
-    return this.http.get(this.HOST + 'api/region-posts', {params: params});
+    return this.http.get(this.HOST + 'api/region-posts', { params: params }).pipe(map((res: any) => {
+      const listCardViewPost: CardViewPost[] = res.data.map((resItem) => {
+        const cardViewPost: CardViewPost = new CardViewPost(
+          resItem._id,
+          resItem.title,
+          resItem.cover,
+          resItem.categories,
+          resItem.createdTime,
+          resItem.description,
+          resItem.location
+        );
+
+        return cardViewPost;
+      });
+
+      return listCardViewPost;
+    }));
   }
 
   /**

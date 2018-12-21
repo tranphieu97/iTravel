@@ -1,13 +1,12 @@
 <div class="content-box filter-box">
-  <div class="filter-box-title">
-    <h3>
-      
-    </h3>
-  </div>
   <div>
-
+    <app-horizontal-card-view-post *ngFor="let post of listRegionPost" [inputPost]="post"></app-horizontal-card-view-post>
   </div>
 </div>
-<div class="content-box filter-box">
-
+<div class="content-box chart-box">
+  <div class="region-title">
+    <h4>
+      {{this.regionTitle}}
+    </h4>
+  </div>
 </div>

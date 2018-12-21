@@ -475,9 +475,23 @@ app.get('/api/region-posts', async (req, res) => {
 
                         database.getCollectionFilterData(database.iTravelDB.Posts, postFilter)
                             .then((listPost) => {
+                                postSimpleData = []
+
+                                listPost.forEach((post) => {
+                                    postSimpleData.push({
+                                        _id: post._id,
+                                        title: post.title,
+                                        cover: post.cover,
+                                        categories: post.categories,
+                                        createdTime: post.createdTime,
+                                        description: post.description,
+                                        location: post.location
+                                    });
+                                })
+
                                 res.status(200).json({
                                     message: 'Get success',
-                                    data: listPost
+                                    data: postSimpleData
                                 });
                             })
                             .catch((err) => {

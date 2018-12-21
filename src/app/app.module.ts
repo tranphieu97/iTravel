@@ -30,7 +30,6 @@ import { NotificationComponent } from './master-page/notification/notification.c
     NavbarMenuComponent,
     HeaderComponent,
     AuthLayoutComponent,
-    HorizontalCardViewPostComponent,
     NotificationComponent
   ],
   imports: [
