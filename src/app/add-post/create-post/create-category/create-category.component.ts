@@ -25,6 +25,11 @@ export class CreateCategoryComponent implements OnInit {
     this.postCategoryService.getAllCategories();
   }
 
+  // this event happen before user choose new category to reset select value
+  onClickSelect(selectCate: HTMLSelectElement) {
+    selectCate.value = '';
+  }
+
   onSelectCategory(event: Event) {
     // get selectedCategory
     const selectedCategory = (event.target as HTMLSelectElement).value;
@@ -53,10 +58,6 @@ export class CreateCategoryComponent implements OnInit {
     this.post.categories = this.post.categories.filter((eachEle) => {
       return eachEle.name !== removedCategory.name;
     });
-    // reset the value of select element because the select subscibe onChange
-    // if user choose and remove and choose the same category
-    // there no change happen, so we need reset to make change
-    selectEle.value = '';
     // emit event
     this.postService.categoryChanged.next();
   }

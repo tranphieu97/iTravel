@@ -49,6 +49,7 @@ export class CreateTagComponent implements OnInit {
     });
     // if duplicateTag != null mean newTag already exist, don't need to add again
     if (duplicateTag === null || duplicateTag === undefined) {
+      newTag._id = '';
       this.post.tags.push(newTag);
     }
     // console.log(this.tags);

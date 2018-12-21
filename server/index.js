@@ -291,7 +291,8 @@ app.post('/user/post', (req, res, next) => {
                 database.insertOneToColection(database.iTravelDB.Posts, post)
                     .then(() => {
                         res.status(201).json({
-                            message: 'Upload post successfuly'
+                            message: 'Upload post successfuly',
+                            postId: post._id
                         });
                     })
                     .catch(() => {

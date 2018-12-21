@@ -22,14 +22,15 @@ export class CreatePostComponent implements OnInit {
   // array store new image need to upload to server
   newImageFiles: { imgFile: File, contentId: string }[] = [];
   coverFile: File = null;
-  // variable store Observable uploadImgComplete
-  // private imageUploaded = 0;
-  // coverUploaded = false;
   // variable store alert
-  alertContent = ``;
+  alertContent = '';
+  // saved alert content
+  savedAlertContent = 'Your post was saved successfully at here.';
   // validate status of the whole post
   postIsValid = false;
-
+  // variable store status that save post successfully or not
+  // if already success => can't click save again
+  isSaved = false;
   // all validate status
   validateObject = {
     // variable check valid or not foreach properties
@@ -169,9 +170,15 @@ export class CreatePostComponent implements OnInit {
     // store image temporary in newImages arra
     // this cover will be store on server when user click save
     this.coverFile = file;
+    // reset the <input> file for the next time
+    (event.target as HTMLInputElement).value = '';
   }
 
   onSave() {
+    if (this.isSaved === true) {
+      alert('Your post was saved, can\'t save any more!');
+      return;
+    }
     // go to validate all form
     this.validateAll();
     if (this.postIsValid === true) {
@@ -198,12 +205,6 @@ export class CreatePostComponent implements OnInit {
           if (this.postId === '') {
             // fix some default infomation for post
             this.post._id = null;
-            // fix all post content_id = null
-            // for (const postContent of this.post.postContents) {
-            //   if (postContent._id.length !== 24) {
-            //     postContent._id = null;
-            //   }
-            // }
             this.post.createdTime = new Date();
             this.post.approvedTime = null;
             this.post.authorId = this.user.currentUser._id;
@@ -212,7 +213,8 @@ export class CreatePostComponent implements OnInit {
             this.serverService.postOnePost(this.post)
               .subscribe((responseData) => {
                 if (responseData) {
-                  alert(responseData.message);
+                  this.isSaved = true;
+                  this.postId = responseData.postId;
                 }
               });
           } else {
@@ -224,6 +226,10 @@ export class CreatePostComponent implements OnInit {
       });
     } else {
     }
+  }
+
+  onViewPost() {
+    this.router.navigate(['/view-post', this.postId]);
   }
 
   onLeaveImgPicker() {

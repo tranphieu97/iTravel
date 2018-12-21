@@ -131,7 +131,7 @@ export class ServerService {
    * @description send POST-request to node server for store new post to Posts collection
    */
   postOnePost(newPost: Post) {
-    return this.http.post<{ message: string }>(this.HOST + 'user/post', newPost);
+    return this.http.post<{ message: string, postId: string }>(this.HOST + 'user/post', newPost);
   }
 
   /**

@@ -31,6 +31,8 @@ export class CreatePostContentComponent implements OnInit {
       // emit file and id of postContent to store temporarily on createPostComponent
       this.postService.hasNewImage.next({ imgFile: file, contentId: addedImgPostContent._id });
     }
+    // reset the <input> file for the next time
+    (event.target as HTMLInputElement).value = '';
   }
 
   onDelImageClick(removedImgPostContent: PostContent) {

@@ -74,6 +74,14 @@
             <!-- <span class="fas fa-times-circle del-content-btn"></span> -->
           </div>
         </div>
+        <!-- row alert inform that post save successfully -->
+        <div class="row m-0" *ngIf="isSaved === true">
+          <div class="col-12 p-3 alert alert-success">
+            <a class="alert-link pointer" (click)="onViewPost()">{{ savedAlertContent }}</a>
+            <!-- button for delete topic-content -->
+            <!-- <span class="fas fa-times-circle del-content-btn"></span> -->
+          </div>
+        </div>
         <!-- row8 has save button -->
         <div class="row form-group m-0">
           <div class="col-12 no-padding">

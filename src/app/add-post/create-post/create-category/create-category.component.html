@@ -6,7 +6,7 @@
                 <label>Category:</label>
             </div>
             <div class="col-xl-10 col-md-9">
-                <select class="form-control" #selectCate (change)="onSelectCategory($event)">
+                <select class="form-control" #selectCate (change)="onSelectCategory($event)" (click)="onClickSelect(selectCate)">
                 <!-- <select class="form-control"> -->
                     <option [value]="postCategory.name" *ngFor="let postCategory of allCategories">{{
                         postCategory.name }}</option>
