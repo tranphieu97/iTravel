@@ -14,6 +14,7 @@ import { PostService } from 'src/app/core/services/post.service';
 export class CreateLocationComponent implements OnInit {
   // @Input() location: Location = new Location('', [], '', '');
   @Input() post: Post;
+  @Input() compLanguage;
   allProvCity: ProvinceCity[] = [];
   allLocations: Location[] = [];
 

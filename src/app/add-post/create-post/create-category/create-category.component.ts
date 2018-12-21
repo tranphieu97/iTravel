@@ -12,6 +12,7 @@ import { PostService } from 'src/app/core/services/post.service';
 export class CreateCategoryComponent implements OnInit {
   // @Input() localCategories: PostCategory[] = [];
   @Input() post: Post;
+  @Input() compLanguage;
   allCategories: PostCategory[] = [];
 
   constructor(private postCategoryService: PostCategoryService, private postService: PostService) { }

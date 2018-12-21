@@ -12,6 +12,7 @@ import { Post } from 'src/app/model/post.model';
 export class CreatePostContentComponent implements OnInit {
   // @Input() postContents: PostContent[] = [];
   @Input() post: Post;
+  @Input() compLanguage;
 
   constructor(private postService: PostService) { }
 

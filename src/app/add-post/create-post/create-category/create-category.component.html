@@ -3,7 +3,7 @@
         <!-- row1 has label, dropdown and button Add -->
         <div class="row">
             <div class="col-xl-2 col-md-3">
-                <label>Category:</label>
+                <label>{{ compLanguage.createPostCategory }}</label>
             </div>
             <div class="col-xl-10 col-md-9">
                 <select class="form-control" #selectCate (change)="onSelectCategory($event)" (click)="onClickSelect(selectCate)">

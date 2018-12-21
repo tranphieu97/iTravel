@@ -13,28 +13,30 @@
         <!-- row1 has title -->
         <div class="row form-group">
           <div class="col-xl-2 col-md-3 col-12">
-            <label>Title:</label>
+            <!-- <label>Title:</label> -->
+            <label>{{ compLanguage.createPostTitle }}</label>
           </div>
           <div class="col-xl-10 col-md-9 col-12">
-            <input class="form-control" type="text" name="title" placeholder="enter post title" [value]="post.title"
-              (blur)="onUpdateTitle($event)" maxlength="200">
+            <input class="form-control" type="text" name="title" [placeholder]="compLanguage.createPostTitlePlaceholder"
+              [value]="post.title" (blur)="onUpdateTitle($event)" maxlength="200">
           </div>
         </div>
         <!-- row2 has description -->
         <div class="row form-group">
           <div class="col-xl-2 col-md-3 col-12">
-            <label>Description:</label>
+            <!-- <label>Description:</label> -->
+            <label>{{ compLanguage.createPostDescription }}</label>
           </div>
           <div class="col-xl-10 col-md-9 col-12">
-            <textarea name="description" class="form-control" rows="2" placeholder="enter description" [value]="post.description"
-              (blur)="onUpdateDescription($event)" maxlength="500"></textarea>
+            <textarea name="description" class="form-control" rows="2" [placeholder]="compLanguage.createPostDescriptionPlaceholder"
+              [value]="post.description" (blur)="onUpdateDescription($event)" maxlength="500"></textarea>
           </div>
         </div>
         <!-- row3 has add-cover-button and preview -->
         <div class="row form-group">
           <div class="col-sm-5 col-12">
-            <button class="btn btn-success" type="button" (click)="filePicker.click()">Add
-              Cover</button>
+            <button class="btn btn-success" type="button" (click)="filePicker.click()">{{
+              compLanguage.createPostAddCoverBtn }}</button>
             <input class="d-none" type="file" #filePicker (change)="onImagePicked($event)">
           </div>
           <div class="col-sm-7 col-12" *ngIf="post.cover.length > 0">
@@ -45,25 +47,25 @@
         <!-- row4 has create-category component -->
         <div class="row form-group">
           <div class="col-12">
-            <app-create-category [post]="post"></app-create-category>
+            <app-create-category [post]="post" [compLanguage]='compLanguage'></app-create-category>
           </div>
         </div>
         <!-- row5 has create-tag component -->
         <div class="row form-group">
           <div class="col-12">
-            <app-create-tag [post]='post'></app-create-tag>
+            <app-create-tag [post]='post' [compLanguage]='compLanguage'></app-create-tag>
           </div>
         </div>
         <!-- row6 has create-location component -->
         <div class="row form-group">
           <div class="col-12">
-            <app-create-location [post]="post"></app-create-location>
+            <app-create-location [post]="post" [compLanguage]='compLanguage'></app-create-location>
           </div>
         </div>
         <!-- row7 has create-post-content component -->
         <div class="row form-group m-0">
           <div class="col-12">
-            <app-create-post-content [post]='post'></app-create-post-content>
+            <app-create-post-content [post]='post' [compLanguage]='compLanguage'></app-create-post-content>
           </div>
         </div>
         <!-- at the bottom has same invalid alert before save button-->
@@ -78,15 +80,13 @@
         <div class="row m-0" *ngIf="isSaved === true">
           <div class="col-12 p-3 alert alert-success">
             <a class="alert-link pointer" (click)="onViewPost()">{{ savedAlertContent }}</a>
-            <!-- button for delete topic-content -->
-            <!-- <span class="fas fa-times-circle del-content-btn"></span> -->
           </div>
         </div>
         <!-- row8 has save button -->
         <div class="row form-group m-0">
           <div class="col-12 no-padding">
-            <button class="btn btn-warning" (click)="onCancel()">Cancel</button>
-            <button class="btn btn-success" (click)="onSave()">Save</button>
+            <button class="btn btn-warning" (click)="onCancel()">{{ compLanguage.createPostCancelBtn }}</button>
+            <button class="btn btn-success" (click)="onSave()">{{ compLanguage.createPostSaveBtn }}</button>
           </div>
         </div>
       </div>

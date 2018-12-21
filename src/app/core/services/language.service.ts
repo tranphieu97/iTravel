@@ -166,6 +166,46 @@ export class LanguageService {
 
     // For Home Page
     this.vnLanguage.homeIndexPostIn = 'Bài viết tại ';
+
+    // For Create Post
+    this.vnLanguage.createPostTitle = 'Tiêu đề:';
+    this.vnLanguage.createPostTitlePlaceholder = 'Nhập tiêu đề bài viết';
+    this.vnLanguage.createPostDescription = 'Mô tả:';
+    this.vnLanguage.createPostDescriptionPlaceholder = 'Nhập nội dung mô tả bài viết';
+    this.vnLanguage.createPostAddCoverBtn = 'Ảnh bìa';
+    this.vnLanguage.createPostCategory = 'Thể loại:';
+    this.vnLanguage.createPostTag = 'Gắn thẻ:';
+    this.vnLanguage.createPostTagPlaceholder = 'Nhập nội dung thẻ mới';
+    this.vnLanguage.createPostAddTagBtn = 'Thêm';
+    this.vnLanguage.createPostPlace = 'Địa điểm:';
+    this.vnLanguage.createPostPlacePlaceholder = 'Nhập tên địa điểm';
+    this.vnLanguage.createPostAddress = 'Địa chỉ:';
+    this.vnLanguage.createPostAddressPlaceholder = 'Nhập địa chỉ';
+    this.vnLanguage.createPostProvinceCity = 'Tỉnh thành:';
+    this.vnLanguage.createPostFindProvinceCity = 'Tìm tỉnh thành';
+    this.vnLanguage.createPostTopic = 'Nội dung bài viết:';
+    this.vnLanguage.createPostTopicTitle = 'Tiêu đề:';
+    this.vnLanguage.createPostTopicTitlePlaceholder = 'Nhập tiêu đề đoạn văn';
+    this.vnLanguage.createPostTopicContent = 'Nội dung:';
+    this.vnLanguage.createPostTopicContentPlaceholder = 'Nhập nội dung đoạn văn';
+    this.vnLanguage.createPostTopicAddImgBtn = 'Thêm ảnh';
+    this.vnLanguage.createPostTopicImgDescription = 'Nhập nội dung mô tả hình ảnh';
+    this.vnLanguage.createPostSaveBtn = 'Lưu';
+    this.vnLanguage.createPostCancelBtn = 'Hủy';
+    this.vnLanguage.createPostInvalidTitleLength = 'Tiêu đề bài viết quá dài!';
+    this.vnLanguage.createPostInvalidTitleEmpty = 'Tiêu đề bài viết không được để trống!';
+    this.vnLanguage.createPostInvalidDescLength = 'Mô tả bài viết quá dài!';
+    this.vnLanguage.createPostInvalidDescEmpty = 'Mô tả bài viết không được để trống!';
+    this.vnLanguage.createPostInvalidCoverEmpty = 'Ảnh bìa không được để trống!';
+    this.vnLanguage.createPostInvalidCategoryEmpty = 'Thể loại bài viết không được để trống!';
+    this.vnLanguage.createPostInvalidTagLength = 'Không thể gắn thẻ quá dài!';
+    this.vnLanguage.createPostInvalidPlaceLength = 'Địa điểm quá dài!';
+    this.vnLanguage.createPostInvalidPlaceEmpty = 'Địa điểm không được để trống!';
+    this.vnLanguage.createPostInvalidAddressLength = 'Địa chỉ quá dài!';
+    this.vnLanguage.createPostInvalidProvinceEmpty = 'Tỉnh Thành-phố không được để trống!';
+    this.vnLanguage.createPostInvalidTopicEmpty = 'Nội dung bài viết không được để trống!';
+    this.vnLanguage.createPostAlertSaveSuccess = 'Đã lưu bài viết thành công, nhấn vào để xem lại.';
+    this.vnLanguage.createPostAlertSaveAlready = 'Bài viết của bạn đã được lưu rồi, không thể lưu thêm nữa!';
   }
 
   /**
@@ -312,6 +352,46 @@ export class LanguageService {
     this.enLanguage.policiesTitle = 'Using Policies';
 
     this.enLanguage.homeIndexPostIn = 'Posts in ';
+
+    // For Create Post
+    this.enLanguage.createPostTitle = 'Title:';
+    this.enLanguage.createPostTitlePlaceholder = 'Enter post title';
+    this.enLanguage.createPostDescription = 'Description:';
+    this.enLanguage.createPostDescriptionPlaceholder = 'Enter post description';
+    this.enLanguage.createPostAddCoverBtn = 'Add Cover';
+    this.enLanguage.createPostCategory = 'Category:';
+    this.enLanguage.createPostTag = 'Tag:';
+    this.enLanguage.createPostTagPlaceholder = 'Enter new tag';
+    this.enLanguage.createPostAddTagBtn = 'Add';
+    this.enLanguage.createPostPlace = 'Place:';
+    this.enLanguage.createPostPlacePlaceholder = 'Enter place name';
+    this.enLanguage.createPostAddress = 'Address:';
+    this.enLanguage.createPostAddressPlaceholder = 'Enter address';
+    this.enLanguage.createPostProvinceCity = 'Province City:';
+    this.enLanguage.createPostFindProvinceCity = 'Find province city';
+    this.enLanguage.createPostTopic = 'Post contents:';
+    this.enLanguage.createPostTopicTitle = 'Title:';
+    this.enLanguage.createPostTopicTitlePlaceholder = 'Enter paragraph title';
+    this.enLanguage.createPostTopicContent = 'Content:';
+    this.enLanguage.createPostTopicContentPlaceholder = 'Enter paragraph content';
+    this.enLanguage.createPostTopicAddImgBtn = 'Add image';
+    this.enLanguage.createPostTopicImgDescription = 'Enter image description';
+    this.enLanguage.createPostSaveBtn = 'Save';
+    this.enLanguage.createPostCancelBtn = 'Cancel';
+    this.enLanguage.createPostInvalidTitleLength = 'Post title can not be too long!';
+    this.enLanguage.createPostInvalidTitleEmpty = 'Post title can not be empty!';
+    this.enLanguage.createPostInvalidDescLength = 'Post description can not be too long!';
+    this.enLanguage.createPostInvalidDescEmpty = 'Post description can not be empty!';
+    this.enLanguage.createPostInvalidCoverEmpty = 'Cover can not be empty!';
+    this.enLanguage.createPostInvalidCategoryEmpty = 'Post category can not be empty!';
+    this.enLanguage.createPostInvalidTagLength = 'Can not add too long tag!';
+    this.enLanguage.createPostInvalidPlaceLength = 'Place can not be too long!';
+    this.enLanguage.createPostInvalidPlaceEmpty = 'Place can not be empty!';
+    this.enLanguage.createPostInvalidAddressLength = 'Address can not be too long!';
+    this.enLanguage.createPostInvalidProvinceEmpty = 'Province-City can not be empty!';
+    this.enLanguage.createPostInvalidTopicEmpty = 'Post content can not be empty!';
+    this.enLanguage.createPostAlertSaveSuccess = 'Your post was saved successfully, click to see.';
+    this.enLanguage.createPostAlertSaveAlready = 'Your post was saved, can\'t save any more!';
   }
 
   /**

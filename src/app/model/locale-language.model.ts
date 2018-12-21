@@ -140,5 +140,45 @@ export class LocaleLanguage {
     // For HomePage
     homeIndexPostIn: string;
 
+    // For Create Post
+    createPostTitle: string;
+    createPostTitlePlaceholder: string;
+    createPostDescription: string;
+    createPostDescriptionPlaceholder: string;
+    createPostAddCoverBtn: string;
+    createPostCategory: string;
+    createPostTag: string;
+    createPostTagPlaceholder: string;
+    createPostAddTagBtn: string;
+    createPostPlace: string;
+    createPostPlacePlaceholder: string;
+    createPostAddress: string;
+    createPostAddressPlaceholder: string;
+    createPostProvinceCity: string;
+    createPostFindProvinceCity: string;
+    createPostTopic: string;
+    createPostTopicTitle: string;
+    createPostTopicTitlePlaceholder: string;
+    createPostTopicContent: string;
+    createPostTopicContentPlaceholder: string;
+    createPostTopicAddImgBtn: string;
+    createPostTopicImgDescription: string;
+    createPostSaveBtn: string;
+    createPostCancelBtn: string;
+    createPostInvalidTitleLength: string;
+    createPostInvalidTitleEmpty: string;
+    createPostInvalidDescLength: string;
+    createPostInvalidDescEmpty: string;
+    createPostInvalidCoverEmpty: string;
+    createPostInvalidCategoryEmpty: string;
+    createPostInvalidTagLength: string;
+    createPostInvalidPlaceLength: string;
+    createPostInvalidPlaceEmpty: string;
+    createPostInvalidAddressLength: string;
+    createPostInvalidProvinceEmpty: string;
+    createPostInvalidTopicEmpty: string;
+    createPostAlertSaveSuccess: string;
+    createPostAlertSaveAlready: string;
+
     constructor() { }
 }

@@ -6,6 +6,7 @@ import { ConstantService } from 'src/app/core/services/constant.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Location } from 'src/app/model/location.model';
 import { UserService } from 'src/app/core/services/user.service';
+import { LanguageService } from 'src/app/core/services/language.service';
 
 @Component({
   selector: 'app-create-post',
@@ -25,44 +26,48 @@ export class CreatePostComponent implements OnInit {
   // variable store alert
   alertContent = '';
   // saved alert content
-  savedAlertContent = 'Your post was saved successfully at here.';
+  savedAlertContent = '';
+  // can't Saved alert content
+  cantSavedAlertContent = '';
   // validate status of the whole post
   postIsValid = false;
   // variable store status that save post successfully or not
   // if already success => can't click save again
   isSaved = false;
+  // variable store current language
+  compLanguage = this.language.currentLanguage;
   // all validate status
   validateObject = {
     // variable check valid or not foreach properties
     validateTitle: {
-      maxLength: { status: false, message: 'Title can not be too long' },
-      notEmpty: { status: false, message: 'Title can not be empty' }
+      maxLength: { status: false, message: this.compLanguage.createPostInvalidTitleLength },
+      notEmpty: { status: false, message: this.compLanguage.createPostInvalidTitleEmpty }
     },
     validateDesc: {
-      maxLength: { status: false, message: 'Description can not be too long' },
-      notEmpty: { status: false, message: 'Description can not be empty' }
+      maxLength: { status: false, message: this.compLanguage.createPostInvalidDescLength },
+      notEmpty: { status: false, message: this.compLanguage.createPostInvalidDescEmpty }
     },
     validateCover: {
-      notEmpty: { status: false, message: 'Cover can not be empty' }
+      notEmpty: { status: false, message: this.compLanguage.createPostInvalidCoverEmpty }
     },
     validateCategory: {
-      notEmpty: { status: false, message: 'Category can not be empty' }
+      notEmpty: { status: false, message: this.compLanguage.createPostInvalidCategoryEmpty }
     },
     validateTag: {
-      maxLength: { status: false, message: 'Each tag can not be too long' }
+      maxLength: { status: false, message: this.compLanguage.createPostInvalidTagLength }
     },
     validatePlace: {
-      maxLength: { status: false, message: 'Place can not be too long' },
-      notEmpty: { status: false, message: 'Place can not be empty' }
+      maxLength: { status: false, message: this.compLanguage.createPostInvalidPlaceLength },
+      notEmpty: { status: false, message: this.compLanguage.createPostInvalidPlaceEmpty }
     },
     validateAddress: {
-      maxLength: { status: false, message: 'Address can not be too long' }
+      maxLength: { status: false, message: this.compLanguage.createPostInvalidAddressLength }
     },
     validateProvinceCity: {
-      notEmpty: { status: false, message: 'Province-City can not be empty' }
+      notEmpty: { status: false, message: this.compLanguage.createPostInvalidProvinceEmpty }
     },
     validatePostContent: {
-      notEmpty: { status: false, message: 'Post content can not be empty' }
+      notEmpty: { status: false, message: this.compLanguage.createPostInvalidTopicEmpty }
     }
   };
 
@@ -72,7 +77,8 @@ export class CreatePostComponent implements OnInit {
     private constant: ConstantService,
     private route: ActivatedRoute,
     private router: Router,
-    private user: UserService) { }
+    private user: UserService,
+    private language: LanguageService) { }
 
   ngOnInit() {
     // subscribe param change
@@ -98,6 +104,12 @@ export class CreatePostComponent implements OnInit {
           }
         });
       }
+    });
+
+    // subscribe when change language
+    this.language.hasChangeLanguage.asObservable().subscribe(() => {
+      this.compLanguage = this.language.currentLanguage;
+      this.changeLanguage();
     });
 
     // subscribe when hasNewImage
@@ -176,7 +188,7 @@ export class CreatePostComponent implements OnInit {
 
   onSave() {
     if (this.isSaved === true) {
-      alert('Your post was saved, can\'t save any more!');
+      this.alertContent = this.cantSavedAlertContent;
       return;
     }
     // go to validate all form
@@ -243,15 +255,20 @@ export class CreatePostComponent implements OnInit {
   }
 
   onCancel() {
-    if (this.postId.length === 24) {
-      this.serverService.getOnePost(this.postId).subscribe((resData) => {
-        if (resData.data !== null && resData.data !== undefined) {
-          this.post = resData.data;
-        } else {
-          this.router.navigate(['/not-found']);
-        }
-      });
-    }
+    // on create new post
+    // this.router.navigate(['/create-post']);
+    this.post = new Post(null, null, [], [], '', '', '', new Location('', [], '', ''), [], 0, '', [], '');
+
+    // on edit post
+    // if (this.postId.length === 24) {
+    //   this.serverService.getOnePost(this.postId).subscribe((resData) => {
+    //     if (resData.data !== null && resData.data !== undefined) {
+    //       this.post = resData.data;
+    //     } else {
+    //       this.router.navigate(['/not-found']);
+    //     }
+    //   });
+    // }
   }
 
   onUpdateTitle(event: Event) {
@@ -266,9 +283,24 @@ export class CreatePostComponent implements OnInit {
     this.alertContent = this.validateDescription();
   }
 
+  changeLanguage() {
+    this.validateObject.validateTitle.notEmpty.message = this.compLanguage.createPostInvalidTitleEmpty;
+    this.validateObject.validateTitle.maxLength.message = this.compLanguage.createPostInvalidTitleLength;
+    this.validateObject.validateDesc.maxLength.message = this.compLanguage.createPostInvalidDescLength;
+    this.validateObject.validateDesc.notEmpty.message = this.compLanguage.createPostInvalidDescEmpty;
+    this.validateObject.validateCover.notEmpty.message = this.compLanguage.createPostInvalidCoverEmpty;
+    this.validateObject.validateCategory.notEmpty.message = this.compLanguage.createPostInvalidCategoryEmpty;
+    this.validateObject.validateTag.maxLength.message = this.compLanguage.createPostInvalidTagLength;
+    this.validateObject.validatePlace.maxLength.message = this.compLanguage.createPostInvalidPlaceLength;
+    this.validateObject.validatePlace.notEmpty.message = this.compLanguage.createPostInvalidPlaceEmpty;
+    this.validateObject.validateAddress.maxLength.message = this.compLanguage.createPostInvalidAddressLength;
+    this.validateObject.validateProvinceCity.notEmpty.message = this.compLanguage.createPostInvalidProvinceEmpty;
+    this.validateObject.validatePostContent.notEmpty.message = this.compLanguage.createPostInvalidTopicEmpty;
+  }
+
   validateAll() {
-    this.alertContent = this.alertContent
-      + this.validateTitle() + '\n'
+    this.alertContent =
+      this.validateTitle() + '\n'
       + this.validateDescription() + '\n'
       + this.validateCover() + '\n'
       + this.validateCategory() + '\n'

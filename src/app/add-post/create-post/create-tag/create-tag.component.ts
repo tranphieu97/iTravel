@@ -12,6 +12,7 @@ import { PostService } from 'src/app/core/services/post.service';
 export class CreateTagComponent implements OnInit {
   // @Input() tags: Tag[] = [];
   @Input() post: Post;
+  @Input() compLanguage;
   // all tag from server to recommend with user
   private allTags: Tag[] = [];
 

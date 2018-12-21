@@ -4,7 +4,7 @@
     <!-- title for part post content -->
     <div class="row">
       <div class="col-12 p-0">
-        <h3 class="bigger">Post topics:</h3>
+        <h3 class="bigger">{{ compLanguage.createPostTopic }}</h3>
       </div>
     </div>
 
@@ -19,11 +19,11 @@
             <br>
             <div class="row">
               <div class="col-xl-2 col-md-3 col-12 d-sm-block d-none">
-                <label>Topic title:</label>
+                <label>{{ compLanguage.createPostTopicTitle }}</label>
               </div>
               <div class="col-xl-10 col-md-9 col-12">
-                <input type="text" class="form-control" placeholder="enter topic title" [value]="postContent.title"
-                  (blur)="onUpdateTopicTitle(postContent, $event)" maxlength="500">
+                <input type="text" class="form-control" [placeholder]="compLanguage.createPostTopicTitlePlaceholder"
+                  [value]="postContent.title" (blur)="onUpdateTopicTitle(postContent, $event)" maxlength="500">
               </div>
             </div>
 
@@ -31,11 +31,11 @@
             <br>
             <div class="row">
               <div class="col-xl-2 col-md-3 col-12 d-sm-block d-none">
-                <label>Content:</label>
+                <label>{{ compLanguage.createPostTopicContent }}</label>
               </div>
               <div class="col-xl-10 col-md-9 col-12">
-                <textarea rows="2" class="form-control" placeholder="enter topic content" [value]="postContent.content"
-                  (blur)="onUpdateTopicContent(postContent, $event)" maxlength="3000"></textarea>
+                <textarea rows="2" class="form-control" [placeholder]="compLanguage.createPostTopicContentPlaceholder"
+                  [value]="postContent.content" (blur)="onUpdateTopicContent(postContent, $event)" maxlength="3000"></textarea>
               </div>
             </div>
 
@@ -43,7 +43,8 @@
             <br>
             <div class="row">
               <div class="col-sm-5 col-12">
-                <button class="btn btn-success bold" (click)="filePicker.click()">Add image</button>
+                <button class="btn btn-success bold" (click)="filePicker.click()">{{
+                  compLanguage.createPostTopicAddImgBtn }}</button>
                 <input class="d-none" type="file" #filePicker (change)="onImagePicked($event, postContent)">
               </div>
               <div class="col-sm-7 col-12">
@@ -58,8 +59,8 @@
                 <!-- image description here -->
                 <div class="row" *ngIf="postContent.image.length > 0">
                   <div class="col-12">
-                    <input type="text" class="form-control description" placeholder="enter image description" [value]="postContent.imageDesc"
-                      (blur)="onUpdateImgDesc(postContent, $event)" maxlength="200">
+                    <input type="text" class="form-control description" [placeholder]="compLanguage.createPostTopicImgDescription"
+                      [value]="postContent.imageDesc" (blur)="onUpdateImgDesc(postContent, $event)" maxlength="200">
                   </div>
                 </div>
               </div>
