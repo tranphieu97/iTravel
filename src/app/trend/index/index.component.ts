@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AmChart, AmChartsService } from '@amcharts/amcharts3-angular';
 import { SharedModule } from '../../shared/shared.module';
 import { ServerService } from '../../core/services/server.service';
+import { LanguageService } from '../../core/services/language.service';
 
 
 @Component({
@@ -17,7 +18,9 @@ export class IndexComponent implements OnInit, OnDestroy {
   pieChartEndDate: Date;
   pieChartHasError: Boolean = false;
 
-  constructor(private amchartServices: AmChartsService, private server: ServerService) { }
+  theMostSearchKeyword: String = '';
+
+  constructor(private amchartServices: AmChartsService, private server: ServerService, private language: LanguageService) { }
 
   ngOnInit() {
     this.pieChartEndDate = new Date(Date.now());
@@ -69,6 +72,9 @@ export class IndexComponent implements OnInit, OnDestroy {
       }
       arrData.splice(10, arrData.length - 10);
     }
+    if (searchDataLength > 0) {
+      this.theMostSearchKeyword = arrData[0].keyword;
+    }
   }
 
   ngOnDestroy(): void {
@@ -85,7 +91,7 @@ export class IndexComponent implements OnInit, OnDestroy {
       'titleField': 'keyword',
       'valueField': 'count',
 
-      'labelRadius': 5,
+      'labelRadius': 2,
       'radius': '42%',
       'innerRadius': '60%',
       'labelText': '[[title]]',

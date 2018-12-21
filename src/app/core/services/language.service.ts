@@ -172,6 +172,10 @@ export class LanguageService {
     this.vnLanguage.regionTheCentral = 'Miền Trung';
     this.vnLanguage.regionTheSouth = 'Miền Nam';
     this.vnLanguage.regionPostRatio = 'Tỉ lệ số lượng bài viết';
+
+    // For Trend
+    this.vnLanguage.trendSearchCharTitle = 'Xu hướng tìm kiếm';
+    this.vnLanguage.trendSearchChartDes = 'Từ khóa tìm kiếm nhiều nhất: ';
   }
 
   /**
@@ -325,6 +329,10 @@ export class LanguageService {
     this.enLanguage.regionTheCentral = 'The Central';
     this.enLanguage.regionTheSouth = 'The South';
     this.enLanguage.regionPostRatio = 'Amount Posts Ratio';
+
+    // For Trend
+    this.enLanguage.trendSearchCharTitle = 'Search Trend';
+    this.enLanguage.trendSearchChartDes = 'The most searched keyword: ';
   }
 
   /**

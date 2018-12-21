@@ -146,5 +146,9 @@ export class LocaleLanguage {
     regionTheSouth: string;
     regionPostRatio: string;
 
+    // For Trend
+    trendSearchCharTitle: string;
+    trendSearchChartDes: string;
+
     constructor() { }
 }
