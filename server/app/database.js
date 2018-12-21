@@ -67,13 +67,13 @@ exports.getCollectionData = async (collectionName) => {
             var collection = db.collection(collectionName, (err, collection) => {
                 if (err) {
                     console.log('Error load ' + collectionName);
-                    return null;
+                    deferred.reject(new Error(err));
                 }
 
                 var collectionData = collection.find().toArray((err, result) => {
                     if (err) {
                         console.log('Error find data from collection ' + collectionName);
-                        return null;
+                        deferred.reject(new Error(err));
                     } else {
                         data = result;
                         deferred.resolve(data);
@@ -108,13 +108,13 @@ exports.getCollectionFilterData = async (collectionName, filter) => {
             var collection = db.collection(collectionName, (err, collection) => {
                 if (err) {
                     console.log('Error load ' + collectionName);
-                    return null;
+                    deferred.reject(new Error(err));
                 }
 
                 var collectionData = collection.find(filter).toArray((err, result) => {
                     if (err) {
                         console.log('Error find filter data from collection ' + collectionName);
-                        return null;
+                        deferred.reject(new Error(err));
                     } else {
                         data = result;
                         deferred.resolve(data);
@@ -150,14 +150,14 @@ exports.insertOneToColection = async (collectionName, document) => {
             var collection = db.collection(collectionName, (err, collection) => {
                 if (err) {
                     console.log('Error load ' + collectionName);
-                    return null;
+                    deferred.reject(new Error(err));
                 }
 
                 try {
                     var insertOne = collection.insertOne(document, (err) => {
                         if (err) {
                             console.log('Error insert data to ' + collectionName);
-                            return null;
+                            deferred.reject(new Error(err));
                         }
                         return 1;
                     });
@@ -166,7 +166,7 @@ exports.insertOneToColection = async (collectionName, document) => {
                 catch (e) {
                     console.log('Error insert data to ' + collectionName);
                     console.log(e.message);
-                    deferred.reject(new Error(e.message));
+                    deferred.reject(new Error(e));
                 }
             });
 
@@ -242,7 +242,7 @@ exports.updateDocumentById = async (collectionName, documentFiler, changePropert
             var collection = db.collection(collectionName, (err, collection) => {
                 if (err) {
                     console.log('Error load ' + collectionName);
-                    return null;
+                    return deferred.reject(new Error(err));;
                 }
 
                 try {
@@ -254,7 +254,59 @@ exports.updateDocumentById = async (collectionName, documentFiler, changePropert
                 catch (e) {
                     console.log('Error update ' + documentId + 'data to ' + collectionName);
                     console.log(e.message);
-                    deferred.reject(new Error(e.message));
+                    deferred.reject(new Error(e));
+                }
+            });
+
+            client.close();
+        }
+    });
+
+    return deferred.promise;
+}
+
+/**
+ * Get number of document match with filter
+ * @name countDocumentByFilter
+ * @author phieu-th
+ * @param {sting} collectionName 
+ * @param {object} filter 
+ */
+exports.countDocumentByFilter = async (collectionName, filter) => {
+    var deferred = Q.defer();
+
+    MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {
+        if (err) {
+            console.log("Get Connection has an error: " + err.message);
+            deferred.reject(new Error(err));
+        } else {
+
+            var db = client.db(config.DB_NAME);
+
+            var collection = db.collection(collectionName, (err, collection) => {
+                if (err) {
+                    console.log('Error load ' + collectionName);
+                    return null;
+                }
+
+                if (filter !== undefined && filter !== null ) {
+                    collection.countDocuments(filter, (err, result) => {
+                        if (err) {
+                            console.log('Error find count document from collection ' + collectionName);
+                            deferred.reject(new Error(err));
+                        } else {
+                            deferred.resolve(result);
+                        }
+                    });
+                } else {
+                    collection.countDocuments((err, result) => {
+                        if (err) {
+                            console.log('Error find count document from collection ' + collectionName);
+                            deferred.reject(new Error(err));
+                        } else {
+                            deferred.resolve(result);
+                        }
+                    });
                 }
             });
 

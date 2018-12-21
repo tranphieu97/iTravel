@@ -24,5 +24,15 @@
             height: fit-content;
             border-bottom: 1px solid $GRAY;
         }
+
+        .region-chart {
+            flex: 1 1;
+            display: flex;
+            flex-direction: column;
+
+            #post-ratio {
+                flex: 1 1;
+            }
+        }
     }
 }

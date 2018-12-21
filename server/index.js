@@ -487,7 +487,7 @@ app.get('/api/region-posts', async (req, res) => {
                                         description: post.description,
                                         location: post.location
                                     });
-                                })
+                                });
 
                                 res.status(200).json({
                                     message: 'Get success',
@@ -503,7 +503,80 @@ app.get('/api/region-posts', async (req, res) => {
                 });
         }
     }
-})
+});
+
+app.get('/api/region-ratio', async (req, res) => {
+    let region = req.param('region');
+
+    if (region === undefined) {
+        res.status(404).json({
+            message: 'Not found region'
+        });
+    } else {
+        // Get region's name in Vietnamese
+        region = config.REGION_NAME[region.toUpperCase()];
+
+        if (region === undefined) {
+            res.status(404).json({
+                message: 'Not found region'
+            });
+        } else {
+            regionFilter = {
+                regionOfCountry: {
+                    $eq: region
+                }
+            }
+
+            database.getCollectionFilterData(database.iTravelDB.ProvinceCity, regionFilter)
+                .then((listProvince) => {
+                    if (listProvince) {
+                        listProvince = listProvince.map(province => province.provinceName);
+
+                        // Filter in array provinceCity least had an element in listProvince 
+                        postFilterRegion = {
+                            'location.provinceCity': {
+                                $elemMatch: {
+                                    $in: listProvince
+                                }
+                            },
+                            'status': {
+                                $eq: config.POST_STATUS.APPROVED
+                            }
+                        }
+
+                        database.countDocumentByFilter(database.iTravelDB.Posts, postFilterRegion)
+                            .then((amountRegionPost) => {
+                                // Count all post was approved
+                                postFilterApproved = {
+                                    'status': {
+                                        $eq: config.POST_STATUS.APPROVED
+                                    }
+                                }
+                                
+                                database.countDocumentByFilter(database.iTravelDB.Posts,postFilterApproved)
+                                    .then((amountAllPost) => {
+                                        res.status(200).json({
+                                            amountRegionPost: amountRegionPost,
+                                            amountAllPost: amountAllPost,
+                                            message: 'Get success'
+                                        });
+                                    })
+                                    .catch((err) => {
+                                        res.status(400).json({
+                                            message: 'Get fail'
+                                        });
+                                    });
+                            })
+                            .catch((err) => {
+                                res.status(400).json({
+                                    message: 'Get fail'
+                                });
+                            });
+                    }
+                });
+        }
+    }
+});
 
 app.get('/auth/exist-username', async (req, res) => {
 

@@ -213,6 +213,14 @@ export class ServerService {
   }
 
   /**
+   * Get number amount post of region and all post
+   */
+  getPostRatioByRegion(region: string): Observable<any> {
+    const params = new HttpParams().set('region', region);
+    return this.http.get(this.HOST + 'api/region-ratio', {params: params});
+  }
+
+  /**
    * GET all post in database for management
    * @name getPostsByManager
    * @author phieu-th

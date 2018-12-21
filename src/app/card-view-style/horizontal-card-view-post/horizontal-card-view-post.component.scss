@@ -8,8 +8,7 @@ $BACKGROUND_COLOR: #ebedee;
     align-items: stretch;
 
     height: fit-content;
-    min-width: 300px;
-    max-height: 200px;
+    min-width: 100px;
 
     margin: 5px;
     padding: 5px;
@@ -42,7 +41,7 @@ $BACKGROUND_COLOR: #ebedee;
         overflow: hidden;
         word-wrap: break-word;
 
-        justify-content: center;
+        justify-content: start;
 
         h4 {
             font-weight: bolder;
