@@ -24,6 +24,8 @@ export class FilterbyRegionComponent implements OnInit, OnDestroy {
   regionTitle: string;
   listRegionPost: CardViewPost[];
 
+  isReloadPieChart: Boolean = false;
+
   constructor(private activatedRoute: ActivatedRoute, private route: Router, private language: LanguageService,
     private server: ServerService, private amchartServices: AmChartsService) { }
 
@@ -114,11 +116,11 @@ export class FilterbyRegionComponent implements OnInit, OnDestroy {
 
       'labelRadius': -40,
       'radius': '42%',
-      // 'innerRadius': '0%',
-      'labelText': '[[title]]',
-      // 'export': {
-      //   'enabled': true
-      // }
+      'innerRadius': '0%',
+      'labelText': '[[percents]]' + '%',
+      'export': {
+        'enabled': true
+      }
     });
   }
 }

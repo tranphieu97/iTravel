@@ -168,11 +168,10 @@ export class LanguageService {
     this.vnLanguage.homeIndexPostIn = 'Bài viết tại ';
 
     // For Region
-    this.vnLanguage.regionTravel = 'Du lịch tại ';
-    this.vnLanguage.regionCuisine = 'Ẩm thực tại ';
     this.vnLanguage.regionTheNorth = 'Miền Bắc';
     this.vnLanguage.regionTheCentral = 'Miền Trung';
     this.vnLanguage.regionTheSouth = 'Miền Nam';
+    this.vnLanguage.regionPostRatio = 'Tỉ lệ số lượng bài viết';
   }
 
   /**
@@ -322,11 +321,10 @@ export class LanguageService {
     this.enLanguage.homeIndexPostIn = 'Posts in ';
 
     // For Region
-    this.enLanguage.regionTravel = 'Travel in ';
-    this.enLanguage.regionCuisine = 'Cuisine in';
     this.enLanguage.regionTheNorth = 'The North';
     this.enLanguage.regionTheCentral = 'The Central';
     this.enLanguage.regionTheSouth = 'The South';
+    this.enLanguage.regionPostRatio = 'Amount Posts Ratio';
   }
 
   /**

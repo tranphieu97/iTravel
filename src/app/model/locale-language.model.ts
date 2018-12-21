@@ -141,11 +141,10 @@ export class LocaleLanguage {
     homeIndexPostIn: string;
 
     // For Region
-    regionTravel: string;
-    regionCuisine: string;
     regionTheNorth: string;
     regionTheCentral: string;
     regionTheSouth: string;
+    regionPostRatio: string;
 
     constructor() { }
 }

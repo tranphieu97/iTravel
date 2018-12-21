@@ -30,6 +30,12 @@
             display: flex;
             flex-direction: column;
 
+            h6 {
+                margin: 3px;
+                color: $GREEN;
+                font-weight: bold;
+            }
+
             #post-ratio {
                 flex: 1 1;
             }
