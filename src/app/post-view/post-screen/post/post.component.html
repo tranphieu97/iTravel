@@ -11,7 +11,8 @@
     <!-- info -->
     <div class="row m-0">
       <div class="col-12 p-2">
-        <p class="info"><a href="#" class="author">{{ post.authorId }}</a> - <span>{{ post.postCreateTime }}</span></p>
+        <p class="info"><a (click)='onViewAuthorProfile()' class="author">{{ postAuthorName }}</a> - <span>{{
+            postCreateTime }}</span></p>
       </div>
     </div>
     <!-- include post description -->

@@ -23,19 +23,19 @@ export class CreatePostComponent implements OnInit {
   // array store new image need to upload to server
   newImageFiles: { imgFile: File, contentId: string }[] = [];
   coverFile: File = null;
+  // variable store current language
+  compLanguage = this.language.currentLanguage;
   // variable store alert
   alertContent = '';
   // saved alert content
-  savedAlertContent = '';
+  savedSuccessAlertContent = this.compLanguage.createPostAlertSaveSuccess;
   // can't Saved alert content
-  cantSavedAlertContent = '';
+  cantSavedAlertContent = this.compLanguage.createPostAlertSaveAlready;
   // validate status of the whole post
   postIsValid = false;
   // variable store status that save post successfully or not
   // if already success => can't click save again
   isSaved = false;
-  // variable store current language
-  compLanguage = this.language.currentLanguage;
   // all validate status
   validateObject = {
     // variable check valid or not foreach properties
@@ -296,6 +296,8 @@ export class CreatePostComponent implements OnInit {
     this.validateObject.validateAddress.maxLength.message = this.compLanguage.createPostInvalidAddressLength;
     this.validateObject.validateProvinceCity.notEmpty.message = this.compLanguage.createPostInvalidProvinceEmpty;
     this.validateObject.validatePostContent.notEmpty.message = this.compLanguage.createPostInvalidTopicEmpty;
+    this.cantSavedAlertContent = this.compLanguage.createPostAlertSaveAlready;
+    this.savedSuccessAlertContent = this.compLanguage.createPostAlertSaveSuccess;
   }
 
   validateAll() {

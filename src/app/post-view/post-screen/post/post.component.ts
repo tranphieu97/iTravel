@@ -13,7 +13,7 @@ export class PostComponent implements OnInit, OnChanges {
   // local post receive data from server
   // it should has init data until receiving data from server so browser will not has error
   post: Post = new Post(null, null, [], [], '', '', '', new Location('', [], '', ''), [], 0, '', [], '');
-  postAuthorName = '';
+  postAuthorName = 'Thong';
   postCreateTime = '';
   @Input() postId: string;
 
@@ -42,13 +42,36 @@ export class PostComponent implements OnInit, OnChanges {
         this.serverService.getOnePost(this.postId).subscribe((resData) => {
           if (resData.data !== null && resData.data !== undefined) {
             this.post = resData.data;
-            // convert data to string to show on view
-            // this.postCreateTime = this.post.approvedTime.getDay.toString();
+            // convert some data to string to show on view
+            this.getPostAuthorName();
+            this.getPostCreateTimeString();
           } else {
             this.router.navigate(['/not-found']);
           }
         });
       }
+    }
+  }
+
+  onViewAuthorProfile() {
+    // TODO
+    // navigate to author profile
+  }
+
+  getPostAuthorName() {
+    this.postAuthorName = 'gắn tạm: Minh Thông';
+  }
+
+  getPostCreateTimeString() {
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+    // if approvedTime not null, use it to show on view
+    if (this.post.approvedTime !== null) {
+      const tempDate = new Date(this.post.approvedTime);
+      this.postCreateTime = tempDate.toLocaleString('en-US', options);
+    } else {
+      // else use create time to show on view
+      const tempDate = new Date(this.post.createdTime);
+      this.postCreateTime = tempDate.toLocaleString('en-US', options);
     }
   }
 }
