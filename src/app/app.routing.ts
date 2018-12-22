@@ -21,7 +21,7 @@ const routes: Routes = [
     path: 'create-post',
     component: LayoutComponent,
     loadChildren: 'src/app/add-post/add-post.module#AddPostModule',
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'home',

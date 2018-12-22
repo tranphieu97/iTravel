@@ -15,6 +15,7 @@ export class PostComponent implements OnInit, OnChanges {
   post: Post = new Post(null, null, [], [], '', '', '', new Location('', [], '', ''), [], 0, '', [], '');
   postAuthorName = 'Thong';
   postCreateTime = '';
+  downloadPostCompleted = false;
   @Input() postId: string;
 
   constructor(private serverService: ServerService, private route: ActivatedRoute, private router: Router) { }
@@ -42,6 +43,7 @@ export class PostComponent implements OnInit, OnChanges {
         this.serverService.getOnePost(this.postId).subscribe((resData) => {
           if (resData.data !== null && resData.data !== undefined) {
             this.post = resData.data;
+            this.downloadPostCompleted = true;
             // convert some data to string to show on view
             this.getPostAuthorName();
             this.getPostCreateTimeString();

@@ -1,6 +1,6 @@
 <!-- <div class="row m-0 p-3 comp">
   <div class="col-12 p-2 content"> -->
-<div class="row m-0 p-0 hidden-scroll">
+<div class="row m-0 p-0 hidden-scroll" *ngIf="downloadPostCompleted === true">
   <div class="col-12 p-0 max-height">
     <!-- row 1 with title -->
     <div class="row m-0">
@@ -37,8 +37,8 @@
     <div class="row m-0">
       <div class="col-12 p-2">
         <span class="tag">Tag:</span>
-        <span class="tag tag-item">Province</span>
-        <span *ngFor="let tag of post.tags" class="tag tag-item">{{ tag }}</span>
+        <span *ngFor="let provinceName of post.location.provinceCity" class="tag tag-item">{{ provinceName }}</span>
+        <span *ngFor="let tag of post.tags" class="tag tag-item">{{ tag.tagContent }}</span>
       </div>
     </div>
     <!-- post comments-->
