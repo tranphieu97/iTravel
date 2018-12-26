@@ -1,0 +1,34 @@
+@import 'src/styles.scss';
+
+:host {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+
+    .filter-box {
+        flex: 2.5 1;
+        height: 95%;
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .additional-box {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1;
+        padding: 10px;
+
+        .most-view-post {
+            flex: 1 1;
+            flex-direction: column;
+
+            h6 {
+                margin: 10px;
+                color: $GREEN;
+                font-weight: bold;
+            }
+        }
+    }
+}

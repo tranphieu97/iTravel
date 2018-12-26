@@ -51,7 +51,7 @@ export class FilterbyRegionComponent implements OnInit, OnDestroy {
         });
 
         // Get post from server
-        this.server.getPostByRegion(this.regionID).subscribe((listCardViewPost) => {
+        this.server.getPostsByRegion(this.regionID).subscribe((listCardViewPost) => {
           this.listRegionPost = listCardViewPost;
         });
 

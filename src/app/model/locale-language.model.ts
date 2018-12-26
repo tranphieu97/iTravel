@@ -150,5 +150,9 @@ export class LocaleLanguage {
     trendSearchCharTitle: string;
     trendSearchChartDes: string;
 
+    // For Travel and Cuisine Filter
+    filterTheMostAmountOfViewPost: string;
+    filterTheMostAmountOfView: string;
+
     constructor() { }
 }

@@ -12,6 +12,6 @@ import { CardViewPostComponent } from '../card-view-post/card-view-post.componen
     SharedModule,
     HomePageRoutingModule
   ],
-  declarations: [IndexComponent, VietNamMapComponent, CardViewPostComponent]
+  declarations: [IndexComponent, VietNamMapComponent]
 })
 export class HomePageModule { }

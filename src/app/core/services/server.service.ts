@@ -67,7 +67,8 @@ export class ServerService {
           resItem.categories,
           resItem.createdTime,
           resItem.description,
-          resItem.location
+          resItem.location,
+          resItem.viewAmount
         );
         return cardViewPost;
       });
@@ -191,7 +192,13 @@ export class ServerService {
     return this.http.get(this.HOST + 'api/policies');
   }
 
-  getPostByRegion(region: string): Observable<any> {
+  /**
+   * Get list posts by region name
+   * @name getPostByRegion
+   * @author phieu-th
+   * @param region
+   */
+  getPostsByRegion(region: string): Observable<any> {
     const params = new HttpParams().set('region', region);
     return this.http.get(this.HOST + 'api/region-posts', { params: params }).pipe(map((res: any) => {
       const listCardViewPost: CardViewPost[] = res.data.map((resItem) => {
@@ -202,7 +209,36 @@ export class ServerService {
           resItem.categories,
           resItem.createdTime,
           resItem.description,
-          resItem.location
+          resItem.location,
+          resItem.viewAmount
+        );
+
+        return cardViewPost;
+      });
+
+      return listCardViewPost;
+    }));
+  }
+
+  /**
+   * Get list posts by post's category
+   * @name getPostsByCategory
+   * @author phieu-th
+   * @param category
+   */
+  getPostsByCategory(categoryName: string): Observable<any> {
+    const params = new HttpParams().set('category', categoryName);
+    return this.http.get(this.HOST + 'api/category-posts', { params: params }).pipe(map((res: any) => {
+      const listCardViewPost: CardViewPost[] = res.data.map((resItem) => {
+        const cardViewPost: CardViewPost = new CardViewPost(
+          resItem._id,
+          resItem.title,
+          resItem.cover,
+          resItem.categories,
+          resItem.createdTime,
+          resItem.description,
+          resItem.location,
+          resItem.viewAmount
         );
 
         return cardViewPost;
@@ -229,6 +265,14 @@ export class ServerService {
     return this.http.get<any>(this.HOST + 'manager/posts');
   }
 
+  /**
+   * Change a Post's status to Approved or Denied
+   * @name updatePostStatus
+   * @author phieu-th
+   * @param postId
+   * @param status
+   * @param reason
+   */
   updatePostStatus(postId: string, status: any, reason: string): Observable<any> {
     if (status === this.constant.POST_STATUS.APPROVED) {
       const params = {
@@ -236,7 +280,7 @@ export class ServerService {
         status: status
       };
       return this.http.patch(this.HOST + 'manager/approve-post', params);
-    } else {
+    } else if (status === this.constant.POST_STATUS.DENY) {
       const params = {
         postId: postId,
         status: status,

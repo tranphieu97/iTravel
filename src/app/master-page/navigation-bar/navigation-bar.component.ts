@@ -34,12 +34,12 @@ export class NavigationBarComponent implements OnInit {
   menuItemTheSouth: MenuItem = new MenuItem(this.language.currentLanguage.menuItemTheSouth, 'region/south');
 
   // Menu Item Travel
-  menuItemHotTravel: MenuItem = new MenuItem(this.language.currentLanguage.menuItemHot, '');
-  menuItemRecentTravel: MenuItem = new MenuItem(this.language.currentLanguage.menuItemMostRecent, '');
+  menuItemHotTravel: MenuItem = new MenuItem(this.language.currentLanguage.menuItemHot, 'filter/travel/hot');
+  menuItemRecentTravel: MenuItem = new MenuItem(this.language.currentLanguage.menuItemMostRecent, 'filter/travel/recent');
 
   // Menu Item Cuisine
-  menuItemHotCuisine: MenuItem = new MenuItem(this.language.currentLanguage.menuItemHot, '');
-  menuItemRecentCuisine: MenuItem = new MenuItem(this.language.currentLanguage.menuItemMostRecent, '');
+  menuItemHotCuisine: MenuItem = new MenuItem(this.language.currentLanguage.menuItemHot, 'filter/cuisine/hot');
+  menuItemRecentCuisine: MenuItem = new MenuItem(this.language.currentLanguage.menuItemMostRecent, 'filter/cuisine/recent');
 
   // Menu Item Plans
   menuItemOneDay: MenuItem = new MenuItem(this.language.currentLanguage.menuItemOneDay, '');
