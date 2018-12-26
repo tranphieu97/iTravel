@@ -113,7 +113,7 @@ export class LanguageService {
     this.vnLanguage.menuAbout = 'Về chúng tôi';
     this.vnLanguage.menuItemTheNorth = 'Miền Bắc';
     this.vnLanguage.menuItemTheCentral = 'Miền Trung';
-    this.vnLanguage.menuItemTheSourth = 'Miền Nam';
+    this.vnLanguage.menuItemTheSouth = 'Miền Nam';
     this.vnLanguage.menuItemHot = 'Nổi bật';
     this.vnLanguage.menuItemMostRecent = 'Gần đây nhất';
     this.vnLanguage.menuItemOneDay = '1 Ngày';
@@ -206,6 +206,20 @@ export class LanguageService {
     this.vnLanguage.createPostInvalidTopicEmpty = 'Nội dung bài viết không được để trống!';
     this.vnLanguage.createPostAlertSaveSuccess = 'Đã lưu bài viết thành công, nhấn vào để xem lại.';
     this.vnLanguage.createPostAlertSaveAlready = 'Bài viết của bạn đã được lưu rồi, không thể lưu thêm nữa!';
+
+    // For Region
+    this.vnLanguage.regionTheNorth = 'Miền Bắc';
+    this.vnLanguage.regionTheCentral = 'Miền Trung';
+    this.vnLanguage.regionTheSouth = 'Miền Nam';
+    this.vnLanguage.regionPostRatio = 'Tỉ lệ số lượng bài viết';
+
+    // For Trend
+    this.vnLanguage.trendSearchCharTitle = 'Xu hướng tìm kiếm';
+    this.vnLanguage.trendSearchChartDes = 'Từ khóa tìm kiếm nhiều nhất: ';
+
+    // For Travel and Cuisine Filter
+    this.vnLanguage.filterTheMostAmountOfViewPost = 'Bài viết được xem nhiều nhất';
+    this.vnLanguage.filterTheMostAmountOfView = 'Số lược xem: ';
   }
 
   /**
@@ -300,7 +314,7 @@ export class LanguageService {
     this.enLanguage.menuAbout = 'About Us';
     this.enLanguage.menuItemTheNorth = 'The North';
     this.enLanguage.menuItemTheCentral = 'The Central';
-    this.enLanguage.menuItemTheSourth = 'The Sourth';
+    this.enLanguage.menuItemTheSouth = 'The South';
     this.enLanguage.menuItemHot = 'Hot';
     this.enLanguage.menuItemMostRecent = 'Most Recent';
     this.enLanguage.menuItemOneDay = '1 day';
@@ -351,6 +365,7 @@ export class LanguageService {
     // For Policies
     this.enLanguage.policiesTitle = 'Using Policies';
 
+    // For Home Page
     this.enLanguage.homeIndexPostIn = 'Posts in ';
 
     // For Create Post
@@ -392,6 +407,20 @@ export class LanguageService {
     this.enLanguage.createPostInvalidTopicEmpty = 'Post content can not be empty!';
     this.enLanguage.createPostAlertSaveSuccess = 'Your post was saved successfully, click to see.';
     this.enLanguage.createPostAlertSaveAlready = 'Your post was saved, can\'t save any more!';
+
+    // For Region
+    this.enLanguage.regionTheNorth = 'The North';
+    this.enLanguage.regionTheCentral = 'The Central';
+    this.enLanguage.regionTheSouth = 'The South';
+    this.enLanguage.regionPostRatio = 'Amount Posts Ratio';
+
+    // For Trend
+    this.enLanguage.trendSearchCharTitle = 'Search Trend';
+    this.enLanguage.trendSearchChartDes = 'The most searched keyword: ';
+
+    // For Travel and Cuisine Filter
+    this.enLanguage.filterTheMostAmountOfViewPost = 'Most view Post';
+    this.enLanguage.filterTheMostAmountOfView = 'View Amount: ';
   }
 
   /**

@@ -96,14 +96,14 @@ export class PostManagementComponent implements OnInit {
       this.hasError = true;
     } else {
       if (this.validDateFormat(this.startDate) && this.validDateFormat(this.endDate)) {
-        if (this.convertDateStructToDate(this.startDate) <= this.convertDateStructToDate(this.endDate)) {
-          this.hasError = false;
-        } else {
-          this.errorMessage = this.language.currentLanguage.postManagementErrorStartAfterEnd;
+        if (this.convertDateStructToDate(this.startDate) > this.convertDateStructToDate(this.endDate)) {
           this.hasError = true;
+          this.errorMessage = this.language.currentLanguage.postManagementErrorStartAfterEnd;
+        } else {
+          this.hasError = false;
 
-          const startD = new Date(this.startDate.year, this.startDate.month, this.startDate.day, 0, 0, 0, 0);
-          const endD = new Date(this.endDate.year, this.endDate.month, this.endDate.day, 0, 0, 0, 0);
+          const startD = new Date(this.startDate.year, this.startDate.month - 1, this.startDate.day, 0, 0, 0, 0);
+          const endD = new Date(this.endDate.year, this.endDate.month - 1, this.endDate.day, 0, 0, 0, 0);
 
           this.filterListPostByDate(startD, endD);
         }
@@ -166,8 +166,10 @@ export class PostManagementComponent implements OnInit {
       || postStatusFilter === this.constant.POST_STATUS.PENDING) {
       this.listShowPost = [];
       this.listShowPost = this.listAllPost.filter(post => post.status === postStatusFilter);
+      this.chosenKindOfPost = this.flagKindOfPost.postStatusFilter;
     } else {
       this.listShowPost = this.listAllPost;
+      this.chosenKindOfPost = this.flagKindOfPost.all;
     }
   }
 
@@ -180,7 +182,9 @@ export class PostManagementComponent implements OnInit {
    */
   filterListPostByDate(startDate: Date, endDate: Date) {
     if (startDate <= endDate) {
-      this.listShowPost = this.listShowPost.filter(post => post.createdTime >= startDate && post.createdTime <= endDate);
+      this.listShowPost = this.listAllPost.filter(post => new Date(post.createdTime) >= startDate
+        && new Date(post.createdTime) <= endDate
+        && (post.status === this.chosenKindOfPost || this.chosenKindOfPost === this.flagKindOfPost.all));
     }
   }
 
@@ -193,9 +197,11 @@ export class PostManagementComponent implements OnInit {
     this.server.getPostsByManager().subscribe((res) => {
       if (res.data) {
         this.listAllPost = res.data;
+        this.sortPostArrayByDate(this.listAllPost);
         this.listShowPost = this.listAllPost;
       }
     });
+    this.resetError();
   }
 
   /**
@@ -219,6 +225,11 @@ export class PostManagementComponent implements OnInit {
     });
   }
 
+  /**
+   * Deny a post by postId
+   * @name denyPost
+   * @author phieu-th
+   */
   denyPost(postId: string) {
     const formControlPostId = this.denyForm.get('postId').value;
     const formControlReasion = this.denyForm.get('denyReason').value;
@@ -244,5 +255,15 @@ export class PostManagementComponent implements OnInit {
         }
       });
     }
+  }
+
+  /**
+   * Sort an array have property createdTime from near to far
+   * @name sortPostArrayByDate
+   * @author phieu-th
+   * @param arr
+   */
+  sortPostArrayByDate(arr: any) {
+    arr = arr.sort((item1, item2) => new Date(item2.createdTime).valueOf() - new Date(item1.createdTime).valueOf());
   }
 }

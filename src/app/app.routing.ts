@@ -51,6 +51,11 @@ const routes: Routes = [
     loadChildren: 'src/app/region/region.module#RegionModule'
   },
   {
+    path: 'filter',
+    component: LayoutComponent,
+    loadChildren: 'src/app/filter/filter.module#FilterModule'
+  },
+  {
     path: 'trend',
     component: LayoutComponent,
     loadChildren: 'src/app/trend/trend.module#TrendModule'

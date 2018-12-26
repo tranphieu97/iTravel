@@ -1,0 +1,12 @@
+<div class="content-box filter-box">
+  <div>
+    <app-horizontal-card-view-post *ngFor="let post of listPostByCategory" [inputPost]="post"></app-horizontal-card-view-post>
+  </div>
+</div>
+<div class="content-box additional-box">
+  <div class="most-view-post" *ngIf="theMostAmountOfView">
+      <h4>{{language.currentLanguage.filterTheMostAmountOfViewPost}}</h4>
+      <app-card-view-post [inputPost]="theMostAmountOfView"></app-card-view-post>
+      <h6>{{language.currentLanguage.filterTheMostAmountOfView}} {{theMostAmountOfView.viewAmount}}</h6>
+  </div>
+</div>

@@ -62,7 +62,7 @@ export class LocaleLanguage {
     menuAbout: string;
     menuItemTheNorth: string;
     menuItemTheCentral: string;
-    menuItemTheSourth: string;
+    menuItemTheSouth: string;
     menuItemHot: string;
     menuItemMostRecent: string;
     menuItemOneDay: string;
@@ -179,6 +179,20 @@ export class LocaleLanguage {
     createPostInvalidTopicEmpty: string;
     createPostAlertSaveSuccess: string;
     createPostAlertSaveAlready: string;
+
+    // For Region
+    regionTheNorth: string;
+    regionTheCentral: string;
+    regionTheSouth: string;
+    regionPostRatio: string;
+
+    // For Trend
+    trendSearchCharTitle: string;
+    trendSearchChartDes: string;
+
+    // For Travel and Cuisine Filter
+    filterTheMostAmountOfViewPost: string;
+    filterTheMostAmountOfView: string;
 
     constructor() { }
 }
