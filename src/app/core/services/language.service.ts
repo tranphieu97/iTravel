@@ -110,6 +110,7 @@ export class LanguageService {
     this.vnLanguage.menuPlans = 'Kế hoạch';
     this.vnLanguage.menuTrend = 'Xu hướng';
     this.vnLanguage.menuPersonal = 'Cá nhân';
+    this.vnLanguage.menuFilter = 'Bộ lọc';
     this.vnLanguage.menuAbout = 'Về chúng tôi';
     this.vnLanguage.menuItemTheNorth = 'Miền Bắc';
     this.vnLanguage.menuItemTheCentral = 'Miền Trung';
@@ -216,10 +217,17 @@ export class LanguageService {
     // For Trend
     this.vnLanguage.trendSearchCharTitle = 'Xu hướng tìm kiếm';
     this.vnLanguage.trendSearchChartDes = 'Từ khóa tìm kiếm nhiều nhất: ';
+    this.vnLanguage.trendPostViewChartTitle = 'Xu hướng xem bài viết';
+    this.vnLanguage.trendTop10PostViewAmount = 'Top 10 bài viết được xem nhiều nhất';
 
     // For Travel and Cuisine Filter
     this.vnLanguage.filterTheMostAmountOfViewPost = 'Bài viết được xem nhiều nhất';
-    this.vnLanguage.filterTheMostAmountOfView = 'Số lược xem: ';
+    this.vnLanguage.filterTheMostAmountOfView = 'Số lượt xem: ';
+    this.vnLanguage.filterFullTitle = 'Bộ lọc bài viết';
+    this.vnLanguage.filterFullCategory = 'Thể loại';
+    this.vnLanguage.filterFullKeyword = 'Từ khóa';
+    this.vnLanguage.filterFullRegion = 'Vùng miền';
+    this.vnLanguage.filterFullFilter = 'Lọc';
   }
 
   /**
@@ -310,6 +318,7 @@ export class LanguageService {
     this.enLanguage.menuCuisine = 'Cuisine';
     this.enLanguage.menuPlans = 'Plans';
     this.enLanguage.menuTrend = 'Trend';
+    this.enLanguage.menuFilter = 'Filter';
     this.enLanguage.menuPersonal = 'Personal';
     this.enLanguage.menuAbout = 'About Us';
     this.enLanguage.menuItemTheNorth = 'The North';
@@ -417,10 +426,17 @@ export class LanguageService {
     // For Trend
     this.enLanguage.trendSearchCharTitle = 'Search Trend';
     this.enLanguage.trendSearchChartDes = 'The most searched keyword: ';
+    this.enLanguage.trendPostViewChartTitle = 'View Post Trend';
+    this.enLanguage.trendTop10PostViewAmount = 'Top 10 of view amount post';
 
     // For Travel and Cuisine Filter
     this.enLanguage.filterTheMostAmountOfViewPost = 'Most view Post';
     this.enLanguage.filterTheMostAmountOfView = 'View Amount: ';
+    this.enLanguage.filterFullTitle = 'Post Filter';
+    this.enLanguage.filterFullCategory = 'Category';
+    this.enLanguage.filterFullKeyword = 'Keyword';
+    this.enLanguage.filterFullRegion = 'Region';
+    this.enLanguage.filterFullFilter = 'Filter';
   }
 
   /**

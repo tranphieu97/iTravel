@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
     isShowVisiterTool: false
   };
 
-  constructor(public mtpService: MasterPageService, private server: ServerService, private language: LanguageService,
+  constructor(public masterPage: MasterPageService, private server: ServerService, private language: LanguageService,
     public user: UserService, private router: Router) { }
 
   ngOnInit() {
@@ -44,6 +44,9 @@ export class HeaderComponent implements OnInit {
       this.isShowSearchBox = false;
 
       this.changeHeaderFlagByFlagName('isShowSearchBox');
+
+      this.masterPage.searchKeyword = this.searchBoxText.toString().trim();
+      this.router.navigate(['filter/all']);
     }
   }
 

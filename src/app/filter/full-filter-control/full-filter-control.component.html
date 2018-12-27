@@ -1,0 +1,27 @@
+<div class="content-box filter-box">
+  <div>
+    <app-horizontal-card-view-post *ngFor="let post of listPostByCategory" [inputPost]="post"></app-horizontal-card-view-post>
+  </div>
+</div>
+<div class="content-box control-box">
+  <h4>{{language.currentLanguage.filterFullTitle}}</h4>
+  <form>
+    <div class="form-group">
+      <label>{{language.currentLanguage.filterFullKeyword}}</label>
+      <input class="form-control" type="text">
+    </div>
+    <div class="form-group">
+      <label>{{language.currentLanguage.filterFullCategory}}</label>
+      <select class="form-control">
+        <option></option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>{{language.currentLanguage.filterFullRegion}}</label>
+      <select class="form-control">
+        <option></option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-success">{{language.currentLanguage.filterFullFilter}}</button>
+  </form>
+</div>

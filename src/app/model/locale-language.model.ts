@@ -60,6 +60,7 @@ export class LocaleLanguage {
     menuTrend: string;
     menuPersonal: string;
     menuAbout: string;
+    menuFilter: string;
     menuItemTheNorth: string;
     menuItemTheCentral: string;
     menuItemTheSouth: string;
@@ -189,10 +190,17 @@ export class LocaleLanguage {
     // For Trend
     trendSearchCharTitle: string;
     trendSearchChartDes: string;
+    trendPostViewChartTitle: string;
+    trendTop10PostViewAmount: string;
 
     // For Travel and Cuisine Filter
     filterTheMostAmountOfViewPost: string;
     filterTheMostAmountOfView: string;
+    filterFullTitle: string;
+    filterFullCategory: string;
+    filterFullKeyword: string;
+    filterFullRegion: string;
+    filterFullFilter: string;
 
     constructor() { }
 }

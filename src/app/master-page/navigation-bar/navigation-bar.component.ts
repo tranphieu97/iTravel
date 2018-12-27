@@ -26,6 +26,7 @@ export class NavigationBarComponent implements OnInit {
   menuPlans: Menu = new Menu(this.language.currentLanguage.menuPlans, 'assets/menu-icon/icon-plans.png', '', 5);
   menuTrend: Menu = new Menu(this.language.currentLanguage.menuTrend, 'assets/menu-icon/icon-trend.png', 'trend', 6);
   // menuPersonal: Menu = new Menu(this.language.currentLanguage.menuPersonal, 'assets/menu-icon/icon-user.png', '', 7);
+  menuFilter: Menu = new Menu(this.language.currentLanguage.menuFilter, 'assets/menu-icon/icons8-slider-64.png', 'filter/all', 7);
   menuAbout: Menu = new Menu(this.language.currentLanguage.menuAbout, 'assets/menu-icon/icon-about.png', '', 8);
 
   // Menu Item Regions
@@ -51,6 +52,8 @@ export class NavigationBarComponent implements OnInit {
   // menuItemChangePassword: MenuItem = new MenuItem(this.language.currentLanguage.menuItemChangePassword, '');
   // menuItemContribution: MenuItem = new MenuItem(this.language.currentLanguage.menuItemContribution, '');
 
+  // Menu Filter
+
   // Menu Item About Us
   menuItemPolicies: MenuItem = new MenuItem(this.language.currentLanguage.menuItemPolicies, 'additional/policies');
   menuItemFeedback: MenuItem = new MenuItem(this.language.currentLanguage.menuItemFeedback, 'additional/feedback');
@@ -73,6 +76,7 @@ export class NavigationBarComponent implements OnInit {
     this.menuCuisine.name = this.language.currentLanguage.menuCuisine;
     this.menuPlans.name = this.language.currentLanguage.menuPlans;
     this.menuTrend.name = this.language.currentLanguage.menuTrend;
+    this.menuFilter.name = this.language.currentLanguage.menuFilter;
     // this.menuPersonal.name = this.language.currentLanguage.menuPersonal;
     this.menuAbout.name = this.language.currentLanguage.menuAbout;
     this.menuItemTheNorth.name = this.language.currentLanguage.menuItemTheNorth;
@@ -100,7 +104,8 @@ export class NavigationBarComponent implements OnInit {
       this.menuVNRegions,
       this.menuTravel,
       this.menuCuisine,
-      this.menuPlans,
+      // this.menuPlans,
+      this.menuFilter,
       this.menuTrend,
       // this.menuPersonal,
       this.menuAbout

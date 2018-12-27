@@ -192,6 +192,10 @@ export class ServerService {
     return this.http.get<any>(this.HOST + 'api/report/searchkeyword', { headers: this.httpOptions.headers, params: params });
   }
 
+  getReportByPostViewAmountData(): Observable<any> {
+    return this.http.get<any>(this.HOST + 'api/report/post-view-amount');
+  }
+
   /**
    * Get list web's policies
    * @name getPolicies
