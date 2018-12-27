@@ -252,7 +252,52 @@ exports.updateDocumentById = async (collectionName, documentFiler, changePropert
                         })
                 }
                 catch (e) {
-                    console.log('Error update ' + documentId + 'data to ' + collectionName);
+                    console.log('Error update ' + documentFiler + 'data to ' + collectionName);
+                    console.log(e.message);
+                    deferred.reject(new Error(e));
+                }
+            });
+
+            client.close();
+        }
+    });
+
+    return deferred.promise;
+}
+
+/**
+ * @name replayDocumentById
+ * @author Thong
+ * @description replay a document by new one, keep the same id
+ * @param {string} collectionName
+ * @param {object} documentFiler the object filter use to find the old document need replay
+ * @param {Post} changeDocument // new document use to replay the old one
+ */
+exports.replayDocumentById = async (collectionName, documentFiler, changeDocument) => {
+    var deferred = Q.defer();
+
+    MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {
+        if (err) {
+            console.log("Get Connection has an error: " + err.message);
+            deferred.reject(new Error(err));
+        } else {
+
+            var db = client.db(config.DB_NAME);
+
+            var collection = db.collection(collectionName, (err, collection) => {
+                if (err) {
+                    console.log('Error load ' + collectionName);
+                    return deferred.reject(new Error(err));;
+                }
+
+                try {
+                    collection.replaceOne(documentFiler, changeDocument)
+                        .then((result) => {
+                            deferred.resolve(result);
+                        })
+                }
+                catch (e) {
+                    console.log('Error replay ' + 'data to ' + collectionName);
                     console.log(e.message);
                     deferred.reject(new Error(e));
                 }
@@ -289,7 +334,7 @@ exports.countDocumentByFilter = async (collectionName, filter) => {
                     return null;
                 }
 
-                if (filter !== undefined && filter !== null ) {
+                if (filter !== undefined && filter !== null) {
                     collection.countDocuments(filter, (err, result) => {
                         if (err) {
                             console.log('Error find count document from collection ' + collectionName);

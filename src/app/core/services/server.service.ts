@@ -136,6 +136,14 @@ export class ServerService {
   }
 
   /**
+     * @author Thong
+     * @description send POST-request to node server for update one post by id
+     */
+  updateOnePost(needUpdatePost: Post) {
+    return this.http.post<{ message: string, postId: string }>(this.HOST + 'user/update-post', needUpdatePost);
+  }
+
+  /**
    * @author Thong
    * @param {File} image
    * @description send a POST request to upload an image to server
@@ -254,7 +262,7 @@ export class ServerService {
    */
   getPostRatioByRegion(region: string): Observable<any> {
     const params = new HttpParams().set('region', region);
-    return this.http.get(this.HOST + 'api/region-ratio', {params: params});
+    return this.http.get(this.HOST + 'api/region-ratio', { params: params });
   }
 
   /**

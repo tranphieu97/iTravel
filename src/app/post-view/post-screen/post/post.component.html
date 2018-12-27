@@ -42,7 +42,7 @@
       </div>
     </div>
     <!-- post comments-->
-    <div class="row m-0">
+    <div class="row m-0" *ngIf="post.status === 'APPROVED'">
       <div class="col-12 p-2">
         <app-post-comment [post]="post"></app-post-comment>
       </div>

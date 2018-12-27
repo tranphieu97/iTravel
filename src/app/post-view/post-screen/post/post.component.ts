@@ -45,6 +45,7 @@ export class PostComponent implements OnInit, OnChanges {
             this.post = resData.data;
             this.downloadPostCompleted = true;
             // convert some data to string to show on view
+            console.log(this.post.status);
             this.getPostAuthorName();
             this.getPostCreateTimeString();
           } else {
@@ -61,7 +62,7 @@ export class PostComponent implements OnInit, OnChanges {
   }
 
   getPostAuthorName() {
-    this.postAuthorName = 'gắn tạm: Minh Thông';
+    this.postAuthorName = 'Minh Thông';
   }
 
   getPostCreateTimeString() {

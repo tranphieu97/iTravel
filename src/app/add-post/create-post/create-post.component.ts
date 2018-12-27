@@ -95,10 +95,12 @@ export class CreatePostComponent implements OnInit {
           // invalid Id => not-found
           this.router.navigate(['/not-found']);
         }
-      } else {
+      } else { // id.length == 24
+        console.log('chuan bi di lay post');
         this.serverService.getOnePost(this.postId).subscribe((resData) => {
           if (resData.data !== null && resData.data !== undefined) {
             this.post = resData.data;
+            console.log('da lay post ve');
           } else {
             this.router.navigate(['/not-found']);
           }
@@ -229,8 +231,21 @@ export class CreatePostComponent implements OnInit {
                   this.postId = responseData.postId;
                 }
               });
-          } else {
+          } else if (this.postId.length === 24) {
             // save edited post
+            // fix some default infomation for post
+            console.log('go to update //file create-post');
+            this.post.approvedTime = null;
+            this.post.authorId = this.user.currentUser._id;
+            this.post.status = this.constant.POST_STATUS.PENDING;
+            this.serverService.updateOnePost(this.post)
+              .subscribe((responseData) => {
+                if (responseData) {
+                  console.log('up date xong //file create-post');
+                  this.isSaved = true;
+                  this.postId = responseData.postId;
+                }
+              });
           }
         } else {
           // can not get response
@@ -415,5 +430,9 @@ export class CreatePostComponent implements OnInit {
       this.validateObject.validateAddress.maxLength.status = true;
       return '';
     }
+  }
+
+  onTest() {
+    this.router.navigate(['/create-post', '5c2448a50b1e032338c58b33']);
   }
 }

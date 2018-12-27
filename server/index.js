@@ -273,6 +273,7 @@ app.post('/user/post', (req, res, next) => {
                 // fix createdTime from string to Date type
                 post.createdTime = new Date(post.createdTime);
                 post.approvedTime = null;
+                post.viewAmount = 0;
                 // fix all post tags._id = ObjectId()
                 for (const tag of post.tags) {
                     if (tag._id.length !== 24) {
@@ -305,6 +306,107 @@ app.post('/user/post', (req, res, next) => {
                         res.status(500).json({
                             message: 'Upload post fail!'
                         });
+                    });
+            }
+        }
+    }
+});
+
+app.post('/user/update-post', (req, res) => {
+    // get updated-post from request
+    const post = req.body;
+    // get token from header
+    let token = req.headers.authorization;
+    let userId = '';
+    if (token !== undefined && token !== null) {
+        token = token.split(' ')[1];
+    }
+    // decode token
+    if (token === undefined || token === null) {
+        res.status(401).json({
+            message: 'Unauthorized'
+        });
+    } else {
+        const tokenData = jwt.verify(token, config.SECRET_KEY);
+        userId = tokenData._id;
+        // check user in token and in post is the same
+        if (userId !== post.authorId) {
+            res.status(401).json({
+                message: 'Unauthorized'
+            });
+        } else {
+            // go to validate on server side
+            if (// validate list postContents not empty
+                post.postContents.length <= 0
+                // validate post title
+                || post.title.length <= 0 || post.title.length > 200
+                // validate cover
+                || post.cover.length <= 0
+                // validate place
+                || post.location.locationName.length <= 0 || post.location.locationName.length > 200
+                // validate provinceCity
+                || post.location.provinceCity.length <= 0
+                // validate address
+                || post.location.address.length > 300
+                // validate category
+                || post.categories.length <= 0
+                // validate description
+                || post.description.length <= 0 || post.description.length > 500
+            ) {
+                res.status(401).json({
+                    message: 'Update post fail!'
+                });
+            } else {
+                // fix some properties to default value
+                post._id = new ObjectId(post._id);
+                // fix createdTime from string to Date type
+                post.createdTime = new Date(post.createdTime);
+                post.approvedTime = null;
+                // fix all post tags._id = ObjectId()
+                for (const tag of post.tags) {
+                    // if not has id yet
+                    if (tag._id.length !== 24) {
+                        tag._id = new ObjectId();
+                    } else {
+                        // has id already, create ObjectId from the old one
+                        tag._id = new ObjectId(tag._id);
+                    }
+                }
+                // fix id of all new post content, _id = ObjectId()
+                for (const postContent of post.postContents) {
+                    // if not has id yet, create new one
+                    if (postContent._id.length !== 24) {
+                        postContent._id = new ObjectId();
+                    } else {
+                        // has id already, create ObjectId from the old one
+                        postContent._id = new ObjectId(postContent._id);
+                    }
+                }
+                // fix all post categories._id =  ObjectId()
+                for (const category of post.categories) {
+                    category._id = new ObjectId(category._id);
+                }
+                // post.rating = 0;
+                post.status = 'PENDING';
+                // fix all complete
+
+                // create filter from id
+                const filterObj = { _id: new ObjectId(post._id) }
+                console.log(filterObj);
+                // pass the post to replayDocumentById(), function will replay by filter
+                database.replayDocumentById(database.iTravelDB.Posts, filterObj, post)
+                    .then(() => {
+                        console.log('thanh cong');
+                        res.status(201).json({
+                            message: 'Update post successfuly',
+                            postId: post._id
+                        });
+                    })
+                    .catch(() => {
+                        res.status(200).json({
+                            message: 'Update post fail!'
+                        });
+                        console.log('that bai');
                     });
             }
         }
