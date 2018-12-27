@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FilterByCategoryComponent } from './filter-by-category/filter-by-category.component';
 import { SharedModule } from '../shared/shared.module';
 import { FilterRoutingModule } from './filter.routing';
+import { FullFilterControlComponent } from './full-filter-control/full-filter-control.component';
 
 @NgModule({
   imports: [
@@ -10,6 +11,6 @@ import { FilterRoutingModule } from './filter.routing';
     SharedModule,
     FilterRoutingModule
   ],
-  declarations: [FilterByCategoryComponent]
+  declarations: [FilterByCategoryComponent, FullFilterControlComponent]
 })
 export class FilterModule { }

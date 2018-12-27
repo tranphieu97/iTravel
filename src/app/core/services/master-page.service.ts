@@ -23,6 +23,8 @@ export class MasterPageService {
 
   currentLanguagePolicies: Policy[];
 
+  searchKeyword = '';
+
   constructor(private server: ServerService, private language: LanguageService) {
     this.server.getPolicies().subscribe((res) => {
       if (res) {

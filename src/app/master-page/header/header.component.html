@@ -1,10 +1,10 @@
-<div [ngClass]="{'header': true, 'navbar-show':this.mtpService.isShowFullNavBar, 'navbar-hide':!this.mtpService.isShowFullNavBar}">
-    <div class="logo" *ngIf="this.mtpService.isShowFullNavBar">
+<div [ngClass]="{'header': true, 'navbar-show':this.masterPage.isShowFullNavBar, 'navbar-hide':!this.masterPage.isShowFullNavBar}">
+    <div class="logo" *ngIf="this.masterPage.isShowFullNavBar">
         <a href="#">
             <img src="../../../assets/img/logo_with_text.png">
         </a>
     </div>
-    <div class="slide-icon" (click)='this.mtpService.isShowFullNavBar = !this.mtpService.isShowFullNavBar'>
+    <div class="slide-icon" (click)='this.masterPage.isShowFullNavBar = !this.masterPage.isShowFullNavBar'>
         <i class="fas fa-bars"></i>
     </div>
 </div>
@@ -21,7 +21,7 @@
             </form>
         </div>
     </div>
-    <div class="toolbar-icon dropdown">
+    <div class="toolbar-icon dropdown" *ngIf="false">
         <span (click)="changeHeaderFlagByFlagName('isShowNotification')">
             <i class="far fa-bell"></i>
         </span>
@@ -38,7 +38,7 @@
             <a class="dropdown-item" (click)="this.language.setEnglish(); headerFlags.isShowLanguage = !headerFlags.isShowLanguage">{{language.currentLanguage.headerEnglish}}</a>
         </div>
     </div>
-    <div class="toolbar-icon">
+    <div class="toolbar-icon" *ngIf="false">
         <span><i class="fas fa-cog"></i></span>
     </div>
     <div *ngIf="user.isLogin" class="toolbar-icon-wide dropdown">
