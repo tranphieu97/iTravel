@@ -189,6 +189,8 @@ export class LocaleLanguage {
     // For Trend
     trendSearchCharTitle: string;
     trendSearchChartDes: string;
+    trendPostViewChartTitle: string;
+    trendTop10PostViewAmount: string;
 
     // For Travel and Cuisine Filter
     filterTheMostAmountOfViewPost: string;

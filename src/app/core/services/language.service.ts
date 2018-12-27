@@ -216,6 +216,8 @@ export class LanguageService {
     // For Trend
     this.vnLanguage.trendSearchCharTitle = 'Xu hướng tìm kiếm';
     this.vnLanguage.trendSearchChartDes = 'Từ khóa tìm kiếm nhiều nhất: ';
+    this.vnLanguage.trendPostViewChartTitle = 'Xu hướng xem bài viết';
+    this.vnLanguage.trendTop10PostViewAmount = 'Top 10 bài viết được xem nhiều nhất';
 
     // For Travel and Cuisine Filter
     this.vnLanguage.filterTheMostAmountOfViewPost = 'Bài viết được xem nhiều nhất';
@@ -417,6 +419,8 @@ export class LanguageService {
     // For Trend
     this.enLanguage.trendSearchCharTitle = 'Search Trend';
     this.enLanguage.trendSearchChartDes = 'The most searched keyword: ';
+    this.enLanguage.trendPostViewChartTitle = 'View Post Trend';
+    this.enLanguage.trendTop10PostViewAmount = 'Top 10 of view amount post';
 
     // For Travel and Cuisine Filter
     this.enLanguage.filterTheMostAmountOfViewPost = 'Most view Post';

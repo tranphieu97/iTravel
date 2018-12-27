@@ -482,10 +482,19 @@ app.get('/api/report/searchkeyword', (req, res) => {
 
     if (startDate < endDate) {
         const dateRangeFilter = {
-            creationTime: {
-                $gte: startDate,
-                $lte: endDate
-            }
+            $and: [
+                {
+                    creationTime: {
+                        $gte: startDate
+                    }
+                },
+                {
+                    creationTime: {
+                        $lte: endDate
+                    }
+                }
+            ]
+
         }
         database.getCollectionFilterData(database.iTravelDB.SearchHistory, dateRangeFilter)
             .then((collectionData) => {
@@ -509,6 +518,32 @@ app.get('/api/report/searchkeyword', (req, res) => {
         });
     }
 })
+
+app.get('/api/report/post-view-amount', async (req, res) => {
+    const postFilter = {
+        'status': {
+            $eq: config.POST_STATUS.APPROVED
+        }
+    }
+
+    database.getCollectionFilterData(database.iTravelDB.Posts, postFilter)
+        .then((result) => {
+            postSimpleData = [];
+            if (result) {
+                result.forEach(post => {
+                    postSimpleData.push({
+                        title: post.title,
+                        viewAmount: post.viewAmount
+                    });
+                });
+            }
+
+            res.status(200).json({
+                message: 'Got post view amount Data',
+                data: postSimpleData
+            });
+        });
+});
 
 app.get('/api/region-posts', async (req, res) => {
     let region = req.param('region');
