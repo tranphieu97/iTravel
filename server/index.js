@@ -979,6 +979,7 @@ app.post('/auth/login', async (req, res) => {
                             }
 
                             const data = {
+                                _id: userInfo._id,
                                 username: userInfo.username,
                                 firstName: userInfo.firstName,
                                 lastName: userInfo.lastName,
