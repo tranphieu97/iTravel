@@ -234,6 +234,7 @@ app.post('/user/post', (req, res, next) => {
     }
     // decode token
     if (token === undefined || token === null) {
+        console.log('Token can not be null or undefined');
         res.status(401).json({
             message: 'Unauthorized'
         });
@@ -242,6 +243,7 @@ app.post('/user/post', (req, res, next) => {
         userId = tokenData._id;
         // check user in token and in post is the same
         if (userId !== post.authorId) {
+            console.log('User in token must same as author in post:\n' + userId + '!==' + post.authorId);
             res.status(401).json({
                 message: 'Unauthorized'
             });
@@ -264,6 +266,7 @@ app.post('/user/post', (req, res, next) => {
                 // validate description
                 || post.description.length <= 0 || post.description.length > 500
             ) {
+                console.log('Validate post fail');
                 res.status(500).json({
                     message: 'Upload post fail!'
                 });
@@ -297,13 +300,15 @@ app.post('/user/post', (req, res, next) => {
                 // pass the post to insertOneToColection(), function will upload to server automaticaly
                 database.insertOneToColection(database.iTravelDB.Posts, post)
                     .then(() => {
-                        res.status(201).json({
-                            message: 'Upload post successfuly',
+                        console.log('Upload post to mongodb successfuly');
+                        res.status(200).json({
+                            message: 'Upload post successfuLly',
                             postId: post._id
                         });
                     })
                     .catch(() => {
-                        res.status(500).json({
+                        console.log('Upload post to mongodb fail');
+                        res.status(200).json({
                             message: 'Upload post fail!'
                         });
                     });
@@ -312,7 +317,13 @@ app.post('/user/post', (req, res, next) => {
     }
 });
 
-app.post('/user/update-post', (req, res) => {
+/**
+ * @name PUT-update-post
+ * @author Thong
+ * @param request
+ * @description receive request from serverService, include a postData need to update in requestBody
+ */
+app.put('/user/update-post', (req, res) => {
     // get updated-post from request
     const post = req.body;
     // get token from header
@@ -323,6 +334,7 @@ app.post('/user/update-post', (req, res) => {
     }
     // decode token
     if (token === undefined || token === null) {
+        console.log('Token can not null or undefined');
         res.status(401).json({
             message: 'Unauthorized'
         });
@@ -331,6 +343,7 @@ app.post('/user/update-post', (req, res) => {
         userId = tokenData._id;
         // check user in token and in post is the same
         if (userId !== post.authorId) {
+            console.log('User in token must same as author in post:\n' + userId + '!==' + post.authorId);
             res.status(401).json({
                 message: 'Unauthorized'
             });
@@ -353,7 +366,8 @@ app.post('/user/update-post', (req, res) => {
                 // validate description
                 || post.description.length <= 0 || post.description.length > 500
             ) {
-                res.status(401).json({
+                console.log('Validate post fail');
+                res.status(400).json({
                     message: 'Update post fail!'
                 });
             } else {
@@ -386,32 +400,72 @@ app.post('/user/update-post', (req, res) => {
                 for (const category of post.categories) {
                     category._id = new ObjectId(category._id);
                 }
-                // post.rating = 0;
                 post.status = 'PENDING';
+                post.location._id = new ObjectId(post.location._id);
                 // fix all complete
 
                 // create filter from id
                 const filterObj = { _id: new ObjectId(post._id) }
-                console.log(filterObj);
                 // pass the post to replayDocumentById(), function will replay by filter
                 database.replayDocumentById(database.iTravelDB.Posts, filterObj, post)
                     .then(() => {
-                        console.log('thanh cong');
-                        res.status(201).json({
-                            message: 'Update post successfuly',
+                        console.log('Update post to mongodb successfully');
+                        res.status(200).json({
+                            message: 'Update post successfully',
                             postId: post._id
                         });
                     })
                     .catch(() => {
+                        console.log('Update post to mongodb fail');
                         res.status(200).json({
                             message: 'Update post fail!'
                         });
-                        console.log('that bai');
                     });
             }
         }
     }
 });
+
+/**
+ * @name PATCH-new-comment
+ * @author Thong
+ * @param {string} postId
+ * @param {Comment[]} listComment use for update 
+ */
+app.patch('/user/send-comment', (req, res) => {
+    if (req.param('postId') === null || req.param('postId') === undefined || req.param('postId').length !== 24) {
+        res.status(200).json({
+            message: 'Invalid post Id'
+        })
+    }
+    else {
+        // in request has post Id, create query object from that
+        const queryObj = { _id: new ObjectId(req.param('postId')) }
+
+        // obj store all listComment for update
+        const newListComment = {
+            "comments": req.body
+        };
+
+        database.updateDocumentById(database.iTravelDB.Posts, queryObj, newListComment)
+            .then((updateResult) => {
+                // matchedCount is default result will be returned by mongodb
+                if (updateResult.matchedCount === 1) {
+                    res.status(201).json({
+                        message: 'Send Comment Success'
+                    });
+                } else {
+                    res.status(200).json({
+                        message: 'Not found post'
+                    });
+                }
+            })
+            .catch((err) => {
+                console.log('Send Comment Has Err');
+            })
+    }
+});
+
 
 /**
  * @author Thong

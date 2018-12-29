@@ -23,6 +23,8 @@ export class PostService {
     postContentChanged = new Subject();
     // Observable will emit event when has new alert, array string is location of message, always has length of 2
     newAlert = new Subject<string[]>();
+    // Observable will emit event when has new comment
+    newComment = new Subject<string>();
 
     // function get username from id
 

@@ -13,6 +13,7 @@ import { PostCategory } from 'src/app/model/postCategory.model';
 import { ProvinceCity } from 'src/app/model/province-city.model';
 import { Location } from 'src/app/model/location.model';
 import { ConstantService } from './constant.service';
+import { Comment } from 'src/app/model/comment.model';
 
 @Injectable({
   providedIn: 'root'
@@ -140,7 +141,7 @@ export class ServerService {
      * @description send POST-request to node server for update one post by id
      */
   updateOnePost(needUpdatePost: Post) {
-    return this.http.post<{ message: string, postId: string }>(this.HOST + 'user/update-post', needUpdatePost);
+    return this.http.put<{ message: string, postId: string }>(this.HOST + 'user/update-post', needUpdatePost);
   }
 
   /**
@@ -301,5 +302,11 @@ export class ServerService {
       };
       return this.http.patch(this.HOST + 'manager/deny-post', params);
     }
+  }
+
+  updatePostComments(postId: string, listComments: Comment[]) {
+    const listParams = new HttpParams().set('postId', postId);
+    return this.http.patch<{ message: string }>(this.HOST + 'user/send-comment', listComments,
+      { headers: this.httpOptions.headers, params: listParams });
   }
 }

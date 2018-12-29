@@ -217,11 +217,12 @@ export class CreatePostComponent implements OnInit {
           // save post, if id == '', => this is new post and need create new post
           // if id already exist, => this is old post and need update post
           if (this.postId === '') {
-            // fix some default infomation for post
+            // fix some default infomation for new post
             this.post._id = null;
             this.post.createdTime = new Date();
             this.post.approvedTime = null;
             this.post.authorId = this.user.currentUser._id;
+            console.log('user id trong service ' + this.user.currentUser._id);
             this.post.rating = 0;
             this.post.status = this.constant.POST_STATUS.PENDING;
             this.serverService.postOnePost(this.post)
@@ -233,10 +234,9 @@ export class CreatePostComponent implements OnInit {
               });
           } else if (this.postId.length === 24) {
             // save edited post
-            // fix some default infomation for post
+            // fix some default infomation for update post
             console.log('go to update //file create-post');
             this.post.approvedTime = null;
-            this.post.authorId = this.user.currentUser._id;
             this.post.status = this.constant.POST_STATUS.PENDING;
             this.serverService.updateOnePost(this.post)
               .subscribe((responseData) => {
@@ -433,6 +433,6 @@ export class CreatePostComponent implements OnInit {
   }
 
   onTest() {
-    this.router.navigate(['/create-post', '5c2448a50b1e032338c58b33']);
+    this.router.navigate(['/create-post', '5c25892843494715dccde240']);
   }
 }
