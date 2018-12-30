@@ -10,6 +10,7 @@ export class LocaleLanguage {
     headerQuestionToLogin: string;
     headerPersonalInfo: string;
     headerLogOut: string;
+    headerUserContribution: string;
 
     // For Login Component
     loginTitle: string;
@@ -201,6 +202,29 @@ export class LocaleLanguage {
     filterFullKeyword: string;
     filterFullRegion: string;
     filterFullFilter: string;
+
+    // For User
+    userPostManagementTitle: string;
+    userPostManagementApproved: string;
+    userPostManagementPending: string;
+    userPostManagementDenied: string;
+    userPostManagementAllPost: string;
+    userPostManagementEnterPostTitle: string;
+    userPostManagementTablePostName: string;
+    userPostManagementTablePostCreationTime: string;
+    userPostManagementTablePostCategories: string;
+    userPostManagementTablePostStatus: string;
+    userPostManagementTableAction: string;
+    userPostManagementEditTitle: string;
+    userPostManagementEditMessage: string;
+    userPostManagementEditCancel: string;
+    userPostManagementEditOK: string;
+    userPostManagementPostTimeTitle: string;
+    userPostManagementPostTimeOneWeek: string;
+    userPostManagementPostTimeOneMonth: string;
+    userPostManagementPostTimeAll: string;
+    userPostManagementListPostEmpty: string;
+
 
     constructor() { }
 }

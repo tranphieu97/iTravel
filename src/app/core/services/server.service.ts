@@ -304,9 +304,24 @@ export class ServerService {
     }
   }
 
+
   updatePostComments(postId: string, listComments: Comment[]) {
     const listParams = new HttpParams().set('postId', postId);
     return this.http.patch<{ message: string }>(this.HOST + 'user/send-comment', listComments,
       { headers: this.httpOptions.headers, params: listParams });
+  }
+
+  /**
+   * Get user post by UserId
+   * @name getPostByAuthorUser
+   * @author phieu-th
+   * @param userId
+   */
+  getPostByAuthorUser(userId: string): Observable<any> {
+    const params = {
+      userId: userId
+    };
+
+    return this.http.get(this.HOST + 'user/posts', { params: params});
   }
 }
