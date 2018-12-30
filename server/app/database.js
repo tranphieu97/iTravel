@@ -221,14 +221,14 @@ exports.getOneFromCollection = async (collectionName, filter) => {
 
 /**
  * Update only one document be chosen by filter with new properties
- * @name updateDocumentById
+ * @name updateDocumentByFilter
  * @async
  * @author phieu-th
  * @param {string} collectionName 
  * @param {object} documentFiler 
  * @param {object} changeProperties 
  */
-exports.updateDocumentById = async (collectionName, documentFiler, changeProperties) => {
+exports.updateDocumentByFilter = async (collectionName, documentFiler, changeProperties) => {
     var deferred = Q.defer();
 
     MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {
@@ -353,6 +353,42 @@ exports.countDocumentByFilter = async (collectionName, filter) => {
                         }
                     });
                 }
+            });
+
+            client.close();
+        }
+    });
+
+    return deferred.promise;
+}
+
+exports.getProjectCollectionDataByFilter = async (collectionName, filter, project) => {
+    var deferred = Q.defer();
+    var data = null;
+
+    MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {
+        if (err) {
+            console.log("Get Connection has an error: " + err.message);
+            deferred.reject(new Error(err));
+        } else {
+
+            var db = client.db(config.DB_NAME);
+
+            var collection = db.collection(collectionName, (err, collection) => {
+                if (err) {
+                    console.log('Error load ' + collectionName);
+                    deferred.reject(new Error(err));
+                }
+
+                var collectionData = collection.find(filter).project(project).toArray((err, result) => {
+                    if (err) {
+                        console.log('Error find filter data from collection ' + collectionName);
+                        deferred.reject(new Error(err));
+                    } else {
+                        data = result;
+                        deferred.resolve(data);
+                    }
+                });
             });
 
             client.close();

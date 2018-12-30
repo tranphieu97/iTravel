@@ -1129,6 +1129,59 @@ app.get('/user/profile', async (req, res) => {
     }
 });
 
+app.get('/user/posts', async (req, res) => {
+    const userId = req.param('userId');
+    let token = req.headers.authorization;
+
+    if (token !== undefined) {
+        token = token.split(' ')[1];
+    }
+
+    if (token === undefined || token === null) {
+        res.status(401).json({
+            message: 'Unauthorized'
+        });
+    } else {
+        const tokenData = jwt.verify(token, config.SECRET_KEY);
+
+        if (tokenData._id === undefined || tokenData._id !== userId) {
+            res.status(401).json({
+                message: 'Unauthorized'
+            });
+        } else {
+            const userPostsFilter = {
+                authorId: {
+                    $eq: userId
+                }
+            }
+            const projectionProperties = {
+                _id: 1,
+                title: 1,
+                categories: 1,
+                status: 1,
+                createdTime: 1,
+                approvedTime: 1
+            }
+            
+            database.getProjectCollectionDataByFilter(database.iTravelDB.Posts, userPostsFilter, projectionProperties)
+                .then((data) => {
+                    // Clean data to show
+                    data.forEach(post => {
+                        post.categories = post.categories.map(x => x.name);
+                    });
+
+                    res.status(200).json({
+                        message: 'Get User Post Success',
+                        data: data
+                    });
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        }
+    }
+})
+
 app.get('/manager/posts', async (req, res) => {
     let token = req.headers.authorization;
 
@@ -1249,7 +1302,7 @@ app.patch('/manager/approve-post', async (req, res) => {
                                         "status": status,
                                         "approvedTime": new Date()
                                     };
-                                    database.updateDocumentById(database.iTravelDB.Posts, idFilter, fieldChange)
+                                    database.updateDocumentByFilter(database.iTravelDB.Posts, idFilter, fieldChange)
                                         .then((updateResult) => {
                                             // matchedCount is defult result will be returned by mongodb
                                             if (updateResult.matchedCount === 1) {
@@ -1328,7 +1381,7 @@ app.patch('/manager/deny-post', async (req, res) => {
                                     const fieldChange = {
                                         "status": status
                                     };
-                                    database.updateDocumentById(database.iTravelDB.Posts, idFilter, fieldChange)
+                                    database.updateDocumentByFilter(database.iTravelDB.Posts, idFilter, fieldChange)
                                         .then((updateResult) => {
                                             // matchedCount is defult result will be returned by mongodb
                                             if (updateResult.matchedCount === 1) {

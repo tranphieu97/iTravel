@@ -302,4 +302,12 @@ export class ServerService {
       return this.http.patch(this.HOST + 'manager/deny-post', params);
     }
   }
+
+  getPostByAuthorUser(userId: string): Observable<any> {
+    const params = {
+      userId: userId
+    };
+
+    return this.http.get(this.HOST + 'user/posts', { params: params});
+  }
 }
