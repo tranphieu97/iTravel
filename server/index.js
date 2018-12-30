@@ -447,7 +447,7 @@ app.patch('/user/send-comment', (req, res) => {
             "comments": req.body
         };
 
-        database.updateDocumentById(database.iTravelDB.Posts, queryObj, newListComment)
+        database.updateDocumentByFilter(database.iTravelDB.Posts, queryObj, newListComment)
             .then((updateResult) => {
                 // matchedCount is default result will be returned by mongodb
                 if (updateResult.matchedCount === 1) {
