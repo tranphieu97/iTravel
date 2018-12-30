@@ -4,7 +4,7 @@
 		<g>
 			<path *ngFor="let province of listProvinces" [id]="province.provinceId" 
 					class="land" [attr.d]="province.mapId" (click)="setSelectProvince(province.provinceId)"
-			(mouseenter)="getPathInformation($event, province.provinceId)" (mouseleave)="leavePath()">
+					(mouseenter)="getPathInformation($event, province.provinceId)" (mouseleave)="leavePath()">
 			</path>
 		</g>
 	</svg>
