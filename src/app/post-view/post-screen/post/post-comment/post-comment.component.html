@@ -1,9 +1,15 @@
 <div class="row comp">
   <div class="col-md-12">
     <!-- add comment -->
-    <div class="row">
+    <div class="row" *ngIf="userService.currentUser._id">
       <div class="col-md-12">
         <app-add-comment></app-add-comment>
+      </div>
+    </div>
+    <!-- inform user login to comment -->
+    <div class="row" *ngIf="!userService.currentUser._id">
+      <div class="col-md-12">
+        <span class="inform">Login to send comment</span>
       </div>
     </div>
     <!-- show all comment -->

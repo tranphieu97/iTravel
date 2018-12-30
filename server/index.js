@@ -464,36 +464,102 @@ app.put('/user/update-post', (req, res) => {
  * @param {Comment[]} listComment use for update 
  */
 app.patch('/user/send-comment', (req, res) => {
-    if (req.param('postId') === null || req.param('postId') === undefined || req.param('postId').length !== 24) {
-        res.status(200).json({
-            message: 'Invalid post Id'
-        })
+    // get token from header
+    let token = req.headers.authorization;
+    let userId = '';
+    if (token !== undefined && token !== null) {
+        token = token.split(' ')[1];
     }
-    else {
-        // in request has post Id, create query object from that
-        const queryObj = { _id: new ObjectId(req.param('postId')) }
-
-        // obj store all listComment for update
-        const newListComment = {
-            "comments": req.body
-        };
-
-        database.updateDocumentById(database.iTravelDB.Posts, queryObj, newListComment)
-            .then((updateResult) => {
-                // matchedCount is default result will be returned by mongodb
-                if (updateResult.matchedCount === 1) {
-                    res.status(201).json({
-                        message: 'Send Comment Success'
-                    });
-                } else {
+    // decode and validate token
+    if (token === undefined || token === null) {
+        console.log('Token can not be null or undefined');
+        res.status(401).json({
+            message: 'Unauthorized'
+        });
+    } else {
+        // validate userId in token
+        const tokenData = jwt.verify(token, config.SECRET_KEY);
+        userId = tokenData._id;
+        if (userId.length !== 24) {
+            console.log('Invalid user in token');
+            res.status(401).json({
+                message: 'Unauthorized'
+            });
+        } else {
+            // pass validate token
+            // validate postId param
+            if (req.param('postId') === null || req.param('postId') === undefined || req.param('postId').length !== 24) {
+                res.status(200).json({
+                    message: 'Invalid post Id'
+                })
+            }
+            else {
+                // validate list comments use to update
+                if (req.body.length <= 0) {
                     res.status(200).json({
-                        message: 'Not found post'
-                    });
+                        message: 'Invalid list comments'
+                    })
+                } else {
+                    // validate the all comment
+                    for (const eachComment of req.body) {
+                        // validate some basic length
+                        if (eachComment.userId.length !== 24
+                            || eachComment.content.length <= 0
+                            || eachComment.content.length > 200) {
+                            console.log('validate comments fail');
+                            res.status(200).json({
+                                message: 'Invalid list comments'
+                            })
+                            return;
+                        }
+                        // validate id of user like and dislike
+                        for (const userId of eachComment.userLiked) {
+                            if (!userId || userId.length !== 24) {
+                                console.log('Invalid id of user liked');
+                                res.status(200).json({
+                                    message: 'Invalid list comments'
+                                })
+                                return;
+                            }
+                        }
+                        for (const userId of eachComment.userDisliked) {
+                            if (!userId || userId.length !== 24) {
+                                console.log('Invalid id of user disliked');
+                                res.status(200).json({
+                                    message: 'Invalid list comments'
+                                })
+                                return;
+                            }
+                        }
+                    }
+                    // pass the validate => go to update
+                    // obj store all listComment for update
+                    const newListComment = {
+                        "comments": req.body
+                    };
+
+                    // in request has post Id, create query object from that
+                    const queryObj = { _id: new ObjectId(req.param('postId')) }
+
+                    database.updateDocumentById(database.iTravelDB.Posts, queryObj, newListComment)
+                        .then((updateResult) => {
+                            // matchedCount is default result will be returned by mongodb
+                            if (updateResult.matchedCount === 1) {
+                                res.status(201).json({
+                                    message: 'Send Comment Success'
+                                });
+                            } else {
+                                res.status(200).json({
+                                    message: 'Not found post'
+                                });
+                            }
+                        })
+                        .catch((err) => {
+                            console.log('Send Comment Has Err');
+                        })
                 }
-            })
-            .catch((err) => {
-                console.log('Send Comment Has Err');
-            })
+            }
+        }
     }
 });
 
