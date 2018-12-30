@@ -3,7 +3,7 @@
     <!-- avatar and textarea -->
     <div class="row">
       <div class="pr-0 col-1">
-        <img src="assets/img/itravel.png" alt="avatar" class="img-fluid">
+        <img [src]="userService.currentUser.avatar" alt="avatar" class="img-fluid">
       </div>
       <div class="col-11">
         <textarea #commentContent rows="4" maxlength="200"></textarea>

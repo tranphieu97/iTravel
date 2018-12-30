@@ -1,6 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { post } from 'selenium-webdriver/http';
-import { Post } from 'src/app/model/post.model';
 import { Comment } from 'src/app/model/comment.model';
 import { ServerService } from 'src/app/core/services/server.service';
 import { UserService } from 'src/app/core/services/user.service';
@@ -54,7 +52,7 @@ export class CommentItemComponent implements OnInit {
 
   getAuthorAvatar() {
     if (this.commentAuthorInfo === undefined || this.commentAuthorInfo.avatar === '') {
-      this.commentAuthorAvatar = 'assets/img/itravel.png';
+      this.commentAuthorAvatar = 'assets/img/icons8-male-user-96.png';
     } else {
       this.commentAuthorAvatar = this.commentAuthorInfo.avatar;
     }
@@ -62,6 +60,10 @@ export class CommentItemComponent implements OnInit {
 
   onLikeComment() {
     // update on client
+    // always filtout the user from disliked list
+    this.commentItem.userDisliked = this.commentItem.userDisliked.filter((eachEle) => {
+      return eachEle !== this.userService.currentUser._id;
+    });
     // find the user already liked or not
     const duplicateId = this.commentItem.userLiked.find((eachEle) => {
       return eachEle === this.userService.currentUser._id;
@@ -74,6 +76,29 @@ export class CommentItemComponent implements OnInit {
     } else {
       // if not like yet => go to like
       this.commentItem.userLiked.push(this.userService.currentUser._id);
+    }
+    // update on server
+    this.postService.newLike.next();
+  }
+
+  onDislikeComment() {
+    // update on client
+    // always filtout the user from liked list
+    this.commentItem.userLiked = this.commentItem.userLiked.filter((eachEle) => {
+      return eachEle !== this.userService.currentUser._id;
+    });
+    // find the user already disliked or not
+    const duplicateId = this.commentItem.userDisliked.find((eachEle) => {
+      return eachEle === this.userService.currentUser._id;
+    });
+    // if disliked already => toggle to not like by filtout the userId from list userLiked
+    if (duplicateId) {
+      this.commentItem.userDisliked = this.commentItem.userDisliked.filter((eachEle) => {
+        return eachEle !== this.userService.currentUser._id;
+      });
+    } else {
+      // if not like yet => go to like
+      this.commentItem.userDisliked.push(this.userService.currentUser._id);
     }
     // update on server
     this.postService.newLike.next();

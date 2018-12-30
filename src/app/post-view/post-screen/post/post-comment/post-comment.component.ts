@@ -18,7 +18,7 @@ export class PostCommentComponent implements OnInit {
   ngOnInit() {
     this.postService.newComment.asObservable().subscribe((commentContent) => {
       // update on client
-      this.post.comments.push(new Comment(this.userService.currentUser._id, new Date(), commentContent, 0, [], ''));
+      this.post.comments.push(new Comment(this.userService.currentUser._id, new Date(), commentContent, [], [], '', []));
       // update on server
       this.serverService.updatePostComments(this.post._id, this.post.comments).subscribe(() => {
         // send comment success

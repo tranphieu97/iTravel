@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ServerService } from 'src/app/core/services/server.service';
 import { PostService } from 'src/app/core/services/post.service';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-add-comment',
@@ -9,7 +10,7 @@ import { PostService } from 'src/app/core/services/post.service';
 })
 export class AddCommentComponent implements OnInit {
 
-  constructor(private serverService: ServerService, private postService: PostService) { }
+  constructor(private userService: UserService, private postService: PostService) { }
 
   ngOnInit() {
   }
