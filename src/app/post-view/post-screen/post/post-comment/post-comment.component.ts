@@ -24,6 +24,13 @@ export class PostCommentComponent implements OnInit {
         // send comment success
       });
     });
+
+    this.postService.newLike.asObservable().subscribe(() => {
+      // update on server for new like
+      this.serverService.updatePostComments(this.post._id, this.post.comments).subscribe(() => {
+        // send comment success
+      });
+    });
   }
 
 }

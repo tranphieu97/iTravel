@@ -3,6 +3,8 @@ import { post } from 'selenium-webdriver/http';
 import { Post } from 'src/app/model/post.model';
 import { Comment } from 'src/app/model/comment.model';
 import { ServerService } from 'src/app/core/services/server.service';
+import { UserService } from 'src/app/core/services/user.service';
+import { PostService } from 'src/app/core/services/post.service';
 
 @Component({
   selector: 'app-comment-item',
@@ -16,7 +18,7 @@ export class CommentItemComponent implements OnInit {
   creationTimeString = '';
   commentAuthorAvatar = '';
 
-  constructor(private serverService: ServerService) { }
+  constructor(private serverService: ServerService, private userService: UserService, private postService: PostService) { }
 
   ngOnInit() {
     if (this.commentItem.userId !== undefined && this.commentItem.userId !== null) {
@@ -56,5 +58,24 @@ export class CommentItemComponent implements OnInit {
     } else {
       this.commentAuthorAvatar = this.commentAuthorInfo.avatar;
     }
+  }
+
+  onLikeComment() {
+    // update on client
+    // find the user already liked or not
+    const duplicateId = this.commentItem.userLiked.find((eachEle) => {
+      return eachEle === this.userService.currentUser._id;
+    });
+    // if liked already => toggle to not like by filtout the userId from list userLiked
+    if (duplicateId) {
+      this.commentItem.userLiked = this.commentItem.userLiked.filter((eachEle) => {
+        return eachEle !== this.userService.currentUser._id;
+      });
+    } else {
+      // if not like yet => go to like
+      this.commentItem.userLiked.push(this.userService.currentUser._id);
+    }
+    // update on server
+    this.postService.newLike.next();
   }
 }

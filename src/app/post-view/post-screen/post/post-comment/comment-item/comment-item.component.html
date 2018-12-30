@@ -15,6 +15,14 @@
         <div class="col-12 pr-0">
           <p>{{ commentItem.content }}</p>
         </div>
+        <!-- like, dislike and reply button -->
+        <div class="col-12">
+          <span class="btn fas fa-thumbs-up" (click)="onLikeComment()"></span>
+          <span class="btn no-pointer" *ngIf="commentItem.userLiked.length > 0">{{ commentItem.userLiked.length }}</span>
+          <span class="btn fas fa-thumbs-down"></span>
+          <span class="btn no-pointer" *ngIf="false">0</span>
+          <span class="btn">REPLY</span>
+        </div>
       </div>
     </div>
   </div>
