@@ -3,7 +3,7 @@
     <div class="row">
       <!-- Avatar on the left -->
       <div class="col-1 pr-0">
-        <img src="assets/img/itravel.png" alt="Avatar" class="img-fluid">
+        <img [src]="commentAuthorAvatar" alt="Avatar" class="img-fluid">
       </div>
       <!-- right part -->
       <div class="col-11 pl-0">
@@ -14,6 +14,14 @@
         <!-- comment content -->
         <div class="col-12 pr-0">
           <p>{{ commentItem.content }}</p>
+        </div>
+        <!-- like, dislike and reply button -->
+        <div class="col-12">
+          <span class="btn fas fa-thumbs-up" (click)="onLikeComment()"></span>
+          <span class="btn no-pointer" *ngIf="commentItem.userLiked.length > 0">{{ commentItem.userLiked.length }}</span>
+          <span class="btn fas fa-thumbs-down" (click)="onDislikeComment()"></span>
+          <span class="btn no-pointer" *ngIf="commentItem.userDisliked.length > 0">{{commentItem.userDisliked.length}}</span>
+          <span class="btn">REPLY</span>
         </div>
       </div>
     </div>

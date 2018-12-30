@@ -25,6 +25,8 @@ export class PostService {
     newAlert = new Subject<string[]>();
     // Observable will emit event when has new comment
     newComment = new Subject<string>();
+    // Observable will emit event when user like comment
+    newLike = new Subject();
 
     // function get username from id
 

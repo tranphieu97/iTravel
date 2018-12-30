@@ -12,13 +12,15 @@
             color: blue;
         }
     }
-    // .no-padding-right {
-    //     padding-right: 0px;
-    // }
-    // .no-padding-left {
-    //     padding-left: 0px;
-    // }
+    .btn {
+        font-size: 17px;
+        font-weight: bold;
+        color: gray;
+    }
     .comp {
         padding-bottom: 15px;
+    }
+    .no-pointer {
+        cursor: default;
     }
 }

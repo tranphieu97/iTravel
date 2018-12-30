@@ -304,10 +304,25 @@ export class ServerService {
     }
   }
 
-
+  /**
+   * @author Thong
+   * @param postId use to find the post need add new comment
+   * @param listComments use to update replay the old listComment
+   */
   updatePostComments(postId: string, listComments: Comment[]) {
     const listParams = new HttpParams().set('postId', postId);
     return this.http.patch<{ message: string }>(this.HOST + 'user/send-comment', listComments,
+      { headers: this.httpOptions.headers, params: listParams });
+  }
+
+  /**
+   * @name getUserBasicInfo()
+   * @author Thong
+   * @param userId use to find the user to get back firstName, lastName and avatar
+   */
+  getUserBasicInfo(userId: string) {
+    const listParams = new HttpParams().set('userId', userId);
+    return this.http.get<{ message: string, data: any }>(this.HOST + 'api/user-info',
       { headers: this.httpOptions.headers, params: listParams });
   }
 
@@ -322,6 +337,6 @@ export class ServerService {
       userId: userId
     };
 
-    return this.http.get(this.HOST + 'user/posts', { params: params});
+    return this.http.get(this.HOST + 'user/posts', { params: params });
   }
 }
