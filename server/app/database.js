@@ -271,7 +271,7 @@ exports.updateDocumentById = async (collectionName, documentFiler, changePropert
  * @description replay a document by new one, keep the same id
  * @param {string} collectionName
  * @param {object} documentFiler the object filter use to find the old document need replay
- * @param {Post} changeDocument // new document use to replay the old one
+ * @param {Post} changeDocument new document use to replay the old one
  */
 exports.replayDocumentById = async (collectionName, documentFiler, changeDocument) => {
     var deferred = Q.defer();
@@ -301,6 +301,51 @@ exports.replayDocumentById = async (collectionName, documentFiler, changeDocumen
                     console.log(e.message);
                     deferred.reject(new Error(e));
                 }
+            });
+
+            client.close();
+        }
+    });
+
+    return deferred.promise;
+}
+
+/**
+ * @name getOneWithProjection
+ * @author Thong
+ * @description get one document of a collection, user filter to find document, 
+ * use projection to filtout collumns do not need
+ * @param {string} collectionName
+ * @param {object} filter the object filter use to find the true document
+ * @param {object} projectionObj use to choose collumns to return
+ */
+exports.getOneWithProjection = async (collectionName, filter, projectionObj) => {
+    var deferred = Q.defer();
+    var data = null;
+
+    MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {
+        if (err) {
+            console.log("Get Connection has an error: " + err.message);
+            deferred.reject(new Error(err));
+        } else {
+
+            var db = client.db(config.DB_NAME);
+
+            var collection = db.collection(collectionName, (err, collection) => {
+                if (err) {
+                    console.log('Error load ' + collectionName);
+                    return null;
+                }
+
+                var collectionData = collection.findOne(filter, projectionObj, (err, result) => {
+                    if (err) {
+                        console.log('Error find filter data from collection ' + collectionName);
+                        return null;
+                    } else {
+                        data = result;
+                        deferred.resolve(data);
+                    }
+                });
             });
 
             client.close();

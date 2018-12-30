@@ -179,6 +179,37 @@ app.get('/api/cardview-post', (req, res) => {
     });
 });
 
+app.get('/api/user-info', (req, res) => {
+    if (req.param('userId') === null || req.param('userId') === undefined || req.param('userId').length !== 24) {
+        res.status(200).json({
+            message: 'Invalid user Id'
+        })
+    }
+    else {
+        // in request has post Id, create query object from that
+        const queryObj = { _id: new ObjectId(req.param('userId')) }
+        // console.log(queryObj);
+
+        // create projection object to return only id, username, avatar
+        const projectionObj = { projection: { _id: 1, firstName: 1, lastName: 1, avatar: 1 } }
+        // console.log(projectionObj);
+
+        database.getOneWithProjection(database.iTravelDB.Users, queryObj, projectionObj)
+            .then((receiceData) => {
+                if (receiceData !== null && receiceData !== undefined) {
+                    res.status(200).json({
+                        message: 'Get userinfo successfully!',
+                        data: receiceData // because receiceData is an array
+                    })
+                } else {
+                    res.status(200).json({
+                        message: 'Failed! Can not find userinfo'
+                    })
+                }
+            });
+    }
+});
+
 /**
  * @name GET-one-post
  * @author Thong
