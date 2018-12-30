@@ -37,6 +37,7 @@ export class LanguageService {
     this.vnLanguage.headerSearch = 'Tìm kiếm';
     this.vnLanguage.headerPersonalInfo = 'Thông tin cá nhân';
     this.vnLanguage.headerLogOut = 'Đăng xuất';
+    this.vnLanguage.headerUserContribution = 'Đóng góp';
 
     // For Login
     this.vnLanguage.loginTitle = 'ĐĂNG NHẬP';
@@ -228,6 +229,28 @@ export class LanguageService {
     this.vnLanguage.filterFullKeyword = 'Từ khóa';
     this.vnLanguage.filterFullRegion = 'Vùng miền';
     this.vnLanguage.filterFullFilter = 'Lọc';
+
+    // For User Module
+    this.vnLanguage.userPostManagementTitle = 'Bài viết đóng góp';
+    this.vnLanguage.userPostManagementApproved = 'Đã duyệt';
+    this.vnLanguage.userPostManagementPending = 'Đang chờ';
+    this.vnLanguage.userPostManagementDenied = 'Từ chối';
+    this.vnLanguage.userPostManagementAllPost = 'Tất cả';
+    this.vnLanguage.userPostManagementEnterPostTitle = 'Nhập tên bài viết';
+    this.vnLanguage.userPostManagementTablePostName = 'Tên bài viết';
+    this.vnLanguage.userPostManagementTablePostCreationTime = 'Thời gian';
+    this.vnLanguage.userPostManagementTablePostCategories = 'Thể loại';
+    this.vnLanguage.userPostManagementTablePostStatus = 'Trạng thái';
+    this.vnLanguage.userPostManagementTableAction = 'Hành động';
+    this.vnLanguage.userPostManagementEditTitle = 'Cập nhật bài viết';
+    this.vnLanguage.userPostManagementEditMessage = 'Cập nhật nội dung bài viết sẽ đưa bài viết vào trạng thái chờ phệ duyệt';
+    this.vnLanguage.userPostManagementEditCancel = 'Hủy';
+    this.vnLanguage.userPostManagementEditOK = 'OK';
+    this.vnLanguage.userPostManagementPostTimeTitle = 'Thời gian viết bài';
+    this.vnLanguage.userPostManagementPostTimeOneWeek = 'Trong một tuần';
+    this.vnLanguage.userPostManagementPostTimeOneMonth = 'Trong một tháng';
+    this.vnLanguage.userPostManagementPostTimeAll = 'Tất cả';
+    this.vnLanguage.userPostManagementListPostEmpty = 'Không có bài viết trong danh sách';
   }
 
   /**
@@ -246,6 +269,7 @@ export class LanguageService {
     this.enLanguage.headerSearch = 'Search';
     this.enLanguage.headerPersonalInfo = 'Personal Information';
     this.enLanguage.headerLogOut = 'Sign Out';
+    this.enLanguage.headerUserContribution = 'Contribution';
 
     // For Login Component
     this.enLanguage.loginTitle = 'SIGN IN';
@@ -437,6 +461,28 @@ export class LanguageService {
     this.enLanguage.filterFullKeyword = 'Keyword';
     this.enLanguage.filterFullRegion = 'Region';
     this.enLanguage.filterFullFilter = 'Filter';
+
+    // For User Module
+    this.enLanguage.userPostManagementTitle = 'Contribution Posts';
+    this.enLanguage.userPostManagementApproved = 'Approved';
+    this.enLanguage.userPostManagementPending = 'Pending';
+    this.enLanguage.userPostManagementDenied = 'Denied';
+    this.enLanguage.userPostManagementAllPost = 'All Post';
+    this.enLanguage.userPostManagementEnterPostTitle = 'Enter Post\'s title';
+    this.enLanguage.userPostManagementTablePostName = 'Title';
+    this.enLanguage.userPostManagementTablePostCreationTime = 'Creation Time';
+    this.enLanguage.userPostManagementTablePostCategories = 'Categories';
+    this.enLanguage.userPostManagementTablePostStatus = 'Status';
+    this.enLanguage.userPostManagementTableAction = 'Action';
+    this.enLanguage.userPostManagementEditTitle = 'Edit Post';
+    this.enLanguage.userPostManagementEditMessage = 'Edit Post\'s content will send it to pending list';
+    this.enLanguage.userPostManagementEditCancel = 'Cancel';
+    this.enLanguage.userPostManagementEditOK = 'Ok';
+    this.enLanguage.userPostManagementPostTimeTitle = 'Creation Time ';
+    this.enLanguage.userPostManagementPostTimeOneWeek = 'In a week';
+    this.enLanguage.userPostManagementPostTimeOneMonth = 'In a month';
+    this.enLanguage.userPostManagementPostTimeAll = 'All time';
+    this.enLanguage.userPostManagementListPostEmpty = 'List Posts is empty';
   }
 
   /**

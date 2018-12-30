@@ -315,9 +315,28 @@ export class ServerService {
       { headers: this.httpOptions.headers, params: listParams });
   }
 
+  /**
+   * @name getUserBasicInfo()
+   * @author Thong
+   * @param userId use to find the user to get back firstName, lastName and avatar
+   */
   getUserBasicInfo(userId: string) {
     const listParams = new HttpParams().set('userId', userId);
     return this.http.get<{ message: string, data: any }>(this.HOST + 'api/user-info',
       { headers: this.httpOptions.headers, params: listParams });
+  }
+
+  /**
+   * Get user post by UserId
+   * @name getPostByAuthorUser
+   * @author phieu-th
+   * @param userId
+   */
+  getPostByAuthorUser(userId: string): Observable<any> {
+    const params = {
+      userId: userId
+    };
+
+    return this.http.get(this.HOST + 'user/posts', { params: params });
   }
 }

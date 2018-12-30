@@ -48,6 +48,7 @@
         <img [src]="this.user.currentUser.avatar" (click)="changeHeaderFlagByFlagName('isShowUserTool')" id="user-avatar">
         <div [ngClass]="{'dropdown-menu': true, 'dropdown-show':headerFlags.isShowUserTool}" id="user-dropdown">
             <a class="dropdown-item" [routerLink]="['/user/profile']" routerLinkActive="router-link-active" >{{language.currentLanguage.headerPersonalInfo}}</a>
+            <a class="dropdown-item" [routerLink]="['/user/posts']" routerLinkActive="router-link-active" >{{language.currentLanguage.headerUserContribution}}</a>
             <a class="dropdown-item" (click)="this.user.logOut()">{{language.currentLanguage.headerLogOut}}</a>
         </div>
     </div>

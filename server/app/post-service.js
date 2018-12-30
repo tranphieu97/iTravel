@@ -22,7 +22,7 @@ exports.countViewPost = async (postId) => {
                     const updateViewAmount = {
                         "viewAmount": currentViewAmount,
                     };
-                    database.updateDocumentById(database.iTravelDB.Posts, idFilter, updateViewAmount)
+                    database.updateDocumentByFilter(database.iTravelDB.Posts, idFilter, updateViewAmount)
                         .then()
                         .catch((err) => {
                             console.log(err);
