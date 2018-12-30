@@ -53,4 +53,5 @@ export class IndexComponent implements OnInit {
       this.masterPage.selectedProvince = this.constant.ALL_PROVINCE;
     });
   }
+
 }

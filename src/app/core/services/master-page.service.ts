@@ -11,18 +11,22 @@ import { LanguageService } from './language.service';
 })
 export class MasterPageService {
 
+  // For NavigationBar
   isShowFullNavBar: Boolean = false;
-  listProvinces: ProvinceCity[] = [];
-  listMenu: Menu[];
 
+  // listMenu: Menu[];
+
+  // For Home page
+  listProvinces: ProvinceCity[] = [];
   hasChangeSelectedProvince: Subject<any> = new Subject<any>();
   selectedProvince: string;
 
+  // For Policies page
   vnPolicies: Policy[];
   enPolicies: Policy[];
-
   currentLanguagePolicies: Policy[];
 
+  // For Search
   searchKeyword = '';
 
   constructor(private server: ServerService, private language: LanguageService) {
