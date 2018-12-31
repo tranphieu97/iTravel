@@ -10,22 +10,22 @@
       <form class="form-inline">
         <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="chosenKindOfPost">
           <label ngbButtonLabel class="btn-primary">
-            <input ngbButton (click)="filterListPostByPostStatus('ANY')" type="radio" [value]="flagKindOfPost.all"> {{language.currentLanguage.userPostManagementAllPost}}
+            <input ngbButton (click)="filterListPostByPostStatus('ANY')" type="radio" [value]="FLAG_KIND_OF_POST.ALL"> {{language.currentLanguage.userPostManagementAllPost}}
           </label>
           <label ngbButtonLabel class="btn-success">
-            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.APPROVED)" type="radio" [value]="flagKindOfPost.approved">{{language.currentLanguage.userPostManagementApproved}}
+            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.APPROVED)" type="radio" [value]="FLAG_KIND_OF_POST.APPROVED">{{language.currentLanguage.userPostManagementApproved}}
           </label>
           <label ngbButtonLabel class="btn-warning">
-            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.PENDING)" type="radio" value="flagKindOfPost.pending">{{language.currentLanguage.userPostManagementPending}}
+            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.PENDING)" type="radio" value="FLAG_KIND_OF_POST.PENDING">{{language.currentLanguage.userPostManagementPending}}
           </label>
           <label ngbButtonLabel class="btn-danger">
-            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.DENY)" type="radio" [value]="flagKindOfPost.denied">{{language.currentLanguage.userPostManagementDenied}}
+            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.DENY)" type="radio" [value]="FLAG_KIND_OF_POST.DENIED">{{language.currentLanguage.userPostManagementDenied}}
           </label>
         </div>
 
         <div class="form-group">
           <label class="control-title">{{language.currentLanguage.userPostManagementTablePostName}}:</label>
-          <input class="form-control" type="text" [placeholder]="language.currentLanguage.userPostManagementEnterPostTitle">
+          <input name="post-title" (input)="filterListPostByTypingKeyWord()" [(ngModel)]="searchKeyword" class="form-control" type="text" [placeholder]="language.currentLanguage.userPostManagementEnterPostTitle">
         </div>
         <div class="form-group">
           <div ngbDropdown class="d-inline-block">

@@ -14,13 +14,19 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class UserPostManagementComponent implements OnInit {
 
-  flagKindOfPost: any = {
-    all: 'All',
-    approved: this.constant.POST_STATUS.APPROVED,
-    pending: this.constant.POST_STATUS.PENDING,
-    denied: this.constant.POST_STATUS.DENY
+  FLAG_KIND_OF_POST: any = {
+    ALL: 'All',
+    APPROVED: this.constant.POST_STATUS.APPROVED,
+    PENDING: this.constant.POST_STATUS.PENDING,
+    DENIED: this.constant.POST_STATUS.DENY
   };
-  chosenKindOfPost = this.flagKindOfPost.all;
+  chosenKindOfPost = this.FLAG_KIND_OF_POST.all;
+
+  FLAG_KIND_OF_TIME: any = {
+    ALL: 0,
+    ONE_WEEK: 1,
+    ONE_MONTH: 2
+  };
 
   hasError: Boolean = false;
   errorMessage: String = '';
@@ -29,6 +35,8 @@ export class UserPostManagementComponent implements OnInit {
   listShowPost: any = [];
 
   postViewId: string;
+
+  searchKeyword: String = '';
 
   constructor(private language: LanguageService, private constant: ConstantService, private server: ServerService,
     private user: UserService, private modalService: NgbModal, private router: Router) { }
@@ -92,10 +100,10 @@ export class UserPostManagementComponent implements OnInit {
       || postStatusFilter === this.constant.POST_STATUS.PENDING) {
       this.listShowPost = [];
       this.listShowPost = this.listAllPost.filter(post => post.status === postStatusFilter);
-      this.chosenKindOfPost = this.flagKindOfPost.postStatusFilter;
+      this.chosenKindOfPost = this.FLAG_KIND_OF_POST.postStatusFilter;
     } else {
       this.listShowPost = this.listAllPost;
-      this.chosenKindOfPost = this.flagKindOfPost.all;
+      this.chosenKindOfPost = this.FLAG_KIND_OF_POST.all;
     }
   }
 
@@ -110,7 +118,7 @@ export class UserPostManagementComponent implements OnInit {
     if (startDate <= endDate) {
       this.listShowPost = this.listAllPost.filter(post => new Date(post.createdTime) >= startDate
         && new Date(post.createdTime) <= endDate
-        && (post.status === this.chosenKindOfPost || this.chosenKindOfPost === this.flagKindOfPost.all));
+        && (post.status === this.chosenKindOfPost || this.chosenKindOfPost === this.FLAG_KIND_OF_POST.all));
     }
   }
 
@@ -122,5 +130,14 @@ export class UserPostManagementComponent implements OnInit {
    */
   sortPostArrayByDate(arr: any) {
     arr = arr.sort((item1, item2) => new Date(item2.createdTime).valueOf() - new Date(item1.createdTime).valueOf());
+  }
+
+  /**
+   * Filter list is showing post by user typing keyword
+   * @name filterListPostByKeyWord
+   * @author phieu-th
+   */
+  filterListPostByTypingKeyWord() {
+    this.listShowPost = this.listAllPost.filter(x => x.title.toLowerCase().indexOf(this.searchKeyword.valueOf().toLowerCase()) !== -1);
   }
 }
