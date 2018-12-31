@@ -163,4 +163,14 @@ export class VietNamMapComponent implements OnInit {
     }
     this.masterPage.hasChangeSelectedProvince.next();
   }
+
+  getCountAmountPostOfProvince(provinceName: string): number {
+    const provincePostInfo = this.masterPage.listProvinceCountPost.find(x => x.provinceName === provinceName);
+
+    if (provincePostInfo.countAmountOfPost !== undefined) {
+      return provincePostInfo.countAmountOfPost;
+    } else {
+      return 0;
+    }
+  }
 }
