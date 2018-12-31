@@ -164,6 +164,12 @@ export class VietNamMapComponent implements OnInit {
     this.masterPage.hasChangeSelectedProvince.next();
   }
 
+  /**
+   * Return amount of post in a province
+   * @name getCountAmountPostOfProvince
+   * @author phieu-th
+   * @param provinceName
+   */
   getCountAmountPostOfProvince(provinceName: string): number {
     const provincePostInfo = this.masterPage.listProvinceCountPost.find(x => x.provinceName === provinceName);
 
