@@ -218,25 +218,24 @@ app.get('/api/user-info', (req, res) => {
  * then query the post has that Id
  */
 app.get('/api/post', (req, res) => {
-    if (req.param('postId') === null || req.param('postId') === undefined || req.param('postId').length !== 24) {
+    if (!req.param('postId') || req.param('postId').length !== 24) {
         res.status(200).json({
             message: 'Invalid post Id'
         })
-    }
-    else {
+    } else {
         // in request has post Id, create query object from that
         const queryObj = { _id: new ObjectId(req.param('postId')) }
 
         //
         postService.countViewPost(req.param('postId'));
         //
-
         database.getCollectionFilterData(database.iTravelDB.Posts, queryObj)
-            .then((receiceData) => {
-                if (receiceData !== null && receiceData !== undefined && receiceData.length > 0) {
+            .then(([post]) => {
+                if (post) {
+                    console.log('Get one post by id successfuly!');
                     res.status(200).json({
                         message: 'Get one post by id successfuly!',
-                        data: receiceData[0] // because receiceData is an array
+                        data: post
                     })
                 } else {
                     res.status(200).json({
@@ -244,6 +243,7 @@ app.get('/api/post', (req, res) => {
                     })
                 }
             });
+
     }
 });
 

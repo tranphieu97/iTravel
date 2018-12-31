@@ -3,6 +3,8 @@ import { Post } from 'src/app/model/post.model';
 import { ServerService } from 'src/app/core/services/server.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Location } from 'src/app/model/location.model';
+import { UserService } from 'src/app/core/services/user.service';
+import { ConstantService } from 'src/app/core/services/constant.service';
 
 @Component({
   selector: 'app-post',
@@ -18,7 +20,8 @@ export class PostComponent implements OnInit, OnChanges {
   downloadPostCompleted = false;
   @Input() postId: string;
 
-  constructor(private serverService: ServerService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private serverService: ServerService, private userService: UserService,
+    private router: Router, private constant: ConstantService) { }
 
   ngOnInit() {
     // this.route.params.subscribe((params: Params) => {
@@ -33,6 +36,7 @@ export class PostComponent implements OnInit, OnChanges {
   }
 
   getPostByPostId() {
+
     // check valid post Id or not
     if (this.postId.length !== 24) {
       // invalid => not-found
@@ -41,11 +45,16 @@ export class PostComponent implements OnInit, OnChanges {
       // check if id changed, go getOnePost to reload the post
       if (this.postId !== this.post._id) {
         this.serverService.getOnePost(this.postId).subscribe((resData) => {
-          if (resData.data !== null && resData.data !== undefined) {
+          if (resData.data) {
+            // validate post status, if not  approved => only admin and author can read
+            if (resData.data.status !== this.constant.POST_STATUS.APPROVED) {
+              // if user not admin and also not the author of post
+              if (this.userService.currentUser.permission !== 'Admin' && this.userService.currentUser._id !== resData.data.authorId) {
+                this.router.navigate(['/not-found']);
+              }
+            }
             this.post = resData.data;
             this.downloadPostCompleted = true;
-            // convert some data to string to show on view
-            // console.log(this.post.status);
             this.getPostAuthorName();
             this.getPostCreateTimeString();
           } else {
