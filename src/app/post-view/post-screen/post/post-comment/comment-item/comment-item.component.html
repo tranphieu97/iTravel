@@ -1,12 +1,11 @@
 <div class="row comp">
   <div class="col-12">
-    <div class="row">
+    <div class="row m-0">
       <!-- Avatar on the left -->
-      <div class="col-1 pr-0">
-        <img [src]="commentAuthorAvatar" alt="Avatar" class="img-fluid">
+      <div class="rounded-circle avatar" [ngStyle]="{'background-image': 'url(' + commentAuthorAvatar + ')'}">
       </div>
       <!-- right part -->
-      <div class="col-11 pl-0">
+      <div class="col pl-0">
         <!-- Username and time -->
         <div class="col-12">
           <p><span>{{ commentAuthorName }}</span> - {{ creationTimeString }}</p>
@@ -16,7 +15,7 @@
           <p>{{ commentItem.content }}</p>
         </div>
         <!-- like, dislike and reply button -->
-        <div class="col-12">
+        <div class="col-12" *ngIf="userService.currentUser._id">
           <span class="btn fas fa-thumbs-up" (click)="onLikeComment()"></span>
           <span class="btn no-pointer" *ngIf="commentItem.userLiked.length > 0">{{ commentItem.userLiked.length }}</span>
           <span class="btn fas fa-thumbs-down" (click)="onDislikeComment()"></span>

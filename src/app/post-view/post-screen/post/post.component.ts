@@ -3,6 +3,8 @@ import { Post } from 'src/app/model/post.model';
 import { ServerService } from 'src/app/core/services/server.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Location } from 'src/app/model/location.model';
+import { UserService } from 'src/app/core/services/user.service';
+import { ConstantService } from 'src/app/core/services/constant.service';
 
 @Component({
   selector: 'app-post',
@@ -12,13 +14,15 @@ import { Location } from 'src/app/model/location.model';
 export class PostComponent implements OnInit, OnChanges {
   // local post receive data from server
   // it should has init data until receiving data from server so browser will not has error
-  post: Post = new Post(null, null, [], [], '', '', '', new Location('', [], '', ''), [], 0, '', [], '');
-  postAuthorName = 'Thong';
+  post: Post = new Post(null, null, [], [], '', '', '', new Location('', [], '', ''), [], [], '', [], '');
+  postAuthorName = '';
   postCreateTime = '';
   downloadPostCompleted = false;
+  authorInfo: { firstName: string, lastName: string, avatar: string };
   @Input() postId: string;
 
-  constructor(private serverService: ServerService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private serverService: ServerService, private userService: UserService,
+    private router: Router, private constant: ConstantService) { }
 
   ngOnInit() {
     // this.route.params.subscribe((params: Params) => {
@@ -33,6 +37,7 @@ export class PostComponent implements OnInit, OnChanges {
   }
 
   getPostByPostId() {
+
     // check valid post Id or not
     if (this.postId.length !== 24) {
       // invalid => not-found
@@ -41,11 +46,16 @@ export class PostComponent implements OnInit, OnChanges {
       // check if id changed, go getOnePost to reload the post
       if (this.postId !== this.post._id) {
         this.serverService.getOnePost(this.postId).subscribe((resData) => {
-          if (resData.data !== null && resData.data !== undefined) {
+          if (resData.data) {
+            // validate post status, if not  approved => only admin and author can read
+            if (resData.data.status !== this.constant.POST_STATUS.APPROVED) {
+              // if user not admin and also not the author of post
+              if (this.userService.currentUser.permission !== 'Admin' && this.userService.currentUser._id !== resData.data.authorId) {
+                this.router.navigate(['/not-found']);
+              }
+            }
             this.post = resData.data;
             this.downloadPostCompleted = true;
-            // convert some data to string to show on view
-            // console.log(this.post.status);
             this.getPostAuthorName();
             this.getPostCreateTimeString();
           } else {
@@ -62,7 +72,19 @@ export class PostComponent implements OnInit, OnChanges {
   }
 
   getPostAuthorName() {
-    this.postAuthorName = 'Minh Thông';
+    this.serverService.getUserBasicInfo(this.post.authorId).subscribe((resData) => {
+      if (resData.data) {
+        this.authorInfo = resData.data;
+        if (this.authorInfo.firstName) {
+          this.postAuthorName += this.authorInfo.firstName;
+        }
+        if (this.authorInfo.lastName) {
+          this.postAuthorName += ' ' + this.authorInfo.lastName;
+        }
+      } else {
+        this.postAuthorName = 'Minh Thông';
+      }
+    });
   }
 
   getPostCreateTimeString() {

@@ -36,10 +36,16 @@ export class CommentItemComponent implements OnInit {
   }
 
   getCommentAuthorName() {
-    if (this.commentAuthorInfo !== null && this.commentAuthorInfo !== undefined) {
-      this.commentAuthorName = this.commentAuthorInfo.firstName + ' ' + this.commentAuthorInfo.lastName;
+    if (this.commentAuthorInfo) {
+      // this.commentAuthorName = this.commentAuthorInfo.firstName + ' ' + this.commentAuthorInfo.lastName;
+      if (this.commentAuthorInfo.firstName) {
+        this.commentAuthorName += this.commentAuthorInfo.firstName;
+      }
+      if (this.commentAuthorInfo.lastName) {
+        this.commentAuthorName += ' ' + this.commentAuthorInfo.lastName;
+      }
     } else {
-      this.commentAuthorName = 'MyComment';
+      this.commentAuthorName = 'Minh Thông';
     }
   }
 

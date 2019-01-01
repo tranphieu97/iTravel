@@ -1,11 +1,13 @@
 <div class="row">
   <div class="col-12">
     <!-- avatar and textarea -->
-    <div class="row">
-      <div class="pr-0 col-1">
-        <img [src]="commentAuthorAvatar" alt="avatar" class="img-fluid">
+    <div class="row m-0">
+      <!-- <div class="">
+        <img [src]="commentAuthorAvatar" alt="avatar" class="img-fluid rounded-circle">
+      </div> -->
+      <div class="rounded-circle avatar" [ngStyle]="{'background-image': 'url(' + commentAuthorAvatar + ')'}">
       </div>
-      <div class="col-11">
+      <div class="col pr-0">
         <textarea #commentContent rows="4" maxlength="200"></textarea>
       </div>
     </div>

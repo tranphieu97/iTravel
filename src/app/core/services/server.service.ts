@@ -14,6 +14,7 @@ import { ProvinceCity } from 'src/app/model/province-city.model';
 import { Location } from 'src/app/model/location.model';
 import { ConstantService } from './constant.service';
 import { Comment } from 'src/app/model/comment.model';
+import { PostRating } from 'src/app/model/post-rating.model';
 
 @Injectable({
   providedIn: 'root'
@@ -307,11 +308,22 @@ export class ServerService {
   /**
    * @author Thong
    * @param postId use to find the post need add new comment
-   * @param listComments use to update replay the old listComment
+   * @param listComments use to update replace the old listComment
    */
   updatePostComments(postId: string, listComments: Comment[]) {
     const listParams = new HttpParams().set('postId', postId);
     return this.http.patch<{ message: string }>(this.HOST + 'user/send-comment', listComments,
+      { headers: this.httpOptions.headers, params: listParams });
+  }
+
+  /**
+   * @author Thong
+   * @param postId use to find the post need add new rating
+   * @param listRating use to update replace the old listRating
+   */
+  updatePostRating(postId: string, listRating: PostRating[]) {
+    const listParams = new HttpParams().set('postId', postId);
+    return this.http.patch<{ message: string }>(this.HOST + 'user/send-rating', listRating,
       { headers: this.httpOptions.headers, params: listParams });
   }
 

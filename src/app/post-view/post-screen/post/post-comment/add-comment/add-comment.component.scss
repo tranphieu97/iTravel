@@ -8,15 +8,11 @@
         border-radius: 0.25rem;
         background-color: lightgray;
     }
-    img {
-        background-color: black;
-        border-radius: 0.25rem;
-    } // .no-padding-right {
-    //     padding-right: 0px;
-    // }
-    // .no-padding-left {
-    //     padding-left: 0px;
-    // }
+    .avatar {
+        height: 54px;
+        width: 54px;
+        background-size: cover;
+    }
     button {
         margin-top: 10px;
         font-size: 17px;
