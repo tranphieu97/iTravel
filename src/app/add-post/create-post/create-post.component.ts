@@ -16,7 +16,7 @@ import { LanguageService } from 'src/app/core/services/language.service';
 export class CreatePostComponent implements OnInit {
   // local post receive data from service
   // it should has init data until receiving data from server so browser will not has error
-  post: Post = new Post(null, null, [], [], '', '', '', new Location('', [], '', ''), [], 0, '', [], '');
+  post: Post = new Post(null, null, [], [], '', '', '', new Location('', [], '', ''), [], [], '', [], '');
   // if postId == '' => create new post
   // if postId != '' => edit post
   postId = '';
@@ -223,7 +223,7 @@ export class CreatePostComponent implements OnInit {
             this.post.approvedTime = null;
             this.post.authorId = this.user.currentUser._id;
             console.log('user id trong service ' + this.user.currentUser._id);
-            this.post.rating = 0;
+            this.post.rating = [];
             this.post.status = this.constant.POST_STATUS.PENDING;
             this.serverService.postOnePost(this.post)
               .subscribe((responseData) => {
@@ -272,7 +272,7 @@ export class CreatePostComponent implements OnInit {
   onCancel() {
     // on create new post
     // this.router.navigate(['/create-post']);
-    this.post = new Post(null, null, [], [], '', '', '', new Location('', [], '', ''), [], 0, '', [], '');
+    this.post = new Post(null, null, [], [], '', '', '', new Location('', [], '', ''), [], [], '', [], '');
 
     // on edit post
     // if (this.postId.length === 24) {

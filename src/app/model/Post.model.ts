@@ -3,6 +3,7 @@ import { PostContent } from './postContent.model';
 import { Comment } from './comment.model';
 import { Tag } from './tag.model';
 import { Location } from './location.model';
+import { PostRating } from './post-rating.model';
 
 export class Post {
     public _id: string;
@@ -17,7 +18,7 @@ export class Post {
         public authorId: string,
         public location: Location,
         public categories: Array<PostCategory>,
-        public rating: number,
+        public rating: Array<PostRating>,
         public status: string,
         public comments: Array<Comment>,
         public description: string) { }

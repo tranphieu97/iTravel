@@ -14,7 +14,7 @@ import { ConstantService } from 'src/app/core/services/constant.service';
 export class PostComponent implements OnInit, OnChanges {
   // local post receive data from server
   // it should has init data until receiving data from server so browser will not has error
-  post: Post = new Post(null, null, [], [], '', '', '', new Location('', [], '', ''), [], 0, '', [], '');
+  post: Post = new Post(null, null, [], [], '', '', '', new Location('', [], '', ''), [], [], '', [], '');
   postAuthorName = 'Thong';
   postCreateTime = '';
   downloadPostCompleted = false;
