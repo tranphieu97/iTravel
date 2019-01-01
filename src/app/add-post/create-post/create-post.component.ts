@@ -36,6 +36,7 @@ export class CreatePostComponent implements OnInit {
   // variable store status that save post successfully or not
   // if already success => can't click save again
   isSaved = false;
+  isUpdate = false;
   // all validate status
   validateObject = {
     // variable check valid or not foreach properties
@@ -96,11 +97,15 @@ export class CreatePostComponent implements OnInit {
           this.router.navigate(['/not-found']);
         }
       } else { // id.length == 24
-        console.log('chuan bi di lay post');
+        this.isUpdate = true;
         this.serverService.getOnePost(this.postId).subscribe((resData) => {
           if (resData.data !== null && resData.data !== undefined) {
-            this.post = resData.data;
-            console.log('da lay post ve');
+            // if user is not the author of post => cant edit
+            if (this.user.currentUser._id !== resData.data.authorId) {
+              this.router.navigate(['/not-found']);
+            } else {
+              this.post = resData.data;
+            }
           } else {
             this.router.navigate(['/not-found']);
           }
@@ -213,7 +218,9 @@ export class CreatePostComponent implements OnInit {
             }
           });
           // update cover url, that url located at the end of the array
-          this.post.cover = resData.imageUrls[resData.imageUrls.length - 1];
+          if (this.coverFile && resData.imageUrls[resData.imageUrls.length - 1]) {
+            this.post.cover = resData.imageUrls[resData.imageUrls.length - 1];
+          }
           // save post, if id == '', => this is new post and need create new post
           // if id already exist, => this is old post and need update post
           if (this.postId === '') {
@@ -222,7 +229,6 @@ export class CreatePostComponent implements OnInit {
             this.post.createdTime = new Date();
             this.post.approvedTime = null;
             this.post.authorId = this.user.currentUser._id;
-            console.log('user id trong service ' + this.user.currentUser._id);
             this.post.rating = [];
             this.post.status = this.constant.POST_STATUS.PENDING;
             this.serverService.postOnePost(this.post)
@@ -235,13 +241,11 @@ export class CreatePostComponent implements OnInit {
           } else if (this.postId.length === 24) {
             // save edited post
             // fix some default infomation for update post
-            console.log('go to update //file create-post');
             this.post.approvedTime = null;
             this.post.status = this.constant.POST_STATUS.PENDING;
             this.serverService.updateOnePost(this.post)
               .subscribe((responseData) => {
                 if (responseData) {
-                  console.log('up date xong //file create-post');
                   this.isSaved = true;
                   this.postId = responseData.postId;
                 }
@@ -367,7 +371,7 @@ export class CreatePostComponent implements OnInit {
   }
 
   validateCover() {
-    if (this.coverFile === null || this.coverFile === undefined) {
+    if (!this.coverFile && !this.isUpdate) {
       this.validateObject.validateCover.notEmpty.status = false;
       return this.validateObject.validateCover.notEmpty.message;
     } else {
@@ -433,6 +437,6 @@ export class CreatePostComponent implements OnInit {
   }
 
   onTest() {
-    this.router.navigate(['/create-post', '5c2448a50b1e032338c58b33']);
+    this.router.navigate(['/create-post', '5c1a4602f0491d2a9c8a2ff7']);
   }
 }

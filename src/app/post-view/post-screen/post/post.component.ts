@@ -15,9 +15,10 @@ export class PostComponent implements OnInit, OnChanges {
   // local post receive data from server
   // it should has init data until receiving data from server so browser will not has error
   post: Post = new Post(null, null, [], [], '', '', '', new Location('', [], '', ''), [], [], '', [], '');
-  postAuthorName = 'Thong';
+  postAuthorName = '';
   postCreateTime = '';
   downloadPostCompleted = false;
+  authorInfo: { firstName: string, lastName: string, avatar: string };
   @Input() postId: string;
 
   constructor(private serverService: ServerService, private userService: UserService,
@@ -71,7 +72,19 @@ export class PostComponent implements OnInit, OnChanges {
   }
 
   getPostAuthorName() {
-    this.postAuthorName = 'Minh Thông';
+    this.serverService.getUserBasicInfo(this.post.authorId).subscribe((resData) => {
+      if (resData.data) {
+        this.authorInfo = resData.data;
+        if (this.authorInfo.firstName) {
+          this.postAuthorName += this.authorInfo.firstName;
+        }
+        if (this.authorInfo.lastName) {
+          this.postAuthorName += ' ' + this.authorInfo.lastName;
+        }
+      } else {
+        this.postAuthorName = 'Minh Thông';
+      }
+    });
   }
 
   getPostCreateTimeString() {
