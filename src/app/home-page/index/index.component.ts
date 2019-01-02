@@ -25,6 +25,9 @@ export class IndexComponent implements OnInit {
       this.filterListShowPostByProvince(this.masterPage.selectedProvince);
     });
 
+    this.masterPage.hasListProvince.subscribe(() => {
+      this.masterPage.setCountAmountOfProvincePost(this.listAllCardViewPost);
+    });
   }
 
   /**
@@ -51,6 +54,9 @@ export class IndexComponent implements OnInit {
       this.listAllCardViewPost = result;
       this.listShowCardViewPosts = result;
       this.masterPage.selectedProvince = this.constant.ALL_PROVINCE;
+
+      this.masterPage.setCountAmountOfProvincePost(this.listAllCardViewPost);
     });
   }
+
 }

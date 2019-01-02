@@ -3,8 +3,8 @@
 		xmlns="http://www.w3.org/2000/svg" xmlns:amcharts="http://amcharts.com/ammap" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">	
 		<g>
 			<path *ngFor="let province of listProvinces" [id]="province.provinceId" 
-					class="land" [attr.d]="province.mapId" (click)="setSelectProvince(province.provinceId)"
-			(mouseenter)="getPathInformation($event, province.provinceId)" (mouseleave)="leavePath()">
+					[ngClass]="{'land': true, 'some-post': getCountAmountPostOfProvince(province.provinceName) > 0, 'more-post': getCountAmountPostOfProvince(province.provinceName) > 50, 'much-more-post': getCountAmountPostOfProvince(province.provinceName) > 200}" [attr.d]="province.mapId" (click)="setSelectProvince(province.provinceId)"
+					(mouseenter)="getPathInformation($event, province.provinceId)" (mouseleave)="leavePath()">
 			</path>
 		</g>
 	</svg>
