@@ -53,9 +53,9 @@ app.use((req, res, next) => {
 });
 
 /** Routing - START */
-app.get('/', (req, res) => {
-    res.send('http://localhost:7979/');
-});
+// app.get('/', (req, res) => {
+//     res.send('http://localhost:7979/');
+// });
 
 app.get('/api/provinces', (req, res) => {
     database.getCollectionData(database.iTravelDB.ProvinceCity)
