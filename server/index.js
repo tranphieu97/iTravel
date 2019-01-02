@@ -325,7 +325,7 @@ app.post('/user/post', (req, res, next) => {
                 for (const category of post.categories) {
                     category._id = new ObjectId(category._id);
                 }
-                post.rating = 0;
+                post.rating = [];
                 post.status = 'PENDING';
                 // fix all complete
                 // pass the post to insertOneToColection(), function will upload to server automaticaly
