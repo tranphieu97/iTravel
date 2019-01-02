@@ -23,7 +23,8 @@ app.use(cors);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 // allow outside connect to /images and map to server/images folder on server
-app.use('/api/images', express.static(path.join("server/images")))
+app.use('/api/images', express.static(path.join(__dirname, "images")));
+app.use('/', express.static(path.join(__dirname, "angular")))
 
 app.listen(config.APP_PORT, () => {
     console.log('Server is running at http://localhost:' + config.APP_PORT + '/');
@@ -410,7 +411,7 @@ app.put('/user/update-post', (req, res) => {
                 // fix all post tags._id = ObjectId()
                 for (const tag of post.tags) {
                     // if not has id yet
-                    if (tag._id.length !== 24) {
+                    if (!tag.id || tag._id.length !== 24) {
                         tag._id = new ObjectId();
                     } else {
                         // has id already, create ObjectId from the old one
@@ -420,7 +421,7 @@ app.put('/user/update-post', (req, res) => {
                 // fix id of all new post content, _id = ObjectId()
                 for (const postContent of post.postContents) {
                     // if not has id yet, create new one
-                    if (postContent._id.length !== 24) {
+                    if (!postContent._id || postContent._id.length !== 24) {
                         postContent._id = new ObjectId();
                     } else {
                         // has id already, create ObjectId from the old one
@@ -1645,5 +1646,9 @@ app.patch('/manager/deny-post', async (req, res) => {
                 console.log(err);
             });
     }
+});
+
+app.use((req, res, next) => {
+    res.sendFile(path.join(__dirname, 'angular', 'index.html'));
 });
 /** Routing - END */
