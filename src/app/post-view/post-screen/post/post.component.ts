@@ -50,7 +50,7 @@ export class PostComponent implements OnInit, OnChanges {
             // validate post status, if not  approved => only admin and author can read
             if (resData.data.status !== this.constant.POST_STATUS.APPROVED) {
               // if user not admin and also not the author of post
-              if (this.userService.currentUser.permission !== 'Admin' && this.userService.currentUser._id !== resData.data.authorId) {
+              if (!this.userService.currentUser.isAdmin && this.userService.currentUser._id !== resData.data.authorId) {
                 this.router.navigate(['/not-found']);
               }
             }
