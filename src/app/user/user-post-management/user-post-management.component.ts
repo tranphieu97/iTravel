@@ -27,6 +27,7 @@ export class UserPostManagementComponent implements OnInit {
     ONE_WEEK: 1,
     ONE_MONTH: 2
   };
+  chosenKindOfTime = this.FLAG_KIND_OF_TIME.ALL;
 
   hasError: Boolean = false;
   errorMessage: String = '';
