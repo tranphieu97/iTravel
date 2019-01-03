@@ -36,8 +36,8 @@ export class PostManagementComponent implements OnInit {
 
   denyForm: FormGroup;
 
-  constructor(private language: LanguageService, private calendar: NgbCalendar, private server: ServerService,
-    private modalService: NgbModal, private constant: ConstantService, private formBuilder: FormBuilder) { }
+  constructor(public language: LanguageService, private calendar: NgbCalendar, private server: ServerService,
+    private modalService: NgbModal, public constant: ConstantService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.refreshListPost();

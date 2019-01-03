@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   private passwordRegex: RegExp = new RegExp('(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{1,30}$');
 
   constructor(private router: Router, private formBuilder: FormBuilder, private user: UserService,
-    private authentication: AuthenticationService, private language: LanguageService) { }
+    private authentication: AuthenticationService, public language: LanguageService) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({

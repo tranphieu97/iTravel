@@ -24,10 +24,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 // allow outside connect to /images and map to server/images folder on server
 app.use('/api/images', express.static(path.join(__dirname, "images")));
-app.use('/', express.static(path.join(__dirname, "angular")))
+app.use('/', express.static(path.join(__dirname, "angular")));
+app.use('/home', express.static(path.join(__dirname, "angular")))
 
 app.listen(config.APP_PORT, () => {
-    console.log('Server is running at http://localhost:' + config.APP_PORT + '/');
+    console.log('Server is running on port ' + config.APP_PORT + '/');
 });
 
 app.use((req, res, next) => {
@@ -661,7 +662,7 @@ const storage = multer.diskStorage({
         if (isValid) {
             err = null;
         }
-        cback(err, 'server/images');
+        cback(err, 'images');
     },
     filename: (req, file, cback) => {
         // remove space and replace by '-'

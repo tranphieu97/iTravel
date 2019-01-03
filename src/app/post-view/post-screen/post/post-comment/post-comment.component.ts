@@ -13,7 +13,7 @@ import { ServerService } from 'src/app/core/services/server.service';
 export class PostCommentComponent implements OnInit {
   @Input() post: Post;
 
-  constructor(private postService: PostService, private userService: UserService, private serverService: ServerService) { }
+  constructor(private postService: PostService, public userService: UserService, private serverService: ServerService) { }
 
   ngOnInit() {
     this.postService.newComment.asObservable().subscribe((commentContent) => {

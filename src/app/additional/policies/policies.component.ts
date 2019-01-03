@@ -11,7 +11,7 @@ import { MasterPageService } from '../../core/services/master-page.service';
 })
 export class PoliciesComponent implements OnInit {
 
-  constructor(private language: LanguageService, private server: ServerService, private masterPage: MasterPageService) { }
+  constructor(public language: LanguageService, private server: ServerService, private masterPage: MasterPageService) { }
 
   currentLanguagePolicies: Policy[];
 

@@ -9,7 +9,7 @@ import { MasterPageService } from '../../core/services/master-page.service';
 })
 export class FullFilterControlComponent implements OnInit {
 
-  constructor(private language: LanguageService, private masterPage: MasterPageService) { }
+  constructor(public language: LanguageService, private masterPage: MasterPageService) { }
 
   ngOnInit() {
   }
