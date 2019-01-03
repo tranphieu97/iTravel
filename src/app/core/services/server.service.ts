@@ -21,7 +21,6 @@ import { PostRating } from 'src/app/model/post-rating.model';
 })
 export class ServerService {
 
-  // HOST: String = 'http://i-travel-website.herokuapp.com:' + (7979) + '/';
   HOST: String = 'http://localhost:7979/';
 
   httpOptions = {

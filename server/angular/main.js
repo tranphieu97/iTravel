@@ -1582,7 +1582,7 @@ var ServerService = /** @class */ (function () {
     function ServerService(http, constant) {
         this.http = http;
         this.constant = constant;
-        this.HOST = 'http://i-travel-website.herokuapp.com:' + (7979) + '/';
+        this.HOST = 'http://localhost:7979/';
         this.httpOptions = {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
                 'Content-Type': 'application/json'
