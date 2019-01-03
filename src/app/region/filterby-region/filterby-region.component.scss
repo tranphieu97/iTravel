@@ -12,6 +12,23 @@
         display: flex;
         flex-direction: column;
         padding: 10px;
+        
+        #filter-box-content {
+            flex: 1 1;
+            overflow: scroll;
+        }
+
+        #filter-box-content::-webkit-scrollbar {
+            display: none;
+            width: 0px;  
+            background: transparent; 
+        }
+        
+        #filter-box-content::-webkit-scrollbar-thumb {
+            background: rgb(255, 255, 255);
+        }
+        #filter-box-content { -ms-overflow-style: none; }
+        #filter-box-content { -ms-overflow-style: none; }
     }
 
     .chart-box {

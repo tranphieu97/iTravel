@@ -146,8 +146,12 @@
                 cursor: pointer;
             }
 
-            #visitor-dropdown, #user-dropdown {
+            #visitor-dropdown {
                 left: -85px;
+            }
+
+            #user-dropdown {
+                left: -10px;
             }
         }
 
