@@ -12,6 +12,23 @@
         display: flex;
         flex-direction: column;
         padding: 10px;
+
+        #filter-category-content {
+            flex: 1 1;
+            overflow: scroll;
+        }
+
+        #filter-category-content::-webkit-scrollbar {
+            display: none;
+            width: 0px;  
+            background: transparent; 
+        }
+        
+        #filter-category-content::-webkit-scrollbar-thumb {
+            background: rgb(255, 255, 255);
+        }
+        #filter-category-content { -ms-overflow-style: none; }
+        #filter-category-content { -ms-overflow-style: none; }
     }
 
     .additional-box {
@@ -19,6 +36,7 @@
         flex-direction: column;
         flex: 1 1;
         padding: 10px;
+        overflow: scroll;
 
         .most-view-post {
             flex: 1 1;
@@ -30,5 +48,15 @@
                 font-weight: bold;
             }
         }
+    }
+
+    .additional-box::-webkit-scrollbar {
+        display: none;
+        width: 0px;  
+        background: transparent; 
+    }
+
+    .additional-box::-webkit-scrollbar-thumb {
+        background: rgb(255, 255, 255);
     }
 }
