@@ -9,7 +9,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { JWTInterceptor } from '../core/_helpers/jwt.interceptor';
 import { NgbModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { HorizontalCardViewPostComponent } from '../card-view-style/horizontal-card-view-post/horizontal-card-view-post.component';
-import { CardViewPostComponent } from '../card-view-post/card-view-post.component';
+import { CardViewPostComponent } from '../card-view-style/card-view-post/card-view-post.component';
 
 @NgModule({
   imports: [

@@ -11,7 +11,6 @@ import { NavigationBarComponent } from './master-page/navigation-bar/navigation-
 import { NavbarMenuComponent } from './master-page/navbar-menu/navbar-menu.component';
 import { HomePageModule } from './home-page/home-page.module';
 import { AmChartsModule } from '@amcharts/amcharts3-angular';
-import { CardViewPostComponent } from './card-view-post/card-view-post.component';
 import { UserModule } from './user/user.module';
 import { SharedModule } from './shared/shared.module';
 import { AuthLayoutComponent } from './web-layout/auth-layout/auth-layout.component';
