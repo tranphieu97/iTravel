@@ -1,4 +1,3 @@
-
 // Include js file
 const config = require('./_config');
 const database = require('./app/database.js');
@@ -17,8 +16,10 @@ const bodyParser = require('body-parser');
 var Q = require('q');
 var cors = require('cors')({ origin: true });
 
-const app = express();
+// Create and export server app by express
+const app = module.exports = express();
 
+// Server's base config
 app.use(cors);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
@@ -51,132 +52,12 @@ app.use((req, res, next) => {
     next();
 });
 
+// Use routings in others controller
+require('./app/routing/api-routing.js');
+
 /** Routing - START */
 app.get('/', (req, res) => {
     res.send('http://localhost:7979/');
-});
-
-app.get('/api/provinces', (req, res) => {
-    database.getCollectionData(database.iTravelDB.ProvinceCity)
-        .then((data) => {
-            if (data != null) {
-                res.status(200).json({
-                    message: 'Load ' + database.iTravelDB.ProvinceCity + ' success!',
-                    data: data
-                });
-            } else {
-                res.status(500).json({
-                    message: 'Load' + database.iTravelDB.ProvinceCity + 'fail!'
-                });
-            }
-        })
-        .catch((err) => {
-            res.status(500).json({
-                message: 'Load' + database.iTravelDB.ProvinceCity + 'fail!'
-            });
-        });
-});
-
-app.get('/api/province-city', (req, res) => {
-    database.getCollectionData(database.iTravelDB.ProvinceCity).then((data) => {
-        if (data != null) {
-            res.status(200).json({
-                message: 'Load ' + database.iTravelDB.ProvinceCity + ' success!',
-                data: data
-            })
-        } else {
-            res.status(500).json({
-                message: 'Load' + database.iTravelDB.ProvinceCity + 'fail!'
-            })
-        }
-    });
-});
-
-app.get('/api/menu', (req, res) => {
-    // const COLECTION_NAME = 'Menu';
-    database.getCollectionData(database.iTravelDB.Menu).then((data) => {
-        if (data != null) {
-            res.status(200).json({
-                message: 'Load ' + database.iTravelDB.Menu + ' success!',
-                data: data
-            })
-        } else {
-            res.status(500).json({
-                message: 'Load' + database.iTravelDB.Menu + 'fail!'
-            })
-        }
-    });
-});
-
-app.get('/api/policies', (req, res) => {
-    database.getCollectionData(database.iTravelDB.Policies)
-        .then((result) => {
-            var vnPolicies = [];
-            var enPolicies = [];
-
-            result.forEach(policy => {
-                vnPolicies.push({
-                    title: policy.vnTitle,
-                    content: policy.vnContent
-                });
-                enPolicies.push({
-                    title: policy.enTitle,
-                    content: policy.enContent
-                });
-            });
-
-            var listPolciesMoreLanguage = {
-                vnPolicies: vnPolicies,
-                enPolicies: enPolicies
-            };
-
-            res.status(200).json({
-                message: 'Get policies success',
-                data: listPolciesMoreLanguage
-            });
-        })
-        .catch((err) => {
-            console.log(err);
-            res.status(500).json({
-                message: 'Get policies fail'
-            });
-        })
-})
-
-app.get('/api/cardview-post', (req, res) => {
-    // const COLECTION_NAME = 'Posts';
-    const approvedPostFilter = {
-        status: {
-            $eq: config.POST_STATUS.APPROVED
-        }
-    }
-    database.getCollectionFilterData(database.iTravelDB.Posts, approvedPostFilter).then((data) => {
-        if (data != null) {
-            postSimpleData = []
-
-            data.forEach((post) => {
-                postSimpleData.push({
-                    _id: post._id,
-                    title: post.title,
-                    cover: post.cover,
-                    categories: post.categories,
-                    createdTime: post.createdTime,
-                    description: post.description,
-                    location: post.location,
-                    viewAmount: post.viewAmount
-                });
-            })
-
-            res.status(200).json({
-                message: 'Load ' + database.iTravelDB.Posts + ' success!',
-                data: postSimpleData
-            })
-        } else {
-            res.status(500).json({
-                message: 'Load' + database.iTravelDB.Posts + 'fail!'
-            })
-        }
-    });
 });
 
 app.get('/api/user-info', (req, res) => {
@@ -761,28 +642,6 @@ app.get('/api/post-categories', (req, res, next) => {
     });
 });
 
-app.post('/api/create-feedback', (req, res) => {
-
-    const feedback = req.body;
-
-    if (feedback.name.trim() === '' || feedback.from.trim() === ''
-        || feedback.content.trim() === '' || feedback.creationDatetime == null) {
-        res.status(400).json({
-            message: 'Invalid data!'
-        });
-    } else {
-        database.insertOneToColection(database.iTravelDB.Feedback, feedback)
-            .then(() => {
-                res.status(200).json({
-                    message: 'Success!'
-                });
-            }).catch(() => {
-                res.status(500).json({
-                    message: 'Fail!'
-                });
-            })
-    }
-});
 
 app.post('/api/create-search-history', (req, res) => {
 
