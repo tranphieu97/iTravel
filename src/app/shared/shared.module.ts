@@ -10,6 +10,7 @@ import { JWTInterceptor } from '../core/_helpers/jwt.interceptor';
 import { NgbModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { HorizontalCardViewPostComponent } from '../card-view-style/horizontal-card-view-post/horizontal-card-view-post.component';
 import { CardViewPostComponent } from '../card-view-style/card-view-post/card-view-post.component';
+import { LoadingComponent } from '../web-layout/loading/loading.component';
 
 @NgModule({
   imports: [
@@ -36,11 +37,13 @@ import { CardViewPostComponent } from '../card-view-style/card-view-post/card-vi
     NgbModule,
     NgbAlertModule,
     HorizontalCardViewPostComponent,
-    CardViewPostComponent
+    CardViewPostComponent,
+    LoadingComponent
   ],
   declarations: [
     HorizontalCardViewPostComponent,
-    CardViewPostComponent
+    CardViewPostComponent,
+    LoadingComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JWTInterceptor, multi: true }

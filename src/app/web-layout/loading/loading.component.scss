@@ -1,0 +1,33 @@
+@import 'src/styles.scss';
+
+:host {
+    .alert-loading {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        margin: 0;
+        padding: 5px;
+
+        .alert-loading-text {
+            margin: 10px;
+            font-size: 14px;
+            color: $YELLOW;
+        }
+    }
+    .spinner-border {
+        border: 6px solid #f3f3f3; /* Light grey */
+        border-top: 5px solid #3498db; /* Blue */
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        animation: spin 1.5s linear infinite;
+
+        margin: auto 5px;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+}
