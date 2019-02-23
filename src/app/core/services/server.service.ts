@@ -23,8 +23,8 @@ import { environment } from '../../../environments/environment';
 })
 export class ServerService {
 
-  // HOST: String = 'http://localhost:7979/';
-  HOST: String = environment.apiUrl + '/';
+  HOST: String = 'http://localhost:7979/';
+  // HOST: String = environment.apiUrl + '/';
 
   httpOptions = {
     headers: new HttpHeaders({
