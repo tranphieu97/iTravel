@@ -39,7 +39,7 @@ export class UserPostManagementComponent implements OnInit {
 
   searchKeyword: String = '';
 
-  constructor(private language: LanguageService, private constant: ConstantService, private server: ServerService,
+  constructor(public language: LanguageService, public constant: ConstantService, private server: ServerService,
     private user: UserService, private modalService: NgbModal, private router: Router) { }
 
   ngOnInit() {

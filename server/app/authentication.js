@@ -4,7 +4,7 @@ var MongoClient = require('mongodb').MongoClient;
 var config = require('../_config');
 var database = require('../app/database');
 var Q = require('q');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const saltRounds = 3;
 
 exports = module.exports = {};

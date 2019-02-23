@@ -21,7 +21,7 @@ export class IndexComponent implements OnInit, OnDestroy {
 
   theMostSearchKeyword: String = '';
 
-  constructor(private amchartServices: AmChartsService, private server: ServerService, private language: LanguageService) { }
+  constructor(private amchartServices: AmChartsService, private server: ServerService, public language: LanguageService) { }
 
   ngOnInit() {
     this.pieChartEndDate = new Date(Date.now());

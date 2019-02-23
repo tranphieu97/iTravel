@@ -26,7 +26,7 @@ export class FilterbyRegionComponent implements OnInit, OnDestroy {
 
   isReloadPieChart: Boolean = false;
 
-  constructor(private activatedRoute: ActivatedRoute, private route: Router, private language: LanguageService,
+  constructor(private activatedRoute: ActivatedRoute, private route: Router, public language: LanguageService,
     private server: ServerService, private amchartServices: AmChartsService) { }
 
   ngOnInit() {

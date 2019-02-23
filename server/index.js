@@ -24,10 +24,12 @@ app.use(cors);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 // allow outside connect to /images and map to server/images folder on server
-app.use('/api/images', express.static(path.join("server/images")))
+app.use('/api/images', express.static(path.join(__dirname, "images")));
+app.use('/', express.static(path.join(__dirname, "angular")));
+app.use('/home', express.static(path.join(__dirname, "angular")))
 
 app.listen(config.APP_PORT, () => {
-    console.log('Server is running at http://localhost:' + config.APP_PORT + '/');
+    console.log('Server is running on port ' + config.APP_PORT + '/');
 });
 
 app.use((req, res, next) => {
@@ -50,6 +52,10 @@ app.use((req, res, next) => {
     }
 
     next();
+});
+
+app.use((req, res, next) => {
+    res.sendFile(path.join(__dirname, 'angular', 'index.html'));
 });
 
 // Use routings in others controller

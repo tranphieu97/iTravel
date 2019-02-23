@@ -15,7 +15,7 @@ export class IndexComponent implements OnInit {
   listShowCardViewPosts: CardViewPost[];
   listAllCardViewPost: CardViewPost[];
 
-  constructor(private server: ServerService, private masterPage: MasterPageService, private language: LanguageService,
+  constructor(private server: ServerService, public masterPage: MasterPageService, public language: LanguageService,
     private constant: ConstantService) { }
 
   ngOnInit() {

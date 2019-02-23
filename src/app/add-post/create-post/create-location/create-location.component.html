@@ -30,7 +30,7 @@
   </div>
   <!-- col3 has selectList as multiple -->
   <div class="col-xl-4 col-md-9 col-12 margin-bottom-15">
-    <input type="text" name="province" class="form-control" [placeholder]="compLanguage.createPostFindProvinceCity">
+    <!-- <input type="text" name="province" class="form-control" [placeholder]="compLanguage.createPostFindProvinceCity"> -->
     <select class="form-control" multiple>
       <!-- ngFor here -->
       <option *ngFor="let province of allProvCity" [value]="province.provinceName" (click)="onSelectProvince(province.provinceName)">{{

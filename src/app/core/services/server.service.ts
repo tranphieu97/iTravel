@@ -16,12 +16,15 @@ import { ConstantService } from './constant.service';
 import { Comment } from 'src/app/model/comment.model';
 import { PostRating } from 'src/app/model/post-rating.model';
 
+import { environment } from '../../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ServerService {
 
-  HOST: String = 'http://localhost:7979/';
+  // HOST: String = 'http://localhost:7979/';
+  HOST: String = environment.apiUrl + '/';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -29,7 +32,9 @@ export class ServerService {
     })
   };
 
-  constructor(private http: HttpClient, private constant: ConstantService) { }
+  constructor(private http: HttpClient, private constant: ConstantService) {
+    console.log(this.HOST);
+  }
 
   /**
    * Get list 63 VietNam's provinces

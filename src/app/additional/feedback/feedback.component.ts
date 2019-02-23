@@ -19,7 +19,7 @@ export class FeedbackComponent implements OnInit {
   isFail: Boolean = false;
 
   constructor(private server: ServerService, private router: Router,
-    private language: LanguageService, private user: UserService) { }
+    public language: LanguageService, public user: UserService) { }
 
   ngOnInit() {
     this.feedback = new Feedback();

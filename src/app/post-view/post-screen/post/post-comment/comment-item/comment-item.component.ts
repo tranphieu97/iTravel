@@ -16,7 +16,7 @@ export class CommentItemComponent implements OnInit {
   creationTimeString = '';
   commentAuthorAvatar = '';
 
-  constructor(private serverService: ServerService, private userService: UserService, private postService: PostService) { }
+  constructor(private serverService: ServerService, public userService: UserService, private postService: PostService) { }
 
   ngOnInit() {
     if (this.commentItem.userId !== undefined && this.commentItem.userId !== null) {

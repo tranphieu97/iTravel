@@ -8,9 +8,9 @@ import { LanguageService } from '../../core/services/language.service';
 })
 export class NotificationComponent implements OnInit {
 
-  @Input() inputNotification: Notification;
+  @Input() public inputNotification: Notification;
 
-  constructor(private language: LanguageService) { }
+  constructor(public language: LanguageService) { }
 
   ngOnInit() {
   }
