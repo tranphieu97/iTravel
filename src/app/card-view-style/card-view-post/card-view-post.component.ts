@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, HostListener } from '@angular/core';
-import { CardViewPost } from '../model/cardViewPost.model';
 import { Router } from '@angular/router';
+import { CardViewPost } from 'src/app/model/cardViewPost.model';
 
 @Component({
   selector: 'app-card-view-post',
