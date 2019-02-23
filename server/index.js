@@ -54,10 +54,6 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use((req, res, next) => {
-    res.sendFile(path.join(__dirname, 'angular', 'index.html'));
-});
-
 // Use routings in others controller
 require('./app/routing/api-routing.js');
 require('./app/routing/authentication-routing');
@@ -65,5 +61,8 @@ require('./app/routing/manager-routing.js');
 require('./app/routing/user-routing.js');
 require('./app/routing/upload-routing.js');
 
+app.use((req, res, next) => {
+    res.sendFile(path.join(__dirname, 'angular', 'index.html'));
+});
 /** Routing - START */
 /** Routing - END */
