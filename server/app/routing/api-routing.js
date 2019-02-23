@@ -3,6 +3,7 @@ const database = require('../database.js');
 const config = require('../../_config.js');
 
 // Get app instance from index
+const jwt = require('jsonwebtoken');
 const app = require('../../index');
 var ObjectId = require('mongodb').ObjectId;
 const postService = require('../post-service.js');

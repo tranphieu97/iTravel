@@ -13,7 +13,8 @@ const storage = multer.diskStorage({
         if (isValid) {
             err = null;
         }
-        cback(err, 'server/images');
+        cback(err, 'images');
+        // cback(err, 'server/images');
     },
     filename: (req, file, cback) => {
         // remove space and replace by '-'
@@ -50,10 +51,6 @@ app.post('/api/upload-image', multer({ storage: storage }).array('images'), (req
 });
 // Routing - END
 
-// Controller - START
-/**
- * @author Thong
- * @description config multer for store image on server
- */
-
-// Controller - END
+// app.use((req, res, next) => {
+//     res.sendFile(path.join(__dirname, 'angular', 'index.html'));
+// });
