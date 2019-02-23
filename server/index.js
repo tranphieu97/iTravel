@@ -24,8 +24,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 // allow outside connect to /images and map to server/images folder on server
 app.use('/api/images', express.static(path.join("images")));
-app.use('/', express.static(path.join(__dirname, "angular")));
-app.use('/home', express.static(path.join(__dirname, "angular")))
+// app.use('/api/images', express.static(path.join("server/images")))
+// app.use('/', express.static(path.join(__dirname, "angular")));
+// app.use('/home', express.static(path.join(__dirname, "angular")))
 
 app.listen(config.APP_PORT, () => {
     console.log('Server is running on port ' + config.APP_PORT + '/');
@@ -691,6 +692,7 @@ app.post('/api/upload-image', multer({ storage: storage }).array('images'), (req
             + file.filename; // => http://localhost:7979/api/images/abc.jpg
         imageUrls.push(imageUrl);
     }
+    console.log(imageUrls);
     res.status(201).json({
         message: 'Upload image successfuly',
         imageUrls: imageUrls
@@ -1649,7 +1651,7 @@ app.patch('/manager/deny-post', async (req, res) => {
     }
 });
 
-app.use((req, res, next) => {
-    res.sendFile(path.join(__dirname, 'angular', 'index.html'));
-});
+// app.use((req, res, next) => {
+//     res.sendFile(path.join(__dirname, 'angular', 'index.html'));
+// });
 /** Routing - END */

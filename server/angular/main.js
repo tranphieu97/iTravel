@@ -1563,7 +1563,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _model_cardViewPost_model__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../model/cardViewPost.model */ "./src/app/model/cardViewPost.model.ts");
 /* harmony import */ var src_app_model_province_city_model__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/model/province-city.model */ "./src/app/model/province-city.model.ts");
 /* harmony import */ var _constant_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./constant.service */ "./src/app/core/services/constant.service.ts");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1579,13 +1578,12 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
 var ServerService = /** @class */ (function () {
     function ServerService(http, constant) {
         this.http = http;
         this.constant = constant;
-        // HOST: String = 'http://localhost:7979/';
-        this.HOST = _environments_environment__WEBPACK_IMPORTED_MODULE_6__["environment"].apiUrl + '/';
+        this.HOST = 'http://localhost:7979/';
+        // HOST: String = environment.apiUrl + '/';
         this.httpOptions = {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({
                 'Content-Type': 'application/json'
@@ -1686,6 +1684,7 @@ var ServerService = /** @class */ (function () {
      */
     ServerService.prototype.uploadImage = function (images) {
         // convert to FormData before send to multer
+        console.log(images);
         var uploadImage = new FormData();
         // add img to FormData
         for (var _i = 0, images_1 = images; _i < images_1.length; _i++) {
@@ -4773,7 +4772,8 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 var environment = {
     production: false,
-    apiUrl: 'http://localhost:7979'
+    apiUrl: 'http://localhost:4200'
+    // apiUrl: 'http://localhost:7979'
 };
 /*
  * In development mode, to ignore zone related error stack frames such as
