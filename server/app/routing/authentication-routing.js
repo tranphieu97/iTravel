@@ -6,6 +6,7 @@ var ObjectId = require('mongodb').ObjectId;
 
 // Include library
 const jwt = require('jsonwebtoken');
+const User = require('../../model/user.model').User;
 
 // Get app instance from index
 const app = require('../../index');
