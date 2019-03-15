@@ -18,6 +18,8 @@ export class RegisterComponent implements OnInit {
     error: false
   };
 
+  isLoading: Boolean = false;
+
   // registerFormInfo: any = {
   //   username: '',
   //   password: '',
@@ -49,32 +51,24 @@ export class RegisterComponent implements OnInit {
   }
 
   registerUser() {
-    // if (this.isExistUsername()) {
-    //   this.registerMessage = 'Username is exist, please choose the others name';
-    //   this.isShowRegisterMessage.error = true;
-    //   return;
-    // } else if ( !this.isMatchPassword()) {
-    //   this.registerMessage = 'Password and confirm password is not matched';
-    //   return;
-    // } else {
-    //   this.authentication.registerUser(this.registerForm).subscribe((res) => {
-    //     console.log(res);
-    //   });
-    // }
+    this.isLoading = true;
     return this.authentication.checkExistUsername(this.registerForm.get('username').value)
       .subscribe((checkExistResponse) => {
         if (checkExistResponse.data) {
           this.registerMessage = 'Username is exist, please choose the others name';
           this.isShowRegisterMessage.error = true;
+          this.isLoading = false;
           return;
         } else if (!this.isMatchPassword().valueOf()) {
           this.registerMessage = 'Password and confirm password is not matched';
           this.isShowRegisterMessage.error = true;
+          this.isLoading = false;
           return;
         } else {
           this.authentication.registerUser(this.registerForm)
             .subscribe((registerResponse) => {
-              console.log(registerResponse.status);
+              console.log(registerResponse.data);
+              this.isLoading = false;
             });
         }
       });

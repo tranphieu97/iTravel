@@ -26,6 +26,8 @@ export class VietNamMapComponent implements OnInit {
 
   listProvinces: ProvinceCity[];
 
+  isLoading: Boolean = true;
+
   private popupInfo: any = {
     provinceName: '',
     postCount: 0,
@@ -43,6 +45,7 @@ export class VietNamMapComponent implements OnInit {
 
   ngOnInit() {
     if (this.masterPage.listProvinces === undefined || this.masterPage.listProvinces.length === 0) {
+      this.isLoading = true;
       this.server.getListProvinces().subscribe((listProvinces) => {
         // Set for view data
         this.listProvinces = listProvinces;
@@ -51,9 +54,11 @@ export class VietNamMapComponent implements OnInit {
         this.masterPage.listProvinces = listProvinces;
         this.masterPage.setListProvinceCountPost(listProvinces);
         this.masterPage.selectedProvince = this.constant.ALL_PROVINCE;
+        this.isLoading = false;
       });
     } else {
       this.listProvinces = this.masterPage.listProvinces;
+      this.isLoading = false;
     }
 
     this.resetPopup();

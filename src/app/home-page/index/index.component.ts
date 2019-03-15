@@ -15,6 +15,8 @@ export class IndexComponent implements OnInit {
   listShowCardViewPosts: CardViewPost[];
   listAllCardViewPost: CardViewPost[];
 
+  isLoading: Boolean = true;
+
   constructor(private server: ServerService, public masterPage: MasterPageService, public language: LanguageService,
     private constant: ConstantService) { }
 
@@ -37,11 +39,13 @@ export class IndexComponent implements OnInit {
    * @param provinceName
    */
   filterListShowPostByProvince(provinceName: string) {
+    this.isLoading = true;
     if (provinceName !== undefined && provinceName !== this.constant.ALL_PROVINCE) {
       this.listShowCardViewPosts = this.listAllCardViewPost.filter(post => post.location.provinceCity.indexOf(provinceName) !== -1);
     } else {
       this.listShowCardViewPosts = this.listAllCardViewPost;
     }
+    this.isLoading = false;
   }
 
   /**
@@ -50,12 +54,14 @@ export class IndexComponent implements OnInit {
    * @author phieu-th
    */
   refreshListPost() {
+    this.isLoading = true;
     this.server.getCardViewPost().subscribe((result) => {
       this.listAllCardViewPost = result;
       this.listShowCardViewPosts = result;
       this.masterPage.selectedProvince = this.constant.ALL_PROVINCE;
 
       this.masterPage.setCountAmountOfProvincePost(this.listAllCardViewPost);
+      this.isLoading = false;
     });
   }
 

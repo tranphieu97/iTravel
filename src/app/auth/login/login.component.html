@@ -45,9 +45,10 @@
       </div>
     </div>
     <div class="form-row">
-      <button type="submit" (click)="validateData()" class="btn btn-success" [disabled]="loginForm.invalid" >
+      <button type="submit" (click)="validateData()" class="btn btn-success" [disabled]="loginForm.invalid || isLoading" >
         {{language.currentLanguage.loginSignIn}}
       </button>
+      <app-loading *ngIf="isLoading"></app-loading>
     </div>
   </form>
 </div>

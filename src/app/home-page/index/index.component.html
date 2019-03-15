@@ -12,7 +12,8 @@
             </h4>
             <span (click)="refreshListPost()"><i class="fas fa-sync-alt"></i></span>
         </div>
-        <div class="list-post-content">
+        <app-loading *ngIf="isLoading"></app-loading>
+        <div class="list-post-content" *ngIf="!isLoading">
             <app-card-view-post *ngFor="let post of listShowCardViewPosts" [inputPost]="post"></app-card-view-post>
         </div>
     </div>

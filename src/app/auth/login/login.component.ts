@@ -18,6 +18,8 @@ export class LoginComponent implements OnInit {
   isFailLogin: Boolean = false;
   loginMessage: String = '';
 
+  isLoading: Boolean = false;
+
   private usernameRegex: RegExp = new RegExp('^(?=.*[a-z])[a-z0-9._@-]{1,30}$');
   private passwordRegex: RegExp = new RegExp('(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{1,30}$');
 
@@ -38,6 +40,7 @@ export class LoginComponent implements OnInit {
    * @author phieu-th
    */
   validateData() {
+    this.isLoading = true;
     const username = this.loginForm.get('username').value;
     const password = this.loginForm.get('password').value;
 
@@ -51,12 +54,14 @@ export class LoginComponent implements OnInit {
         if (!res.data) {
           this.loginMessage = res.message;
           this.isFailLogin = true;
+          this.isLoading = false;
         } else {
           this.user.currentUser = new User();
           this.user.currentUser.setUserRequiredInfo(res.data._id, res.data.username,
             res.data.firstName, res.data.lastName, res.data.avatar);
           this.user.currentUser.isAdmin = res.data.isAdmin;
           this.user.isLogin = true;
+          this.isLoading = false;
           this.router.navigate(['home']);
         }
       });

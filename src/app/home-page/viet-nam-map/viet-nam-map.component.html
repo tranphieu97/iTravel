@@ -1,4 +1,5 @@
-<div id="div-map">
+<app-loading *ngIf="isLoading"></app-loading>
+<div id="div-map" *ngIf="!isLoading">
 	<svg x="0px" y="0px" viewBox="0 0 750 870"
 		xmlns="http://www.w3.org/2000/svg" xmlns:amcharts="http://amcharts.com/ammap" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">	
 		<g>
