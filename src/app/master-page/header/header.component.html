@@ -1,4 +1,5 @@
-<div [ngClass]="{'header': true, 'navbar-show':this.masterPage.isShowFullNavBar, 'navbar-hide':!this.masterPage.isShowFullNavBar}">
+<div
+    [ngClass]="{'header': true, 'navbar-show':this.masterPage.isShowFullNavBar, 'navbar-hide':!this.masterPage.isShowFullNavBar}">
     <div class="logo" *ngIf="this.masterPage.isShowFullNavBar">
         <a href="#">
             <img src="../../../assets/img/logo_with_text.png">
@@ -14,19 +15,28 @@
         <span (click)="changeHeaderFlagByFlagName('isShowSearchBox')">
             <i class="fas fa-search"></i>
         </span>
-        <div [ngClass]="{'dropdown-menu': true, 'dropdown-show-column':headerFlags.isShowSearchBox}" id="search-dropdown">
+        <div [ngClass]="{'dropdown-menu': true, 'dropdown-show-column':headerFlags.isShowSearchBox}"
+            id="search-dropdown">
             <form class="form-inline" (submit)="searchByText()">
-                <input type="text" [(ngModel)]="searchBoxText" name="search" class="form-control" placeholder="Enter word to search">
+                <input type="text" [(ngModel)]="searchBoxText" name="search" class="form-control"
+                    placeholder="Enter word to search">
                 <button type="submit" (click)="searchByText()" class="btn btn-default">Search</button>
             </form>
+        </div>
+    </div>
+    <div ngbDropdown class="toolbar-icon">
+        <span ngbDropdownToggle id="notification-action"><i class="far fa-bell"></i></span>
+        <div ngbDropdownMenu aria-labelledby="post-management-action" id="notification-action">
+            
         </div>
     </div>
     <div class="toolbar-icon dropdown" *ngIf="false">
         <span (click)="changeHeaderFlagByFlagName('isShowNotification')">
             <i class="far fa-bell"></i>
         </span>
-        <div [ngClass]="{'dropdown-menu': true, 'dropdown-show':headerFlags.isShowNotification}" id="notification-dropdown">
-            
+        <div [ngClass]="{'dropdown-menu': true, 'dropdown-show':headerFlags.isShowNotification}"
+            id="notification-dropdown">
+
         </div>
     </div>
     <div class="toolbar-icon dropdown">
@@ -34,8 +44,10 @@
             <i class="fas fa-globe-asia"></i>
         </span>
         <div [ngClass]="{'dropdown-menu': true, 'dropdown-show':headerFlags.isShowLanguage}" id="language-dropdown">
-            <a class="dropdown-item" (click)="this.language.setVietnamese(); headerFlags.isShowLanguage = !headerFlags.isShowLanguage">{{language.currentLanguage.headerVietnamese}}</a>
-            <a class="dropdown-item" (click)="this.language.setEnglish(); headerFlags.isShowLanguage = !headerFlags.isShowLanguage">{{language.currentLanguage.headerEnglish}}</a>
+            <a class="dropdown-item"
+                (click)="this.language.setVietnamese(); headerFlags.isShowLanguage = !headerFlags.isShowLanguage">{{language.currentLanguage.headerVietnamese}}</a>
+            <a class="dropdown-item"
+                (click)="this.language.setEnglish(); headerFlags.isShowLanguage = !headerFlags.isShowLanguage">{{language.currentLanguage.headerEnglish}}</a>
         </div>
     </div>
     <div class="toolbar-icon" *ngIf="false">
@@ -45,10 +57,13 @@
         <span (click)="changeHeaderFlagByFlagName('isShowUserTool')">
             {{language.currentLanguage.headerHi}} <strong>{{this.user.currentUser.fullName}}</strong>
         </span>
-        <img [src]="this.user.currentUser.avatar" (click)="changeHeaderFlagByFlagName('isShowUserTool')" id="user-avatar">
+        <img [src]="this.user.currentUser.avatar" (click)="changeHeaderFlagByFlagName('isShowUserTool')"
+            id="user-avatar">
         <div [ngClass]="{'dropdown-menu': true, 'dropdown-show':headerFlags.isShowUserTool}" id="user-dropdown">
-            <a *ngIf="false" class="dropdown-item" [routerLink]="['/user/profile']" routerLinkActive="router-link-active" >{{language.currentLanguage.headerPersonalInfo}}</a>
-            <a class="dropdown-item" [routerLink]="['/user/posts']" routerLinkActive="router-link-active" >{{language.currentLanguage.headerUserContribution}}</a>
+            <a *ngIf="false" class="dropdown-item" [routerLink]="['/user/profile']"
+                routerLinkActive="router-link-active">{{language.currentLanguage.headerPersonalInfo}}</a>
+            <a class="dropdown-item" [routerLink]="['/user/posts']"
+                routerLinkActive="router-link-active">{{language.currentLanguage.headerUserContribution}}</a>
             <a class="dropdown-item" (click)="this.user.logOut()">{{language.currentLanguage.headerLogOut}}</a>
         </div>
     </div>
