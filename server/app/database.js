@@ -17,7 +17,8 @@ const iTravelDB = {
     Locations: 'Locations',
     Users: 'Users',
     SignInHistory: 'SignInHistory',
-    Policies: 'Policies'
+    Policies: 'Policies',
+    Notifications: 'Notifications',
 }
 
 exports.iTravelDB = iTravelDB;

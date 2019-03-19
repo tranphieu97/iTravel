@@ -1,17 +1,12 @@
-export class Notification {
-    _id: string;
-    from: string;
-    to: string;
-    content: string;
-    creationTime: Date;
-    isChecked: boolean;
+import { NotificationItem } from './notification-item.model';
 
-    constructor(_id: string, from: string, to: string, content: string, creationTime: Date, isChecked: boolean) {
-        this._id = _id;
-        this.from = from;
-        this.to = to;
-        this.content = content;
-        this.creationTime = creationTime;
-        this.isChecked = isChecked;
-    }
+export class Notification {
+  public _id: string;
+  public userId: string;
+  public notificationItems: Array<NotificationItem>;
+
+  constructor(userId: string, notificationItems: Array<NotificationItem>) {
+    this.userId = userId;
+    this.notificationItems = notificationItems;
+  }
 }

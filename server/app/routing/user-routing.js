@@ -432,79 +432,96 @@ app.patch('/user/send-comment', (req, res) => {
 app.patch('/user/send-rating', (req, res) => {
     // get token from header
     let token = req.headers.authorization;
-    let userId = '';
-    if (token !== undefined && token !== null) {
-        token = token.split(' ')[1];
-    }
-    // decode and validate token
-    if (token === undefined || token === null) {
-        console.log('Token can not be null or undefined');
+    // if token invalid => Unauthorized
+    if (!authetication.isValidToken(token)) {
         res.status(401).json({
             message: 'Unauthorized'
         });
     } else {
-        // validate userId in token
-        const tokenData = jwt.verify(token, config.SECRET_KEY);
-        userId = tokenData._id;
-        if (userId.length !== 24) {
-            console.log('Invalid user in token');
-            res.status(401).json({
-                message: 'Unauthorized'
-            });
+        // pass validate token
+        // validate postId param
+        if (!req.param('postId') || req.param('postId').length !== 24) {
+            res.status(200).json({
+                message: 'Invalid post Id'
+            })
         } else {
-            // pass validate token
-            // validate postId param
-            if (!req.param('postId') || req.param('postId').length !== 24) {
+            // validate list rating use to update
+            if (req.body.length <= 0) {
                 res.status(200).json({
-                    message: 'Invalid post Id'
+                    message: 'Invalid list rating'
                 })
-            }
-            else {
-                // validate list rating use to update
-                if (req.body.length <= 0) {
-                    res.status(200).json({
-                        message: 'Invalid list rating'
-                    })
-                } else {
-                    // validate the all rating
-                    for (const eachRating of req.body) {
-                        if (eachRating.userId.length !== 24
-                            || eachRating.ratingNumber <= 0
-                            || eachRating.ratingNumber > 5) {
-                            console.log('validate rating fail');
-                            res.status(200).json({
-                                message: 'Invalid list rating'
-                            })
-                            return;
-                        }
+            } else {
+                // validate the all rating
+                for (const eachRating of req.body) {
+                    if (eachRating.userId.length !== 24
+                        || eachRating.ratingNumber <= 0
+                        || eachRating.ratingNumber > 5) {
+                        console.log('validate rating fail');
+                        res.status(200).json({
+                            message: 'Invalid list rating'
+                        })
+                        return;
                     }
-                    // pass the validate => go to update
-                    // obj store all listRating for update
-                    const newListRating = {
-                        "rating": req.body
-                    };
-
-                    // in request has post Id, create query object from that
-                    const queryObj = { _id: new ObjectId(req.param('postId')) }
-                    database.updateDocumentByFilter(database.iTravelDB.Posts, queryObj, newListRating)
-                        .then((updateResult) => {
-                            // matchedCount is default result will be returned by mongodb
-                            if (updateResult.matchedCount === 1) {
-                                res.status(201).json({
-                                    message: 'Send Rating Success'
-                                });
-                            } else {
-                                res.status(200).json({
-                                    message: 'Not found post'
-                                });
-                            }
-                        })
-                        .catch((err) => {
-                            console.log('Send Rating Has Err');
-                        })
                 }
+                // pass the validate => go to update
+                // obj store all listRating for update
+                const newListRating = {
+                    "rating": req.body
+                };
+
+                // in request has post Id, create query object from that
+                const queryObj = { _id: new ObjectId(req.param('postId')) }
+                database.updateDocumentByFilter(database.iTravelDB.Posts, queryObj, newListRating)
+                    .then((updateResult) => {
+                        // matchedCount is default result will be returned by mongodb
+                        if (updateResult.matchedCount === 1) {
+                            res.status(201).json({
+                                message: 'Send Rating Success'
+                            });
+                        } else {
+                            res.status(200).json({
+                                message: 'Not found post'
+                            });
+                        }
+                    })
+                    .catch((err) => {
+                        console.log('Send Rating Has Err');
+                    })
             }
         }
+    }
+});
+
+/**
+ * @name POST-new-notification
+ * @author Thong
+ * @param userId used for get notification of that user
+ */
+app.get('/user/notification', (req, res) => {
+    let token = req.headers.authorization;
+    const userId = req.param('userId');
+    // if token invalid => Unauthorized
+    if (!authetication.isValidToken(token, userId)) {
+        res.status(401).json({
+            message: 'Unauthorized'
+        });
+    } else {
+        // token and user is valid, go to get notification of user
+        const queryObj = { userId: userId }
+
+        database.getOneFromCollection(database.iTravelDB.Notifications, queryObj)
+            .then((receiveData) => {
+                if (receiveData) {
+                    res.status(200).json({
+                        message: 'Get user notification successfully!',
+                        data: receiveData // because receiceData is an array
+                    })
+                } else {
+                    res.status(200).json({
+                        message: 'Failed! Can not find user notification'
+                    })
+                }
+            });
     }
 });
 // Routing - END

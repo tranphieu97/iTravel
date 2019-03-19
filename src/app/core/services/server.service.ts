@@ -344,6 +344,17 @@ export class ServerService {
   }
 
   /**
+   * @name getUserNotification()
+   * @author Thong
+   * @param userId used to find the notifications of that user
+   */
+  getUserNotification(userId: string) {
+    const listParams = new HttpParams().set('userId', userId);
+    return this.http.get<{ message: string, data: any }>(this.HOST + 'user/notification',
+      { headers: this.httpOptions.headers, params: listParams });
+  }
+
+  /**
    * Get user post by UserId
    * @name getPostByAuthorUser
    * @author phieu-th

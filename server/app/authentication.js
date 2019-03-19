@@ -5,6 +5,7 @@ var config = require('../_config');
 var database = require('../app/database');
 var Q = require('q');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const saltRounds = 3;
 
 exports = module.exports = {};
@@ -16,14 +17,14 @@ exports = module.exports = {};
 exports.hashPassword = async (password) => {
     var deferred = Q.defer();
 
-    bcrypt.hash(password, saltRounds, function(err, hash) {
+    bcrypt.hash(password, saltRounds, function (err, hash) {
         if (err) {
             deferred.reject(new Error(err));
         } else {
             deferred.resolve(hash);
         }
     });
-    
+
     return deferred.promise;
 }
 
@@ -76,7 +77,7 @@ exports.isExistUsername = async (username) => {
                 });
             })
         }
-        
+
         client.close();
     });
 
@@ -109,10 +110,42 @@ exports.insertUserSignInLog = async (username) => {
                 signInHistoryCollection.insertOne(signInLog);
             })
         }
-        
+
         client.close();
     });
 };
+
+/**
+ * @author Thong
+ * @description check a token is valid or not
+ * @param token
+ * @param userId optional - used to compare with id in token
+ * @returns true or false
+ */
+exports.isValidToken = (token, userId = '') => {
+    let tokenUserId = '';
+    if (token) {
+        token = token.split(' ')[1];
+    } else { return false }
+    // decode and validate token
+    if (!token) {
+        console.log('Token can not be null or undefined');
+        return false;
+    } else {
+        // validate tokenUserId in token
+        const tokenData = jwt.verify(token, config.SECRET_KEY);
+        tokenUserId = tokenData._id;
+        // if has userId input, check tokenUserId===userId
+        if (userId) {
+            if (userId === tokenUserId) return true;
+            else return false;
+        } else if (tokenUserId.length !== 24) {
+            console.log('Invalid user in token');
+            return false;
+        }
+        return true;
+    }
+}
 
 exports.isAdminUser = async (username) => {
     var deferred = Q.defer();
@@ -138,7 +171,7 @@ exports.isAdminUser = async (username) => {
                 });
             })
         }
-        
+
         client.close();
     });
 

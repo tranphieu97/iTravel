@@ -1,10 +1,35 @@
-<div class="noti-container">
+<!-- <div *ngIf="listNotifications.length>0">
   <div>
-    <!-- <h5>{{language.currentLanguage.notificationFrom}} {{this.inputNotification.from}}</h5> -->
-    <h5>{{language.currentLanguage.notificationFrom}}</h5>
+    <div class="noti-container" *ngFor="let noti of listNotifications">
+      <div>
+        <h5>{{language.currentLanguage.notificationFrom}}</h5>
+      </div>
+      <div>
+        <p>{{noti.content}}</p>
+      </div>
+    </div>
   </div>
-  <div>
-    <!-- <p>{{this.inputNotification.content}}</p> -->
-    <p>Notification content</p>
+</div> -->
+
+<div *ngIf="listNotifications.length>0">
+  <div class="noti-container" [ngClass]="{seen: noti.seen}" *ngFor="let noti of listNotifications">
+    <div class="header">
+      <div class="avatar-frame">
+        <div class="avatar"></div>
+      </div>
+      <div class="header-content">
+        {{noti.content}} ...
+      </div>
+      <div class="time">
+        <span>9:25</span>
+        <span>19/3</span>
+      </div>
+    </div>
+    <div class="content">
+      {{noti.content}}
+    </div>
   </div>
+</div>
+<div class="noti-container" *ngIf="!listNotifications.length>0">
+  Login to see messages
 </div>
