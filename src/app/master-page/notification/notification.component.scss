@@ -21,10 +21,15 @@
                     background-size: cover;
                 }
             }
-            .header-content {
+            .header-content.show {
                 margin: 0 6px;
                 max-height: 35px;
                 overflow: hidden;
+                font-style: italic;
+                display: block;
+            }
+            .header-content {
+                display: none;
             }
             .time {
                 display: flex;

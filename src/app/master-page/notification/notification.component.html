@@ -13,23 +13,24 @@
 
 <div *ngIf="listNotifications.length>0">
   <div class="noti-container" [ngClass]="{seen: noti.seen}" *ngFor="let noti of listNotifications">
-    <div class="header">
+    <div class="header" (mouseenter)="handleShowContent(content,shortContent)"
+      (mouseleave)="handleHideContent(content,shortContent)">
       <div class="avatar-frame">
         <div class="avatar"></div>
       </div>
-      <div class="header-content">
-        {{noti.content}} ...
+      <div #shortContent class="header-content show">
+        {{noti.content.slice(0,50)+' ...'}}
       </div>
       <div class="time">
-        <span>9:25</span>
-        <span>19/3</span>
+        <span>{{getTime(noti)[0]}}</span>
+        <span>{{getTime(noti)[1]}}</span>
       </div>
     </div>
-    <div class="content">
+    <div #content class="content">
       {{noti.content}}
     </div>
   </div>
 </div>
 <div class="noti-container" *ngIf="!listNotifications.length>0">
-  Login to see messages
+  {{language.currentLanguage.notificationNeedLogin}}
 </div>

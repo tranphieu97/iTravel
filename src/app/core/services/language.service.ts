@@ -128,7 +128,7 @@ export class LanguageService {
     this.vnLanguage.menuItemFeedback = 'Phản hồi';
 
     // For Notification
-    this.vnLanguage.notificationFrom = 'Từ ';
+    this.vnLanguage.notificationNeedLogin = 'Đăng nhập để xem thông báo của bạn ';
 
     // For Post Management
     this.vnLanguage.postManagementTitle = 'Quản lý bài viết';
@@ -360,7 +360,7 @@ export class LanguageService {
     this.enLanguage.menuItemFeedback = 'Feedback';
 
     // For Notification
-    this.enLanguage.notificationFrom = 'From ';
+    this.enLanguage.notificationNeedLogin = 'Login to see messages';
 
     // For Post Management
     this.enLanguage.postManagementTitle = 'Post Management';
