@@ -12,7 +12,7 @@
 </div> -->
 
 <div *ngIf="listNotifications.length>0">
-  <div class="noti-container" [ngClass]="{seen: noti.seen}" *ngFor="let noti of listNotifications">
+  <div class="noti-container" [ngClass]="{'not-seen': !noti.seen}" *ngFor="let noti of listNotifications">
     <div class="header" (mouseenter)="handleShowContent(content,shortContent)"
       (mouseleave)="handleHideContent(content,shortContent)">
       <div class="avatar-frame">
@@ -31,6 +31,9 @@
     </div>
   </div>
 </div>
-<div class="noti-container" *ngIf="!listNotifications.length>0">
+<div class="noti-container" *ngIf="!userService.currentUser._id">
   {{language.currentLanguage.notificationNeedLogin}}
+</div>
+<div class="noti-container" *ngIf="userService.currentUser._id && listNotifications.length===0">
+  {{language.currentLanguage.notificationNoMessage}}
 </div>

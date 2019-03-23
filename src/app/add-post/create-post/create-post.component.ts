@@ -208,7 +208,7 @@ export class CreatePostComponent implements OnInit {
       this.serverService.uploadImage(this.newImageFiles).subscribe((resData) => {
         if (resData) {
           // update all images url before save
-          console.log(resData);
+          // console.log(resData);
           this.newImageFiles.forEach((imageFileItem, index) => {
             // find true postContent has this image to update url
             const needUpdateImageUrl = this.post.postContents.find((eachEle) => {

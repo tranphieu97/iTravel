@@ -102,6 +102,7 @@ export class LocaleLanguage {
 
     // For Notification
     notificationNeedLogin: string;
+    notificationNoMessage: string;
 
     // For Post Manager
     postManagementTitle: string;

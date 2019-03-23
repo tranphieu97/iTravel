@@ -129,6 +129,7 @@ export class LanguageService {
 
     // For Notification
     this.vnLanguage.notificationNeedLogin = 'Đăng nhập để xem thông báo của bạn ';
+    this.vnLanguage.notificationNoMessage = 'Không có thông báo mới';
 
     // For Post Management
     this.vnLanguage.postManagementTitle = 'Quản lý bài viết';
@@ -361,6 +362,7 @@ export class LanguageService {
 
     // For Notification
     this.enLanguage.notificationNeedLogin = 'Login to see messages';
+    this.enLanguage.notificationNoMessage = 'No recent message';
 
     // For Post Management
     this.enLanguage.postManagementTitle = 'Post Management';

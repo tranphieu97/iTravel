@@ -267,14 +267,14 @@ exports.updateDocumentByFilter = async (collectionName, documentFiler, changePro
 }
 
 /**
- * @name replayDocumentById
+ * @name replaceDocumentById
  * @author Thong
- * @description replay a document by new one, keep the same id
+ * @description replace a document by new one, keep the same id
  * @param {string} collectionName
- * @param {object} documentFiler the object filter use to find the old document need replay
- * @param {Post} changeDocument new document use to replay the old one
+ * @param {object} documentFiler the object filter use to find the old document need replace
+ * @param {Post} changeDocument new document use to replace the old one
  */
-exports.replayDocumentById = async (collectionName, documentFiler, changeDocument) => {
+exports.replaceDocumentById = async (collectionName, documentFiler, changeDocument) => {
     var deferred = Q.defer();
 
     MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {

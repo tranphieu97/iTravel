@@ -297,8 +297,8 @@ app.put('/user/update-post', (req, res) => {
 
                 // create filter from id
                 const filterObj = { _id: new ObjectId(post._id) }
-                // pass the post to replayDocumentById(), function will replay by filter
-                database.replayDocumentById(database.iTravelDB.Posts, filterObj, post)
+                // pass the post to replaceDocumentById(), function will replay by filter
+                database.replaceDocumentById(database.iTravelDB.Posts, filterObj, post)
                     .then(() => {
                         console.log('Update post to mongodb successfully');
                         res.status(200).json({
@@ -493,11 +493,11 @@ app.patch('/user/send-rating', (req, res) => {
 });
 
 /**
- * @name POST-new-notification
+ * @name GET-notification
  * @author Thong
  * @param userId used for get notification of that user
  */
-app.get('/user/notification', (req, res) => {
+app.get('/user/get-notification', (req, res) => {
     let token = req.headers.authorization;
     const userId = req.param('userId');
     // if token invalid => Unauthorized
@@ -521,6 +521,37 @@ app.get('/user/notification', (req, res) => {
                         message: 'Failed! Can not find user notification'
                     })
                 }
+            });
+    }
+});
+
+/**
+ * @name POST-new-notification
+ * @author Thong
+ * @param request
+ * @description receive request from serverService, include new notification in requestBody
+ * then insert it to mongodb, send back response with message
+ */
+app.post('/user/create-notification', (req, res, next) => {
+    let token = req.headers.authorization;
+    const userId = req.param('userId');
+    // if token invalid => Unauthorized
+    if (!authetication.isValidToken(token, userId)) {
+        res.status(401).json({
+            message: 'Unauthorized'
+        });
+    } else {
+        const notification = req.body;
+        // TODO validate notification
+        database.insertOneToColection(database.iTravelDB.Notifications, notification)
+            .then(() => {
+                res.status(200).json({
+                    message: 'Success!'
+                });
+            }).catch(() => {
+                res.status(500).json({
+                    message: 'Fail!'
+                });
             });
     }
 });

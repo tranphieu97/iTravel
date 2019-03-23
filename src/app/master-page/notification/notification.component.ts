@@ -21,7 +21,13 @@ export class NotificationComponent implements OnInit {
   ngOnInit() {
     if (this.userService.currentUser._id) {
       this.serverService.getUserNotification(this.userService.currentUser._id).subscribe(receiveData => {
-        this.listNotifications = receiveData.data.notificationItems.slice(0, 10);
+        if (receiveData.data) {
+          this.listNotifications = receiveData.data.notificationItems.slice(0, 10);
+        } else {
+          // if current user not has notification, create an empty one
+          const newNoti = new Notification(this.userService.currentUser._id, []);
+          this.serverService.postNewNotification(newNoti).subscribe();
+        }
       });
     }
   }
