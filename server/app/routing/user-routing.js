@@ -1,7 +1,7 @@
 // Include js file
 const database = require('../database.js');
 const config = require('../../_config.js');
-const authetication = require('../authentication.js');
+const authentication = require('../authentication.js');
 
 // Include library
 const jwt = require('jsonwebtoken');
@@ -51,7 +51,7 @@ app.get('/user/posts', async (req, res) => {
                 approvedTime: 1
             }
 
-            database.getProjectCollectionDataByFilter(database.iTravelDB.Posts, userPostsFilter, projectionProperties)
+            database.getCollectionDataByProjection(database.iTravelDB.Posts, userPostsFilter, projectionProperties)
                 .then((data) => {
                     // Clean data to show
                     data.forEach(post => {
@@ -192,7 +192,7 @@ app.post('/user/token-login', async (req, res) => {
                             avatar: userInfo.avatar,
                             isAdmin: isAdmin
                         }
-                        authetication.insertUserSignInLog(userInfo.username);
+                        authentication.insertUserSignInLog(userInfo.username);
                         jwt.sign(userData, config.SECRET_KEY, { expiresIn: '23h' }, (err, jwtToken) => {
                             res.status(201).json({
                                 message: 'Login success!',

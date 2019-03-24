@@ -1,11 +1,10 @@
-
-
 var MongoClient = require('mongodb').MongoClient;
 var config = require('../_config');
 var database = require('../app/database');
 var Q = require('q');
 const bcrypt = require('bcryptjs');
 const saltRounds = 3;
+const jwt = require('jsonwebtoken');
 
 exports = module.exports = {};
 
@@ -16,14 +15,14 @@ exports = module.exports = {};
 exports.hashPassword = async (password) => {
     var deferred = Q.defer();
 
-    bcrypt.hash(password, saltRounds, function(err, hash) {
+    bcrypt.hash(password, saltRounds, function (err, hash) {
         if (err) {
             deferred.reject(new Error(err));
         } else {
             deferred.resolve(hash);
         }
     });
-    
+
     return deferred.promise;
 }
 
@@ -76,7 +75,7 @@ exports.isExistUsername = async (username) => {
                 });
             })
         }
-        
+
         client.close();
     });
 
@@ -90,6 +89,7 @@ exports.isExistUsername = async (username) => {
  * @param {string} username 
  */
 exports.insertUserSignInLog = async (username) => {
+    var deferred = Q.defer();
 
     MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {
         if (err) {
@@ -109,11 +109,18 @@ exports.insertUserSignInLog = async (username) => {
                 signInHistoryCollection.insertOne(signInLog);
             })
         }
-        
+
         client.close();
     });
 };
 
+/**
+ * Check an user is admin
+ * @name isAdminUser
+ * @author phieu-th
+ * @param {string} username
+ * @returns {boolean} true if username is an admin
+ */
 exports.isAdminUser = async (username) => {
     var deferred = Q.defer();
 
@@ -130,7 +137,7 @@ exports.isAdminUser = async (username) => {
                     if (err) {
                         deferred.resolve(false);
                     } else {
-                        if (result && result.permission === config.USER_PERMISSION.Admin) {
+                        if (result && result.permission === config.USER_PERMISSION.ADMIN) {
                             deferred.resolve(true);
                         }
                         deferred.resolve(false);
@@ -138,9 +145,64 @@ exports.isAdminUser = async (username) => {
                 });
             })
         }
-        
+
         client.close();
     });
 
+    return deferred.promise;
+}
+
+/**
+ * Check a request to api is included a specified permission in params
+ * @name isSpecifiedPermissionRequest
+ * @author phieu-th
+ * @param {any} req request
+ * @param {string} permission specified permission
+ * @returns {boolean} true if request inclued permission
+ */
+exports.isSpecifiedPermissionRequest = async (req, permission) => {
+    var deferred = Q.defer();
+    let token = req.headers.authorization;
+
+    if (token !== undefined) {
+        token = token.split(' ')[1];
+    }
+
+    if (token === undefined || token === null || permission === undefined) {
+        deferred.resolve(false);
+    } else {
+        try {
+            const tokenData = jwt.verify(token, config.SECRET_KEY);
+
+            if (tokenData.username === undefined) {
+                deferred.resolve(false);
+            } else {
+                const userFilter = {
+                    username: {
+                        $eq: tokenData.username
+                    },
+                    permission: {
+                        $elemMatch: {
+                            $eq: permission
+                        }
+                    }
+                };
+    
+                database.getOneFromCollection(database.iTravelDB.Users, userFilter)
+                    .then((userInfo) => {
+                        if (userInfo === null) {
+                            deferred.resolve(false);
+                        }
+                        else {
+                            deferred.resolve(true);
+                        }
+                    });
+            }
+        }
+        catch
+        {
+            deferred.resolve(false);
+        }
+    }
     return deferred.promise;
 }

@@ -1,7 +1,7 @@
 // Include js file
 const config = require('./_config');
 const database = require('./app/database.js');
-const authetication = require('./app/authentication.js');
+const authentication = require('./app/authentication.js');
 const User = require('./model/user.model').User;
 const postService = require('./app/post-service');
 
@@ -38,7 +38,7 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept, X-Auth-Token, App-Auth, X-XSRF-TOKEN, Authorization');
 
-    // check token
+    // check basic token
     const url = req.url;
     let token = req.headers.authorization;
 
@@ -46,13 +46,29 @@ app.use((req, res, next) => {
         token = token.split(' ')[1];
     }
 
+    // Request to pages need to login account
     if (url.indexOf('/api/') === -1 && url.indexOf('/auth/') === -1 && (token === null || token === undefined)) {
         res.status(401).json({
             message: 'Unauthorized'
         });
-    }
+    } else {
 
-    next();
+        // Request to page need admin permission
+        if (url.indexOf('/manager/') !== -1) {
+            authentication.isSpecifiedPermissionRequest(req, config.USER_PERMISSION.ADMIN)
+                .then((isRequestedByAdmin) => {
+                    if (isRequestedByAdmin) {
+                        next();
+                    } else {
+                        res.status(401).json({
+                            message: 'Unauthorized'
+                        });
+                    }
+                });
+        } else {
+            next();
+        }
+    }
 });
 
 /** Routing - START */
