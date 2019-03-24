@@ -62,7 +62,7 @@ app.post('/auth/register-user', async (req, res) => {
                     // Hash password and creat user
                     authentication.hashPassword(password).then((hashPassword) => {
                         var registerUser = new User(username, hashPassword, '', firstName, lastName,
-                            null, 'Newbie', '', 0, 'Member', 'Active', '', false);
+                            null, 'Newbie', '', 0, [config.USER_PERMISSION.MEMBER], 'Active', '', false);
 
                         database.insertOneToColection(database.iTravelDB.Users, registerUser)
                             .then(() => {
@@ -145,10 +145,12 @@ app.post('/auth/login', async (req, res) => {
                         } else {
                             let isAdmin = false;
 
-                            if (userInfo.permission === 'Admin') {
+                            if (userInfo.permission.includes(config.USER_PERMISSION.ADMIN)) {
                                 isAdmin = true;
                             }
 
+                            // This object use for create token
+                            // It can't include more data like data object below because token limit size
                             const userData = {
                                 _id: userInfo._id,
                                 username: userInfo.username,

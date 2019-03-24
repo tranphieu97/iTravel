@@ -142,7 +142,7 @@ export class AuthenticationService {
    * @author phieu-th
    */
   clearToken() {
-    localStorage.removeItem('itravel_currentUser');
+    localStorage.removeItem(this.localStorageTokenName);
   }
 
   /**

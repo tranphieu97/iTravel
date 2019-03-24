@@ -174,7 +174,7 @@ app.post('/user/token-login', async (req, res) => {
                     } else {
                         let isAdmin = false;
 
-                        if (userInfo.permission === 'Admin') {
+                        if (userInfo.permission.includes(config.USER_PERMISSION.ADMIN)) {
                             isAdmin = true;
                         }
 
