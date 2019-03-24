@@ -28,5 +28,10 @@ export class ConstantService {
     RECENT: 'recent'
   };
 
+  USER_PERMISSON = {
+    MEMBER: 'Member',
+    ADMIN: 'Admin'
+  };
+
   constructor() { }
 }

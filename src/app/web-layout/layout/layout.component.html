@@ -12,6 +12,7 @@
         <div class="user-toolbar" *ngIf="this.user.isLogin">
             <span [routerLink]="['/create-post']"><i class="fas fa-edit"></i></span>
             <span [routerLink]="['/manager/posts']" *ngIf="this.user.currentUser.isAdmin"><i class="fas fa-clipboard-check"></i></span>
+            <span [routerLink]="['/manager/permissions']" *ngIf="this.user.currentUser.isAdmin"><i class="fab fa-black-tie"></i></span>
         </div>
     </div>
 </div>

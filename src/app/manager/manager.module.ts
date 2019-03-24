@@ -4,6 +4,7 @@ import { PostManagementComponent } from './post-management/post-management.compo
 import { SharedModule } from '../shared/shared.module';
 import { ManagerRoutingModule } from './manager.routing';
 import { PostViewModule } from '../post-view/post-view.module';
+import { PermissionManagementComponent } from './permission-management/permission-management.component';
 
 @NgModule({
   imports: [
@@ -12,6 +13,6 @@ import { PostViewModule } from '../post-view/post-view.module';
     ManagerRoutingModule,
     PostViewModule
   ],
-  declarations: [PostManagementComponent]
+  declarations: [PostManagementComponent, PermissionManagementComponent]
 })
 export class ManagerModule { }

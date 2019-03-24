@@ -1,0 +1,68 @@
+<div class="content-box permission-management">
+  <div class="permission-management-title">
+    <h4>
+      {{language.currentLanguage.permissionTitle}}
+    </h4>
+  </div>
+  <div class="permission-management-content">
+    <div class="select-account">
+      <div>
+        <input (keyup)="searchUsernameByKeyword()" [(ngModel)]="searchKeyword" [disabled]="isLoading" type="text"
+          class="form-control" [placeholder]="language.currentLanguage.permissionSearchHint">
+      </div>
+      <app-loading *ngIf="isLoading"></app-loading>
+      <div *ngIf="!isLoading" class="list-account">
+        <div *ngFor="let user of listUserPermissonDisplay" (click)="seeAccountInfomation(user.username)">
+          {{user.username}}
+        </div>
+      </div>
+    </div>
+    <div class="account-control">
+      <div class="account-info" *ngIf="currentAccount !== undefined">
+        <img [src]="this.currentAccount.avatar">
+        <h4>{{currentAccount.username}}</h4>
+        <span>{{currentAccount.email}}</span>
+        <span>{{currentAccount.lastName + ' ' + currentAccount.firstName}}</span>
+        <span>{{currentAccount.permission}}</span>
+        <div class="setting-for-account">
+          <!-- <select class="form-control" [(ngModel)]="selectedPermission">
+            <option *ngFor="let permission of listPermission">{{permission}}</option>
+          </select> -->
+          <input type="button" class="btn btn-success" (click)="openConfirmDialog(updatePermission, 'change')"
+            [value]="language.currentLanguage.permissionUpdatePermission">
+          <input type="button" class="btn btn-danger" [value]="language.currentLanguage.permissionBlock">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #updatePermission let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{language.currentLanguage.permissionConfirmTitle}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body form-group">
+    <div class="form-group">
+      <label>{{language.currentLanguage.permissionTypeConfirmPassword}}</label>
+      <input type="password" class="form-control">
+    </div>
+    <div>
+      <label>{{language.currentLanguage.permissionChoosePermission}}</label>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+        <label class="form-check-label" for="defaultCheck1">
+          Default checkbox
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger"
+      (click)="modal.close()">{{language.currentLanguage.permissionConfirmCancel}}</button>
+    <button type="button" class="btn btn-success"
+      (click)="modal.close()">{{language.currentLanguage.permissionConfirmOk}}</button>
+  </div>
+</ng-template>
