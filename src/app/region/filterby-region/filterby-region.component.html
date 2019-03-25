@@ -1,8 +1,22 @@
 <div class="content-box filter-box">
-  <div class="filter-box-title">
-    
+  <div id="filter-box-content">
+    <app-horizontal-card-view-post *ngFor="let post of listRegionPost" [inputPost]="post"></app-horizontal-card-view-post>
   </div>
 </div>
-<div class="content-box filter-box">
+<div class="content-box chart-box">
+  <div class="region-title">
+    <h4>
+      {{this.regionTitle}}
+    </h4>
+  </div>
+  <div class="region-chart">
+    <h6>{{this.language.currentLanguage.regionPostRatio}}</h6>
+    <div id="post-ratio">
 
+    </div>
+  </div>
+
+  <div class="region-chart">
+
+  </div>
 </div>

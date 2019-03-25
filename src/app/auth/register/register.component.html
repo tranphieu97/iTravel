@@ -1,5 +1,6 @@
 <div id="backto-login-div">
-    <p id="backto-login" (click)="redirectToLogin()"><span><i class="fas fa-arrow-left"></i></span>{{language.currentLanguage.registerBackToLogin}}</p>
+    <p id="backto-login" (click)="redirectToLogin()"><span><i
+                class="fas fa-arrow-left"></i></span>{{language.currentLanguage.registerBackToLogin}}</p>
 </div>
 <div class="register-part">
     <div class="register-title">
@@ -14,7 +15,9 @@
             <div class="form-row">
                 <div class="col form-group">
                     <label>{{language.currentLanguage.registerFirstName}} <span>(*)</span>:</label>
-                    <input type="text" formControlName="firstName" class="form-control" [placeholder]="language.currentLanguage.registerEnterFirstname" name="firstname">
+                    <input type="text" formControlName="firstName" [attr.disabled]="isLoading ? '' : null"
+                        class="form-control" [placeholder]="language.currentLanguage.registerEnterFirstname"
+                        name="firstname">
                     <div *ngIf="!registerForm.get('firstName').valid && (registerForm.get('firstName').dirty || registerForm.get('firstName').touched)"
                         class="form-mess">
                         <div *ngIf="registerForm.get('firstName').hasError('required')" class="error-mess">
@@ -24,18 +27,22 @@
                 </div>
                 <div class="col form-group">
                     <label>{{language.currentLanguage.registerLastName}}</label>
-                    <input type="text" formControlName="lastName" class="form-control" [placeholder]="language.currentLanguage.registerEnterLastname" name="lastname">
+                    <input type="text" formControlName="lastName" [attr.disabled]="isLoading ? '' : null"
+                        class="form-control" [placeholder]="language.currentLanguage.registerEnterLastname"
+                        name="lastname">
                 </div>
             </div>
             <div class="form-group">
                 <label>{{language.currentLanguage.registerUsername}} <span>(*)</span>:</label>
-                <input type="text" formControlName="username" class="form-control" [placeholder]="language.currentLanguage.registerEnterUsername" name="username">
+                <input type="text" formControlName="username" [attr.disabled]="isLoading ? '' : null"
+                    class="form-control" [placeholder]="language.currentLanguage.registerEnterUsername" name="username">
                 <div *ngIf="!registerForm.get('username').valid && (registerForm.get('username').dirty || registerForm.get('username').touched)"
                     class="form-mess">
                     <div *ngIf="registerForm.get('username').hasError('required')" class="error-mess">
                         {{language.currentLanguage.registerErrorUsernameRequired}}
                     </div>
-                    <div *ngIf="registerForm.get('username').hasError('minlength') || registerForm.get('username').hasError('maxlength')" class="error-mess">
+                    <div *ngIf="registerForm.get('username').hasError('minlength') || registerForm.get('username').hasError('maxlength')"
+                        class="error-mess">
                         {{language.currentLanguage.registerErrorUsernameLength}}
                     </div>
                     <div *ngIf="registerForm.get('username').hasError('pattern')" class="error-mess">
@@ -45,47 +52,53 @@
             </div>
             <div class="form-group">
                 <label>{{language.currentLanguage.registerPassword}} <span>(*)</span>:</label>
-                <input type="password" formControlName="password" class="form-control" [placeholder]="language.currentLanguage.registerEnterPassword" name="password">
+                <input type="password" formControlName="password" [attr.disabled]="isLoading ? '' : null"
+                    class="form-control" [placeholder]="language.currentLanguage.registerEnterPassword" name="password">
                 <div *ngIf="!registerForm.get('password').valid && (registerForm.get('password').dirty || registerForm.get('password').touched)"
                     class="form-mess">
                     <div *ngIf="registerForm.get('password').hasError('required')" class="error-mess">
-                            {{language.currentLanguage.registerErrorPasswordRequired}}
+                        {{language.currentLanguage.registerErrorPasswordRequired}}
                     </div>
                     <div *ngIf="registerForm.get('password').hasError('minlength')" class="error-mess">
-                            {{language.currentLanguage.registerErrorPasswordLength}}
+                        {{language.currentLanguage.registerErrorPasswordLength}}
                     </div>
                     <div *ngIf="registerForm.get('password').hasError('pattern')" class="error-mess">
-                            {{language.currentLanguage.registerErrorPasswordPattern}}
+                        {{language.currentLanguage.registerErrorPasswordPattern}}
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <label>{{language.currentLanguage.registerConfirmPassword}} <span>(*)</span>:</label>
-                <input type="password" formControlName="confirmPassword" class="form-control" [placeholder]="language.currentLanguage.registerEnterConfirmPassword">
+                <input type="password" formControlName="confirmPassword" [attr.disabled]="isLoading ? '' : null"
+                    class="form-control" [placeholder]="language.currentLanguage.registerEnterConfirmPassword">
                 <div *ngIf="!registerForm.get('confirmPassword').valid && (registerForm.get('confirmPassword').dirty || registerForm.get('confirmPassword').touched)"
                     class="form-mess">
                     <div *ngIf="registerForm.get('confirmPassword').hasError('required')" class="error-mess">
-                            {{language.currentLanguage.registerErrorPasswordRequired}}
+                        {{language.currentLanguage.registerErrorPasswordRequired}}
                     </div>
                     <div *ngIf="registerForm.get('confirmPassword').hasError('minlength')" class="error-mess">
-                            {{language.currentLanguage.registerErrorPasswordLength}}
+                        {{language.currentLanguage.registerErrorPasswordLength}}
                     </div>
                     <div *ngIf="registerForm.get('confirmPassword').hasError('pattern')" class="error-mess">
-                            {{language.currentLanguage.registerErrorPasswordPattern}}
+                        {{language.currentLanguage.registerErrorPasswordPattern}}
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <div class="form-check-inline">
-                    <input type="checkbox" formControlName="acceptPolicies" class="form-check-input">
+                    <input type="checkbox" formControlName="acceptPolicies" [attr.disabled]="isLoading ? '' : null"
+                        class="form-check-input">
                     <p>{{language.currentLanguage.registerAcceptPolicies}}</p>
                 </div>
             </div>
             <div class="form-row">
-                <button type="submit" (click)="registerUser()" class="btn btn-success" [disabled]="registerForm.invalid || !registerForm.get('acceptPolicies').value">
-                        {{language.currentLanguage.registerRegister}}
+                <button type="submit" (click)="registerUser()" class="btn btn-success"
+                    [disabled]="registerForm.invalid || !registerForm.get('acceptPolicies').value || isLoading">
+                    {{language.currentLanguage.registerRegister}}
                 </button>
-                <button type="button" (click)="redirecToHome()" class="btn btn-danger">{{language.currentLanguage.registerBackToHome}}</button>
+                <app-loading *ngIf="isLoading"></app-loading>
+                <button type="button" (click)="redirecToHome()" class="btn btn-danger"
+                    [disabled]="isLoading">{{language.currentLanguage.registerBackToHome}}</button>
             </div>
         </form>
     </div>

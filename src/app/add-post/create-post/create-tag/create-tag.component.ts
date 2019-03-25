@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Tag } from 'src/app/model/tag.model';
 import { TagService } from 'src/app/core/services/tag.service';
 import { Post } from 'src/app/model/post.model';
+import { PostService } from 'src/app/core/services/post.service';
 
 @Component({
   selector: 'app-create-tag',
@@ -11,10 +12,11 @@ import { Post } from 'src/app/model/post.model';
 export class CreateTagComponent implements OnInit {
   // @Input() tags: Tag[] = [];
   @Input() post: Post;
+  @Input() compLanguage;
   // all tag from server to recommend with user
   private allTags: Tag[] = [];
 
-  constructor(private tagService: TagService) { }
+  constructor(private tagService: TagService, private postService: PostService) { }
 
   ngOnInit() {
     this.tagService.newTagsUpdated.asObservable().subscribe(() => {
@@ -33,11 +35,22 @@ export class CreateTagComponent implements OnInit {
 
   onAddTag(inputTagElement: HTMLInputElement) {
     const newTag = new Tag(inputTagElement.value);
-    const sameTag = this.post.tags.find((eachEle) => {
+    // if tag empty => go out
+    if (newTag.tagContent.length <= 0) {
+      return;
+    }
+    // if tag too long => alert
+    if (newTag.tagContent.length > 40) {
+      // emit location of message: create-post.component.validateObject.validateTag.maxLength.message
+      this.postService.newAlert.next(['validateTag', 'maxLength']);
+      return;
+    }
+    const duplicateTag = this.post.tags.find((eachEle) => {
       return eachEle.tagContent === newTag.tagContent;
     });
-    // if sameTag != null mean newTag already in tags, dont need to add again
-    if (sameTag === null || sameTag === undefined) {
+    // if duplicateTag != null mean newTag already exist, don't need to add again
+    if (duplicateTag === null || duplicateTag === undefined) {
+      newTag._id = '';
       this.post.tags.push(newTag);
     }
     // console.log(this.tags);

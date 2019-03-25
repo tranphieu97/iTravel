@@ -80,6 +80,8 @@
                         }
 
                         .action-icon {
+                            min-width: 30px;
+                            text-align: center;
                             padding: 3px;
                             margin-left: 3px;
                             margin-right: 3px;
@@ -106,6 +108,10 @@
                         .tiny-icon {
                             font-size: 5px;
                         }
+
+                        #post-management-action-dropdown {
+                            left: -85px !important;
+                        }
                     }
                 }
             }
@@ -120,3 +126,17 @@
         }
     }
 }
+
+#review-post {
+    height: 400px;
+}
+
+textarea {
+    resize: none;
+}
+
+.error-mess {
+    color: $RED;
+    margin: 3px;
+}
+

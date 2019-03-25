@@ -4,6 +4,7 @@ import { ProvinceCityService } from 'src/app/core/services/province-city.service
 import { ProvinceCity } from 'src/app/model/province-city.model';
 import { ServerService } from 'src/app/core/services/server.service';
 import { Post } from 'src/app/model/post.model';
+import { PostService } from 'src/app/core/services/post.service';
 
 @Component({
   selector: 'app-create-location',
@@ -13,20 +14,27 @@ import { Post } from 'src/app/model/post.model';
 export class CreateLocationComponent implements OnInit {
   // @Input() location: Location = new Location('', [], '', '');
   @Input() post: Post;
+  @Input() compLanguage;
   allProvCity: ProvinceCity[] = [];
   allLocations: Location[] = [];
 
-  constructor(private provCityService: ProvinceCityService, private serverService: ServerService) { }
+  constructor(private provCityService: ProvinceCityService, private postService: PostService, private serverService: ServerService) { }
 
   ngOnInit() {
     // call service to get all province - city
+    // if all province are already exist in provCityService, dont need to call server
     if (this.provCityService.allProvinceCity.length > 0) {
       this.allProvCity = this.provCityService.allProvinceCity;
     } else {
+      // if all province are not already exist in provCityService, get all from server and store to service
       this.provCityService.getAllProvinceCity()
         .subscribe((resData) => {
           if (resData.data) {
-            this.provCityService.allProvinceCity = resData.data;
+            this.provCityService.allProvinceCity = resData.data.sort((provinceA, provinceB) => {
+              if (provinceA.provinceName > provinceB.provinceName) {
+                return 1;
+              } else { return -1; }
+            });
             this.allProvCity = this.provCityService.allProvinceCity;
           }
           // else err handling
@@ -44,26 +52,40 @@ export class CreateLocationComponent implements OnInit {
       return eachEle !== removedProvince;
       // return eachEle._id !== removedCategory._id;
     });
+    // emit event
+    this.postService.provinceCityChanged.next();
   }
 
   onSelectProvince(selectedProvince: string) {
-    // check list province if selected province is a new province
-    const sameProvince = this.post.location.provinceCity.find((eachEle) => {
-      return eachEle === selectedProvince;
+    // check if selected province is valid, if invalid => fake province => hacker
+    const realProvince = this.provCityService.allProvinceCity.find((eachEle) => {
+      return eachEle.provinceName === selectedProvince;
     });
-    // if is a new province => add the new
-    if (sameProvince === null || sameProvince === undefined) {
-      this.post.location.provinceCity.push(selectedProvince);
+    if (realProvince !== null && realProvince !== undefined) {
+      // check list province if selected province is a new province
+      const duplicateProvince = this.post.location.provinceCity.find((eachEle) => {
+        return eachEle === selectedProvince;
+      });
+      // if is a new province => add the new
+      if (duplicateProvince === null || duplicateProvince === undefined) {
+        this.post.location.provinceCity.push(selectedProvince);
+      }
     }
+    // emit event
+    this.postService.provinceCityChanged.next();
   }
 
   onUpdatePlace(event: Event) {
     // validate here
     this.post.location.locationName = (event.target as HTMLInputElement).value;
+    // emit event
+    this.postService.placeChanged.next();
   }
 
   onUpdateAddress(event: Event) {
     // validate here
     this.post.location.address = (event.target as HTMLInputElement).value;
+    // emit event
+    this.postService.addressChanged.next();
   }
 }

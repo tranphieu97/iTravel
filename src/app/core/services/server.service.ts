@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Province } from '../../model/province.model';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { CardViewPost } from '../../model/cardViewPost.model';
 import { Feedback } from '../../model/feedback.model';
 import { SearchHistory } from '../../model/searchHistory.model';
@@ -11,6 +12,11 @@ import { Tag } from 'src/app/model/tag.model';
 import { PostCategory } from 'src/app/model/postCategory.model';
 import { ProvinceCity } from 'src/app/model/province-city.model';
 import { Location } from 'src/app/model/location.model';
+import { ConstantService } from './constant.service';
+import { Comment } from 'src/app/model/comment.model';
+import { PostRating } from 'src/app/model/post-rating.model';
+
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +24,7 @@ import { Location } from 'src/app/model/location.model';
 export class ServerService {
 
   HOST: String = 'http://localhost:7979/';
+  // HOST: String = environment.apiUrl + '/';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -25,7 +32,9 @@ export class ServerService {
     })
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private constant: ConstantService) {
+    console.log(this.HOST);
+  }
 
   /**
    * Get list 63 VietNam's provinces
@@ -57,7 +66,7 @@ export class ServerService {
    * @author phieu-th
    */
   getCardViewPost(): Observable<CardViewPost[]> {
-    return this.http.get<any>(this.HOST + 'api/posts').pipe(map((res: any) => {
+    return this.http.get<any>(this.HOST + 'api/cardview-post').pipe(map((res: any) => {
       const cardViewPosts: CardViewPost[] = res.data.map((resItem) => {
         const cardViewPost: CardViewPost = new CardViewPost(
           resItem._id,
@@ -65,7 +74,9 @@ export class ServerService {
           resItem.cover,
           resItem.categories,
           resItem.createdTime,
-          resItem.description
+          resItem.description,
+          resItem.location,
+          resItem.viewAmount
         );
         return cardViewPost;
       });
@@ -128,7 +139,15 @@ export class ServerService {
    * @description send POST-request to node server for store new post to Posts collection
    */
   postOnePost(newPost: Post) {
-    return this.http.post<{ message: string }>(this.HOST + 'api/posts', newPost);
+    return this.http.post<{ message: string, postId: string }>(this.HOST + 'user/post', newPost);
+  }
+
+  /**
+     * @author Thong
+     * @description send POST-request to node server for update one post by id
+     */
+  updateOnePost(needUpdatePost: Post) {
+    return this.http.put<{ message: string, postId: string }>(this.HOST + 'user/update-post', needUpdatePost);
   }
 
   /**
@@ -136,11 +155,14 @@ export class ServerService {
    * @param {File} image
    * @description send a POST request to upload an image to server
    */
-  uploadImage(image: File) {
+  uploadImage(images: { imgFile: File, contentId: string }[]) {
     // convert to FormData before send to multer
     const uploadImage = new FormData();
-    uploadImage.append('image', image);
-    return this.http.post<{ message: string, imageUrl: string }>(this.HOST + 'api/upload-image', uploadImage);
+    // add img to FormData
+    for (const img of images) {
+      uploadImage.append('images', img.imgFile);
+    }
+    return this.http.post<{ message: string, imageUrls: string[] }>(this.HOST + 'api/upload-image', uploadImage);
   }
 
   /**
@@ -177,7 +199,161 @@ export class ServerService {
     return this.http.get<any>(this.HOST + 'api/report/searchkeyword', { headers: this.httpOptions.headers, params: params });
   }
 
+  getReportByPostViewAmountData(): Observable<any> {
+    return this.http.get<any>(this.HOST + 'api/report/post-view-amount');
+  }
+
+  /**
+   * Get list web's policies
+   * @name getPolicies
+   * @author phieu-th
+   */
+  getPolicies(): Observable<any> {
+    return this.http.get(this.HOST + 'api/policies');
+  }
+
+  /**
+   * Get list posts by region name
+   * @name getPostByRegion
+   * @author phieu-th
+   * @param region
+   */
+  getPostsByRegion(region: string): Observable<any> {
+    const params = new HttpParams().set('region', region);
+    return this.http.get(this.HOST + 'api/region-posts', { params: params }).pipe(map((res: any) => {
+      const listCardViewPost: CardViewPost[] = res.data.map((resItem) => {
+        const cardViewPost: CardViewPost = new CardViewPost(
+          resItem._id,
+          resItem.title,
+          resItem.cover,
+          resItem.categories,
+          resItem.createdTime,
+          resItem.description,
+          resItem.location,
+          resItem.viewAmount
+        );
+
+        return cardViewPost;
+      });
+
+      return listCardViewPost;
+    }));
+  }
+
+  /**
+   * Get list posts by post's category
+   * @name getPostsByCategory
+   * @author phieu-th
+   * @param category
+   */
+  getPostsByCategory(categoryName: string): Observable<any> {
+    const params = new HttpParams().set('category', categoryName);
+    return this.http.get(this.HOST + 'api/category-posts', { params: params }).pipe(map((res: any) => {
+      const listCardViewPost: CardViewPost[] = res.data.map((resItem) => {
+        const cardViewPost: CardViewPost = new CardViewPost(
+          resItem._id,
+          resItem.title,
+          resItem.cover,
+          resItem.categories,
+          resItem.createdTime,
+          resItem.description,
+          resItem.location,
+          resItem.viewAmount
+        );
+
+        return cardViewPost;
+      });
+
+      return listCardViewPost;
+    }));
+  }
+
+  /**
+   * Get number amount post of region and all post
+   */
+  getPostRatioByRegion(region: string): Observable<any> {
+    const params = new HttpParams().set('region', region);
+    return this.http.get(this.HOST + 'api/region-ratio', { params: params });
+  }
+
+  /**
+   * GET all post in database for management
+   * @name getPostsByManager
+   * @author phieu-th
+   */
   getPostsByManager(): Observable<any> {
     return this.http.get<any>(this.HOST + 'manager/posts');
+  }
+
+  /**
+   * Change a Post's status to Approved or Denied
+   * @name updatePostStatus
+   * @author phieu-th
+   * @param postId
+   * @param status
+   * @param reason
+   */
+  updatePostStatus(postId: string, status: any, reason: string): Observable<any> {
+    if (status === this.constant.POST_STATUS.APPROVED) {
+      const params = {
+        postId: postId,
+        status: status
+      };
+      return this.http.patch(this.HOST + 'manager/approve-post', params);
+    } else if (status === this.constant.POST_STATUS.DENY) {
+      const params = {
+        postId: postId,
+        status: status,
+        reason: reason
+      };
+      return this.http.patch(this.HOST + 'manager/deny-post', params);
+    }
+  }
+
+  /**
+   * @author Thong
+   * @param postId use to find the post need add new comment
+   * @param listComments use to update replace the old listComment
+   */
+  updatePostComments(postId: string, listComments: Comment[]) {
+    const listParams = new HttpParams().set('postId', postId);
+    return this.http.patch<{ message: string }>(this.HOST + 'user/send-comment', listComments,
+      { headers: this.httpOptions.headers, params: listParams });
+  }
+
+  /**
+   * @author Thong
+   * @param postId use to find the post need add new rating
+   * @param listRating use to update replace the old listRating
+   */
+  updatePostRating(postId: string, listRating: PostRating[]) {
+    const listParams = new HttpParams().set('postId', postId);
+    return this.http.patch<{ message: string }>(this.HOST + 'user/send-rating', listRating,
+      { headers: this.httpOptions.headers, params: listParams });
+  }
+
+  /**
+   * @name getUserBasicInfo()
+   * @author Thong
+   * @param userId use to find the user to get back firstName, lastName and avatar
+   */
+  getUserBasicInfo(userId: string) {
+    const listParams = new HttpParams().set('userId', userId);
+    return this.http.get<{ message: string, data: any }>(this.HOST + 'api/user-info',
+      { headers: this.httpOptions.headers, params: listParams });
+  }
+
+  /**
+   * Get user post by UserId
+   * @name getPostByAuthorUser
+   * @author phieu-th
+   * @param userId
+   */
+  getPostByAuthorUser(userId: string): Observable<any> {
+    const params = {
+      userId: userId
+    };
+
+    return this.http.get(this.HOST + 'user/posts', { params: params });
   }
 }

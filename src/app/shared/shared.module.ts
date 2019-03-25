@@ -8,6 +8,9 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { JWTInterceptor } from '../core/_helpers/jwt.interceptor';
 import { NgbModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { HorizontalCardViewPostComponent } from '../card-view-style/horizontal-card-view-post/horizontal-card-view-post.component';
+import { CardViewPostComponent } from '../card-view-style/card-view-post/card-view-post.component';
+import { LoadingComponent } from '../web-layout/loading/loading.component';
 
 @NgModule({
   imports: [
@@ -32,10 +35,15 @@ import { NgbModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
     ModalModule,
     ReactiveFormsModule,
     NgbModule,
-    NgbAlertModule
+    NgbAlertModule,
+    HorizontalCardViewPostComponent,
+    CardViewPostComponent,
+    LoadingComponent
   ],
   declarations: [
-
+    HorizontalCardViewPostComponent,
+    CardViewPostComponent,
+    LoadingComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JWTInterceptor, multi: true }

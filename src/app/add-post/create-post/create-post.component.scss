@@ -21,20 +21,24 @@ textarea {
     background-color: #e1e1ef;
     height: 100%;
 }
+
 .hidden-scroll {
     height: 100%;
     overflow-y: scroll;
     overflow-x: hidden;
 }
+
 .max-height {
     // co thi ko bi tran, ko hieu tai sao
     // so px ko quan trong
     max-height: 100px;
 }
+
 .content {
     background-color: #fff;
     border-radius: 5px;
 }
+
 .hidden-scroll::-webkit-scrollbar {
     width: 0px;
     background: transparent;
@@ -62,8 +66,12 @@ button {
     cursor: pointer;
     font-size: 14px;
     position: absolute;
-    top: -8px;
-    right: 5px;
+    top: 0px;
+    right: 11px;
+}
+
+.pointer{
+ cursor: pointer;
 }
 
 .no-padding {
@@ -73,4 +81,16 @@ button {
     button {
         margin-left: 15px;
     }
+}
+
+.del-content-btn {
+    cursor: pointer;
+    font-size: 14px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+.pre-line{
+    white-space: pre-line;
 }

@@ -4,7 +4,6 @@ import { IndexComponent } from './index/index.component';
 import { VietNamMapComponent } from './viet-nam-map/viet-nam-map.component';
 import { SharedModule } from '../shared/shared.module';
 import { HomePageRoutingModule } from './home-page.routing';
-import { CardViewPostComponent } from '../card-view-post/card-view-post.component';
 
 @NgModule({
   imports: [
@@ -12,6 +11,6 @@ import { CardViewPostComponent } from '../card-view-post/card-view-post.componen
     SharedModule,
     HomePageRoutingModule
   ],
-  declarations: [IndexComponent, VietNamMapComponent, CardViewPostComponent]
+  declarations: [IndexComponent, VietNamMapComponent]
 })
 export class HomePageModule { }

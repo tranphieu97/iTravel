@@ -23,11 +23,24 @@
             overflow: visible;
             
             .land {
-                fill: rgb(102, 77, 39);
+                fill: rgb(143, 106, 50);
                 fill-opacity: 1;
                 stroke:white;
                 stroke-opacity: 1;
                 stroke-width:0.5;
+                cursor: pointer;
+            }
+
+            .some-post {
+                fill: rgb(121, 86, 35);
+            }
+
+            .more-post {
+                fill: rgb(100, 67, 18);
+            }
+
+            .much-more-post {
+                fill: rgb(82, 52, 8);
             }
     
             path:hover {
@@ -45,6 +58,13 @@
         background-color: $SECONDARY;
         opacity: 0.8;
         position: fixed;
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none; /* Non-prefixed version, currently
+                            supported by Chrome and Opera */
 
         div#popup-header {
             vertical-align: middle;

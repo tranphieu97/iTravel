@@ -1,24 +1,24 @@
 <!-- row1 has location name -->
 <div class="row">
   <div class="col-xl-2 col-md-3 col-12">
-    <label>Place:</label>
+    <label>{{ compLanguage.createPostPlace }}</label>
   </div>
   <div class="col-xl-10 col-md-9 col-12">
     <!-- <input type="text" name="place" class="form-control" placeholder="Nha Trang beach"> -->
-    <input type="text" name="place" class="form-control" placeholder="Nha Trang beach" [value]="post.location.locationName"
-      (blur)="onUpdatePlace($event)">
+    <input type="text" name="place" class="form-control" [placeholder]="compLanguage.createPostPlacePlaceholder"
+      [value]="post.location.locationName" (blur)="onUpdatePlace($event)" maxlength="200">
   </div>
 </div>
 <br>
 <!-- row2 has location address -->
 <div class="row">
   <div class="col-xl-2 col-md-3 col-12">
-    <label>Address:</label>
+    <label>{{ compLanguage.createPostAddress }}</label>
   </div>
   <div class="col-xl-10 col-md-9 col-12">
     <!-- <input type="text" name="address" class="form-control" placeholder="No.1 Vo Van Ngan"> -->
-    <input type="text" name="address" class="form-control" placeholder="No.1 Vo Van Ngan" [value]="post.location.address"
-      (blur)="onUpdateAddress($event)">
+    <input type="text" name="address" class="form-control" [placeholder]="compLanguage.createPostAddressPlaceholder"
+      [value]="post.location.address" (blur)="onUpdateAddress($event)" maxlength="300">
   </div>
 </div>
 <br>
@@ -26,11 +26,11 @@
 <div class="row">
   <!-- col1 has label -->
   <div class="col-xl-2 col-md-3 col-12">
-    <label>Province City</label>
+    <label>{{ compLanguage.createPostProvinceCity }}</label>
   </div>
   <!-- col3 has selectList as multiple -->
   <div class="col-xl-4 col-md-9 col-12 margin-bottom-15">
-    <input type="text" name="province" class="form-control" placeholder="find a city">
+    <!-- <input type="text" name="province" class="form-control" [placeholder]="compLanguage.createPostFindProvinceCity"> -->
     <select class="form-control" multiple>
       <!-- ngFor here -->
       <option *ngFor="let province of allProvCity" [value]="province.provinceName" (click)="onSelectProvince(province.provinceName)">{{

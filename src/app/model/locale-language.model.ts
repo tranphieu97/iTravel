@@ -10,6 +10,7 @@ export class LocaleLanguage {
     headerQuestionToLogin: string;
     headerPersonalInfo: string;
     headerLogOut: string;
+    headerUserContribution: string;
 
     // For Login Component
     loginTitle: string;
@@ -60,9 +61,10 @@ export class LocaleLanguage {
     menuTrend: string;
     menuPersonal: string;
     menuAbout: string;
+    menuFilter: string;
     menuItemTheNorth: string;
     menuItemTheCentral: string;
-    menuItemTheSourth: string;
+    menuItemTheSouth: string;
     menuItemHot: string;
     menuItemMostRecent: string;
     menuItemOneDay: string;
@@ -121,6 +123,108 @@ export class LocaleLanguage {
     postManagementTableAction: string;
     postManagementPostViewTitle: string;
     postManagementPostViewOk: string;
+    postManagementApprove: string;
+    postManagementDeny: string;
+    postManagementCancel: string;
+    postManagementPostApprovedBefore: string;
+    postManagementPostNotFound: string;
+    postManagementErrorChangeStatus: string;
+    postManagementDenyTitle: string;
+    postManagementDenyPostId: string;
+    postManagementDenyReason: string;
+    postManagementErrorEmptyReason: string;
+    postManagementErrorInvalidDenyData: string;
+    postManagementErrorPostDenied: string;
+
+    // For Policies
+    policiesTitle: string;
+
+    // For HomePage
+    homeIndexPostIn: string;
+
+    // For Create Post
+    createPostTitle: string;
+    createPostTitlePlaceholder: string;
+    createPostDescription: string;
+    createPostDescriptionPlaceholder: string;
+    createPostAddCoverBtn: string;
+    createPostCategory: string;
+    createPostTag: string;
+    createPostTagPlaceholder: string;
+    createPostAddTagBtn: string;
+    createPostPlace: string;
+    createPostPlacePlaceholder: string;
+    createPostAddress: string;
+    createPostAddressPlaceholder: string;
+    createPostProvinceCity: string;
+    createPostFindProvinceCity: string;
+    createPostTopic: string;
+    createPostTopicTitle: string;
+    createPostTopicTitlePlaceholder: string;
+    createPostTopicContent: string;
+    createPostTopicContentPlaceholder: string;
+    createPostTopicAddImgBtn: string;
+    createPostTopicImgDescription: string;
+    createPostSaveBtn: string;
+    createPostCancelBtn: string;
+    createPostInvalidTitleLength: string;
+    createPostInvalidTitleEmpty: string;
+    createPostInvalidDescLength: string;
+    createPostInvalidDescEmpty: string;
+    createPostInvalidCoverEmpty: string;
+    createPostInvalidCategoryEmpty: string;
+    createPostInvalidTagLength: string;
+    createPostInvalidPlaceLength: string;
+    createPostInvalidPlaceEmpty: string;
+    createPostInvalidAddressLength: string;
+    createPostInvalidProvinceEmpty: string;
+    createPostInvalidTopicEmpty: string;
+    createPostAlertSaveSuccess: string;
+    createPostAlertSaveAlready: string;
+
+    // For Region
+    regionTheNorth: string;
+    regionTheCentral: string;
+    regionTheSouth: string;
+    regionPostRatio: string;
+
+    // For Trend
+    trendSearchCharTitle: string;
+    trendSearchChartDes: string;
+    trendPostViewChartTitle: string;
+    trendTop10PostViewAmount: string;
+
+    // For Travel and Cuisine Filter
+    filterTheMostAmountOfViewPost: string;
+    filterTheMostAmountOfView: string;
+    filterFullTitle: string;
+    filterFullCategory: string;
+    filterFullKeyword: string;
+    filterFullRegion: string;
+    filterFullFilter: string;
+
+    // For User
+    userPostManagementTitle: string;
+    userPostManagementApproved: string;
+    userPostManagementPending: string;
+    userPostManagementDenied: string;
+    userPostManagementAllPost: string;
+    userPostManagementEnterPostTitle: string;
+    userPostManagementTablePostName: string;
+    userPostManagementTablePostCreationTime: string;
+    userPostManagementTablePostCategories: string;
+    userPostManagementTablePostStatus: string;
+    userPostManagementTableAction: string;
+    userPostManagementEditTitle: string;
+    userPostManagementEditMessage: string;
+    userPostManagementEditCancel: string;
+    userPostManagementEditOK: string;
+    userPostManagementPostTimeTitle: string;
+    userPostManagementPostTimeOneWeek: string;
+    userPostManagementPostTimeOneMonth: string;
+    userPostManagementPostTimeAll: string;
+    userPostManagementListPostEmpty: string;
+
 
     constructor() { }
 }

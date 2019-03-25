@@ -18,6 +18,7 @@ export class LanguageService {
     this.createEnglishDictionary();
     this.createVietnameseDictionary();
     this.currentLanguage = this.enLanguage;
+    this.hasChangeLanguage.next('en');
   }
 
   /**
@@ -36,6 +37,7 @@ export class LanguageService {
     this.vnLanguage.headerSearch = 'Tìm kiếm';
     this.vnLanguage.headerPersonalInfo = 'Thông tin cá nhân';
     this.vnLanguage.headerLogOut = 'Đăng xuất';
+    this.vnLanguage.headerUserContribution = 'Đóng góp';
 
     // For Login
     this.vnLanguage.loginTitle = 'ĐĂNG NHẬP';
@@ -109,10 +111,11 @@ export class LanguageService {
     this.vnLanguage.menuPlans = 'Kế hoạch';
     this.vnLanguage.menuTrend = 'Xu hướng';
     this.vnLanguage.menuPersonal = 'Cá nhân';
+    this.vnLanguage.menuFilter = 'Bộ lọc';
     this.vnLanguage.menuAbout = 'Về chúng tôi';
     this.vnLanguage.menuItemTheNorth = 'Miền Bắc';
     this.vnLanguage.menuItemTheCentral = 'Miền Trung';
-    this.vnLanguage.menuItemTheSourth = 'Miền Nam';
+    this.vnLanguage.menuItemTheSouth = 'Miền Nam';
     this.vnLanguage.menuItemHot = 'Nổi bật';
     this.vnLanguage.menuItemMostRecent = 'Gần đây nhất';
     this.vnLanguage.menuItemOneDay = '1 Ngày';
@@ -147,6 +150,107 @@ export class LanguageService {
     this.vnLanguage.postManagementTableAction = 'Hành động';
     this.vnLanguage.postManagementPostViewTitle = 'Xem trước bài viết';
     this.vnLanguage.postManagementPostViewOk = 'Ok';
+    this.vnLanguage.postManagementApprove = 'Phê duyệt';
+    this.vnLanguage.postManagementDeny = 'Từ chối';
+    this.vnLanguage.postManagementCancel = 'Hủy';
+    this.vnLanguage.postManagementPostApprovedBefore = 'Bài viết đã được duyệt trước đó';
+    this.vnLanguage.postManagementPostNotFound = 'Không tìm thấy bài viết';
+    this.vnLanguage.postManagementErrorChangeStatus = 'Lỗi khi thay đổi trạng thái';
+    this.vnLanguage.postManagementDenyTitle = 'Từ chối bài viết';
+    this.vnLanguage.postManagementDenyPostId = 'Mã bài viết';
+    this.vnLanguage.postManagementDenyReason = 'Lý do';
+    this.vnLanguage.postManagementErrorEmptyReason = 'Lý do từ chối là bắt buộc';
+    this.vnLanguage.postManagementErrorInvalidDenyData = 'Thông tin bài viết khớp';
+    this.vnLanguage.postManagementErrorPostDenied = 'Bài viết đã từ chối trước đó';
+
+    // For Policies
+    this.vnLanguage.policiesTitle = 'Chính sách sử dụng';
+
+    // For Home Page
+    this.vnLanguage.homeIndexPostIn = 'Bài viết tại ';
+
+    // For Create Post
+    this.vnLanguage.createPostTitle = 'Tiêu đề:';
+    this.vnLanguage.createPostTitlePlaceholder = 'Nhập tiêu đề bài viết';
+    this.vnLanguage.createPostDescription = 'Mô tả:';
+    this.vnLanguage.createPostDescriptionPlaceholder = 'Nhập nội dung mô tả bài viết';
+    this.vnLanguage.createPostAddCoverBtn = 'Ảnh bìa';
+    this.vnLanguage.createPostCategory = 'Thể loại:';
+    this.vnLanguage.createPostTag = 'Gắn thẻ:';
+    this.vnLanguage.createPostTagPlaceholder = 'Nhập nội dung thẻ mới';
+    this.vnLanguage.createPostAddTagBtn = 'Thêm';
+    this.vnLanguage.createPostPlace = 'Địa điểm:';
+    this.vnLanguage.createPostPlacePlaceholder = 'Nhập tên địa điểm';
+    this.vnLanguage.createPostAddress = 'Địa chỉ:';
+    this.vnLanguage.createPostAddressPlaceholder = 'Nhập địa chỉ';
+    this.vnLanguage.createPostProvinceCity = 'Tỉnh thành:';
+    this.vnLanguage.createPostFindProvinceCity = 'Tìm tỉnh thành';
+    this.vnLanguage.createPostTopic = 'Nội dung bài viết:';
+    this.vnLanguage.createPostTopicTitle = 'Tiêu đề:';
+    this.vnLanguage.createPostTopicTitlePlaceholder = 'Nhập tiêu đề đoạn văn';
+    this.vnLanguage.createPostTopicContent = 'Nội dung:';
+    this.vnLanguage.createPostTopicContentPlaceholder = 'Nhập nội dung đoạn văn';
+    this.vnLanguage.createPostTopicAddImgBtn = 'Thêm ảnh';
+    this.vnLanguage.createPostTopicImgDescription = 'Nhập nội dung mô tả hình ảnh';
+    this.vnLanguage.createPostSaveBtn = 'Lưu';
+    this.vnLanguage.createPostCancelBtn = 'Hủy';
+    this.vnLanguage.createPostInvalidTitleLength = 'Tiêu đề bài viết quá dài!';
+    this.vnLanguage.createPostInvalidTitleEmpty = 'Tiêu đề bài viết không được để trống!';
+    this.vnLanguage.createPostInvalidDescLength = 'Mô tả bài viết quá dài!';
+    this.vnLanguage.createPostInvalidDescEmpty = 'Mô tả bài viết không được để trống!';
+    this.vnLanguage.createPostInvalidCoverEmpty = 'Ảnh bìa không được để trống!';
+    this.vnLanguage.createPostInvalidCategoryEmpty = 'Thể loại bài viết không được để trống!';
+    this.vnLanguage.createPostInvalidTagLength = 'Không thể gắn thẻ quá dài!';
+    this.vnLanguage.createPostInvalidPlaceLength = 'Địa điểm quá dài!';
+    this.vnLanguage.createPostInvalidPlaceEmpty = 'Địa điểm không được để trống!';
+    this.vnLanguage.createPostInvalidAddressLength = 'Địa chỉ quá dài!';
+    this.vnLanguage.createPostInvalidProvinceEmpty = 'Tỉnh Thành-phố không được để trống!';
+    this.vnLanguage.createPostInvalidTopicEmpty = 'Nội dung bài viết không được để trống!';
+    this.vnLanguage.createPostAlertSaveSuccess = 'Đã lưu bài viết thành công, nhấn vào để xem lại.';
+    this.vnLanguage.createPostAlertSaveAlready = 'Bài viết của bạn đã được lưu rồi, không thể lưu thêm nữa!';
+
+    // For Region
+    this.vnLanguage.regionTheNorth = 'Miền Bắc';
+    this.vnLanguage.regionTheCentral = 'Miền Trung';
+    this.vnLanguage.regionTheSouth = 'Miền Nam';
+    this.vnLanguage.regionPostRatio = 'Tỉ lệ số lượng bài viết';
+
+    // For Trend
+    this.vnLanguage.trendSearchCharTitle = 'Xu hướng tìm kiếm';
+    this.vnLanguage.trendSearchChartDes = 'Từ khóa tìm kiếm nhiều nhất: ';
+    this.vnLanguage.trendPostViewChartTitle = 'Xu hướng xem bài viết';
+    this.vnLanguage.trendTop10PostViewAmount = 'Top 10 bài viết được xem nhiều nhất';
+
+    // For Travel and Cuisine Filter
+    this.vnLanguage.filterTheMostAmountOfViewPost = 'Bài viết được xem nhiều nhất';
+    this.vnLanguage.filterTheMostAmountOfView = 'Số lượt xem: ';
+    this.vnLanguage.filterFullTitle = 'Bộ lọc bài viết';
+    this.vnLanguage.filterFullCategory = 'Thể loại';
+    this.vnLanguage.filterFullKeyword = 'Từ khóa';
+    this.vnLanguage.filterFullRegion = 'Vùng miền';
+    this.vnLanguage.filterFullFilter = 'Lọc';
+
+    // For User Module
+    this.vnLanguage.userPostManagementTitle = 'Bài viết đóng góp';
+    this.vnLanguage.userPostManagementApproved = 'Đã duyệt';
+    this.vnLanguage.userPostManagementPending = 'Đang chờ';
+    this.vnLanguage.userPostManagementDenied = 'Từ chối';
+    this.vnLanguage.userPostManagementAllPost = 'Tất cả';
+    this.vnLanguage.userPostManagementEnterPostTitle = 'Nhập tên bài viết';
+    this.vnLanguage.userPostManagementTablePostName = 'Tên bài viết';
+    this.vnLanguage.userPostManagementTablePostCreationTime = 'Thời gian';
+    this.vnLanguage.userPostManagementTablePostCategories = 'Thể loại';
+    this.vnLanguage.userPostManagementTablePostStatus = 'Trạng thái';
+    this.vnLanguage.userPostManagementTableAction = 'Hành động';
+    this.vnLanguage.userPostManagementEditTitle = 'Cập nhật bài viết';
+    this.vnLanguage.userPostManagementEditMessage = 'Cập nhật nội dung bài viết sẽ đưa bài viết vào trạng thái chờ phệ duyệt';
+    this.vnLanguage.userPostManagementEditCancel = 'Hủy';
+    this.vnLanguage.userPostManagementEditOK = 'OK';
+    this.vnLanguage.userPostManagementPostTimeTitle = 'Thời gian viết bài';
+    this.vnLanguage.userPostManagementPostTimeOneWeek = 'Trong một tuần';
+    this.vnLanguage.userPostManagementPostTimeOneMonth = 'Trong một tháng';
+    this.vnLanguage.userPostManagementPostTimeAll = 'Tất cả';
+    this.vnLanguage.userPostManagementListPostEmpty = 'Không có bài viết trong danh sách';
   }
 
   /**
@@ -165,6 +269,7 @@ export class LanguageService {
     this.enLanguage.headerSearch = 'Search';
     this.enLanguage.headerPersonalInfo = 'Personal Information';
     this.enLanguage.headerLogOut = 'Sign Out';
+    this.enLanguage.headerUserContribution = 'Contribution';
 
     // For Login Component
     this.enLanguage.loginTitle = 'SIGN IN';
@@ -237,11 +342,12 @@ export class LanguageService {
     this.enLanguage.menuCuisine = 'Cuisine';
     this.enLanguage.menuPlans = 'Plans';
     this.enLanguage.menuTrend = 'Trend';
+    this.enLanguage.menuFilter = 'Filter';
     this.enLanguage.menuPersonal = 'Personal';
     this.enLanguage.menuAbout = 'About Us';
     this.enLanguage.menuItemTheNorth = 'The North';
     this.enLanguage.menuItemTheCentral = 'The Central';
-    this.enLanguage.menuItemTheSourth = 'The Sourth';
+    this.enLanguage.menuItemTheSouth = 'The South';
     this.enLanguage.menuItemHot = 'Hot';
     this.enLanguage.menuItemMostRecent = 'Most Recent';
     this.enLanguage.menuItemOneDay = '1 day';
@@ -276,7 +382,107 @@ export class LanguageService {
     this.enLanguage.postManagementTableAction = 'Action';
     this.enLanguage.postManagementPostViewTitle = 'Review';
     this.enLanguage.postManagementPostViewOk = 'Ok';
+    this.enLanguage.postManagementApprove = 'Approve';
+    this.enLanguage.postManagementDeny = 'Deny';
+    this.enLanguage.postManagementCancel = 'Cancel';
+    this.enLanguage.postManagementPostApprovedBefore = 'This post was approved before';
+    this.enLanguage.postManagementPostNotFound = 'Post not found';
+    this.enLanguage.postManagementErrorChangeStatus = 'Change post status has error, please try again';
+    this.enLanguage.postManagementDenyTitle = 'Deny a post';
+    this.enLanguage.postManagementDenyPostId = 'Post ID';
+    this.enLanguage.postManagementDenyReason = 'Reason';
+    this.enLanguage.postManagementErrorEmptyReason = 'Deny reason is required';
+    this.enLanguage.postManagementErrorInvalidDenyData = 'Post information is not match';
+    this.enLanguage.postManagementErrorPostDenied = 'Post was denied before';
 
+    // For Policies
+    this.enLanguage.policiesTitle = 'Using Policies';
+
+    // For Home Page
+    this.enLanguage.homeIndexPostIn = 'Posts in ';
+
+    // For Create Post
+    this.enLanguage.createPostTitle = 'Title:';
+    this.enLanguage.createPostTitlePlaceholder = 'Enter post title';
+    this.enLanguage.createPostDescription = 'Description:';
+    this.enLanguage.createPostDescriptionPlaceholder = 'Enter post description';
+    this.enLanguage.createPostAddCoverBtn = 'Add Cover';
+    this.enLanguage.createPostCategory = 'Category:';
+    this.enLanguage.createPostTag = 'Tag:';
+    this.enLanguage.createPostTagPlaceholder = 'Enter new tag';
+    this.enLanguage.createPostAddTagBtn = 'Add';
+    this.enLanguage.createPostPlace = 'Place:';
+    this.enLanguage.createPostPlacePlaceholder = 'Enter place name';
+    this.enLanguage.createPostAddress = 'Address:';
+    this.enLanguage.createPostAddressPlaceholder = 'Enter address';
+    this.enLanguage.createPostProvinceCity = 'Province City:';
+    this.enLanguage.createPostFindProvinceCity = 'Find province city';
+    this.enLanguage.createPostTopic = 'Post contents:';
+    this.enLanguage.createPostTopicTitle = 'Title:';
+    this.enLanguage.createPostTopicTitlePlaceholder = 'Enter paragraph title';
+    this.enLanguage.createPostTopicContent = 'Content:';
+    this.enLanguage.createPostTopicContentPlaceholder = 'Enter paragraph content';
+    this.enLanguage.createPostTopicAddImgBtn = 'Add image';
+    this.enLanguage.createPostTopicImgDescription = 'Enter image description';
+    this.enLanguage.createPostSaveBtn = 'Save';
+    this.enLanguage.createPostCancelBtn = 'Cancel';
+    this.enLanguage.createPostInvalidTitleLength = 'Post title can not be too long!';
+    this.enLanguage.createPostInvalidTitleEmpty = 'Post title can not be empty!';
+    this.enLanguage.createPostInvalidDescLength = 'Post description can not be too long!';
+    this.enLanguage.createPostInvalidDescEmpty = 'Post description can not be empty!';
+    this.enLanguage.createPostInvalidCoverEmpty = 'Cover can not be empty!';
+    this.enLanguage.createPostInvalidCategoryEmpty = 'Post category can not be empty!';
+    this.enLanguage.createPostInvalidTagLength = 'Can not add too long tag!';
+    this.enLanguage.createPostInvalidPlaceLength = 'Place can not be too long!';
+    this.enLanguage.createPostInvalidPlaceEmpty = 'Place can not be empty!';
+    this.enLanguage.createPostInvalidAddressLength = 'Address can not be too long!';
+    this.enLanguage.createPostInvalidProvinceEmpty = 'Province-City can not be empty!';
+    this.enLanguage.createPostInvalidTopicEmpty = 'Post content can not be empty!';
+    this.enLanguage.createPostAlertSaveSuccess = 'Your post was saved successfully, click to see.';
+    this.enLanguage.createPostAlertSaveAlready = 'Your post was saved, can\'t save any more!';
+
+    // For Region
+    this.enLanguage.regionTheNorth = 'The North';
+    this.enLanguage.regionTheCentral = 'The Central';
+    this.enLanguage.regionTheSouth = 'The South';
+    this.enLanguage.regionPostRatio = 'Amount Posts Ratio';
+
+    // For Trend
+    this.enLanguage.trendSearchCharTitle = 'Search Trend';
+    this.enLanguage.trendSearchChartDes = 'The most searched keyword: ';
+    this.enLanguage.trendPostViewChartTitle = 'View Post Trend';
+    this.enLanguage.trendTop10PostViewAmount = 'Top 10 of view amount post';
+
+    // For Travel and Cuisine Filter
+    this.enLanguage.filterTheMostAmountOfViewPost = 'Most view Post';
+    this.enLanguage.filterTheMostAmountOfView = 'View Amount: ';
+    this.enLanguage.filterFullTitle = 'Post Filter';
+    this.enLanguage.filterFullCategory = 'Category';
+    this.enLanguage.filterFullKeyword = 'Keyword';
+    this.enLanguage.filterFullRegion = 'Region';
+    this.enLanguage.filterFullFilter = 'Filter';
+
+    // For User Module
+    this.enLanguage.userPostManagementTitle = 'Contribution Posts';
+    this.enLanguage.userPostManagementApproved = 'Approved';
+    this.enLanguage.userPostManagementPending = 'Pending';
+    this.enLanguage.userPostManagementDenied = 'Denied';
+    this.enLanguage.userPostManagementAllPost = 'All Post';
+    this.enLanguage.userPostManagementEnterPostTitle = 'Enter Post\'s title';
+    this.enLanguage.userPostManagementTablePostName = 'Title';
+    this.enLanguage.userPostManagementTablePostCreationTime = 'Creation Time';
+    this.enLanguage.userPostManagementTablePostCategories = 'Categories';
+    this.enLanguage.userPostManagementTablePostStatus = 'Status';
+    this.enLanguage.userPostManagementTableAction = 'Action';
+    this.enLanguage.userPostManagementEditTitle = 'Edit Post';
+    this.enLanguage.userPostManagementEditMessage = 'Edit Post\'s content will send it to pending list';
+    this.enLanguage.userPostManagementEditCancel = 'Cancel';
+    this.enLanguage.userPostManagementEditOK = 'Ok';
+    this.enLanguage.userPostManagementPostTimeTitle = 'Creation Time ';
+    this.enLanguage.userPostManagementPostTimeOneWeek = 'In a week';
+    this.enLanguage.userPostManagementPostTimeOneMonth = 'In a month';
+    this.enLanguage.userPostManagementPostTimeAll = 'All time';
+    this.enLanguage.userPostManagementListPostEmpty = 'List Posts is empty';
   }
 
   /**
@@ -286,7 +492,7 @@ export class LanguageService {
    */
   setVietnamese() {
     this.currentLanguage = this.vnLanguage;
-    this.hasChangeLanguage.next();
+    this.hasChangeLanguage.next('vn');
   }
 
   /**
@@ -296,6 +502,6 @@ export class LanguageService {
    */
   setEnglish() {
     this.currentLanguage = this.enLanguage;
-    this.hasChangeLanguage.next();
+    this.hasChangeLanguage.next('en');
   }
 }

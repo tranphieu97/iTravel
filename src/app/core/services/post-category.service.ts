@@ -14,12 +14,14 @@ export class PostCategoryService {
   constructor(private http: HttpClient, private server: ServerService) { }
 
   getAllCategories() {
+    // if (this.allCategories.length === 0) {
     this.server.getListPostCategories().subscribe((resData => {
-      // if (resData.data !== undefined || resData.data != null) {
-      this.allCategories = resData.data;
-      this.newCategoriesUpdated.next();
-      // }
+      if (resData.data !== undefined && resData.data !== null) {
+        this.allCategories = resData.data;
+        this.newCategoriesUpdated.next();
+      }
       // else err handling
     }));
+    // }
   }
 }

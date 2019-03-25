@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PostContent } from 'src/app/model/postContent.model';
-import { PostViewService } from 'src/app/post-view/post-view.service';
+import { PostService } from 'src/app/core/services/post.service';
 import { Post } from 'src/app/model/post.model';
 
 @Component({
@@ -12,37 +12,31 @@ import { Post } from 'src/app/model/post.model';
 export class CreatePostContentComponent implements OnInit {
   // @Input() postContents: PostContent[] = [];
   @Input() post: Post;
+  @Input() compLanguage;
 
-  constructor(private postService: PostViewService) { }
+  constructor(private postService: PostService) { }
 
   ngOnInit() {
 
   }
 
   onImagePicked(event: Event, addedImgPostContent: PostContent) {
-    // find the post-content need add image
-    // const needAddPContent = this.post.postContents.find((eachEle) => {
-    //   return eachEle._id === addedImgPostContent._id;
-    // });
-    // if found needAddPContent, go to add image
     if (addedImgPostContent !== null && addedImgPostContent !== undefined) {
       const file = (event.target as HTMLInputElement).files[0];
-      // emit file and id of postContent
+      // config reader to read file and show preview
+      const reader = new FileReader();
+      reader.onload = () => {
+        addedImgPostContent.image = reader.result.toString();
+      };
+      reader.readAsDataURL(file);
+      // emit file and id of postContent to store temporarily on createPostComponent
       this.postService.hasNewImage.next({ imgFile: file, contentId: addedImgPostContent._id });
-
-      // this.postService.uploadImage(file).subscribe((resData) => {
-      //   if (resData.imageUrl !== '') {
-      //     addedImgPostContent.image = resData.imageUrl;
-      //   }
-      // });
     }
+    // reset the <input> file for the next time
+    (event.target as HTMLInputElement).value = '';
   }
 
   onDelImageClick(removedImgPostContent: PostContent) {
-    // find the post-content need remove image
-    // const needRemovedPContent = this.post.postContents.find((eachEle) => {
-    //   return eachEle._id === removedImgPostContent._id;
-    // });
     // delete image url
     removedImgPostContent.image = '';
     // emit event hasImgDeleted
@@ -50,16 +44,14 @@ export class CreatePostContentComponent implements OnInit {
   }
 
   onRemovePostContent(removedPostContent: PostContent) {
-    // find the post-content need remove
-    // const needRemovedPContent = this.postContents.find((eachEle) => {
-    //   return eachEle._id === removedPostContent._id;
-    // });
     // filt out the removed postContent
     this.post.postContents = this.post.postContents.filter((eachEle) => {
       return eachEle._id !== removedPostContent._id;
     });
     // emit event hasImgDeleted
     this.postService.hasImgDeleted.next(removedPostContent._id);
+    // emit event postContentChanged
+    this.postService.postContentChanged.next();
   }
 
   onAddPostContent() {
@@ -68,6 +60,8 @@ export class CreatePostContentComponent implements OnInit {
     // fake Id
     tempPostContent._id = new Date().toUTCString();
     this.post.postContents.push(tempPostContent);
+    // emit event postContentChanged
+    this.postService.postContentChanged.next();
   }
 
   onUpdateTopicTitle(updatedPostContent: PostContent, event: Event) {

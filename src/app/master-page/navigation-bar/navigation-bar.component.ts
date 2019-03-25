@@ -26,20 +26,21 @@ export class NavigationBarComponent implements OnInit {
   menuPlans: Menu = new Menu(this.language.currentLanguage.menuPlans, 'assets/menu-icon/icon-plans.png', '', 5);
   menuTrend: Menu = new Menu(this.language.currentLanguage.menuTrend, 'assets/menu-icon/icon-trend.png', 'trend', 6);
   // menuPersonal: Menu = new Menu(this.language.currentLanguage.menuPersonal, 'assets/menu-icon/icon-user.png', '', 7);
+  menuFilter: Menu = new Menu(this.language.currentLanguage.menuFilter, 'assets/menu-icon/icons8-slider-64.png', 'filter/all', 7);
   menuAbout: Menu = new Menu(this.language.currentLanguage.menuAbout, 'assets/menu-icon/icon-about.png', '', 8);
 
   // Menu Item Regions
   menuItemTheNorth: MenuItem = new MenuItem(this.language.currentLanguage.menuItemTheNorth, 'region/north');
   menuItemTheCentral: MenuItem = new MenuItem(this.language.currentLanguage.menuItemTheCentral, 'region/central');
-  menuItemTheSouth: MenuItem = new MenuItem(this.language.currentLanguage.menuItemTheSourth, 'region/south');
+  menuItemTheSouth: MenuItem = new MenuItem(this.language.currentLanguage.menuItemTheSouth, 'region/south');
 
   // Menu Item Travel
-  menuItemHotTravel: MenuItem = new MenuItem(this.language.currentLanguage.menuItemHot, '');
-  menuItemRecentTravel: MenuItem = new MenuItem(this.language.currentLanguage.menuItemMostRecent, '');
+  menuItemHotTravel: MenuItem = new MenuItem(this.language.currentLanguage.menuItemHot, 'filter/travel/hot');
+  menuItemRecentTravel: MenuItem = new MenuItem(this.language.currentLanguage.menuItemMostRecent, 'filter/travel/recent');
 
   // Menu Item Cuisine
-  menuItemHotCuisine: MenuItem = new MenuItem(this.language.currentLanguage.menuItemHot, '');
-  menuItemRecentCuisine: MenuItem = new MenuItem(this.language.currentLanguage.menuItemMostRecent, '');
+  menuItemHotCuisine: MenuItem = new MenuItem(this.language.currentLanguage.menuItemHot, 'filter/cuisine/hot');
+  menuItemRecentCuisine: MenuItem = new MenuItem(this.language.currentLanguage.menuItemMostRecent, 'filter/cuisine/recent');
 
   // Menu Item Plans
   menuItemOneDay: MenuItem = new MenuItem(this.language.currentLanguage.menuItemOneDay, '');
@@ -51,8 +52,10 @@ export class NavigationBarComponent implements OnInit {
   // menuItemChangePassword: MenuItem = new MenuItem(this.language.currentLanguage.menuItemChangePassword, '');
   // menuItemContribution: MenuItem = new MenuItem(this.language.currentLanguage.menuItemContribution, '');
 
+  // Menu Filter
+
   // Menu Item About Us
-  menuItemPolicies: MenuItem = new MenuItem(this.language.currentLanguage.menuItemPolicies, '');
+  menuItemPolicies: MenuItem = new MenuItem(this.language.currentLanguage.menuItemPolicies, 'additional/policies');
   menuItemFeedback: MenuItem = new MenuItem(this.language.currentLanguage.menuItemFeedback, 'additional/feedback');
 
   constructor(private server: ServerService, private masterPage: MasterPageService,
@@ -73,11 +76,12 @@ export class NavigationBarComponent implements OnInit {
     this.menuCuisine.name = this.language.currentLanguage.menuCuisine;
     this.menuPlans.name = this.language.currentLanguage.menuPlans;
     this.menuTrend.name = this.language.currentLanguage.menuTrend;
+    this.menuFilter.name = this.language.currentLanguage.menuFilter;
     // this.menuPersonal.name = this.language.currentLanguage.menuPersonal;
     this.menuAbout.name = this.language.currentLanguage.menuAbout;
     this.menuItemTheNorth.name = this.language.currentLanguage.menuItemTheNorth;
     this.menuItemTheCentral.name = this.language.currentLanguage.menuItemTheCentral;
-    this.menuItemTheSouth.name = this.language.currentLanguage.menuItemTheSourth;
+    this.menuItemTheSouth.name = this.language.currentLanguage.menuItemTheSouth;
     this.menuItemHotTravel.name = this.language.currentLanguage.menuItemHot;
     this.menuItemRecentTravel.name = this.language.currentLanguage.menuItemMostRecent;
     this.menuItemHotCuisine.name = this.language.currentLanguage.menuItemHot;
@@ -100,7 +104,8 @@ export class NavigationBarComponent implements OnInit {
       this.menuVNRegions,
       this.menuTravel,
       this.menuCuisine,
-      this.menuPlans,
+      // this.menuPlans,
+      this.menuFilter,
       this.menuTrend,
       // this.menuPersonal,
       this.menuAbout

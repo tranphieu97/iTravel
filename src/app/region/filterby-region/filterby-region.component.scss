@@ -7,13 +7,55 @@
     height: 100%;
 
     .filter-box {
-        flex: 1 1;
+        flex: 2.5 1;
         height: 95%;
         display: flex;
         flex-direction: column;
+        padding: 10px;
+        
+        #filter-box-content {
+            flex: 1 1;
+            overflow: scroll;
+        }
 
-        .filter-box-title {
-            height: 50px;
+        #filter-box-content::-webkit-scrollbar {
+            display: none;
+            width: 0px;  
+            background: transparent; 
+        }
+        
+        #filter-box-content::-webkit-scrollbar-thumb {
+            background: rgb(255, 255, 255);
+        }
+        #filter-box-content { -ms-overflow-style: none; }
+        #filter-box-content { -ms-overflow-style: none; }
+    }
+
+    .chart-box {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1;
+        padding: 10px;
+
+        .region-title {
+            height: fit-content;
+            border-bottom: 1px solid $GRAY;
+        }
+
+        .region-chart {
+            flex: 1 1;
+            display: flex;
+            flex-direction: column;
+
+            h6 {
+                margin: 3px;
+                color: $GREEN;
+                font-weight: bold;
+            }
+
+            #post-ratio {
+                flex: 1 1;
+            }
         }
     }
 }

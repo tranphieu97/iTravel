@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
 })
 export class LayoutComponent implements OnInit {
 
-  constructor(public mtpService: MasterPageService, private user: UserService) { }
+  constructor(public mtpService: MasterPageService, public user: UserService) { }
 
   ngOnInit() {
   }

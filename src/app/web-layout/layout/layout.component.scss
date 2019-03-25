@@ -8,6 +8,7 @@
     .master-page-main {
         width: 100%;
         flex: 1;
+        max-height: 100vh;
         
         app-navigation-bar {
             height: 100%;
@@ -24,6 +25,7 @@
         .master-page-content {
             flex: 1;
             background-color: $CONTENT_BACKGROUND_COLOR;
+            max-height: 91vh;
         }
 
         .user-toolbar {

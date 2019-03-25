@@ -21,7 +21,7 @@ const routes: Routes = [
     path: 'create-post',
     component: LayoutComponent,
     loadChildren: 'src/app/add-post/add-post.module#AddPostModule',
-    // canActivate: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'home',
@@ -49,6 +49,11 @@ const routes: Routes = [
     path: 'region',
     component: LayoutComponent,
     loadChildren: 'src/app/region/region.module#RegionModule'
+  },
+  {
+    path: 'filter',
+    component: LayoutComponent,
+    loadChildren: 'src/app/filter/filter.module#FilterModule'
   },
   {
     path: 'trend',

@@ -1,18 +1,23 @@
 <div class="row comp">
-    <div class="col-md-12">
-      <!-- add comment -->
-      <div class="row">
-        <div class="col-md-12">
-          <app-add-comment></app-add-comment>
-        </div>
+  <div class="col-md-12">
+    <!-- add comment -->
+    <div class="row" *ngIf="userService.currentUser._id">
+      <div class="col-md-12">
+        <app-add-comment></app-add-comment>
       </div>
-      <!-- show all comment -->
-      <div class="row">
-        <div class="col-md-12">
-          <!-- ngFor here -->
-          <app-comment-item></app-comment-item>
-          <app-comment-item></app-comment-item>
-        </div>
+    </div>
+    <!-- inform user login to comment -->
+    <div class="row" *ngIf="!userService.currentUser._id">
+      <div class="col-md-12">
+        <span class="inform">Login to send comment</span>
+      </div>
+    </div>
+    <!-- show all comment -->
+    <div class="row">
+      <div class="col-md-12">
+        <!-- ngFor here -->
+        <app-comment-item *ngFor="let commentItem of post.comments" [commentItem]="commentItem"></app-comment-item>
       </div>
     </div>
   </div>
+</div>
