@@ -174,7 +174,7 @@ exports.isSpecifiedPermissionRequest = async (req, permission) => {
         try {
             const tokenData = jwt.verify(token, config.SECRET_KEY);
 
-            if (tokenData.username === undefined) {
+            if (tokenData.username === undefined || tokenData.exp < Date.now().valueOf / 1000) {
                 deferred.resolve(false);
             } else {
                 const userFilter = {

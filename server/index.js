@@ -65,6 +65,17 @@ app.use((req, res, next) => {
                         });
                     }
                 });
+        } else if (url.indexOf('/user/') !== -1) {
+            authentication.isSpecifiedPermissionRequest(req, config.USER_PERMISSION.MEMBER)
+            .then((isRequestedByMember) => {
+                if (isRequestedByMember) {
+                    next();
+                } else {
+                    res.status(401).json({
+                        message: 'Unauthorized'
+                    });
+                }
+            });
         } else {
             next();
         }
