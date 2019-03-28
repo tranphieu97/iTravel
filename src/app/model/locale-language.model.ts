@@ -236,6 +236,11 @@ export class LocaleLanguage {
     permissionConfirmCancel: string;
     permissionUpdatePermission: string;
     permissionChoosePermission: string;
+    permissionMessIncorrectData: string;
+    permissionMessIncorrectPassword: string;
+    permissionMessServerError: string;
+    permissionMessUpdatedSuccess: string;
+    permissionMessUpdatedFail: string;
 
     constructor() { }
 }

@@ -8,11 +8,11 @@
     <div class="select-account">
       <div>
         <input (keyup)="searchUsernameByKeyword()" [(ngModel)]="searchKeyword" [disabled]="isLoading" type="text"
-          class="form-control" [placeholder]="language.currentLanguage.permissionSearchHint">
+          class="form-control" [placeholder]="language.currentLanguage.permissionSearchHint" name="searchKeyword">
       </div>
       <app-loading *ngIf="isLoading"></app-loading>
       <div *ngIf="!isLoading" class="list-account">
-        <div *ngFor="let user of listUserPermissonDisplay" (click)="seeAccountInfomation(user.username)">
+        <div *ngFor="let user of listUserDisplay" (click)="seeAccountInfomation(user.username)">
           {{user.username}}
         </div>
       </div>
@@ -25,12 +25,14 @@
         <span>{{currentAccount.lastName + ' ' + currentAccount.firstName}}</span>
         <span>{{currentAccount.permission}}</span>
         <div class="setting-for-account">
-          <!-- <select class="form-control" [(ngModel)]="selectedPermission">
-            <option *ngFor="let permission of listPermission">{{permission}}</option>
-          </select> -->
           <input type="button" class="btn btn-success" (click)="openConfirmDialog(updatePermission, 'change')"
-            [value]="language.currentLanguage.permissionUpdatePermission">
-          <input type="button" class="btn btn-danger" [value]="language.currentLanguage.permissionBlock">
+            [value]="language.currentLanguage.permissionUpdatePermission" [disabled]="isWaitingUpdate">
+          <input type="button" class="btn btn-danger" [value]="language.currentLanguage.permissionBlock" 
+            [disabled]="isWaitingUpdate">
+          <app-loading *ngIf="isWaitingUpdate"></app-loading>
+        </div>
+        <div [ngClass]="{'mess': true, 'mess-err': hasError}" *ngIf="message !== ''">
+          {{message}}
         </div>
       </div>
     </div>
@@ -47,14 +49,15 @@
   <div class="modal-body form-group">
     <div class="form-group">
       <label>{{language.currentLanguage.permissionTypeConfirmPassword}}</label>
-      <input type="password" class="form-control">
+      <input type="password" class="form-control" [(ngModel)]="confirmPassword">
     </div>
     <div>
       <label>{{language.currentLanguage.permissionChoosePermission}}</label>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+      <div class="form-check" *ngFor="let permission of listPermission">
+        <input class="form-check-input" type="checkbox" value="" [checked]="permission.isChecked" 
+          (change)="permission.isChecked = !permission.isChecked">
         <label class="form-check-label" for="defaultCheck1">
-          Default checkbox
+          {{permission.permissionName}}
         </label>
       </div>
     </div>
@@ -63,6 +66,8 @@
     <button type="button" class="btn btn-danger"
       (click)="modal.close()">{{language.currentLanguage.permissionConfirmCancel}}</button>
     <button type="button" class="btn btn-success"
-      (click)="modal.close()">{{language.currentLanguage.permissionConfirmOk}}</button>
+      (click)="updateCurrrentAccountPermission()" [disabled]="confirmPassword === undefined || confirmPassword === ''">
+        {{language.currentLanguage.permissionConfirmOk}}
+      </button>
   </div>
 </ng-template>

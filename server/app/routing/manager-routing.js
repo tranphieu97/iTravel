@@ -77,6 +77,7 @@ app.get('/manager/users-permission', async (req, res) => {
     }
 
     const projectionInfo = {
+        _id: 1,
         username: 1,
         email: 1, firstName: 1,
         lastName: 1,
@@ -231,5 +232,105 @@ app.patch('/manager/deny-post', async (req, res) => {
                 }
             });
     }
+});
+
+/**
+ * Manager set permisson for user
+ * @name PATCH Set Permission
+ * @author phieu-th
+ * @description
+ * @returns
+ */
+app.patch('/manager/set-user-permission', async (req, res) => {
+    try {
+        let listPermission = req.body.listPermission;
+        const userId = req.body.userId;
+        const changedBy = req.body.changedBy;
+        const confirmPassword = req.body.confirmPassword;
+
+        // Convert object to list
+        const systemPermissions = Object.values(config.USER_PERMISSION);
+
+        // Validate list permission
+        if (listPermission !== undefined && userId !== undefined) {
+            listPermission.forEach(permission => {
+                if (!systemPermissions.includes(permission.permissionName)) {
+                    res.status(404).json({
+                        message: 'Incorrect permission',
+                        MessageCode: 'MUP_E01'
+                    });
+                }
+            });
+
+            authentication.isValidUserIdPassword(changedBy, confirmPassword)
+                .then(result => {
+                    if (result) {
+                        listPermission = listPermission.filter(x => x.isChecked === true).map(x => x.permissionName);
+
+                        // Uncheck all
+                        if (listPermission.length === 0) {
+                            listPermission.push(config.USER_PERMISSION.MEMBER);
+                        }
+
+                        const userFiler = {
+                            '_id': {
+                                $eq: new ObjectId(userId)
+                            }
+                        };
+
+                        database.getOneFromCollection(database.iTravelDB.Users, userFiler)
+                            .then(userInfo => {
+                                if (userInfo !== undefined) {
+
+                                    const updatePermission = {
+                                        'permission': listPermission
+                                    };
+
+                                    database.updateDocumentByFilter(database.iTravelDB.Users, userFiler, updatePermission)
+                                        .then(result => {
+                                            res.status(200).json({
+                                                message: 'Updated Success',
+                                                MessageCode: 'MUP_M01'
+                                            });
+                                        })
+                                        .catch(err => {
+                                            res.status(200).json({
+                                                message: 'Updated Fail',
+                                                MessageCode: 'MUP_E02'
+                                            });
+                                        });
+                                } else {
+                                    res.status(404).json({
+                                        message: 'Incorrect userId',
+                                        MessageCode: 'MUP_E03'
+                                    });
+                                }
+                            })
+                            .catch(err => {
+                                res.status(200).json({
+                                    message: 'Updated Fail',
+                                    MessageCode: 'MUP_E02'
+                                });
+                            });
+                    } else {
+                        res.status(200).json({
+                            message: 'Incorrect password',
+                            MessageCode: 'MUP_E04'
+                        });
+                    }
+                });
+        } else {
+            res.status(404).json({
+                message: 'Incorrect body data',
+                MessageCode: 'MUP_E05'
+            });
+        }
+    }
+    catch (err) {
+        res.status(200).json({
+            message: 'System error',
+            MessageCode: 'MUP_E06'
+        });
+    };
 });
 // Routing - END
