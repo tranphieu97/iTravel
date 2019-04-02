@@ -377,4 +377,23 @@ export class ServerService {
 
     return this.http.get(this.HOST + 'user/posts', { params: params });
   }
+
+  /**
+   * Get all user with their permission
+   * @name getAllUserPermission
+   * @author phieu-th
+   */
+  getAllUserPermission(): Observable<any> {
+    return this.http.get(this.HOST + 'manager/users-permission');
+  }
+
+  setUserPermission(username: string, permission: string, changedBy: string): Observable<any> {
+    const params = {
+      username: username,
+      permission: permission,
+      changedBy: changedBy
+    };
+
+    return this.http.patch(this.HOST + 'manager/set-user-permission', params);
+  }
 }

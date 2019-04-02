@@ -408,7 +408,7 @@ exports.countDocumentByFilter = async (collectionName, filter) => {
     return deferred.promise;
 }
 
-exports.getProjectCollectionDataByFilter = async (collectionName, filter, project) => {
+exports.getCollectionDataByProjection = async (collectionName, filter, project) => {
     var deferred = Q.defer();
     var data = null;
 

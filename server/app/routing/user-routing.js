@@ -1,7 +1,7 @@
 // Include js file
 const database = require('../database.js');
 const config = require('../../_config.js');
-const authetication = require('../authentication.js');
+const authentication = require('../authentication.js');
 
 // Include library
 const jwt = require('jsonwebtoken');
@@ -19,55 +19,36 @@ const app = require('../../index');
  */
 app.get('/user/posts', async (req, res) => {
     const userId = req.param('userId');
-    let token = req.headers.authorization;
 
-    if (token !== undefined) {
-        token = token.split(' ')[1];
-    }
-
-    if (token === undefined || token === null) {
-        res.status(401).json({
-            message: 'Unauthorized'
-        });
-    } else {
-        const tokenData = jwt.verify(token, config.SECRET_KEY);
-
-        if (tokenData._id === undefined || tokenData._id !== userId) {
-            res.status(401).json({
-                message: 'Unauthorized'
-            });
-        } else {
-            const userPostsFilter = {
-                authorId: {
-                    $eq: userId
-                }
-            }
-            const projectionProperties = {
-                _id: 1,
-                title: 1,
-                categories: 1,
-                status: 1,
-                createdTime: 1,
-                approvedTime: 1
-            }
-
-            database.getProjectCollectionDataByFilter(database.iTravelDB.Posts, userPostsFilter, projectionProperties)
-                .then((data) => {
-                    // Clean data to show
-                    data.forEach(post => {
-                        post.categories = post.categories.map(x => x.name);
-                    });
-
-                    res.status(200).json({
-                        message: 'Get User Post Success',
-                        data: data
-                    });
-                })
-                .catch((err) => {
-                    console.log(err);
-                })
+    const userPostsFilter = {
+        authorId: {
+            $eq: userId
         }
-    }
+    };
+    const projectionProperties = {
+        _id: 1,
+        title: 1,
+        categories: 1,
+        status: 1,
+        createdTime: 1,
+        approvedTime: 1
+    };
+
+    database.getCollectionDataByProjection(database.iTravelDB.Posts, userPostsFilter, projectionProperties)
+        .then((data) => {
+            // Clean data to show
+            data.forEach(post => {
+                post.categories = post.categories.map(x => x.name);
+            });
+
+            res.status(200).json({
+                message: 'Get User Post Success',
+                data: data
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 });
 
 /**
@@ -78,60 +59,42 @@ app.get('/user/posts', async (req, res) => {
  */
 app.get('/user/profile', async (req, res) => {
     const username = req.param('username');
-    let token = req.headers.authorization;
 
-    if (token !== undefined) {
-        token = token.split(' ')[1];
-    }
-
-    if (token === undefined || token === null) {
-        res.status(401).json({
-            message: 'Unauthorized'
-        });
-    } else {
-        const tokenData = jwt.verify(token, config.SECRET_KEY);
-
-        if (tokenData.username === undefined || tokenData.username !== username) {
-            res.status(401).json({
-                message: 'Unauthorized'
-            });
-        } else {
-            const userFilter = {
-                username: {
-                    $eq: username
-                }
-            }
-            database.getOneFromCollection(database.iTravelDB.Users, userFilter)
-                .then((userInfo) => {
-                    if (userInfo === null) {
-                        res.status(404).json({
-                            message: 'Not found Username'
-                        });
-                    } else {
-                        const returnedUserData = {
-                            _id: userInfo._id,
-                            username: userInfo.username,
-                            email: userInfo.email,
-                            firstName: userInfo.firstName,
-                            lastName: userInfo.lastName,
-                            birthDay: userInfo.birthDay,
-                            level: userInfo.level,
-                            hometown: userInfo.hometown,
-                            point: userInfo.point,
-                            permission: userInfo.permission,
-                            avatar: userInfo.avatar
-                        }
-                        res.status(200).json({
-                            message: 'Success',
-                            data: returnedUserData
-                        });
-                    }
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
+    const userFilter = {
+        username: {
+            $eq: username
         }
     }
+    
+    database.getOneFromCollection(database.iTravelDB.Users, userFilter)
+        .then((userInfo) => {
+            if (userInfo === null) {
+                res.status(404).json({
+                    message: 'Not found Username'
+                });
+            } else {
+                const returnedUserData = {
+                    _id: userInfo._id,
+                    username: userInfo.username,
+                    email: userInfo.email,
+                    firstName: userInfo.firstName,
+                    lastName: userInfo.lastName,
+                    birthDay: userInfo.birthDay,
+                    level: userInfo.level,
+                    hometown: userInfo.hometown,
+                    point: userInfo.point,
+                    permission: userInfo.permission,
+                    avatar: userInfo.avatar
+                }
+                res.status(200).json({
+                    message: 'Success',
+                    data: returnedUserData
+                });
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 });
 
 /**
@@ -174,7 +137,7 @@ app.post('/user/token-login', async (req, res) => {
                     } else {
                         let isAdmin = false;
 
-                        if (userInfo.permission === 'Admin') {
+                        if (userInfo.permission.includes(config.USER_PERMISSION.ADMIN)) {
                             isAdmin = true;
                         }
 
@@ -192,7 +155,7 @@ app.post('/user/token-login', async (req, res) => {
                             avatar: userInfo.avatar,
                             isAdmin: isAdmin
                         }
-                        authetication.insertUserSignInLog(userInfo.username);
+                        authentication.insertUserSignInLog(userInfo.username);
                         jwt.sign(userData, config.SECRET_KEY, { expiresIn: '23h' }, (err, jwtToken) => {
                             res.status(201).json({
                                 message: 'Login success!',

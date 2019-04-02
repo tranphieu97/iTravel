@@ -38,8 +38,8 @@ const MINE_TYPE_MAP = {
 };
 
 const USER_PERMISSION = {
-    Member: 'Member',
-    Admin: 'Admin'
+    MEMBER: 'Member',
+    ADMIN: 'Admin'
 };
 
 const POST_STATUS =

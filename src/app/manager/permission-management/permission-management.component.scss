@@ -1,0 +1,120 @@
+@import 'src/styles.scss';
+
+:host {
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    .permission-management {
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+
+        .permission-management-title {
+            height: 50px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid $GRAY;
+
+            h4 {
+                font-weight: bolder;
+            }
+        }
+    }
+    .permission-management-content {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        flex: 1 1;
+
+        .select-account {
+            flex: 1;
+            margin: 5px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+
+            input {
+                font-size: 16px;
+                margin: 5px 0px;
+            }
+
+            .list-account {
+                flex: 1;
+                overflow: scroll;
+                padding: 3px;
+
+                div {
+                    font-size: 16px;
+                    border-bottom: 0.5px solid $LIGHT;
+                    padding: 3px 5px;
+                }
+
+                div:hover {
+                    background-color: $LIGHT;
+                }
+            }
+        }
+
+        .account-control {
+            flex: 1;
+            display: flex;
+            
+            .account-info {
+                display: flex;
+                flex: 1 1;
+                flex-direction: column;
+                align-items: stretch;
+                padding: 10px;
+
+                img {
+                    margin: 10px;
+                    width: 150px;
+                    height: 150px;
+                    border-radius: 100%;
+                    align-self: center;
+                }
+
+                h4 {
+                    font-weight: bold;
+                    font-size: 18px;
+                    margin: 3px;
+                    text-align: center;
+                }
+
+                span {
+                    font-size: 16px;
+                    text-align: center;
+                }
+
+                .setting-for-account {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+
+                    input {
+                        margin: 5px;
+                        font-size: 16px;
+                        min-width: 50px;
+                    }
+
+                    select, option {
+                        margin: 5px;
+                        font-size: 16px;
+                        min-width: 50px;
+                        max-width: 35%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.modal-body {
+    input, label {
+        font-size: 16px;
+    }
+}

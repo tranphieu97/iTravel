@@ -1,7 +1,7 @@
 // Include js file
 const database = require('../database.js');
 const config = require('../../_config.js');
-const authetication = require('../authentication.js');
+const authentication = require('../authentication.js');
 var ObjectId = require('mongodb').ObjectId;
 
 // Include library
@@ -22,7 +22,7 @@ app.get('/auth/exist-username', async (req, res) => {
 
     username = req.param('username');
 
-    authetication.isExistUsername(username.trim())
+    authentication.isExistUsername(username.trim())
         .then((result) => {
             res.status(200).json({
                 message: 'Check exist username is successed',
@@ -55,19 +55,19 @@ app.post('/auth/register-user', async (req, res) => {
 
     // Validate Data
     if (acceptPolicies && username !== '' && password !== '' && firstName !== '' && password === confirmPassword) {
-        authetication.isExistUsername(username)
+        authentication.isExistUsername(username)
             .then((isExist) => {
                 if (!isExist) {
 
                     // Hash password and creat user
-                    authetication.hashPassword(password).then((hashPassword) => {
+                    authentication.hashPassword(password).then((hashPassword) => {
                         var registerUser = new User(username, hashPassword, '', firstName, lastName,
-                            null, 'Newbie', '', 0, 'Member', 'Active', '', false);
+                            null, 'Newbie', '', 0, [config.USER_PERMISSION.MEMBER], 'Active', '', false);
 
                         database.insertOneToColection(database.iTravelDB.Users, registerUser)
                             .then(() => {
                                 // Check creation result
-                                authetication.isExistUsername(username)
+                                authentication.isExistUsername(username)
                                     .then((isExist) => {
                                         if (isExist) {
                                             res.status(201).json({
@@ -136,7 +136,7 @@ app.post('/auth/login', async (req, res) => {
                         data: false
                     });
                 } else {
-                    authetication.comparePassword(password, userInfo.password).then((isMatch) => {
+                    authentication.comparePassword(password, userInfo.password).then((isMatch) => {
                         if (!isMatch) {
                             res.status(200).json({
                                 message: 'Incorrect password',
@@ -145,10 +145,12 @@ app.post('/auth/login', async (req, res) => {
                         } else {
                             let isAdmin = false;
 
-                            if (userInfo.permission === 'Admin') {
+                            if (userInfo.permission.includes(config.USER_PERMISSION.ADMIN)) {
                                 isAdmin = true;
                             }
 
+                            // This object use for create token
+                            // It can't include more data like data object below because token limit size
                             const userData = {
                                 _id: userInfo._id,
                                 username: userInfo.username,
@@ -164,7 +166,7 @@ app.post('/auth/login', async (req, res) => {
                                 isAdmin: isAdmin
                             }
 
-                            authetication.insertUserSignInLog(userInfo.username);
+                            authentication.insertUserSignInLog(userInfo.username);
 
                             jwt.sign(userData, config.SECRET_KEY, { expiresIn: '23h' }, (err, jwtToken) => {
                                 res.status(201).json({
