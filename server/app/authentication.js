@@ -5,7 +5,6 @@ var Q = require('q');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const saltRounds = 3;
-const jwt = require('jsonwebtoken');
 
 exports = module.exports = {};
 
