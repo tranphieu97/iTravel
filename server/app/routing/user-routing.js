@@ -555,4 +555,69 @@ app.post('/user/create-notification', (req, res, next) => {
             });
     }
 });
+
+/**
+ * @name PATCH-new-notification
+ * @author Thong
+ * @param {NotificationItem[]} listNotificationItem use for update 
+ */
+app.patch('/user/send-notification', (req, res) => {
+    let token = req.headers.authorization;
+    const userId = req.param('userId');
+    // if token invalid => Unauthorized
+    if (!authetication.isValidToken(token, userId)) {
+        res.status(401).json({
+            message: 'Unauthorized'
+        });
+    } else {
+        // pass validate token
+        // validate list notificationItem use to update
+        if (req.body.length <= 0) {
+            res.status(200).json({
+                message: 'Invalid list notificationItems'
+            })
+        } else {
+            // validate the all notificationItem
+            for (const eachNotify of req.body) {
+                // validate some basic length
+                if (eachNotify.from.length !== 24
+                    || eachNotify.to.length !== 24
+                    || eachNotify.content.length <= 0
+                    || eachNotify.content.length > 200
+                    || eachNotify.linkTo.length > 200) {
+                    console.log('validate notifications fail');
+                    res.status(200).json({
+                        message: 'Invalid list notifications'
+                    })
+                    return;
+                }
+            }
+            // pass the validate => go to update
+            // obj store all listComment for update
+            const newListNotifications = {
+                "notificationItems": req.body
+            };
+
+            // create query object from userId
+            const queryObj = { _id: new ObjectId(userId) }
+
+            database.updateDocumentByFilter(database.iTravelDB.Notifications, queryObj, newListNotifications)
+                .then((updateResult) => {
+                    // matchedCount is default result will be returned by mongodb
+                    if (updateResult.matchedCount === 1) {
+                        res.status(201).json({
+                            message: 'Notify Success'
+                        });
+                    } else {
+                        res.status(200).json({
+                            message: 'Not found notification to update'
+                        });
+                    }
+                })
+                .catch((err) => {
+                    console.log('Notify Has Error');
+                })
+        }
+    }
+});
 // Routing - END
