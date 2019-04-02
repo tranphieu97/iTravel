@@ -128,7 +128,8 @@ export class LanguageService {
     this.vnLanguage.menuItemFeedback = 'Phản hồi';
 
     // For Notification
-    this.vnLanguage.notificationFrom = 'Từ ';
+    this.vnLanguage.notificationNeedLogin = 'Đăng nhập để xem thông báo của bạn ';
+    this.vnLanguage.notificationNoMessage = 'Không có thông báo mới';
 
     // For Post Management
     this.vnLanguage.postManagementTitle = 'Quản lý bài viết';
@@ -251,6 +252,18 @@ export class LanguageService {
     this.vnLanguage.userPostManagementPostTimeOneMonth = 'Trong một tháng';
     this.vnLanguage.userPostManagementPostTimeAll = 'Tất cả';
     this.vnLanguage.userPostManagementListPostEmpty = 'Không có bài viết trong danh sách';
+
+    // For Pessmission
+    this.vnLanguage.permissionTitle = 'Danh sách phân quyền';
+    this.vnLanguage.permissionSearchHint = 'Nhập tài khoản';
+    this.vnLanguage.permissionSetPermission = 'Đặt quyền hạn';
+    this.vnLanguage.permissionBlock = 'Khoá tài khoản';
+    this.vnLanguage.permissionConfirmTitle = 'Xác nhập thay đổi';
+    this.vnLanguage.permissionTypeConfirmPassword = 'Nhập mật khẩu của bạn';
+    this.vnLanguage.permissionConfirmOk = 'Ok';
+    this.vnLanguage.permissionConfirmCancel = 'Huỷ';
+    this.vnLanguage.permissionUpdatePermission = 'Cập nhật quyền hạn';
+    this.vnLanguage.permissionChoosePermission = 'Chọn phân quyền';
   }
 
   /**
@@ -360,7 +373,8 @@ export class LanguageService {
     this.enLanguage.menuItemFeedback = 'Feedback';
 
     // For Notification
-    this.enLanguage.notificationFrom = 'From ';
+    this.enLanguage.notificationNeedLogin = 'Login to see messages';
+    this.enLanguage.notificationNoMessage = 'No recent message';
 
     // For Post Management
     this.enLanguage.postManagementTitle = 'Post Management';
@@ -483,6 +497,18 @@ export class LanguageService {
     this.enLanguage.userPostManagementPostTimeOneMonth = 'In a month';
     this.enLanguage.userPostManagementPostTimeAll = 'All time';
     this.enLanguage.userPostManagementListPostEmpty = 'List Posts is empty';
+
+    // For Pessmission
+    this.enLanguage.permissionTitle = 'Users Permission';
+    this.enLanguage.permissionSearchHint = 'Type username';
+    this.enLanguage.permissionSetPermission = 'Set User Permission';
+    this.enLanguage.permissionBlock = 'Block Account';
+    this.enLanguage.permissionConfirmTitle = 'Confirm change';
+    this.enLanguage.permissionTypeConfirmPassword = 'Type your password';
+    this.enLanguage.permissionConfirmOk = 'Ok';
+    this.enLanguage.permissionConfirmCancel = 'Cancel';
+    this.enLanguage.permissionUpdatePermission = 'Update Permission';
+    this.enLanguage.permissionChoosePermission = 'Choose Permissions';
   }
 
   /**

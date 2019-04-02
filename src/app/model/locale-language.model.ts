@@ -101,7 +101,8 @@ export class LocaleLanguage {
     feedbackFail: string;
 
     // For Notification
-    notificationFrom: string;
+    notificationNeedLogin: string;
+    notificationNoMessage: string;
 
     // For Post Manager
     postManagementTitle: string;
@@ -225,6 +226,17 @@ export class LocaleLanguage {
     userPostManagementPostTimeAll: string;
     userPostManagementListPostEmpty: string;
 
+    // For Permission Management
+    permissionTitle: string;
+    permissionSearchHint: string;
+    permissionSetPermission: string;
+    permissionBlock: string;
+    permissionConfirmTitle: string;
+    permissionTypeConfirmPassword: string;
+    permissionConfirmOk: string;
+    permissionConfirmCancel: string;
+    permissionUpdatePermission: string;
+    permissionChoosePermission: string;
 
     constructor() { }
 }

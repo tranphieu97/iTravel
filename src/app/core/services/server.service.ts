@@ -17,6 +17,7 @@ import { Comment } from 'src/app/model/comment.model';
 import { PostRating } from 'src/app/model/post-rating.model';
 
 import { environment } from '../../../environments/environment';
+import { Notification } from 'src/app/model/notification.model';
 
 @Injectable({
   providedIn: 'root'
@@ -344,6 +345,26 @@ export class ServerService {
   }
 
   /**
+   * @name getUserNotification()
+   * @author Thong
+   * @param userId used to find the notifications of that user
+   */
+  getUserNotification(userId: string) {
+    const listParams = new HttpParams().set('userId', userId);
+    return this.http.get<{ message: string, data: any }>(this.HOST + 'user/get-notification',
+      { headers: this.httpOptions.headers, params: listParams });
+  }
+
+  /**
+   * @author Thong
+   * @param newNotification Notification
+   * @description create an empty notification for user
+   */
+  postNewNotification(newNotification: Notification) {
+    return this.http.post<{ message: string }>(this.HOST + 'user/create-notification', newNotification);
+  }
+
+  /**
    * Get user post by UserId
    * @name getPostByAuthorUser
    * @author phieu-th
@@ -355,5 +376,24 @@ export class ServerService {
     };
 
     return this.http.get(this.HOST + 'user/posts', { params: params });
+  }
+
+  /**
+   * Get all user with their permission
+   * @name getAllUserPermission
+   * @author phieu-th
+   */
+  getAllUserPermission(): Observable<any> {
+    return this.http.get(this.HOST + 'manager/users-permission');
+  }
+
+  setUserPermission(username: string, permission: string, changedBy: string): Observable<any> {
+    const params = {
+      username: username,
+      permission: permission,
+      changedBy: changedBy
+    };
+
+    return this.http.patch(this.HOST + 'manager/set-user-permission', params);
   }
 }
