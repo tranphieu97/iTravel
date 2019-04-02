@@ -30,6 +30,7 @@ const storage = multer.diskStorage({
  * @author Thong
  * @param request
  * @description receive request include a file and store on server
+ * remember run npm install on server
  */
 app.post('/api/upload-image', multer({ storage: storage }).array('images'), (req, res, next) => {
     // variable store imageUrls to send response

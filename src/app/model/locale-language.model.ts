@@ -101,7 +101,8 @@ export class LocaleLanguage {
     feedbackFail: string;
 
     // For Notification
-    notificationFrom: string;
+    notificationNeedLogin: string;
+    notificationNoMessage: string;
 
     // For Post Manager
     postManagementTitle: string;

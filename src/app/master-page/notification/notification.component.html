@@ -1,10 +1,39 @@
-<div class="noti-container">
+<!-- <div *ngIf="listNotifications.length>0">
   <div>
-    <!-- <h5>{{language.currentLanguage.notificationFrom}} {{this.inputNotification.from}}</h5> -->
-    <h5>{{language.currentLanguage.notificationFrom}}</h5>
+    <div class="noti-container" *ngFor="let noti of listNotifications">
+      <div>
+        <h5>{{language.currentLanguage.notificationFrom}}</h5>
+      </div>
+      <div>
+        <p>{{noti.content}}</p>
+      </div>
+    </div>
   </div>
-  <div>
-    <!-- <p>{{this.inputNotification.content}}</p> -->
-    <p>Notification content</p>
+</div> -->
+
+<div *ngIf="listNotifications.length>0">
+  <div class="noti-container" [ngClass]="{'not-seen': !noti.seen}" *ngFor="let noti of listNotifications">
+    <div class="header" (mouseenter)="handleShowContent(content,shortContent)"
+      (mouseleave)="handleHideContent(content,shortContent)">
+      <div class="avatar-frame">
+        <div class="avatar"></div>
+      </div>
+      <div #shortContent class="header-content show">
+        {{noti.content.slice(0,50)+' ...'}}
+      </div>
+      <div class="time">
+        <span>{{getTime(noti)[0]}}</span>
+        <span>{{getTime(noti)[1]}}</span>
+      </div>
+    </div>
+    <div #content class="content">
+      {{noti.content}}
+    </div>
   </div>
+</div>
+<div class="noti-container" *ngIf="!userService.currentUser._id">
+  {{language.currentLanguage.notificationNeedLogin}}
+</div>
+<div class="noti-container" *ngIf="userService.currentUser._id && listNotifications.length===0">
+  {{language.currentLanguage.notificationNoMessage}}
 </div>

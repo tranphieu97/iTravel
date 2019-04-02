@@ -3,9 +3,9 @@ var config = require('../_config');
 var database = require('../app/database');
 var Q = require('q');
 const bcrypt = require('bcryptjs');
-const saltRounds = 3;
 const jwt = require('jsonwebtoken');
 var ObjectId = require('mongodb').ObjectId;
+const saltRounds = 3;
 
 exports = module.exports = {};
 
@@ -114,6 +114,38 @@ exports.insertUserSignInLog = async (username) => {
         client.close();
     });
 };
+
+/**
+ * @author Thong
+ * @description check a token is valid or not
+ * @param token
+ * @param userId optional - used to compare with id in token
+ * @returns true or false
+ */
+exports.isValidToken = (token, userId = '') => {
+    let tokenUserId = '';
+    if (token) {
+        token = token.split(' ')[1];
+    } else { return false }
+    // decode and validate token
+    if (!token) {
+        console.log('Token can not be null or undefined');
+        return false;
+    } else {
+        // validate tokenUserId in token
+        const tokenData = jwt.verify(token, config.SECRET_KEY);
+        tokenUserId = tokenData._id;
+        // if has userId input, check tokenUserId===userId
+        if (userId) {
+            if (userId === tokenUserId) return true;
+            else return false;
+        } else if (tokenUserId.length !== 24) {
+            console.log('Invalid user in token');
+            return false;
+        }
+        return true;
+    }
+}
 
 /**
  * Check an user is admin
