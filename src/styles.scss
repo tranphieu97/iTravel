@@ -81,3 +81,9 @@ html, body  {
 div { -ms-overflow-style: none; }
 
 div { -ms-overflow-style: none; }
+
+// Modified bootstrap
+.alert {
+    font-size: 14px !important;
+    font-weight: 700;
+}

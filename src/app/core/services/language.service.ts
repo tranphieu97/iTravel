@@ -269,6 +269,13 @@ export class LanguageService {
     this.vnLanguage.permissionMessServerError = 'Lỗi hệ thống';
     this.vnLanguage.permissionMessUpdatedSuccess = 'Cập nhật thành công';
     this.vnLanguage.permissionMessUpdatedFail = 'Cập nhật thất bại, vui lòng thử lại';
+    this.vnLanguage.permissionUpdatePermissionTitle = 'Cập nhật quyền hạn:';
+    this.vnLanguage.perrmisionSendNotifyTitle = 'Gửi thông báo:';
+    this.vnLanguage.permissionSend = 'Gửi';
+    this.vnLanguage.permissionEnterNotify = 'Nhập nội dung thông báo';
+    this.vnLanguage.permissionBlockTitle = 'Khoá tài khoản';
+    this.vnLanguage.permissionBlockReason = 'Lý do khoá';
+
   }
 
   /**
@@ -519,6 +526,12 @@ export class LanguageService {
     this.enLanguage.permissionMessServerError = 'System Error';
     this.enLanguage.permissionMessUpdatedSuccess = 'Updated Success!';
     this.enLanguage.permissionMessUpdatedFail = 'Updated Fail, Try again';
+    this.enLanguage.permissionUpdatePermissionTitle = 'Update permision:';
+    this.enLanguage.perrmisionSendNotifyTitle = 'Notify:';
+    this.enLanguage.permissionSend = 'Send';
+    this.enLanguage.permissionEnterNotify = 'Enter notification content';
+    this.enLanguage.permissionBlockTitle = 'Block Account';
+    this.enLanguage.permissionBlockReason = 'Block Reason';
   }
 
   /**

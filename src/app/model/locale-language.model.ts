@@ -242,6 +242,12 @@ export class LocaleLanguage {
     permissionMessServerError: string;
     permissionMessUpdatedSuccess: string;
     permissionMessUpdatedFail: string;
+    permissionUpdatePermissionTitle: string;
+    perrmisionSendNotifyTitle: string;
+    permissionSend: string;
+    permissionEnterNotify: string;
+    permissionBlockTitle: string;
+    permissionBlockReason: string;
 
     constructor() { }
 }
