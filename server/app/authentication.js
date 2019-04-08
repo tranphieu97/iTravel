@@ -4,6 +4,7 @@ var database = require('../app/database');
 var Q = require('q');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+var ObjectId = require('mongodb').ObjectId;
 const saltRounds = 3;
 
 exports = module.exports = {};
@@ -253,5 +254,44 @@ exports.isSpecifiedPermissionRequest = async (req, permission) => {
             deferred.resolve(false);
         }
     }
+    return deferred.promise;
+}
+
+/**
+ * Check a couple of username and password is match
+ * @name isValidUserIdPassword
+ * @author phieu-th
+ * @returns true if data valid
+ */
+exports.isValidUserIdPassword = async (userId, password) => {
+    var deferred = Q.defer();
+
+    if (userId !== undefined && password !== undefined) {
+        try {
+            const userFilter = {
+                '_id': {
+                    $eq: new ObjectId(userId)
+                }
+            };
+
+            database.getOneFromCollection(database.iTravelDB.Users, userFilter)
+                .then((userInfo) => {
+                    if (userInfo !== null) {
+                        module.exports.comparePassword(password, userInfo.password)
+                            .then((result) => {
+                                deferred.resolve(result);
+                            })
+                    } else {
+                        deferred.resolve(false);
+                    }
+                })
+        }
+        catch (err) {
+            deferred.resolve(false);
+        }
+    } else {
+        deferred.resolve(false);
+    }
+
     return deferred.promise;
 }

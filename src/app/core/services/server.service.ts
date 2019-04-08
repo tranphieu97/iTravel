@@ -397,11 +397,20 @@ export class ServerService {
     return this.http.get(this.HOST + 'manager/users-permission');
   }
 
-  setUserPermission(username: string, permission: string, changedBy: string): Observable<any> {
+  /**
+   * Update specified user's permission
+   * @name updateUserPermission
+   * @author phieu-th
+   * @param userId
+   * @param listPermission
+   * @param changedBy
+   */
+  updateUserPermission(userId: string, listPermission: Array<any>, changedBy: string, confirmPassword: string): Observable<any> {
     const params = {
-      username: username,
-      permission: permission,
-      changedBy: changedBy
+      userId: userId,
+      listPermission: listPermission,
+      changedBy: changedBy,
+      confirmPassword: confirmPassword
     };
 
     return this.http.patch(this.HOST + 'manager/set-user-permission', params);

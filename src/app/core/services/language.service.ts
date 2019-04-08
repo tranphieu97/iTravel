@@ -264,6 +264,11 @@ export class LanguageService {
     this.vnLanguage.permissionConfirmCancel = 'Huỷ';
     this.vnLanguage.permissionUpdatePermission = 'Cập nhật quyền hạn';
     this.vnLanguage.permissionChoosePermission = 'Chọn phân quyền';
+    this.vnLanguage.permissionMessIncorrectData = 'Dữ liệu cập nhật không đúng';
+    this.vnLanguage.permissionMessIncorrectPassword = 'Mật khẩu xác thực không đúng';
+    this.vnLanguage.permissionMessServerError = 'Lỗi hệ thống';
+    this.vnLanguage.permissionMessUpdatedSuccess = 'Cập nhật thành công';
+    this.vnLanguage.permissionMessUpdatedFail = 'Cập nhật thất bại, vui lòng thử lại';
   }
 
   /**
@@ -509,6 +514,11 @@ export class LanguageService {
     this.enLanguage.permissionConfirmCancel = 'Cancel';
     this.enLanguage.permissionUpdatePermission = 'Update Permission';
     this.enLanguage.permissionChoosePermission = 'Choose Permissions';
+    this.enLanguage.permissionMessIncorrectData = 'Incorrect Update data';
+    this.enLanguage.permissionMessIncorrectPassword = 'Incorrect Password';
+    this.enLanguage.permissionMessServerError = 'System Error';
+    this.enLanguage.permissionMessUpdatedSuccess = 'Updated Success!';
+    this.enLanguage.permissionMessUpdatedFail = 'Updated Fail, Try again';
   }
 
   /**

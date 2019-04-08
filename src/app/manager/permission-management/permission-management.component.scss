@@ -108,6 +108,21 @@
                         max-width: 35%;
                     }
                 }
+
+                .mess {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 16px;
+                    color: $GREEN;
+                    font-weight: bold;
+                    padding: 5px;
+                }
+
+                .mess-err {
+                    color: $RED !important;
+                }
             }
         }
     }
