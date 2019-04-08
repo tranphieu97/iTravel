@@ -18,6 +18,7 @@ import { PostRating } from 'src/app/model/post-rating.model';
 
 import { environment } from '../../../environments/environment';
 import { Notification } from 'src/app/model/notification.model';
+import { NotificationItem } from 'src/app/model/notification-item.model';
 
 @Injectable({
   providedIn: 'root'
@@ -362,6 +363,15 @@ export class ServerService {
    */
   postNewNotification(newNotification: Notification) {
     return this.http.post<{ message: string }>(this.HOST + 'user/create-notification', newNotification);
+  }
+
+  /**
+   * @author Thong
+   * @param newNotification Notification
+   * @description update list notification for user
+   */
+  updateNotification(listNotifications: NotificationItem[]) {
+    return this.http.patch<{ message: string }>(this.HOST + 'user/send-notification', listNotifications);
   }
 
   /**

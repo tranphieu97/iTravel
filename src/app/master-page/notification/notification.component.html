@@ -1,18 +1,9 @@
-<!-- <div *ngIf="listNotifications.length>0">
-  <div>
-    <div class="noti-container" *ngFor="let noti of listNotifications">
-      <div>
-        <h5>{{language.currentLanguage.notificationFrom}}</h5>
-      </div>
-      <div>
-        <p>{{noti.content}}</p>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-<div *ngIf="listNotifications.length>0">
-  <div class="noti-container" [ngClass]="{'not-seen': !noti.seen}" *ngFor="let noti of listNotifications">
+<div *ngIf="recentNotificationItems.length>0">
+  <div 
+    class="noti-container" 
+    [ngClass]="{'not-seen': !noti.seen}" 
+    *ngFor="let noti of recentNotificationItems"
+    (click)="handleSeeNotification(noti)">
     <div class="header" (mouseenter)="handleShowContent(content,shortContent)"
       (mouseleave)="handleHideContent(content,shortContent)">
       <div class="avatar-frame">
@@ -31,9 +22,9 @@
     </div>
   </div>
 </div>
-<div class="noti-container" *ngIf="!userService.currentUser._id">
+<div class="noti-container" *ngIf="!userService.isLogin">
   {{language.currentLanguage.notificationNeedLogin}}
 </div>
-<div class="noti-container" *ngIf="userService.currentUser._id && listNotifications.length===0">
+<div class="noti-container" *ngIf="userService.isLogin && recentNotificationItems.length===0">
   {{language.currentLanguage.notificationNoMessage}}
 </div>

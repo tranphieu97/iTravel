@@ -13,23 +13,28 @@ import { NotificationItem } from 'src/app/model/notification-item.model';
 export class NotificationComponent implements OnInit {
 
   // @Input() public inputNotification: Notification;
-  public listNotifications: Array<Notification> = [];
+  // public listNotification: Array<Notification> = [];
+  public notificationItems: Array<NotificationItem> = [];
+  public recentNotificationItems: Array<Notification> = [];
   sendTime: string;
   sendDate: string;
-  constructor(public language: LanguageService, private serverService: ServerService, public userService: UserService) { }
+  constructor(public language: LanguageService, private serverService: ServerService, private userService: UserService) { }
 
   ngOnInit() {
-    if (this.userService.currentUser._id) {
-      this.serverService.getUserNotification(this.userService.currentUser._id).subscribe(receiveData => {
-        if (receiveData.data) {
-          this.listNotifications = receiveData.data.notificationItems.slice(0, 10);
-        } else {
-          // if current user not has notification, create an empty one
-          const newNoti = new Notification(this.userService.currentUser._id, []);
-          this.serverService.postNewNotification(newNoti).subscribe();
-        }
-      });
-    }
+    this.userService.isLoginChange.asObservable().subscribe(() => {
+      if (this.userService.isLogin) {
+        this.serverService.getUserNotification(this.userService.currentUser._id).subscribe(receiveData => {
+          if (receiveData.data) {
+            this.notificationItems = receiveData.data.notificationItems;
+            this.recentNotificationItems = receiveData.data.notificationItems.slice(0, 10);
+          } else {
+            // if current user not has notification, create an empty one
+            const newNoti = new Notification(this.userService.currentUser._id, []);
+            this.serverService.postNewNotification(newNoti).subscribe();
+          }
+        });
+      }
+    });
   }
 
   handleShowContent(divContent: HTMLDivElement, divShortContent: HTMLDivElement) {
@@ -40,6 +45,14 @@ export class NotificationComponent implements OnInit {
   handleHideContent(divContent: HTMLDivElement, divShortContent: HTMLDivElement) {
     divContent.classList.remove('show');
     divShortContent.classList.add('show');
+  }
+
+  handleSeeNotification(noti: NotificationItem) {
+    const foundNoti = this.notificationItems.find(eachNoti => eachNoti._id === noti._id);
+    foundNoti.seen = true;
+    // foundNoti.seen = !foundNoti.seen;
+    this.serverService.updateNotification(this.notificationItems).subscribe((resData) => {
+    });
   }
 
   getTime(notifyItem: NotificationItem) {
