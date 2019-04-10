@@ -12,6 +12,7 @@ export class UserService {
   currentUser: User;
 
   hasChangeUser: Subject<any> = new Subject<any>();
+  isLoginChange = new Subject();
 
   constructor(private authentication: AuthenticationService) {
     this.currentUser = new User();
@@ -27,6 +28,7 @@ export class UserService {
           this.currentUser.setUserRequiredInfo(userData._id, userData.username, userData.firstName, userData.lastName, userData.avatar);
           this.currentUser.isAdmin = userData.isAdmin;
           this.isLogin = true;
+          this.isLoginChange.next();
         }
       });
     }

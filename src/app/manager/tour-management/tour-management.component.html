@@ -1,0 +1,177 @@
+<div class="content-box post-management">
+  <div class="post-management-title">
+    <h4>
+      {{language.currentLanguage.postManagementTitle}}
+    </h4>
+    <span (click)="refreshListPost()"><i class="fas fa-sync-alt"></i></span>
+  </div>
+  <div class="post-management-content">
+    <div class="post-management-control">
+      <form class="form-inline">
+        <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="chosenKindOfPost">
+          <label ngbButtonLabel class="btn-primary">
+            <input ngbButton (click)="filterListPostByPostStatus('ANY')" type="radio" [value]="flagKindOfPost.all">
+            {{language.currentLanguage.postManagementAllPost}}
+          </label>
+          <label ngbButtonLabel class="btn-success">
+            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.APPROVED)" type="radio"
+              [value]="flagKindOfPost.approved">{{language.currentLanguage.postManagementApproved}}
+          </label>
+          <label ngbButtonLabel class="btn-warning">
+            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.PENDING)" type="radio"
+              value="flagKindOfPost.pending">{{language.currentLanguage.postManagementPending}}
+          </label>
+          <label ngbButtonLabel class="btn-danger">
+            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.DENY)" type="radio"
+              [value]="flagKindOfPost.denied">{{language.currentLanguage.postManagementDenied}}
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="control-title">{{language.currentLanguage.postManagementStartDate}}</label>
+          <div class="input-group">
+            <input class="form-control" placeholder="yyyy-mm-dd" name="startDate" (focus)="resetError()"
+              [(ngModel)]="startDate" ngbDatepicker #startdate="ngbDatepicker" #modelstartdate="ngModel">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="startdate.toggle()" type="button">
+                <span><i class="fas fa-calendar-alt"></i></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-title">{{language.currentLanguage.postManagementEndDate}}</label>
+          <div class="input-group">
+            <input class="form-control" placeholder="yyyy-mm-dd" name="endDate" (focus)="resetError()"
+              [(ngModel)]="endDate" ngbDatepicker #enddate="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="enddate.toggle()" type="button">
+                <span><i class="fas fa-calendar-alt"></i></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button (click)="validateDateForm()" class="btn btn-success" type="button"
+            [disabled]="startDate === undefined || endDate === undefined">
+            {{language.currentLanguage.postManagementFilter}}
+          </button>
+        </div>
+      </form>
+    </div>
+    <div *ngIf="this.hasError" class="alert alert-danger" role="alert">
+      {{this.errorMessage}}
+    </div>
+    <div class="post-management-table">
+      <table class="table table-hover">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">{{language.currentLanguage.postManagementTablePostName}}</th>
+            <th scope="col">{{language.currentLanguage.postManagementTablePostAuthor}}</th>
+            <th scope="col">{{language.currentLanguage.postManagementTablePostCreationTime}}</th>
+            <th scope="col">{{language.currentLanguage.postManagementTablePostCategories}}</th>
+            <th scope="col">{{language.currentLanguage.postManagementTablePostStatus}}</th>
+            <th scope="col" class="action-cell">{{language.currentLanguage.postManagementTableAction}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let post of listShowPost">
+            <td>{{listShowPost.indexOf(post) + 1}}</td>
+            <td><strong>{{post.title}}</strong></td>
+            <td>{{post.authorId}}</td>
+            <td>{{post.createdTime | date}}</td>
+            <td>{{post.categories}}</td>
+            <td
+              [ngClass]="{'green-text': post.status.indexOf(this.constant.POST_STATUS.APPROVED) !== -1, 'red-text': post.status.indexOf(this.constant.POST_STATUS.DENY) !== -1, 'yellow-text': post.status.indexOf(this.constant.POST_STATUS.PENDING) !== -1}">
+              <i class="fas fa-circle tiny-icon"></i> {{post.status | titlecase}}
+            </td>
+            <td class="action-cell">
+              <span class="action-icon" (click)="openPostViewDialog(content, post._id)"><i
+                  class="fas fa-eye"></i></span>
+              <div ngbDropdown class="action-icon">
+                <span ngbDropdownToggle id="post-management-action"><i class="fas fa-bars"></i></span>
+                <div ngbDropdownMenu aria-labelledby="post-management-action" id="post-management-action-dropdown">
+                  <button (click)="openPostViewDialog(approve, post._id)"
+                    class="dropdown-item">{{language.currentLanguage.postManagementApprove}}</button>
+                  <button (click)="openPostDenyDialog(deny, post._id, post.title)"
+                    class="dropdown-item">{{language.currentLanguage.postManagementDeny}}</button>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{this.language.currentLanguage.postManagementPostViewTitle}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body review-post-body">
+    <app-post id="review-post" [postId]="postViewId"></app-post>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark"
+      (click)="modal.close()">{{this.language.currentLanguage.postManagementPostViewOk}}</button>
+  </div>
+</ng-template>
+
+<ng-template #approve let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{this.language.currentLanguage.postManagementApprove}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body review-post-body">
+    <app-post id="review-post" [postId]="postViewId"></app-post>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger"
+      (click)="modal.close()">{{this.language.currentLanguage.postManagementCancel}}</button>
+    <button type="button" class="btn btn-success"
+      (click)="modal.close(); approvePost(postViewId)">{{this.language.currentLanguage.postManagementApprove}}</button>
+  </div>
+</ng-template>
+
+<ng-template #deny let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{this.language.currentLanguage.postManagementDeny}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body review-post-body">
+    <form [formGroup]="denyForm" novalidate>
+      <div class="form-group">
+        <label>{{language.currentLanguage.postManagementDenyPostId}}</label>
+        <input formControlName="postId" class="form-control" type="text" disabled>
+      </div>
+      <div class="form-group">
+        <label>{{language.currentLanguage.postManagementTablePostName}}</label>
+        <input formControlName="postTitle" class="form-control" type="text" disabled>
+      </div>
+      <div class="form-group">
+        <label>{{language.currentLanguage.postManagementDenyReason}}</label>
+        <textarea formControlName="denyReason" class="form-control" rows="5"></textarea>
+        <div
+          *ngIf="denyForm.get('denyReason').hasError('required') && (denyForm.get('denyReason').dirty || denyForm.get('denyReason').touched)"
+          class="error-mess">
+          {{language.currentLanguage.postManagementErrorEmptyReason}}
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success"
+      (click)="modal.close()">{{this.language.currentLanguage.postManagementCancel}}</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close(); denyPost(postViewId)"
+      [disabled]="denyForm.invalid">{{this.language.currentLanguage.postManagementDeny}}</button>
+  </div>
+</ng-template>
