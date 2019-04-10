@@ -39,7 +39,8 @@ const MINE_TYPE_MAP = {
 
 const USER_PERMISSION = {
     MEMBER: 'Member',
-    ADMIN: 'Admin'
+    ADMIN: 'Admin',
+    TOURGUIDE: 'Tour Guide'
 };
 
 const POST_STATUS =
@@ -55,7 +56,18 @@ const REGION_NAME = {
     NORTH: 'miền bắc',
     CENTRAL: 'miền trung',
     SOUTH: 'miền nam'
-}
+};
+
+const USER_STATUS = {
+    ACTIVE: 'Active',
+    BLOCK: 'Block'
+};
+
+const PERMISSION_MANAGEMENT_ACTION = {
+    UPDATE_PERMISSION: 'Update Permission',
+    BLOCK: 'Block',
+    UNBLOCK: 'UnBlock'
+};
 
 module.exports = {
     APP_PORT: APP_PORT,
@@ -69,5 +81,7 @@ module.exports = {
     MINE_TYPE_MAP: MINE_TYPE_MAP,
     USER_PERMISSION: USER_PERMISSION,
     POST_STATUS: POST_STATUS,
-    REGION_NAME: REGION_NAME
+    REGION_NAME: REGION_NAME,
+    USER_STATUS: USER_STATUS,
+    PERMISSION_MANAGEMENT_ACTION: PERMISSION_MANAGEMENT_ACTION
 };

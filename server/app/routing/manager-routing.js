@@ -82,7 +82,8 @@ app.get('/manager/users-permission', async (req, res) => {
         email: 1, firstName: 1,
         lastName: 1,
         permission: 1,
-        avatar: 1
+        avatar: 1,
+        status: 1
     };
 
     database.getCollectionDataByProjection(database.iTravelDB.Users, filter, projectionInfo)
@@ -332,5 +333,67 @@ app.patch('/manager/set-user-permission', async (req, res) => {
             MessageCode: 'MUP_E06'
         });
     };
+});
+
+app.patch('/manager/block-user', async (req, res) => {
+    try
+    {
+        const userId = req.body.userId;
+        const changedBy = req.body.changedBy;
+        const confirmPassword = req.body.confirmPassword;
+        const blockReason = req.body.blockReason;
+
+        authentication.isValidUserIdPassword(changedBy, confirmPassword)
+            .then(result => {
+                if (result) {
+                    const userFilter = {
+                        '_id': {
+                            $eq: new ObjectId(userId)
+                        }
+                    }
+
+                    const blockProperty = {
+                        'status': config.USER_STATUS.BLOCK
+                    };
+
+                    database.updateDocumentByFilter(database.iTravelDB.Users, userFilter, blockProperty)
+                        .then(result => {
+                            if (result.matchedCount > 0) {
+                                const logBlockUser = {
+                                    ChangedBy: changedBy,
+                                    Action: config.PERMISSION_MANAGEMENT_ACTION.BLOCK,
+                                    User: userId,
+                                    Reason: blockReason,
+                                    CreationDatatime: new Date()
+                                };
+
+                                database.insertOneToColection(database.iTravelDB.Log_PermissionManagement, logBlockUser);
+
+                                res.status(200).json({
+                                    message: 'Updated Success',
+                                    MessageCode: 'MUP_M01'
+                                });
+                            } else {
+                                res.status(404).json({
+                                    message: 'Incorrect userId',
+                                    MessageCode: 'MUP_E03'
+                                });
+                            }
+                        });
+                }
+                else {
+                    res.status(200).json({
+                        message: 'Incorrect password',
+                        MessageCode: 'MUP_E04'
+                    });
+                }
+            });
+    }
+    catch (err) {
+        res.status(200).json({
+            message: 'System error',
+            MessageCode: 'MUP_E06'
+        });
+    }
 });
 // Routing - END

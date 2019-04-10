@@ -405,4 +405,15 @@ export class ServerService {
 
     return this.http.patch(this.HOST + 'manager/set-user-permission', params);
   }
+
+  blockUser(userId: string, blockReason: string, changedBy: string, confirmPassword: string): Observable<any> {
+    const params = {
+      userId: userId,
+      blockReason: blockReason,
+      changedBy: changedBy,
+      confirmPassword: confirmPassword
+    };
+
+    return this.http.patch(this.HOST + 'manager/block-user', params);
+  }
 }

@@ -26,11 +26,13 @@ export class PermissionManagementComponent implements OnInit {
 
   hasError: Boolean = false;
   message: String = '';
+  selectedBlockReason: string;
 
   constructor(private server: ServerService, public language: LanguageService, private constant: ConstantService,
     private modal: NgbModal, private _user: UserService) { }
 
   ngOnInit() {
+    this.selectedBlockReason = this.constant.BLOCK_ID.MPU_B01;
     // Request list user with their's permisson
     this.server.getAllUserPermission().subscribe((res) => {
       if (res !== undefined && res.data !== undefined) {
@@ -117,11 +119,12 @@ export class PermissionManagementComponent implements OnInit {
    * @author phieu-th
    */
   updateCurrrentAccountPermission() {
-    if (this.confirmPassword !== '') {
+    if (this.confirmPassword.trim() !== '') {
       this.isWaitingUpdate = true;
       this.server.updateUserPermission(this.currentAccount._id, this.listPermission, this._user.currentUser._id, this.confirmPassword)
         .subscribe((res) => {
           this.isWaitingUpdate = false;
+          this.confirmPassword = '';
           this.getServerMessage(res);
         });
 
@@ -176,6 +179,26 @@ export class PermissionManagementComponent implements OnInit {
           this.message = this.language.currentLanguage.permissionMessIncorrectData;
           break;
       }
+    }
+  }
+
+  /**
+   * Block current account
+   * @name blockCurrentAccount
+   * @author phieu-th
+   */
+  blockCurrentAccount() {
+    if (this.confirmPassword.trim() !== '') {
+      this.isWaitingUpdate = true;
+      this.server.blockUser(this.currentAccount._id, this.selectedBlockReason, this._user.currentUser._id, this.confirmPassword)
+        .subscribe((res) => {
+          if (res) {
+            this.isWaitingUpdate = false;
+            this.confirmPassword = '';
+            this.getServerMessage(res);
+          }
+        });
+      this.modal.dismissAll();
     }
   }
 }

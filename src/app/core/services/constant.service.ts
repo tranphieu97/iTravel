@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { LanguageService } from './language.service';
 
 @Injectable({
   providedIn: 'root'
@@ -30,8 +31,20 @@ export class ConstantService {
 
   USER_PERMISSON = {
     MEMBER: 'Member',
-    ADMIN: 'Admin'
+    ADMIN: 'Admin',
+    TOURGUIDE: 'Tour Guide'
   };
 
-  constructor() { }
+  USER_STATUS = {
+    ACTIVE: 'Active',
+    BLOCK: 'Block'
+  };
+
+  BLOCK_ID = {
+    MPU_B01: 'MPU_B01',
+    MPU_B02: 'MPU_B02',
+    MPU_B03: 'MPU_B03',
+  };
+
+  constructor(private language: LanguageService) { }
 }

@@ -275,6 +275,12 @@ export class LanguageService {
     this.vnLanguage.permissionEnterNotify = 'Nhập nội dung thông báo';
     this.vnLanguage.permissionBlockTitle = 'Khoá tài khoản';
     this.vnLanguage.permissionBlockReason = 'Lý do khoá';
+    this.vnLanguage.permissionUnBlockTitle = 'Mở khoá tài khoản';
+
+    // For block message
+    this.vnLanguage.blockPolicyViolation = 'Vi phạm chính sách sử dụng';
+    this.vnLanguage.blockAccountImpersonation = 'Tài khoản giả mạo';
+    this.vnLanguage.blockOffensiveBehavior = 'Hành vi chống phá, phản cảm';
 
   }
 
@@ -532,6 +538,12 @@ export class LanguageService {
     this.enLanguage.permissionEnterNotify = 'Enter notification content';
     this.enLanguage.permissionBlockTitle = 'Block Account';
     this.enLanguage.permissionBlockReason = 'Block Reason';
+    this.enLanguage.permissionUnBlockTitle = 'UnBlock Account';
+
+    // For block message
+    this.enLanguage.blockPolicyViolation = 'Violate website policies';
+    this.enLanguage.blockAccountImpersonation = 'An Impersonation account';
+    this.enLanguage.blockOffensiveBehavior = 'Comprise offensive behavior';
   }
 
   /**

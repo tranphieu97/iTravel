@@ -32,10 +32,12 @@
             {{language.currentLanguage.permissionUpdatePermissionTitle}}
           </label>
           <div class="setting-for-account">
-            <input type="button" class="btn btn-success" (click)="openConfirmDialog(updatePermission)"
+            <input type="button" class="btn btn-success" (click)="openConfirmDialog(updatePermission)" *ngIf="currentAccount.status === constant.USER_STATUS.ACTIVE"
               [value]="language.currentLanguage.permissionUpdatePermission" [disabled]="isWaitingUpdate">
             <input type="button" class="btn btn-danger" [value]="language.currentLanguage.permissionBlock"
-              [disabled]="isWaitingUpdate" (click)="openConfirmDialog(block)">
+              [disabled]="isWaitingUpdate" (click)="openConfirmDialog(block)" *ngIf="currentAccount.status === constant.USER_STATUS.ACTIVE">
+            <input type="button" class="btn btn-danger" [value]="language.currentLanguage.permissionUnBlockTitle"
+              [disabled]="isWaitingUpdate" (click)="openConfirmDialog(unblock)" *ngIf="currentAccount.status === constant.USER_STATUS.BLOCK">
             <app-loading *ngIf="isWaitingUpdate"></app-loading>
           </div>
         </div>
@@ -100,17 +102,26 @@
       <label>{{language.currentLanguage.permissionBlockReason}}</label>
       <form>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-          <label class="form-check-label" for="exampleRadios1">
-            Default radio
+          <input class="form-check-input" type="radio" [value]="constant.BLOCK_ID.MPU_B01"
+            [name]="constant.BLOCK_ID.MPU_B01" [(ngModel)]="selectedBlockReason" checked>
+          <label class="form-check-label">
+            {{language.currentLanguage.blockPolicyViolation}}
           </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option2">
-            <label class="form-check-label" for="exampleRadios1">
-              Default radio
-            </label>
-          </div>
+          <input class="form-check-input" type="radio" [name]="constant.BLOCK_ID.MPU_B02"
+            [value]="constant.BLOCK_ID.MPU_B02" [(ngModel)]="selectedBlockReason">
+          <label class="form-check-label">
+            {{language.currentLanguage.blockAccountImpersonation}}
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" [value]="constant.BLOCK_ID.MPU_B03"
+            [name]="constant.BLOCK_ID.MPU_B03" [(ngModel)]="selectedBlockReason">
+          <label class="form-check-label">
+            {{language.currentLanguage.blockOffensiveBehavior}}
+          </label>
+        </div>
       </form>
     </div>
     <div class="form-group">
@@ -121,7 +132,30 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-danger"
       (click)="modal.close()">{{language.currentLanguage.permissionConfirmCancel}}</button>
-    <button type="button" class="btn btn-success" (click)="updateCurrrentAccountPermission()"
+    <button type="button" class="btn btn-success" (click)="blockCurrentAccount()"
+      [disabled]="confirmPassword === undefined || confirmPassword === ''">
+      {{language.currentLanguage.permissionConfirmOk}}
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #unblock let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{language.currentLanguage.permissionUnBlockTitle}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body form-group">
+    <div class="form-group">
+      <label>{{language.currentLanguage.permissionTypeConfirmPassword}}</label>
+      <input type="password" class="form-control" [(ngModel)]="confirmPassword">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger"
+      (click)="modal.close()">{{language.currentLanguage.permissionConfirmCancel}}</button>
+    <button type="button" class="btn btn-success" 
       [disabled]="confirmPassword === undefined || confirmPassword === ''">
       {{language.currentLanguage.permissionConfirmOk}}
     </button>
