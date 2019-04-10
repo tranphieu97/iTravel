@@ -472,7 +472,11 @@ app.patch('/user/send-notification', async (req, res) => {
         const newListNotifications = {
             "notificationItems": req.body
         };
-
+        newListNotifications.notificationItems = newListNotifications.notificationItems.map((notiItem) => {
+            notiItem._id = new ObjectId(notiItem._id)
+            return notiItem
+        })
+ 
         // create query object from userId
         const userId = authentication.getTokenUserId(req.headers.authorization);
         const queryObj = { userId: userId };
