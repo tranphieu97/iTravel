@@ -3,7 +3,7 @@ const config = require('./_config');
 const database = require('./app/database.js');
 const authentication = require('./app/authentication.js');
 const User = require('./model/user.model').User;
-const postService = require('./app/post-service');
+const postService = require('./app/services/post-service');
 
 // Include library
 const path = require('path');
@@ -30,7 +30,7 @@ app.use('/api/images', express.static(path.join("images")));
 // app.use('/home', express.static(path.join(__dirname, "angular")))
 
 app.listen(config.APP_PORT, () => {
-    console.log('Server is running on port ' + config.APP_PORT + '/');
+    console.log('Server is running on http://localhost:' + config.APP_PORT + '/');
 });
 
 app.use((req, res, next) => {

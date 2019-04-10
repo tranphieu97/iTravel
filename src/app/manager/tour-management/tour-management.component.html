@@ -1,31 +1,16 @@
 <div class="content-box post-management">
+  <!-- title -->
   <div class="post-management-title">
     <h4>
-      {{language.currentLanguage.postManagementTitle}}
+      <!-- {{language.currentLanguage.postManagementTitle}} -->
+      Tours Management
     </h4>
     <span (click)="refreshListPost()"><i class="fas fa-sync-alt"></i></span>
   </div>
+
   <div class="post-management-content">
     <div class="post-management-control">
       <form class="form-inline">
-        <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="chosenKindOfPost">
-          <label ngbButtonLabel class="btn-primary">
-            <input ngbButton (click)="filterListPostByPostStatus('ANY')" type="radio" [value]="flagKindOfPost.all">
-            {{language.currentLanguage.postManagementAllPost}}
-          </label>
-          <label ngbButtonLabel class="btn-success">
-            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.APPROVED)" type="radio"
-              [value]="flagKindOfPost.approved">{{language.currentLanguage.postManagementApproved}}
-          </label>
-          <label ngbButtonLabel class="btn-warning">
-            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.PENDING)" type="radio"
-              value="flagKindOfPost.pending">{{language.currentLanguage.postManagementPending}}
-          </label>
-          <label ngbButtonLabel class="btn-danger">
-            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.DENY)" type="radio"
-              [value]="flagKindOfPost.denied">{{language.currentLanguage.postManagementDenied}}
-          </label>
-        </div>
         <div class="form-group">
           <label class="control-title">{{language.currentLanguage.postManagementStartDate}}</label>
           <div class="input-group">
