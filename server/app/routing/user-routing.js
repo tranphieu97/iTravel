@@ -476,7 +476,6 @@ app.patch('/user/send-notification', async (req, res) => {
             notiItem._id = new ObjectId(notiItem._id)
             return notiItem
         })
- 
         // create query object from userId
         const userId = authentication.getTokenUserId(req.headers.authorization);
         const queryObj = { userId: userId };
