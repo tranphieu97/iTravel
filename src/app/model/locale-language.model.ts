@@ -263,6 +263,8 @@ export class LocaleLanguage {
     addTourPlace: string;
     addTourStartDate: string;
     addTourDays: string;
+    addTourDesc: string;
+    addTourEnterDesc: string;
 
     constructor() { }
 }

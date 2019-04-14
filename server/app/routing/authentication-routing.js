@@ -128,7 +128,19 @@ app.post('/auth/login', async (req, res) => {
             }
         }
 
-        database.getOneFromCollection(database.iTravelDB.Users, filterUser)
+        const passwordProjection = {
+            projection: {
+                _id: 1,
+                username: 1,
+                password: 1,
+                firstName: 1,
+                lastName: 1,
+                avatar: 1,
+                permission: 1
+            }
+        };
+
+        database.getOneWithProjection(database.iTravelDB.Users, filterUser, passwordProjection)
             .then((userInfo) => {
                 if (userInfo === null || userInfo === undefined) {
                     res.status(200).json({
@@ -144,9 +156,14 @@ app.post('/auth/login', async (req, res) => {
                             });
                         } else {
                             let isAdmin = false;
+                            let isTourGuide = false;
 
                             if (userInfo.permission.includes(config.USER_PERMISSION.ADMIN)) {
                                 isAdmin = true;
+                            }
+
+                            if (userInfo.permission.includes(config.USER_PERMISSION.TOURGUIDE)) {
+                                isTourGuide = true;
                             }
 
                             // This object use for create token
@@ -154,8 +171,9 @@ app.post('/auth/login', async (req, res) => {
                             const userData = {
                                 _id: userInfo._id,
                                 username: userInfo.username,
-                                isAdmin: isAdmin
-                            }
+                                isAdmin: isAdmin,
+                                isTourGuide: isTourGuide
+                            };
 
                             const data = {
                                 _id: userInfo._id,
@@ -163,8 +181,9 @@ app.post('/auth/login', async (req, res) => {
                                 firstName: userInfo.firstName,
                                 lastName: userInfo.lastName,
                                 avatar: userInfo.avatar,
-                                isAdmin: isAdmin
-                            }
+                                isAdmin: isAdmin,
+                                isTourGuide: isTourGuide
+                            };
 
                             authentication.insertUserSignInLog(userInfo.username);
 
