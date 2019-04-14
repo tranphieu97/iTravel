@@ -37,11 +37,18 @@ exports.getCollection = async function (collectionName) {
             console.log("Get Connection has an error: " + err.message);
             deferred.reject(new Error(err));
         } else {
-            var db = client.db(config.DB_NAME);
+            try {
+                var db = client.db(config.DB_NAME);
 
-            var collection = db.collection(collectionName);
-
-            deferred.resolve(collection);
+                var collection = db.collection(collectionName);
+    
+                deferred.resolve(collection);
+            } catch (err) {
+                console.error(err);
+                deferred.reject(new Error(err));
+            } finally {
+                client.close();
+            }
         }
     });
 
