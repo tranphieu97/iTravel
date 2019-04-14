@@ -1,9 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { LanguageService } from '../../core/services/language.service';
+import { Component, OnInit } from '@angular/core';
 import { ServerService } from 'src/app/core/services/server.service';
 import { UserService } from 'src/app/core/services/user.service';
-import { Notification } from 'src/app/model/notification.model';
 import { NotificationItem } from 'src/app/model/notification-item.model';
+import { Notification } from 'src/app/model/notification.model';
+import { LanguageService } from '../../core/services/language.service';
 
 @Component({
   selector: 'app-notification',

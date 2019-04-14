@@ -175,6 +175,7 @@ exports.insertOneToColection = async (collectionName, document) => {
             client.close();
         }
     });
+    return deferred.promise;
 }
 
 /**
