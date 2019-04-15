@@ -95,3 +95,29 @@ div { -ms-overflow-style: none; }
     font-size: 14px !important;
     font-weight: 700;
 }
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+}
+
+.flex-items-center {
+    align-items: center;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.flex-2 {
+    flex: 2;
+}
+
+.flex-3 {
+    flex: 3;
+}
+
+.flex-4 {
+    flex: 4;
+}
