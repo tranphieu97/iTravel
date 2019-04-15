@@ -10,6 +10,7 @@
 
   <div class="post-management-content">
     <div class="post-management-control">
+      <!-- filter form -->
       <form class="form-inline">
         <div class="form-group">
           <label class="control-title">{{language.currentLanguage.postManagementStartDate}}</label>
@@ -49,7 +50,7 @@
     <div class="post-management-table">
       <table class="table table-hover">
         <thead class="thead-light">
-          <tr>
+          <!-- <tr>
             <th scope="col">#</th>
             <th scope="col">{{language.currentLanguage.postManagementTablePostName}}</th>
             <th scope="col">{{language.currentLanguage.postManagementTablePostAuthor}}</th>
@@ -57,7 +58,16 @@
             <th scope="col">{{language.currentLanguage.postManagementTablePostCategories}}</th>
             <th scope="col">{{language.currentLanguage.postManagementTablePostStatus}}</th>
             <th scope="col" class="action-cell">{{language.currentLanguage.postManagementTableAction}}</th>
-          </tr>
+          </tr> -->
+          <tr>
+              <th scope="col">#</th>
+              <th scope="col">Tourname</th>
+              <th scope="col">TourGuide</th>
+              <th scope="col">Creation time</th>
+              <th scope="col">Duration</th>
+              <th scope="col">Status</th>
+              <th scope="col" class="action-cell">Action</th>
+            </tr>
         </thead>
         <tbody>
           <tr *ngFor="let post of listShowPost">

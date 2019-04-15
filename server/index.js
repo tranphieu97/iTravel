@@ -1,4 +1,5 @@
 // Include js file
+require('./mongoose-config')
 const config = require('./_config');
 const database = require('./app/database.js');
 const authentication = require('./app/authentication.js');
@@ -67,15 +68,15 @@ app.use((req, res, next) => {
                 });
         } else if (url.indexOf('/user/') !== -1) {
             authentication.isSpecifiedPermissionRequest(req, config.USER_PERMISSION.MEMBER)
-            .then((isRequestedByMember) => {
-                if (isRequestedByMember) {
-                    next();
-                } else {
-                    res.status(401).json({
-                        message: 'Unauthorized'
-                    });
-                }
-            });
+                .then((isRequestedByMember) => {
+                    if (isRequestedByMember) {
+                        next();
+                    } else {
+                        res.status(401).json({
+                            message: 'Unauthorized'
+                        });
+                    }
+                });
         } else {
             next();
         }
