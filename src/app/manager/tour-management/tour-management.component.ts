@@ -16,6 +16,22 @@ export class TourManagementComponent implements OnInit {
     private modalService: NgbModal, public constant: ConstantService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-  }
+    // test get tour
+    // this.server.getTour('5cb4744b393d6515e4757a0a').subscribe(res => console.log(res))
 
+    // this.server.getTours().subscribe(res => console.log(res))
+
+    // this.server.createTour({
+    //   tourName: 'new tour',
+    //   locations: ['place 1', 'place 2'],
+    //   registerCost: 100000,
+    // }).subscribe(res => console.log(res))
+
+    // this.server.updateTour({
+    //   _id: '5cad37d09dd9538ef41b7555',
+    //   tourName: 'new tour update ' + Date.now(),
+    //   locations: ['place 1', 'place 2'],
+    //   registerCost: 100000,
+    // }).subscribe(res => console.log(res))
+  }
 }
