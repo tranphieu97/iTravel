@@ -291,6 +291,7 @@ export class LanguageService {
     this.vnLanguage.addTourEnterName = 'Nhập tên tour';
     this.vnLanguage.addTourDesc = 'Mô tả';
     this.vnLanguage.addTourEnterDesc = 'Nhập mô tả';
+    this.vnLanguage.addTourEndDate = 'Ngày quay về';
   }
 
   /**
@@ -563,6 +564,7 @@ export class LanguageService {
     this.enLanguage.addTourEnterName = 'Enter tour name';
     this.enLanguage.addTourDesc = 'Description';
     this.enLanguage.addTourEnterDesc = 'Enter tour description';
+    this.enLanguage.addTourEndDate = 'End Date';
   }
 
   /**
