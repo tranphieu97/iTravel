@@ -178,7 +178,7 @@ exports.insertOneToColection = async (collectionName, document) => {
                             }
                             return 1;
                         });
-                        deferred.reject(insertOne);
+                        deferred.resolve(insertOne);
                     }
                     catch (e) {
                         console.log('Error insert data to ' + collectionName);

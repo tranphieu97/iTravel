@@ -27,6 +27,19 @@ export class LanguageService {
    * @author phieu-th
    */
   createVietnameseDictionary() {
+    // Common
+    this.vnLanguage.ok = 'Ok';
+    this.vnLanguage.cancel = 'Huỷ';
+    this.vnLanguage.thisFieldIsRequired = 'Điền nội dung này được yêu cầu';
+    this.vnLanguage.enter = 'Nhập ';
+
+    // Layout
+    this.vnLanguage.tooltipNewPost = 'Thêm bài viết';
+    this.vnLanguage.tooltipPostManagement = 'Quản lý bài viết';
+    this.vnLanguage.tooltipUserManagement = 'Quản lý người dùng';
+    this.vnLanguage.tooltipNewTour = 'Thêm tour';
+    this.vnLanguage.tooltipTourManagement = 'Quản lý tour';
+
     // For Header Component
     this.vnLanguage.headerVietnamese = 'Tiếng Việt';
     this.vnLanguage.headerEnglish = 'Tiếng Anh';
@@ -283,15 +296,27 @@ export class LanguageService {
     this.vnLanguage.blockOffensiveBehavior = 'Hành vi chống phá, phản cảm';
 
     // For add tour
-    this.vnLanguage.addTourInfoTitle = 'Thông tin tour';
+    this.vnLanguage.addTourInfoTitle = 'Tóm tắt Tour';
     this.vnLanguage.addTourName = 'Tên tour';
-    this.vnLanguage.addTourStartDate = 'Ngày khởi hành';
+    this.vnLanguage.addTourBeginTime = 'Ngày khởi hành';
     this.vnLanguage.addTourDays = 'Thời lượng';
     this.vnLanguage.addTourPlace = 'Địa điểm';
     this.vnLanguage.addTourEnterName = 'Nhập tên tour';
     this.vnLanguage.addTourDesc = 'Mô tả';
     this.vnLanguage.addTourEnterDesc = 'Nhập mô tả';
-    this.vnLanguage.addTourEndDate = 'Ngày quay về';
+    this.vnLanguage.addTourEndTime = 'Ngày quay về';
+    this.vnLanguage.addTourTime = 'Thời gian';
+    this.vnLanguage.addTourProvince = 'Tỉnh Thành phố';
+    this.vnLanguage.addTourLocation = 'Địa điểm';
+    this.vnLanguage.addTourEnterLocation = 'Nhập Tên Địa điểm';
+    this.vnLanguage.addTourNewLocation = 'Địa điểm mới';
+    this.vnLanguage.addTourLocationName = 'Tên địa điểm';
+    this.vnLanguage.addTourLocationProvince = 'Thuộc tỉnh';
+    this.vnLanguage.addTourLocationGPS = 'Toạ độ GPS';
+    this.vnLanguage.addTourLocationAddress = 'Địa chỉ';
+    this.vnLanguage.addTourNoteSelectMore = 'Thuộc tính này có thể chọn nhiều lựa chọn';
+    this.vnLanguage.addTourAddSuccess = 'Thêm thành công';
+    this.vnLanguage.addTourAddFail = 'Thêm thất bại, thử lại';
   }
 
   /**
@@ -300,6 +325,19 @@ export class LanguageService {
    * @author phieu-th
    */
   createEnglishDictionary() {
+    // Common
+    this.enLanguage.ok = 'Ok';
+    this.enLanguage.cancel = 'Cancel';
+    this.enLanguage.thisFieldIsRequired = 'This field is required';
+    this.enLanguage.enter = 'Enter ';
+
+    // Layout
+    this.enLanguage.tooltipNewPost = 'New Post';
+    this.enLanguage.tooltipPostManagement = 'Posts Management';
+    this.enLanguage.tooltipUserManagement = 'Users Management';
+    this.enLanguage.tooltipNewTour = 'New Tour';
+    this.enLanguage.tooltipTourManagement = 'Tours Management';
+
     // For Header Component
     this.enLanguage.headerVietnamese = 'Vietnamese';
     this.enLanguage.headerEnglish = 'English';
@@ -556,15 +594,27 @@ export class LanguageService {
     this.enLanguage.blockOffensiveBehavior = 'Comprise offensive behavior';
 
     // For add tour
-    this.enLanguage.addTourInfoTitle = 'Tour Information';
+    this.enLanguage.addTourInfoTitle = 'Tour Summary';
     this.enLanguage.addTourName = 'Tour name';
-    this.enLanguage.addTourStartDate = 'Start Date';
+    this.enLanguage.addTourBeginTime = 'Start Date';
     this.enLanguage.addTourDays = 'Total time';
     this.enLanguage.addTourPlace = 'Place';
     this.enLanguage.addTourEnterName = 'Enter tour name';
     this.enLanguage.addTourDesc = 'Description';
     this.enLanguage.addTourEnterDesc = 'Enter tour description';
-    this.enLanguage.addTourEndDate = 'End Date';
+    this.enLanguage.addTourEndTime = 'End Date';
+    this.enLanguage.addTourTime = 'Time';
+    this.enLanguage.addTourProvince = 'Province City';
+    this.enLanguage.addTourLocation = 'Locations';
+    this.enLanguage.addTourEnterLocation = 'Enter Location Name';
+    this.enLanguage.addTourNewLocation = 'New Location';
+    this.enLanguage.addTourLocationName = 'Location Name';
+    this.enLanguage.addTourLocationProvince = 'Province';
+    this.enLanguage.addTourLocationGPS = 'GPS';
+    this.enLanguage.addTourLocationAddress = 'Address';
+    this.enLanguage.addTourNoteSelectMore = 'This property is able to select more options';
+    this.enLanguage.addTourAddSuccess = 'Add Success!';
+    this.enLanguage.addTourAddFail = 'Add Fail, Please try again!';
   }
 
   /**

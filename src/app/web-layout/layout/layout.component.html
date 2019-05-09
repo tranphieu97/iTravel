@@ -1,22 +1,38 @@
-<div class="container-fluid master-page">
+<div id="master-page" class="container-fluid master-page">
     <div class="row">
         <app-header></app-header>
     </div>
     <div class="row no-gutter master-page-main">
-        <div [ngClass]="{'navbar-show': this.mtpService.isShowFullNavBar, 'navbar-hide': !this.mtpService.isShowFullNavBar}">
+        <div
+            [ngClass]="{'navbar-show': this.mtpService.isShowFullNavBar, 'navbar-hide': !this.mtpService.isShowFullNavBar}">
             <app-navigation-bar></app-navigation-bar>
         </div>
         <div class="master-page-content">
             <router-outlet></router-outlet>
         </div>
         <div class="user-toolbar" *ngIf="this.user.isLogin">
-            <span [routerLink]="['/create-post']"><i class="fas fa-edit"></i></span>
-            <span [routerLink]="['/manager/posts']" *ngIf="this.user.currentUser.isAdmin"><i class="fas fa-clipboard-check"></i></span>
-            <span [routerLink]="['/manager/permissions']" *ngIf="this.user.currentUser.isAdmin"><i class="fab fa-black-tie"></i></span>
-            <span [routerLink]="['/tours/add-tour']" *ngIf="this.user.currentUser.isAdmin"><i class="fas fa-journal-whills"></i></span>
-            <span [routerLink]="['/manager/tours']" *ngIf="this.user.currentUser.isAdmin"><i class="fas fa-route"></i></span>
+            <div class="toolbar-part toolbar-post">
+                <span [routerLink]="['/create-post']" [ngbTooltip]="tipNewPost" placement="left"><i class="fas fa-edit"></i></span>
+                <span [routerLink]="['/manager/posts']" *ngIf="this.user.currentUser.isAdmin" placement="left" [ngbTooltip]="tipPostManagement" container-id="master-page">
+                    <i class="fas fa-clipboard-check"></i></span>
+
+            </div>
+            <div class="toolbar-part toolbar-admin">
+                <span [routerLink]="['/manager/permissions']" *ngIf="this.user.currentUser.isAdmin" [ngbTooltip]="tipUserManagement" placement="left"><i
+                        class="fab fa-black-tie"></i></span>
+            </div>
+            <div class="toolbar-part toolbar-tour">
+                <span [routerLink]="['/tours/add-tour']" *ngIf="this.user.currentUser.isAdmin" [ngbTooltip]="tipNewTour" placement="left"><i
+                        class="fas fa-journal-whills"></i></span>
+                <span [routerLink]="['/manager/tours']" *ngIf="this.user.currentUser.isAdmin" [ngbTooltip]="tipTourManagement" placement="left"><i
+                        class="fas fa-route"></i></span>
+            </div>
         </div>
     </div>
 </div>
 
-
+<ng-template #tipNewPost>{{language.currentLanguage.tooltipNewPost}}</ng-template>
+<ng-template #tipPostManagement>{{language.currentLanguage.tooltipPostManagement}}</ng-template>
+<ng-template #tipUserManagement>{{language.currentLanguage.tooltipUserManagement}}</ng-template>
+<ng-template #tipNewTour>{{language.currentLanguage.tooltipNewTour}}</ng-template>
+<ng-template #tipTourManagement>{{language.currentLanguage.tooltipTourManagement}}</ng-template>

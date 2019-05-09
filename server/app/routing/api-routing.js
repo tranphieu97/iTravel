@@ -774,6 +774,49 @@ app.post('/user/post', (req, res, next) => {
     }
 });
 
+app.get('/api/province-locations', (req, res) => {
+    const arrProvincesName = req.param('arrProvincesName');
+
+    if (arrProvincesName !== undefined && arrProvincesName.length > 0) {
+        let filterProvince = {
+            'provinceCity': {
+                $elemMatch: {
+                    $in: arrProvincesName
+                }
+            }
+        };
+
+        // If array just contains 1 item, request understand it become string
+        // So, that string need change to array
+        if (typeof arrProvincesName === 'string') {
+            filterProvince = {
+                'provinceCity': {
+                    $elemMatch: {
+                        $in: [arrProvincesName]
+                    }
+                }
+            };
+        }
+        
+
+        database.getCollectionFilterData(database.iTravelDB.Locations, filterProvince)
+            .then((collectionData) => {
+                res.status(200).json({
+                    data: collectionData
+                });
+            })
+            .catch(() => {
+                res.status(404).json({
+                    data: []
+                });
+            })
+    } else {
+        res.status(404).json({
+            data: []
+        });
+    }
+});
+
 function newFunction() {
     return '../../model/user.model';
 }

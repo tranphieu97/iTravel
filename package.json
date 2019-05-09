@@ -24,7 +24,7 @@
     "@angular/router": "^6.0.3",
     "@auth0/angular-jwt": "^2.0.0",
     "@fortawesome/fontawesome-free": "^5.3.1",
-    "@ng-bootstrap/ng-bootstrap": "^4.0.0",
+    "@ng-bootstrap/ng-bootstrap": "^4.1.2",
     "@types/core-js": "^2.5.0",
     "bcrypt": "^3.0.2",
     "bcryptjs": "^2.4.3",

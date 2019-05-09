@@ -94,3 +94,4 @@ require('./app/routing/authentication-routing');
 require('./app/routing/manager-routing.js');
 require('./app/routing/user-routing.js');
 require('./app/routing/upload-routing.js');
+require('./app/routing/tourguide-routing');

@@ -419,6 +419,15 @@ export class ServerService {
     return this.http.patch(this.HOST + 'manager/set-user-permission', params);
   }
 
+  /**
+   * Block account by userId, write log about block manager
+   * @name blockUser
+   * @author phieu-th
+   * @param userId
+   * @param blockReason
+   * @param changedBy
+   * @param confirmPassword
+   */
   blockUser(userId: string, blockReason: string, changedBy: string, confirmPassword: string): Observable<any> {
     const params = {
       userId: userId,
@@ -428,5 +437,30 @@ export class ServerService {
     };
 
     return this.http.patch(this.HOST + 'manager/block-user', params);
+  }
+
+  /**
+   * Get list locations by list provinces
+   * @name getLocationsInProvinces
+   * @author phieu-th
+   * @param arrProvincesName
+   */
+  getLocationsInProvinces(arrProvincesName: Array<string>): Observable<any> {
+    const params = {
+      arrProvincesName: arrProvincesName
+    };
+
+    return this.http.get(this.HOST + 'api/province-locations', { params: params });
+  }
+
+  postLocation(locationName: string, provinceCity: Array<string>, gps: string, address: string): Observable<any> {
+    const locationData = {
+      locationName,
+      provinceCity,
+      gps,
+      address
+    };
+
+    return this.http.post(this.HOST + 'tourguide/add-location', locationData, this.httpOptions);
   }
 }

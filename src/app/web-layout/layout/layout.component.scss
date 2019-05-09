@@ -48,12 +48,28 @@
                 
                 i {
                     font-size: 16px;
-                    color: $GREEN;
+                    // color: $GREEN;
                 }
             }
 
             span:hover {
                 background-color: $SECONDARY;
+            }
+
+            .toolbar-part {
+                border-bottom: 2px solid $SECONDARY;
+            }
+
+            .toolbar-post {
+                color: $ORANGE;
+            }
+
+            .toolbar-admin {
+                color: $RED;
+            }
+
+            .toolbar-tour {
+                color: $GREEN;
             }
         }
     }

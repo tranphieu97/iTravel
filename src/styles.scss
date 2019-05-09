@@ -102,6 +102,12 @@ div { -ms-overflow-style: none; }
     justify-content: stretch;
 }
 
+.flex-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+}
+
 .flex-items-center {
     align-items: center;
 }

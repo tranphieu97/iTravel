@@ -1,4 +1,16 @@
 export class LocaleLanguage {
+    // Common
+    ok: string;
+    cancel: string;
+    thisFieldIsRequired: string;
+    enter: string;
+
+    // Layout
+    tooltipNewPost: string;
+    tooltipPostManagement: string;
+    tooltipUserManagement: string;
+    tooltipNewTour: string;
+    tooltipTourManagement: string;
 
     // For Header Component
     headerHi: string;
@@ -261,11 +273,23 @@ export class LocaleLanguage {
     addTourName: string;
     addTourEnterName: string;
     addTourPlace: string;
-    addTourStartDate: string;
-    addTourEndDate: string;
+    addTourBeginTime: string;
+    addTourEndTime: string;
+    addTourTime: string;
     addTourDays: string;
     addTourDesc: string;
     addTourEnterDesc: string;
+    addTourProvince: string;
+    addTourLocation: string;
+    addTourEnterLocation: string;
+    addTourNewLocation: string;
+    addTourLocationName: string;
+    addTourLocationProvince: string;
+    addTourLocationGPS: string;
+    addTourLocationAddress: string;
+    addTourNoteSelectMore: string;
+    addTourAddSuccess: string;
+    addTourAddFail: string;
 
     constructor() { }
 }

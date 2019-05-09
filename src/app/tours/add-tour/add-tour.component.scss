@@ -10,6 +10,7 @@
 
     .row-label {
         flex: 3;
+        font-weight: 700;
     }
 
     .row-input {
@@ -21,6 +22,8 @@
         flex: 7;
         flex-direction: column;
         justify-content: stretch;
+        overflow-y: auto;
+        height: 95%;
 
         form input, form label, form textarea {
             font-size: 16px;
@@ -29,6 +32,83 @@
         ngb-timepicker {
             margin: auto;
         }
+
+        .select-provinces {
+            display: flex;
+            flex-direction: row;
+            max-height: 140px;
+    
+            select {
+                height: 140px;
+                margin-right: 5px;
+    
+                option {
+                    font-size: 16px;
+                }
+            }
+        }
+    
+        .selected-field {
+            display: flex;
+            flex-direction: row;
+            align-content: flex-start;
+            flex-wrap: wrap;
+    
+            height: 100%;
+            min-height: 140px;
+    
+            padding: 5px;
+            border: 1px solid $SECONDARY;
+            overflow-y: auto;
+        }
+
+        .select-locations {
+            max-height: 172px;
+            
+            input {
+                margin-bottom: 3px;
+            }
+
+            select {
+                height: 140px;
+                margin-right: 5px;
+    
+                option {
+                    font-size: 16px;
+                }
+            }
+        }
+
+        .selected-locations {
+            margin-left: 6px;
+
+            input {
+                margin-bottom: 3px;
+            }
+        }
+    
+        .tag {
+            height: fit-content;
+            width: fit-content;
+    
+            display: flex;
+            justify-content: center;
+    
+            padding: 5px 5px;
+            margin: 2px;
+    
+            background-color: lightgray;
+            font-size: 15px;
+            border-radius: 5px;
+
+            position: relative;
+
+            .esc-btn {
+                position: absolute;
+                top: -3px;
+                right: -3px;
+            }
+        }
     }
 
     .tourguide-container {
@@ -36,5 +116,18 @@
         flex: 5;
         flex-direction: column;
         justify-content: stretch;
+        height: 95%;
+    }
+}
+
+.modal-body {
+    input, label, option {
+        font-size: 16px;
+    }
+
+    .error-mess {
+        color: red !important;
+        font-size: 13px;
+        margin-top: 5px;
     }
 }
