@@ -3,10 +3,10 @@ const { Schema, model } = require('mongoose')
 const tourSchema = new Schema({
     _id: Schema.Types.ObjectId,
     tourName: String,
-    locations: [String],
+    locationIds: [String],
     registerCost: Number,
     description: String,
-    tourGuide: Schema.Types.ObjectId,
+    tourGuideId: Schema.Types.ObjectId,
     contactNumber: String,
     creationTime: Date,
     beginTime: Date,
@@ -14,41 +14,43 @@ const tourSchema = new Schema({
     closeFeedbackTime: Date,
     closeRegisterTime: Date,
     durationTime: Number,
+    memberLimit: Number,
     status: String,
+    // PENDING, REGISTERING, RUNNING, FINISHED
     isActive: Boolean,
-    schedule: [{
-        _id: Schema.Types.ObjectId,
+    schedules: [{
         beginTime: Date,
         endTime: Date,
         location: String,
-        task: [String],
+        tasks: [String],
         cost: Number,
-        perform: [String],
-        note: [String],
+        performerIds: [String],
+        note: String,
         isActive: Boolean,
     }],
-    prepare: [{
-        _id: Schema.Types.ObjectId,
+    preparations: [{
         itemName: String,
         amount: Number,
         unit: String,
-        perform: [{
+        performers: [{
             memberName: String,
             amount: Number,
+            status: String
+            // PREPARING, FINISHED
         }],
         status: String,
+        // PREPARING, FINISHED
         deadline: Date,
         note: String,
         isActive: Boolean,
     }],
-    feedback: [{
-        _id: Schema.Types.ObjectId,
+    feedbacks: [{
         from: String,
         content: String,
         time: Date,
         isActive: Boolean,
     }],
-    member: [{
+    members: [{
         memberId: String,
         cost: Number,
         contactNumber: String,
