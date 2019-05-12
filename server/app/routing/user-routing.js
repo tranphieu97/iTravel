@@ -463,7 +463,7 @@ app.patch('/user/send-notification', async (req, res) => {
                 || eachNotify.content.length <= 0
                 || eachNotify.content.length > 200
                 || eachNotify.linkTo.length > 200) {
-                console.log('validate notifications fail');
+                console.log('validate notifications fail', eachNotify);
                 res.status(200).json({
                     message: 'Invalid list notifications'
                 })
@@ -476,8 +476,10 @@ app.patch('/user/send-notification', async (req, res) => {
             "notificationItems": req.body
         };
         newListNotifications.notificationItems = newListNotifications.notificationItems.map((notiItem) => {
-            notiItem._id = new ObjectId(notiItem._id)
-            return notiItem
+            !notiItem._id 
+                ? notiItem._id = new ObjectId()
+                : notiItem._id = new ObjectId(notiItem._id);
+            return notiItem;
         })
         // create query object from userId
         const userId = authentication.getTokenUserId(req.headers.authorization);
