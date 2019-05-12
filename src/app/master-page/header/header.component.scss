@@ -58,10 +58,21 @@
     .toolbar {
         display: flex;
         flex-direction: row;
-        align-items: stretch;
+        align-items: center;
         justify-content: flex-end;
         flex: 1;
         padding-right: 15px;
+
+        .search-bar {
+            background-color: $SECONDARY;
+            border-radius: 40px;
+            margin: 0 5px;
+
+            span, input {
+                background-color: transparent;
+                border: 0;
+            }
+        }
 
         .toolbar-icon {
             display: flex;
