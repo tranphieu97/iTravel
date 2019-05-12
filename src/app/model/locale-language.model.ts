@@ -237,6 +237,34 @@ export class LocaleLanguage {
     permissionConfirmCancel: string;
     permissionUpdatePermission: string;
     permissionChoosePermission: string;
+    permissionMessIncorrectData: string;
+    permissionMessIncorrectPassword: string;
+    permissionMessServerError: string;
+    permissionMessUpdatedSuccess: string;
+    permissionMessUpdatedFail: string;
+    permissionUpdatePermissionTitle: string;
+    perrmisionSendNotifyTitle: string;
+    permissionSend: string;
+    permissionEnterNotify: string;
+    permissionBlockTitle: string;
+    permissionBlockReason: string;
+    permissionUnBlockTitle: string;
+
+    // For block message
+    blockPolicyViolation: string;
+    blockAccountImpersonation: string;
+    blockOffensiveBehavior: string;
+
+    // For add tour
+    addTourInfoTitle: string;
+    addTourGuideInfoTitle: string;
+    addTourName: string;
+    addTourEnterName: string;
+    addTourPlace: string;
+    addTourStartDate: string;
+    addTourDays: string;
+    addTourDesc: string;
+    addTourEnterDesc: string;
 
     constructor() { }
 }

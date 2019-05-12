@@ -66,6 +66,11 @@ const routes: Routes = [
     loadChildren: 'src/app/manager/manager.module#ManagerModule'
   },
   {
+    path: 'tours',
+    component: LayoutComponent,
+    loadChildren: 'src/app/tours/tours.module#ToursModule'
+  },
+  {
     path: 'not-found',
     component: NotFoundPageComponent
   },

@@ -7,6 +7,9 @@ const authentication = require('../authentication.js');
 const jwt = require('jsonwebtoken');
 var ObjectId = require('mongodb').ObjectId;
 
+// Import models file
+const { Tour } = require('../../model/mongoose/models')
+
 // Get app instance from index
 const app = require('../../index');
 
@@ -180,31 +183,6 @@ app.post('/user/token-login', async (req, res) => {
 app.put('/user/update-post', (req, res) => {
     // get updated-post from request
     const post = req.body;
-    // get token from header
-    // let token = req.headers.authorization;
-    // let userId = '';
-    // if (token !== undefined && token !== null) {
-    //     token = token.split(' ')[1];
-    // }
-    // // decode token
-    // if (token === undefined || token === null) {
-    //     console.log('Token can not null or undefined');
-    //     res.status(401).json({
-    //         message: 'Unauthorized'
-    //     });
-    // } else {
-    //     const tokenData = jwt.verify(token, config.SECRET_KEY);
-    //     userId = tokenData._id;
-    //     // check user in token and in post is the same
-    //     if (userId !== post.authorId) {
-    //         console.log('User in token must same as author in post:\n' + userId + '!==' + post.authorId);
-    //         res.status(401).json({
-    //             message: 'Unauthorized'
-    //         });
-    //     } else {
-
-
-
     // go to validate on server side
     if (// validate list postContents not empty
         post.postContents.length <= 0
@@ -279,8 +257,6 @@ app.put('/user/update-post', (req, res) => {
                 });
             });
     }
-    // }
-    // }
 });
 
 /**
@@ -290,31 +266,6 @@ app.put('/user/update-post', (req, res) => {
  * @param {Comment[]} listComment use for update 
  */
 app.patch('/user/send-comment', (req, res) => {
-    // get token from header
-    // let token = req.headers.authorization;
-    // let userId = '';
-    // if (token !== undefined && token !== null) {
-    //     token = token.split(' ')[1];
-    // }
-    // // decode and validate token
-    // if (token === undefined || token === null) {
-    //     console.log('Token can not be null or undefined');
-    //     res.status(401).json({
-    //         message: 'Unauthorized'
-    //     });
-    // } else {
-    //     // validate userId in token
-    //     const tokenData = jwt.verify(token, config.SECRET_KEY);
-    //     userId = tokenData._id;
-    //     if (userId.length !== 24) {
-    //         console.log('Invalid user in token');
-    //         res.status(401).json({
-    //             message: 'Unauthorized'
-    //         });
-    //     } else {
-
-
-
     // pass validate token
     // validate postId param
     if (req.param('postId') === null || req.param('postId') === undefined || req.param('postId').length !== 24) {
@@ -388,8 +339,6 @@ app.patch('/user/send-comment', (req, res) => {
                 })
         }
     }
-    // }
-    // }
 });
 
 /**
@@ -399,24 +348,6 @@ app.patch('/user/send-comment', (req, res) => {
  * @param {PostRating[]} listRating use for update 
  */
 app.patch('/user/send-rating', (req, res) => {
-    // get token from header
-    // let token = req.headers.authorization;
-    // // if token invalid => Unauthorized
-    // if (!authetication.isValidToken(token)) {
-    //     res.status(401).json({
-    //         message: 'Unauthorized'
-    //     });
-    // } else {
-    //     // pass validate token
-    //     // validate postId param
-    //     if (!req.param('postId') || req.param('postId').length !== 24) {
-    //         res.status(200).json({
-    //             message: 'Invalid post Id'
-    //         })
-    //     } else {
-
-
-
     // validate list rating use to update
     if (req.body.length <= 0) {
         res.status(200).json({
@@ -460,8 +391,6 @@ app.patch('/user/send-rating', (req, res) => {
                 console.log('Send Rating Has Err');
             })
     }
-    //     }
-    // }
 });
 
 /**
@@ -472,14 +401,6 @@ app.patch('/user/send-rating', (req, res) => {
 app.get('/user/get-notification', (req, res) => {
     // let token = req.headers.authorization;
     const userId = req.param('userId');
-    // // if token invalid => Unauthorized
-    // if (!authetication.isValidToken(token, userId)) {
-    //     res.status(401).json({
-    //         message: 'Unauthorized'
-    //     });
-    // } else {
-
-
 
     // token and user is valid, go to get notification of user
     const queryObj = { userId: userId }
@@ -497,7 +418,6 @@ app.get('/user/get-notification', (req, res) => {
                 })
             }
         });
-    // }
 });
 
 /**
@@ -508,14 +428,6 @@ app.get('/user/get-notification', (req, res) => {
  * then insert it to mongodb, send back response with message
  */
 app.post('/user/create-notification', (req, res, next) => {
-    // let token = req.headers.authorization;
-    // const userId = req.param('userId');
-    // // if token invalid => Unauthorized
-    // if (!authetication.isValidToken(token, userId)) {
-    //     res.status(401).json({
-    //         message: 'Unauthorized'
-    //     });
-    // } else {
     const notification = req.body;
     // TODO validate notification
     database.insertOneToColection(database.iTravelDB.Notifications, notification)
@@ -528,25 +440,14 @@ app.post('/user/create-notification', (req, res, next) => {
                 message: 'Fail!'
             });
         });
-    // }
 });
 
 /**
- * @name PATCH-new-notification
+ * @name PATCH-notification-change (has change or has new)
  * @author Thong
  * @param {NotificationItem[]} listNotificationItem use for update 
  */
-app.patch('/user/send-notification', (req, res) => {
-    // let token = req.headers.authorization;
-    // const userId = req.param('userId');
-    // // if token invalid => Unauthorized
-    // if (!authetication.isValidToken(token, userId)) {
-    //     res.status(401).json({
-    //         message: 'Unauthorized'
-    //     });
-    // } else {
-
-
+app.patch('/user/send-notification', async (req, res) => {
     // pass validate token
     // validate list notificationItem use to update
     if (req.body.length <= 0) {
@@ -570,13 +471,17 @@ app.patch('/user/send-notification', (req, res) => {
             }
         }
         // pass the validate => go to update
-        // obj store all listComment for update
+        // obj store all notificationItems for update
         const newListNotifications = {
             "notificationItems": req.body
         };
-
+        newListNotifications.notificationItems = newListNotifications.notificationItems.map((notiItem) => {
+            notiItem._id = new ObjectId(notiItem._id)
+            return notiItem
+        })
         // create query object from userId
-        const queryObj = { _id: new ObjectId(userId) }
+        const userId = authentication.getTokenUserId(req.headers.authorization);
+        const queryObj = { userId: userId };
 
         database.updateDocumentByFilter(database.iTravelDB.Notifications, queryObj, newListNotifications)
             .then((updateResult) => {
@@ -594,7 +499,104 @@ app.patch('/user/send-notification', (req, res) => {
             .catch((err) => {
                 console.log('Notify Has Error');
             })
-        //     }
+    }
+});
+
+/**
+ * @name createTour
+ * @param {Tour}
+ * @author Thong
+ */
+app.post('/user/create-tour', async (req, res) => {
+    try {
+        const newTour = new Tour(req.body)
+        newTour._id = new ObjectId()
+        await newTour.save()
+        res.status(200).json({
+            message: 'Success!'
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: 'Fail!'
+        });
+    }
+});
+
+/**
+ * @name updateTour
+ * @param {Tour}
+ * @author Thong
+ */
+app.post('/user/update-tour', async (req, res) => {
+    try {
+        const updatedTour = new Tour(req.body)
+        const id = updatedTour._id
+        delete updatedTour._id
+        await Tour.updateOne({ _id: id }, updatedTour)
+        res.status(200).json({
+            message: 'Success!'
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: 'Fail!'
+        });
+    }
+});
+
+/**
+ * @name removeTour
+ * @param {Tour}
+ * @author Thong
+ */
+app.post('/user/remove-tour', async (req, res) => {
+    try {
+        const id = req.param('tourId')
+        await Tour.updateOne({ _id: id }, { $set: { isActive: false } })
+        res.status(200).json({
+            message: 'Success!'
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: 'Fail!'
+        });
+    }
+});
+
+/**
+ * @name getTours
+ * @author Thong
+ */
+app.get('/user/get-tours', async (req, res) => {
+    try {
+        const tours = await Tour.find({})
+        res.status(200).json({
+            data: tours,
+            message: 'Success!'
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: 'Fail!'
+        });
+    }
+});
+
+/**
+ * @name getTour
+ * @param {tourId}
+ * @author Thong
+ */
+app.get('/user/get-tour', async (req, res) => {
+    try {
+        const tourId = req.param('tourId')
+        const tour = await Tour.findById(tourId)
+        res.status(200).json({
+            data: tour,
+            message: 'Success!'
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: 'Fail!'
+        });
     }
 });
 // Routing - END

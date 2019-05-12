@@ -18,6 +18,7 @@ import { PostRating } from 'src/app/model/post-rating.model';
 
 import { environment } from '../../../environments/environment';
 import { Notification } from 'src/app/model/notification.model';
+import { NotificationItem } from 'src/app/model/notification-item.model';
 
 @Injectable({
   providedIn: 'root'
@@ -321,9 +322,7 @@ export class ServerService {
     return this.http.patch<{ message: string }>(this.HOST + 'user/send-comment', listComments,
       { headers: this.httpOptions.headers, params: listParams });
   }
-
   /**
-   * @author Thong
    * @param postId use to find the post need add new rating
    * @param listRating use to update replace the old listRating
    */
@@ -332,10 +331,7 @@ export class ServerService {
     return this.http.patch<{ message: string }>(this.HOST + 'user/send-rating', listRating,
       { headers: this.httpOptions.headers, params: listParams });
   }
-
   /**
-   * @name getUserBasicInfo()
-   * @author Thong
    * @param userId use to find the user to get back firstName, lastName and avatar
    */
   getUserBasicInfo(userId: string) {
@@ -343,10 +339,7 @@ export class ServerService {
     return this.http.get<{ message: string, data: any }>(this.HOST + 'api/user-info',
       { headers: this.httpOptions.headers, params: listParams });
   }
-
   /**
-   * @name getUserNotification()
-   * @author Thong
    * @param userId used to find the notifications of that user
    */
   getUserNotification(userId: string) {
@@ -354,15 +347,35 @@ export class ServerService {
     return this.http.get<{ message: string, data: any }>(this.HOST + 'user/get-notification',
       { headers: this.httpOptions.headers, params: listParams });
   }
-
   /**
-   * @author Thong
    * @param newNotification Notification
    * @description create an empty notification for user
    */
   postNewNotification(newNotification: Notification) {
     return this.http.post<{ message: string }>(this.HOST + 'user/create-notification', newNotification);
   }
+  /**
+   * @param newNotification Notification
+   * @description update list notification for one user
+   */
+  updateNotification(listNotifications: NotificationItem[]) {
+    return this.http.patch<{ message: string }>(this.HOST + 'user/send-notification', listNotifications);
+  }
+  getTours() {
+    return this.http.get<{ data: any, message: string }>(this.HOST + 'user/get-tours');
+  }
+  getTour(tourId: string) {
+    const listParams = new HttpParams().set('tourId', tourId);
+    return this.http.get<{ data: any, message: string }>(this.HOST + 'user/get-tour',
+      { headers: this.httpOptions.headers, params: listParams });
+  }
+  createTour(tour) {
+    return this.http.post<{ message: string }>(this.HOST + 'user/create-tour', tour)
+  }
+  updateTour(tour) {
+    return this.http.post<{ message: string }>(this.HOST + 'user/update-tour', tour)
+  }
+
 
   /**
    * Get user post by UserId
@@ -387,13 +400,33 @@ export class ServerService {
     return this.http.get(this.HOST + 'manager/users-permission');
   }
 
-  setUserPermission(username: string, permission: string, changedBy: string): Observable<any> {
+  /**
+   * Update specified user's permission
+   * @name updateUserPermission
+   * @author phieu-th
+   * @param userId
+   * @param listPermission
+   * @param changedBy
+   */
+  updateUserPermission(userId: string, listPermission: Array<any>, changedBy: string, confirmPassword: string): Observable<any> {
     const params = {
-      username: username,
-      permission: permission,
-      changedBy: changedBy
+      userId: userId,
+      listPermission: listPermission,
+      changedBy: changedBy,
+      confirmPassword: confirmPassword
     };
 
     return this.http.patch(this.HOST + 'manager/set-user-permission', params);
+  }
+
+  blockUser(userId: string, blockReason: string, changedBy: string, confirmPassword: string): Observable<any> {
+    const params = {
+      userId: userId,
+      blockReason: blockReason,
+      changedBy: changedBy,
+      confirmPassword: confirmPassword
+    };
+
+    return this.http.patch(this.HOST + 'manager/block-user', params);
   }
 }

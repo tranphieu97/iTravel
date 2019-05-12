@@ -1,7 +1,14 @@
-
-const DB_HOST = 'mongodb+srv://itravel_admin:eD4w6NpdUyW5YeN@itravelcluster-x2srr.mongodb.net/';
-const DB_NAME = 'iTravel';
-const CONNECTION_STRING = DB_HOST + DB_NAME;
+const {
+    DB_USERNAME,
+    DB_PASSWORD,
+    DB_NAME,
+    DB_HOST,
+    SECRET_KEY,
+    PUBLIC_KEY
+} = require('./secret-info/secret')
+const db_host = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}/`;
+const db_name = DB_NAME;
+const CONNECTION_STRING = db_host + db_name;
 
 const normalizePort = val => {
     var port = parseInt(val, 10);
@@ -17,8 +24,8 @@ const normalizePort = val => {
 };
 const APP_PORT = normalizePort(process.env.PORT || "7979");
 
-const SECRET_KEY = 'MIIBOwIBAAJBAJUod/qooZzPZ15v+jIfemAyV1b3faqRQUUgsmqpvLna99bcatqze+y/Qu2qGODk86qsV169hsoPG9DfbJsa5SMCAwEAAQJADY/zcNg6ca6uIHkgD8Sq9Oo+5Mp2I7c3bxitAGPUpDVvHKkrwPXThcN/fQKkb2IBV/EAflDTnmBJ5GWGj5sZAQIhAPuPt0GYqy2SDAxxW4Jzt3vDM80IZdKlCWNHrcKFyk6jAiEAl8o0ZOyPRDC6HlzwvkrgXdRhtbalSu0ilB6BfH8u94ECIQC/hSgI6dmRJTrFElyQEddkgzXh6H3VBE8EZeL1UPS4LwIhAIDrHmDxgiTaddk/+sDEe5d1wJ9DR1RB3/KJjlSc+NkBAiB0Y6mBUH++aamg+A8tx76PJAhrsuR236RJW/CkZ9xOrw==';
-const PUBLIC_KEY = 'MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJUod/qooZzPZ15v+jIfemAyV1b3faqRQUUgsmqpvLna99bcatqze+y/Qu2qGODk86qsV169hsoPG9DfbJsa5SMCAwEAAQ==';
+// const SECRET_KEY moved to ignore file
+// const PUBLIC_KEY moved to ignore file
 
 const signOptions = {
     expiresIn: "12h",
@@ -39,7 +46,8 @@ const MINE_TYPE_MAP = {
 
 const USER_PERMISSION = {
     MEMBER: 'Member',
-    ADMIN: 'Admin'
+    ADMIN: 'Admin',
+    TOURGUIDE: 'Tour Guide'
 };
 
 const POST_STATUS =
@@ -55,7 +63,18 @@ const REGION_NAME = {
     NORTH: 'miền bắc',
     CENTRAL: 'miền trung',
     SOUTH: 'miền nam'
-}
+};
+
+const USER_STATUS = {
+    ACTIVE: 'Active',
+    BLOCK: 'Block'
+};
+
+const PERMISSION_MANAGEMENT_ACTION = {
+    UPDATE_PERMISSION: 'Update Permission',
+    BLOCK: 'Block',
+    UNBLOCK: 'UnBlock'
+};
 
 module.exports = {
     APP_PORT: APP_PORT,
@@ -69,5 +88,7 @@ module.exports = {
     MINE_TYPE_MAP: MINE_TYPE_MAP,
     USER_PERMISSION: USER_PERMISSION,
     POST_STATUS: POST_STATUS,
-    REGION_NAME: REGION_NAME
+    REGION_NAME: REGION_NAME,
+    USER_STATUS: USER_STATUS,
+    PERMISSION_MANAGEMENT_ACTION: PERMISSION_MANAGEMENT_ACTION
 };

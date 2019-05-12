@@ -63,6 +63,7 @@ export class LoginComponent implements OnInit {
           this.user.isLogin = true;
           this.isLoading = false;
           this.router.navigate(['home']);
+          this.user.isLoginChange.next();
         }
       });
     }

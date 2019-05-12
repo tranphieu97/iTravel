@@ -1,7 +1,7 @@
 // Include js file
-const config = require('../_config');
-const database = require('./database.js');
-const authentication = require('./authentication.js');
+const config = require('../../_config');
+const database = require('../database.js');
+const authentication = require('../authentication.js');
 
 var ObjectId = require('mongodb').ObjectId;
 

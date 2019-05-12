@@ -264,6 +264,33 @@ export class LanguageService {
     this.vnLanguage.permissionConfirmCancel = 'Huỷ';
     this.vnLanguage.permissionUpdatePermission = 'Cập nhật quyền hạn';
     this.vnLanguage.permissionChoosePermission = 'Chọn phân quyền';
+    this.vnLanguage.permissionMessIncorrectData = 'Dữ liệu cập nhật không đúng';
+    this.vnLanguage.permissionMessIncorrectPassword = 'Mật khẩu xác thực không đúng';
+    this.vnLanguage.permissionMessServerError = 'Lỗi hệ thống';
+    this.vnLanguage.permissionMessUpdatedSuccess = 'Cập nhật thành công';
+    this.vnLanguage.permissionMessUpdatedFail = 'Cập nhật thất bại, vui lòng thử lại';
+    this.vnLanguage.permissionUpdatePermissionTitle = 'Cập nhật quyền hạn:';
+    this.vnLanguage.perrmisionSendNotifyTitle = 'Gửi thông báo:';
+    this.vnLanguage.permissionSend = 'Gửi';
+    this.vnLanguage.permissionEnterNotify = 'Nhập nội dung thông báo';
+    this.vnLanguage.permissionBlockTitle = 'Khoá tài khoản';
+    this.vnLanguage.permissionBlockReason = 'Lý do khoá';
+    this.vnLanguage.permissionUnBlockTitle = 'Mở khoá tài khoản';
+
+    // For block message
+    this.vnLanguage.blockPolicyViolation = 'Vi phạm chính sách sử dụng';
+    this.vnLanguage.blockAccountImpersonation = 'Tài khoản giả mạo';
+    this.vnLanguage.blockOffensiveBehavior = 'Hành vi chống phá, phản cảm';
+
+    // For add tour
+    this.vnLanguage.addTourInfoTitle = 'Thông tin tour';
+    this.vnLanguage.addTourName = 'Tên tour';
+    this.vnLanguage.addTourStartDate = 'Ngày khởi hành';
+    this.vnLanguage.addTourDays = 'Thời lượng';
+    this.vnLanguage.addTourPlace = 'Địa điểm';
+    this.vnLanguage.addTourEnterName = 'Nhập tên tour';
+    this.vnLanguage.addTourDesc = 'Mô tả';
+    this.vnLanguage.addTourEnterDesc = 'Nhập mô tả';
   }
 
   /**
@@ -509,6 +536,33 @@ export class LanguageService {
     this.enLanguage.permissionConfirmCancel = 'Cancel';
     this.enLanguage.permissionUpdatePermission = 'Update Permission';
     this.enLanguage.permissionChoosePermission = 'Choose Permissions';
+    this.enLanguage.permissionMessIncorrectData = 'Incorrect Update data';
+    this.enLanguage.permissionMessIncorrectPassword = 'Incorrect Password';
+    this.enLanguage.permissionMessServerError = 'System Error';
+    this.enLanguage.permissionMessUpdatedSuccess = 'Updated Success!';
+    this.enLanguage.permissionMessUpdatedFail = 'Updated Fail, Try again';
+    this.enLanguage.permissionUpdatePermissionTitle = 'Update permision:';
+    this.enLanguage.perrmisionSendNotifyTitle = 'Notify:';
+    this.enLanguage.permissionSend = 'Send';
+    this.enLanguage.permissionEnterNotify = 'Enter notification content';
+    this.enLanguage.permissionBlockTitle = 'Block Account';
+    this.enLanguage.permissionBlockReason = 'Block Reason';
+    this.enLanguage.permissionUnBlockTitle = 'UnBlock Account';
+
+    // For block message
+    this.enLanguage.blockPolicyViolation = 'Violate website policies';
+    this.enLanguage.blockAccountImpersonation = 'An Impersonation account';
+    this.enLanguage.blockOffensiveBehavior = 'Comprise offensive behavior';
+
+    // For add tour
+    this.enLanguage.addTourInfoTitle = 'Tour Information';
+    this.enLanguage.addTourName = 'Tour name';
+    this.enLanguage.addTourStartDate = 'Start Date';
+    this.enLanguage.addTourDays = 'Total time';
+    this.enLanguage.addTourPlace = 'Place';
+    this.enLanguage.addTourEnterName = 'Enter tour name';
+    this.enLanguage.addTourDesc = 'Description';
+    this.enLanguage.addTourEnterDesc = 'Enter tour description';
   }
 
   /**

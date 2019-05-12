@@ -1,0 +1,39 @@
+<div class="border-box tour-containner">
+  <h1>{{language.currentLanguage.addTourInfoTitle}}</h1>
+  <form>
+    <div class="form-group flex-row">
+      <label class="row-label">{{language.currentLanguage.addTourName}}</label>
+      <div class="row-input">
+        <input type="text" class="form-control" [placeholder]="language.currentLanguage.addTourEnterName">
+      </div>
+    </div>
+    <div class="form-group flex-row">
+      <label class="row-label">{{language.currentLanguage.addTourDesc}}</label>
+      <div class="row-input">
+        <textarea rows="4" class="form-control" [placeholder]="language.currentLanguage.addTourEnterDesc"
+          style="resize:none"></textarea>
+      </div>
+    </div>
+    <div class="form-group flex-row">
+      <label class="row-label">{{language.currentLanguage.addTourStartDate}}</label>
+      <div class="row-input flex-row">
+        <div class="flex-1 flex-items-center">
+            <div class="input-group">
+                <input class="form-control" placeholder="yyyy-mm-dd" name="startDate"
+                  [(ngModel)]="startDate" ngbDatepicker #startdate="ngbDatepicker" #modelstartdate="ngModel">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary calendar" (click)="startdate.toggle()" type="button">
+                    <span><i class="fas fa-calendar-alt"></i></span>
+                  </button>
+                </div>
+              </div>
+        </div>
+        <div class="flex-1 flex-row flex-items-center">
+            <ngb-timepicker [(ngModel)]="startTime"></ngb-timepicker>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="border-box tourguide-container">
+</div>

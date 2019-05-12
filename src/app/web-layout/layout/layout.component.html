@@ -13,6 +13,8 @@
             <span [routerLink]="['/create-post']"><i class="fas fa-edit"></i></span>
             <span [routerLink]="['/manager/posts']" *ngIf="this.user.currentUser.isAdmin"><i class="fas fa-clipboard-check"></i></span>
             <span [routerLink]="['/manager/permissions']" *ngIf="this.user.currentUser.isAdmin"><i class="fab fa-black-tie"></i></span>
+            <span [routerLink]="['/tours/add-tour']" *ngIf="this.user.currentUser.isAdmin"><i class="fas fa-journal-whills"></i></span>
+            <span [routerLink]="['/manager/tours']" *ngIf="this.user.currentUser.isAdmin"><i class="fas fa-route"></i></span>
         </div>
     </div>
 </div>

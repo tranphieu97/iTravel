@@ -6,7 +6,7 @@ const config = require('../../_config.js');
 const jwt = require('jsonwebtoken');
 const app = require('../../index');
 var ObjectId = require('mongodb').ObjectId;
-const postService = require('../post-service.js');
+const postService = require('../services/post-service.js');
 const User = require('../../model/user.model').User;
 
 // Routing - START

@@ -1,0 +1,40 @@
+@import 'src/styles.scss';
+
+:host {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: row;
+    flex-grow: 12;
+    flex-wrap: wrap;
+
+    .row-label {
+        flex: 3;
+    }
+
+    .row-input {
+        flex: 9;
+    }
+
+    .tour-containner {
+        display: flex;
+        flex: 7;
+        flex-direction: column;
+        justify-content: stretch;
+
+        form input, form label, form textarea {
+            font-size: 16px;
+        }
+
+        ngb-timepicker {
+            margin: auto;
+        }
+    }
+
+    .tourguide-container {
+        display: flex;
+        flex: 5;
+        flex-direction: column;
+        justify-content: stretch;
+    }
+}
