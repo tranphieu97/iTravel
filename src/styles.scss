@@ -112,6 +112,10 @@ div { -ms-overflow-style: none; }
     align-items: center;
 }
 
+.flex-content-space-evenly {
+    justify-content: space-evenly;
+}
+
 .flex-1 {
     flex: 1;
 }
@@ -126,4 +130,13 @@ div { -ms-overflow-style: none; }
 
 .flex-4 {
     flex: 4;
+}
+
+.row-label {
+    flex: 3;
+    font-weight: 700;
+}
+
+.row-input {
+    flex: 9;
 }

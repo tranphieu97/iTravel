@@ -7,6 +7,7 @@ import { ProvinceCity } from 'src/app/model/province-city.model';
 import { ServerService } from 'src/app/core/services/server.service';
 import { Location } from 'src/app/model/location.model';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { StepperService } from 'src/app/core/services/stepper.service';
 
 @Component({
   selector: 'app-add-tour',
@@ -36,7 +37,7 @@ export class AddTourComponent implements OnInit {
 
   constructor(public language: LanguageService, private timepickerConfig: NgbTimepickerConfig,
     private provinceService: ProvinceCityService, private serverService: ServerService, private modal: NgbModal,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder, public stepperService: StepperService) {
     timepickerConfig.spinners = false;
     timepickerConfig.seconds = false;
   }

@@ -1,0 +1,27 @@
+<div class="form-group flex-row">
+  <div class="row-label">
+    {{language.currentLanguage.addScheduleDay}}
+  </div>
+  <div class="row-input flex-row flex-content-space-evenly">
+    <div class="input-group">
+      <input class="form-control" placeholder="yyyy-mm-dd" name="startDate" [(ngModel)]="startDate"
+        ngbDatepicker #startdate="ngbDatepicker" #modelstartdate="ngModel">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary calendar" (click)="startdate.toggle()" type="button">
+          <span><i class="fas fa-calendar-alt"></i></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="form-group flex-row">
+  <div class="row-label">
+    {{language.currentLanguage.addSchedulePeriod}}
+  </div>
+  <div class="row-input flex-row flex-content-space-evenly flex-items-center">
+    <span>{{language.currentLanguage.from}}</span>
+    <ngb-timepicker name="beginTime" [(ngModel)]="beginTime"></ngb-timepicker>
+    <span>{{language.currentLanguage.to}}</span>
+    <ngb-timepicker name="endTime" [(ngModel)]="endTime"></ngb-timepicker>
+  </div>
+</div>

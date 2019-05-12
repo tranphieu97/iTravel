@@ -8,15 +8,6 @@
     flex-grow: 12;
     flex-wrap: wrap;
 
-    .row-label {
-        flex: 3;
-        font-weight: 700;
-    }
-
-    .row-input {
-        flex: 9;
-    }
-
     .tour-containner {
         display: flex;
         flex: 7;
@@ -31,6 +22,11 @@
 
         ngb-timepicker {
             margin: auto;
+        }
+
+        .stepper {
+            width: 100%;
+            height: 100%;
         }
 
         .select-provinces {
@@ -117,6 +113,18 @@
         flex-direction: column;
         justify-content: stretch;
         height: 95%;
+    }
+
+    .steps-control {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+
+        input {
+            width: fit-content;
+            padding: 5px 10px;
+            margin: 0 10px;
+        }
     }
 }
 

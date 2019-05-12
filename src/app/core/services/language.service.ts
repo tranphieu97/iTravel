@@ -32,6 +32,10 @@ export class LanguageService {
     this.vnLanguage.cancel = 'Huỷ';
     this.vnLanguage.thisFieldIsRequired = 'Điền nội dung này được yêu cầu';
     this.vnLanguage.enter = 'Nhập ';
+    this.vnLanguage.next = 'Trang tiếp';
+    this.vnLanguage.prev = 'Trang trước';
+    this.vnLanguage.from = 'Từ';
+    this.vnLanguage.to = 'Đến';
 
     // Layout
     this.vnLanguage.tooltipNewPost = 'Thêm bài viết';
@@ -317,6 +321,18 @@ export class LanguageService {
     this.vnLanguage.addTourNoteSelectMore = 'Thuộc tính này có thể chọn nhiều lựa chọn';
     this.vnLanguage.addTourAddSuccess = 'Thêm thành công';
     this.vnLanguage.addTourAddFail = 'Thêm thất bại, thử lại';
+
+    // Add Schedule
+    this.vnLanguage.addScheduleDay = 'Ngày';
+    this.vnLanguage.addSchedulePeriod = 'Mốc thời gian';
+    this.vnLanguage.addScheduleKindof = 'Loại công việc';
+    this.vnLanguage.addScheduleKindMoving = 'Di chuyển';
+    this.vnLanguage.addScheduleKindEating = 'Ăn uống';
+    this.vnLanguage.addScheduleKindVisiting = 'Tham quan';
+    this.vnLanguage.addScheduleKindRelaxing = 'Nghỉ ngơi';
+    this.vnLanguage.addScheduleKindFreedom = 'Sinh hoạt tự do';
+    this.vnLanguage.addScheduleKindOthers = 'Khác';
+    this.vnLanguage.addSchedulePerform = 'Chịu trách nhiệm';
   }
 
   /**
@@ -330,6 +346,10 @@ export class LanguageService {
     this.enLanguage.cancel = 'Cancel';
     this.enLanguage.thisFieldIsRequired = 'This field is required';
     this.enLanguage.enter = 'Enter ';
+    this.enLanguage.next = 'Next page';
+    this.enLanguage.prev = 'Previous page';
+    this.enLanguage.from = 'From';
+    this.enLanguage.to = 'To';
 
     // Layout
     this.enLanguage.tooltipNewPost = 'New Post';
@@ -615,6 +635,18 @@ export class LanguageService {
     this.enLanguage.addTourNoteSelectMore = 'This property is able to select more options';
     this.enLanguage.addTourAddSuccess = 'Add Success!';
     this.enLanguage.addTourAddFail = 'Add Fail, Please try again!';
+
+    // Add Schedule
+    this.enLanguage.addScheduleDay = 'Day'
+    this.enLanguage.addSchedulePeriod = 'Period';
+    this.enLanguage.addScheduleKindof = 'Kind of task';
+    this.enLanguage.addScheduleKindMoving = 'Moving';
+    this.enLanguage.addScheduleKindEating = 'Eating';
+    this.enLanguage.addScheduleKindVisiting = 'Visiting';
+    this.enLanguage.addScheduleKindRelaxing = 'Relaxing';
+    this.enLanguage.addScheduleKindFreedom = 'Freedom';
+    this.enLanguage.addScheduleKindOthers = 'The others';
+    this.enLanguage.addSchedulePerform = 'Perform';
   }
 
   /**

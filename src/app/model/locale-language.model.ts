@@ -4,6 +4,10 @@ export class LocaleLanguage {
     cancel: string;
     thisFieldIsRequired: string;
     enter: string;
+    next: string;
+    prev: string;
+    from: string;
+    to: string;
 
     // Layout
     tooltipNewPost: string;
@@ -290,6 +294,20 @@ export class LocaleLanguage {
     addTourNoteSelectMore: string;
     addTourAddSuccess: string;
     addTourAddFail: string;
+
+    // Add Schedule
+    addScheduleDay: string;
+    addSchedulePeriod: string;
+    addScheduleKindof: string;
+    addScheduleKindMoving: string;
+    addScheduleKindEating: string;
+    addScheduleKindVisiting: string;
+    addScheduleKindRelaxing: string;
+    addScheduleKindFreedom: string;
+    addScheduleKindOthers: string;
+    addSchedulePerform: string;
+    addScheduleCost: string;
+
 
     constructor() { }
 }
