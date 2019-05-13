@@ -100,6 +100,7 @@ div { -ms-overflow-style: none; }
     display: flex;
     flex-direction: row;
     justify-content: stretch;
+    flex-wrap: wrap;
 }
 
 .flex-col {
@@ -114,6 +115,10 @@ div { -ms-overflow-style: none; }
 
 .flex-content-space-evenly {
     justify-content: space-evenly;
+}
+
+.flex-justify-end {
+    justify-content: flex-end;
 }
 
 .flex-1 {
@@ -135,8 +140,20 @@ div { -ms-overflow-style: none; }
 .row-label {
     flex: 3;
     font-weight: 700;
+    min-width: 150px;
 }
 
 .row-input {
     flex: 9;
+    min-width: 300px;
+    flex-wrap: wrap;
+
+    .row-first-input {
+        min-width: 150px;
+    }
+
+    .row-second-input {
+        min-width: 150px;
+        margin-left: 5px;
+    }
 }

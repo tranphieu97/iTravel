@@ -333,6 +333,11 @@ export class LanguageService {
     this.vnLanguage.addScheduleKindFreedom = 'Sinh hoạt tự do';
     this.vnLanguage.addScheduleKindOthers = 'Khác';
     this.vnLanguage.addSchedulePerform = 'Chịu trách nhiệm';
+    this.vnLanguage.addScheduleCost = 'Chi phí';
+    this.vnLanguage.addScheduleLocation = 'Địa điểm';
+    this.vnLanguage.addScheduleNote = 'Ghi chú';
+    this.vnLanguage.addScheduleAddPerform = 'Thêm người phụ trách';
+    this.vnLanguage.addScheduleAddTask = 'Thêm nhiệm vụ';
   }
 
   /**
@@ -647,6 +652,11 @@ export class LanguageService {
     this.enLanguage.addScheduleKindFreedom = 'Freedom';
     this.enLanguage.addScheduleKindOthers = 'The others';
     this.enLanguage.addSchedulePerform = 'Perform';
+    this.enLanguage.addScheduleCost = 'Cost';
+    this.enLanguage.addScheduleLocation = 'Location';
+    this.enLanguage.addScheduleNote = 'Notes';
+    this.enLanguage.addScheduleAddTask = 'Add another task';
+    this.enLanguage.addScheduleAddPerform = 'Add another perfrom';
   }
 
   /**

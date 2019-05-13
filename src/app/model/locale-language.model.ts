@@ -307,7 +307,10 @@ export class LocaleLanguage {
     addScheduleKindOthers: string;
     addSchedulePerform: string;
     addScheduleCost: string;
-
+    addScheduleLocation: string;
+    addScheduleNote: string;
+    addScheduleAddTask: string;
+    addScheduleAddPerform: string;
 
     constructor() { }
 }
