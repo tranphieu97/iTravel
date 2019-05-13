@@ -1,4 +1,4 @@
-import { TourPreparationPerformer } from "./tour-preparation-performer.model";
+import { TourPreparationPerformer } from './tour-preparation-performer.model';
 
 export class TourPreparation {
   public _id: string;
