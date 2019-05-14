@@ -34,6 +34,7 @@
   </div>
   <div class="row-input flex-row">
     <select class="form-control flex-1 flex-items-center row-first-input">
+      <option selected>- {{language.currentLanguage.choose}}{{language.currentLanguage.addScheduleKindof}} -</option>
       <option>{{language.currentLanguage.addScheduleKindMoving}}</option>
       <option>{{language.currentLanguage.addScheduleKindEating}}</option>
       <option>{{language.currentLanguage.addScheduleKindVisiting}}</option>
@@ -46,29 +47,40 @@
   </div>
 </div>
 <div class="flex-row flex-justify-end">
-  <span class="link-add-more">+{{language.currentLanguage.addScheduleAddTask}}</span>
+  <span class="link-add-more">+ {{language.currentLanguage.addScheduleAddTask}}</span>
 </div>
 <div class="form-group flex-row">
   <div class="row-label">
     {{language.currentLanguage.addSchedulePerform}}
   </div>
   <div class="row-input">
-    <select class="form-control">
-      <option>Test</option>
-    </select>
+    <div class="input-group">
+      <select class="form-control">
+        <option selected>- {{language.currentLanguage.choose}}{{language.currentLanguage.addSchedulePerform}} -</option>
+      </select>
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button">X</button>
+      </div>
+    </div>
   </div>
 </div>
 <div class="flex-row flex-justify-end">
-  <span class="link-add-more">+{{language.currentLanguage.addScheduleAddPerform}}</span>
+  <span class="link-add-more">+ {{language.currentLanguage.addScheduleAddPerform}}</span>
 </div>
 <div class="form-group flex-row">
   <div class="row-label">
+    {{language.currentLanguage.addScheduleLocation}}
+    &
     {{language.currentLanguage.addScheduleCost}}
   </div>
-  <div class="row-input">
-    <input type="number" class="form-control">
+  <div class="row-input flex-row">
+    <input type="text" class="form-control flex-1 flex-items-center row-first-input"
+      [placeholder]="language.currentLanguage.enter + language.currentLanguage.addScheduleLocation">
+    <input type="number" class="form-control flex-1 flex-items-center row-second-input"
+      [placeholder]="language.currentLanguage.enter + language.currentLanguage.addScheduleCost">
   </div>
 </div>
 <div class="flex-row flex-justify-end">
-  <input type="button" class="form-control btn btn-outline-secondary" [value]="language.currentLanguage.ok" style="width: 75px;">
+  <input type="button" class="form-control btn btn-outline-secondary" [value]="language.currentLanguage.ok"
+    style="width: 75px;">
 </div>

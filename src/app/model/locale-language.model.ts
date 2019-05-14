@@ -8,6 +8,7 @@ export class LocaleLanguage {
     prev: string;
     from: string;
     to: string;
+    choose: string;
 
     // Layout
     tooltipNewPost: string;

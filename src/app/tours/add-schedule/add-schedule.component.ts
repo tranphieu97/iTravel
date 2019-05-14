@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LanguageService } from 'src/app/core/services/language.service';
 import { NgbDateStruct, NgbTimeStruct, NgbTimepickerConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TourSchedule } from 'src/app/model/tour-schedule.model';
 
 @Component({
   selector: 'app-add-schedule',
@@ -12,6 +13,8 @@ export class AddScheduleComponent implements OnInit {
   public startDate: NgbDateStruct;
   public beginTime: NgbTimeStruct = { hour: 0, minute: 0, second: 0 };
   public endTime: NgbTimeStruct = { hour: 0, minute: 0, second: 0 };
+
+  public currentSchedule: TourSchedule;
 
   constructor(public language: LanguageService, private timepickerConfig: NgbTimepickerConfig, private modal: NgbModal) {
     // timepickerConfig.spinners = false;

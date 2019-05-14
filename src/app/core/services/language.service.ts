@@ -36,6 +36,7 @@ export class LanguageService {
     this.vnLanguage.prev = 'Trang trước';
     this.vnLanguage.from = 'Từ';
     this.vnLanguage.to = 'Đến';
+    this.vnLanguage.choose = 'Chọn ';
 
     // Layout
     this.vnLanguage.tooltipNewPost = 'Thêm bài viết';
@@ -355,6 +356,7 @@ export class LanguageService {
     this.enLanguage.prev = 'Previous page';
     this.enLanguage.from = 'From';
     this.enLanguage.to = 'To';
+    this.enLanguage.choose = 'Choose ';
 
     // Layout
     this.enLanguage.tooltipNewPost = 'New Post';
