@@ -4,7 +4,9 @@ import { NgbCalendar, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ServerService } from 'src/app/core/services/server.service';
 import { ConstantService } from 'src/app/core/services/constant.service';
 import { FormBuilder } from '@angular/forms';
-import { ObjectUnsubscribedError } from 'rxjs';
+import { Tour } from 'src/app/model/tour.model';
+import { TourStatus } from '../../constants';
+import { DetailModalComponent } from './detail-modal/detail-modal.component';
 
 @Component({
   selector: 'app-tour-management',
@@ -12,15 +14,25 @@ import { ObjectUnsubscribedError } from 'rxjs';
   styleUrls: ['./tour-management.component.scss']
 })
 export class TourManagementComponent implements OnInit {
+  tours: Tour[];
+  tourStatus: TourStatus = new TourStatus();
 
-  constructor(public language: LanguageService, private calendar: NgbCalendar, private server: ServerService,
-    private modalService: NgbModal, public constant: ConstantService, private formBuilder: FormBuilder) { }
+  constructor(
+    public language: LanguageService,
+    private calendar: NgbCalendar,
+    private server: ServerService,
+    private modalService: NgbModal,
+    public constant: ConstantService,
+    private formBuilder: FormBuilder
+  ) {}
 
   ngOnInit() {
     // test get tour
     // this.server.getTour('5cb4744b393d6515e4757a0a').subscribe(res => console.log(res))
 
-    // this.server.getTours().subscribe(res => console.log(res))
+    this.server.getTours().subscribe(res => {
+      this.tours = res.data ? res.data : [];
+    });
 
     this.server.createTour({
       tourName: 'Nha Trang',
@@ -51,7 +63,7 @@ export class TourManagementComponent implements OnInit {
             '5c2b4527150bd42cb82dbc23'
           ],
           note: 'Đúng giờ, đổ xăng đầy đủ',
-          isActive: true,
+          isActive: true
         },
         {
           beginTime: new Date(2019, 5, 12, 5),
@@ -65,7 +77,7 @@ export class TourManagementComponent implements OnInit {
             '5c2b4527150bd42cb82dbc23'
           ],
           note: '',
-          isActive: true,
+          isActive: true
         }
       ],
       preparations: [
@@ -88,7 +100,7 @@ export class TourManagementComponent implements OnInit {
           status: 'PREPARING',
           deadline: new Date(),
           note: '',
-          isActive: true,
+          isActive: true
         },
         {
           itemName: 'Máy ảnh',
@@ -104,7 +116,7 @@ export class TourManagementComponent implements OnInit {
           status: 'FINISHED',
           deadline: new Date(),
           note: 'Sạc đầy pin',
-          isActive: true,
+          isActive: true
         }
       ],
       feedbacks: [
@@ -112,33 +124,33 @@ export class TourManagementComponent implements OnInit {
           from: '5c2b4527150bd42cb82dbc23',
           content: 'Đi Nha Trang nên đi bằng xe lớn',
           time: new Date(),
-          isActive: true,
+          isActive: true
         },
         {
           from: '5c9a5834c9a2893ec075a954',
           content: 'Nên có khâu kiểm tra giấy tờ xe các thành viên',
           time: new Date(),
-          isActive: true,
+          isActive: true
         }
       ],
       members: [
         {
           memberId: '5c1549456d860c330492cac7',
           cost: 100000,
-          contactNumber: '0329999222',
+          contactNumber: '0329999222'
         },
         {
           memberId: '5c2b4527150bd42cb82dbc23',
           cost: 100000,
-          contactNumber: '0329999111',
+          contactNumber: '0329999111'
         },
         {
           memberId: '5c9a5834c9a2893ec075a954',
           cost: 100000,
-          contactNumber: '0329999333',
+          contactNumber: '0329999333'
         }
       ]
-    })//.subscribe(res => console.log(res))
+    }); // .subscribe(res => console.log(res))
 
     // this.server.updateTour({
     //   _id: '5cad37d09dd9538ef41b7555',
@@ -146,5 +158,13 @@ export class TourManagementComponent implements OnInit {
     //   locations: ['place 1', 'place 2'],
     //   registerCost: 100000,
     // }).subscribe(res => console.log(res))
+  }
+
+  openDetail(tour: Tour) {
+    const modalRef = this.modalService.open(DetailModalComponent, {
+      centered: true,
+      size: 'lg'
+    });
+    modalRef.componentInstance.tourData = tour;
   }
 }

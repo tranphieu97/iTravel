@@ -1,19 +1,18 @@
-<div class="content-box post-management">
+<div class="content-box tour-management">
   <!-- title -->
-  <div class="post-management-title">
+  <div class="tour-management-title">
     <h4>
       <!-- {{language.currentLanguage.postManagementTitle}} -->
       Tours Management
     </h4>
-    <span (click)="refreshListPost()"><i class="fas fa-sync-alt"></i></span>
+    <span (click)="refreshListTour()"><i class="fas fa-sync-alt"></i></span>
   </div>
 
-  <div class="post-management-content">
-    <div class="post-management-control">
-      <!-- filter form -->
+  <div class="tour-management-content">
+    <!-- <div class="tour-management-control">
       <form class="form-inline">
         <div class="form-group">
-          <label class="control-title">{{language.currentLanguage.postManagementStartDate}}</label>
+          <label class="control-title">Start date</label>
           <div class="input-group">
             <input class="form-control" placeholder="yyyy-mm-dd" name="startDate" (focus)="resetError()"
               [(ngModel)]="startDate" ngbDatepicker #startdate="ngbDatepicker" #modelstartdate="ngModel">
@@ -25,7 +24,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="control-title">{{language.currentLanguage.postManagementEndDate}}</label>
+          <label class="control-title">End date</label>
           <div class="input-group">
             <input class="form-control" placeholder="yyyy-mm-dd" name="endDate" (focus)="resetError()"
               [(ngModel)]="endDate" ngbDatepicker #enddate="ngbDatepicker">
@@ -39,59 +38,44 @@
         <div class="form-group">
           <button (click)="validateDateForm()" class="btn btn-success" type="button"
             [disabled]="startDate === undefined || endDate === undefined">
-            {{language.currentLanguage.postManagementFilter}}
+            Filter
           </button>
         </div>
       </form>
-    </div>
-    <div *ngIf="this.hasError" class="alert alert-danger" role="alert">
-      {{this.errorMessage}}
-    </div>
-    <div class="post-management-table">
+    </div> -->
+
+    <div class="tour-management-table">
       <table class="table table-hover">
         <thead class="thead-light">
-          <!-- <tr>
-            <th scope="col">#</th>
-            <th scope="col">{{language.currentLanguage.postManagementTablePostName}}</th>
-            <th scope="col">{{language.currentLanguage.postManagementTablePostAuthor}}</th>
-            <th scope="col">{{language.currentLanguage.postManagementTablePostCreationTime}}</th>
-            <th scope="col">{{language.currentLanguage.postManagementTablePostCategories}}</th>
-            <th scope="col">{{language.currentLanguage.postManagementTablePostStatus}}</th>
-            <th scope="col" class="action-cell">{{language.currentLanguage.postManagementTableAction}}</th>
-          </tr> -->
           <tr>
-              <th scope="col">#</th>
-              <th scope="col">Tourname</th>
-              <th scope="col">TourGuide</th>
-              <th scope="col">Creation time</th>
-              <th scope="col">Duration</th>
-              <th scope="col">Status</th>
-              <th scope="col" class="action-cell">Action</th>
-            </tr>
+            <th>#</th>
+            <th>Tourname</th>
+            <th>TourGuide</th>
+            <th>Creation time</th>
+            <th>Duration</th>
+            <th>Status</th>
+            <th class="tour-detail">Action</th>
+          </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let post of listShowPost">
-            <td>{{listShowPost.indexOf(post) + 1}}</td>
-            <td><strong>{{post.title}}</strong></td>
-            <td>{{post.authorId}}</td>
-            <td>{{post.createdTime | date}}</td>
-            <td>{{post.categories}}</td>
-            <td
-              [ngClass]="{'green-text': post.status.indexOf(this.constant.POST_STATUS.APPROVED) !== -1, 'red-text': post.status.indexOf(this.constant.POST_STATUS.DENY) !== -1, 'yellow-text': post.status.indexOf(this.constant.POST_STATUS.PENDING) !== -1}">
-              <i class="fas fa-circle tiny-icon"></i> {{post.status | titlecase}}
+          <tr *ngFor="let tour of tours; let i = index">
+            <td>{{i+1}}</td>
+            <td><strong>{{tour.tourName}}</strong></td>
+            <td>{{tour.tourGuideId}}</td>
+            <td>{{tour.creationTime}}</td>
+            <td>{{tour.durationTime}}</td>
+            <td class="tour-status" [ngClass]="{
+                'pending-text': tour.status === tourStatus.PENDING,
+                'registering-text': tour.status === tourStatus.REGISTERING,
+                'running-text': tour.status === tourStatus.RUNNING,
+                'finished-text': tour.status === tourStatus.FINISHED
+              }">
+              {{tour.status}}
             </td>
-            <td class="action-cell">
-              <span class="action-icon" (click)="openPostViewDialog(content, post._id)"><i
-                  class="fas fa-eye"></i></span>
-              <div ngbDropdown class="action-icon">
-                <span ngbDropdownToggle id="post-management-action"><i class="fas fa-bars"></i></span>
-                <div ngbDropdownMenu aria-labelledby="post-management-action" id="post-management-action-dropdown">
-                  <button (click)="openPostViewDialog(approve, post._id)"
-                    class="dropdown-item">{{language.currentLanguage.postManagementApprove}}</button>
-                  <button (click)="openPostDenyDialog(deny, post._id, post.title)"
-                    class="dropdown-item">{{language.currentLanguage.postManagementDeny}}</button>
-                </div>
-              </div>
+            <td class="tour-detail">
+              <button class="btn btn-primary" (click)="openDetail(tour)">
+                Detail
+              </button>
             </td>
           </tr>
         </tbody>
@@ -99,74 +83,3 @@
     </div>
   </div>
 </div>
-
-
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">{{this.language.currentLanguage.postManagementPostViewTitle}}</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body review-post-body">
-    <app-post id="review-post" [postId]="postViewId"></app-post>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark"
-      (click)="modal.close()">{{this.language.currentLanguage.postManagementPostViewOk}}</button>
-  </div>
-</ng-template>
-
-<ng-template #approve let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">{{this.language.currentLanguage.postManagementApprove}}</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body review-post-body">
-    <app-post id="review-post" [postId]="postViewId"></app-post>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-danger"
-      (click)="modal.close()">{{this.language.currentLanguage.postManagementCancel}}</button>
-    <button type="button" class="btn btn-success"
-      (click)="modal.close(); approvePost(postViewId)">{{this.language.currentLanguage.postManagementApprove}}</button>
-  </div>
-</ng-template>
-
-<ng-template #deny let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">{{this.language.currentLanguage.postManagementDeny}}</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body review-post-body">
-    <form [formGroup]="denyForm" novalidate>
-      <div class="form-group">
-        <label>{{language.currentLanguage.postManagementDenyPostId}}</label>
-        <input formControlName="postId" class="form-control" type="text" disabled>
-      </div>
-      <div class="form-group">
-        <label>{{language.currentLanguage.postManagementTablePostName}}</label>
-        <input formControlName="postTitle" class="form-control" type="text" disabled>
-      </div>
-      <div class="form-group">
-        <label>{{language.currentLanguage.postManagementDenyReason}}</label>
-        <textarea formControlName="denyReason" class="form-control" rows="5"></textarea>
-        <div
-          *ngIf="denyForm.get('denyReason').hasError('required') && (denyForm.get('denyReason').dirty || denyForm.get('denyReason').touched)"
-          class="error-mess">
-          {{language.currentLanguage.postManagementErrorEmptyReason}}
-        </div>
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-success"
-      (click)="modal.close()">{{this.language.currentLanguage.postManagementCancel}}</button>
-    <button type="button" class="btn btn-danger" (click)="modal.close(); denyPost(postViewId)"
-      [disabled]="denyForm.invalid">{{this.language.currentLanguage.postManagementDeny}}</button>
-  </div>
-</ng-template>

@@ -19,7 +19,7 @@ export class Tour {
     public durationTime: number;
     public memberLimit: number;
     public status: string;
-    // PENDING, REGISTERING, RUNNING, FINISHED
+    // PENDING, REGISTERING, PREPARING, RUNNING, FINISHED
     public isActive: Boolean;
     public schedules: TourSchedule[];
     public preparations: TourPreparation[];
