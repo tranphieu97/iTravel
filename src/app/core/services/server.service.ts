@@ -25,8 +25,8 @@ import { NotificationItem } from 'src/app/model/notification-item.model';
 })
 export class ServerService {
 
-  HOST: String = 'http://localhost:7979/';
-  // HOST: String = environment.apiUrl + '/';
+  // HOST: String = 'http://localhost:7979/';
+  HOST: String = environment.apiUrl + '/';
 
   httpOptions = {
     headers: new HttpHeaders({

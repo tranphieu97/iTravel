@@ -18,7 +18,7 @@ export class NotificationComponent implements OnInit {
   public recentNotificationItems: Array<Notification> = [];
   sendTime: string;
   sendDate: string;
-  constructor(public language: LanguageService, private serverService: ServerService, private userService: UserService) { }
+  constructor(public language: LanguageService, private serverService: ServerService, public userService: UserService) { }
 
   ngOnInit() {
     this.userService.isLoginChange.asObservable().subscribe(() => {

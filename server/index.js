@@ -27,8 +27,8 @@ app.use(bodyParser.json())
 // allow outside connect to /images and map to server/images folder on server
 app.use('/api/images', express.static(path.join("images")));
 // app.use('/api/images', express.static(path.join("server/images")))
-// app.use('/', express.static(path.join(__dirname, "angular")));
-// app.use('/home', express.static(path.join(__dirname, "angular")))
+app.use('/', express.static(path.join(__dirname, "angular")));
+app.use('/home', express.static(path.join(__dirname, "angular")))
 
 app.listen(config.APP_PORT, () => {
     console.log('Server is running on http://localhost:' + config.APP_PORT + '/');
@@ -95,3 +95,7 @@ require('./app/routing/manager-routing.js');
 require('./app/routing/user-routing.js');
 require('./app/routing/upload-routing.js');
 require('./app/routing/tourguide-routing');
+
+app.use((req, res, next) => {
+    res.sendFile(path.join(__dirname, 'angular', 'index.html'));
+});
