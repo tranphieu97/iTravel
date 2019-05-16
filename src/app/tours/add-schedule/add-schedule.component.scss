@@ -21,6 +21,10 @@
         color: $BLUE;
         cursor: pointer;
     }
+
+    .more-select-row:not(:first-child) {
+        margin-top: 5px;
+    }
 }
 
 :host:hover {

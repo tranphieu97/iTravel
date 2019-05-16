@@ -32,22 +32,35 @@
   <div class="row-label">
     {{language.currentLanguage.addScheduleKindof}}
   </div>
-  <div class="row-input flex-row">
-    <select class="form-control flex-1 flex-items-center row-first-input">
-      <option selected>- {{language.currentLanguage.choose}}{{language.currentLanguage.addScheduleKindof}} -</option>
-      <option>{{language.currentLanguage.addScheduleKindMoving}}</option>
-      <option>{{language.currentLanguage.addScheduleKindEating}}</option>
-      <option>{{language.currentLanguage.addScheduleKindVisiting}}</option>
-      <option>{{language.currentLanguage.addScheduleKindRelaxing}}</option>
-      <option>{{language.currentLanguage.addScheduleKindFreedom}}</option>
-      <option>{{language.currentLanguage.addScheduleKindOthers}}</option>
-    </select>
-    <input type="text" class="form-control flex-1 flex-items-center row-second-input"
-      [placeholder]="language.currentLanguage.addScheduleNote">
+  <div class="row-input flex-col">
+      <form class="flex-row flex-1 more-select-row" *ngFor="let task of scheduleModel.tasks; let i = index">
+        <select (change)="setIndexValue(scheduleModel.tasks, i, $event.target.value)" [value]="scheduleModel.tasks[i]"
+          class="form-control flex-1 flex-items-center row-first-input">
+          <option value="SELECT_AN_OPTION">-
+            {{language.currentLanguage.choose}}{{language.currentLanguage.addScheduleKindof}} -</option>
+          <option value="Moving">{{language.currentLanguage.addScheduleKindMoving}}</option>
+          <option value="Eating">{{language.currentLanguage.addScheduleKindEating}}</option>
+          <option value="Visiting">{{language.currentLanguage.addScheduleKindVisiting}}</option>
+          <option value="Relaxing">{{language.currentLanguage.addScheduleKindRelaxing}}</option>
+          <option value="Freedom">{{language.currentLanguage.addScheduleKindFreedom}}</option>
+          <option value="Others">{{language.currentLanguage.addScheduleKindOthers}}</option>
+        </select>
+        <div class="input-group flex-1 flex-items-center row-second-input">
+          <input [(ngModel)]="arrTaskNote[i]" name="notes" type="text" class="form-control" [placeholder]="language.currentLanguage.addScheduleNote">
+          <div class="input-group-append">
+            <button (click)="removeItem(scheduleModel.tasks, i)" *ngIf="scheduleModel.tasks.length > 1"
+              class="btn btn-outline-secondary" type="button">X</button>
+          </div>
+        </div>
+      </form>
   </div>
 </div>
 <div class="flex-row flex-justify-end">
-  <span class="link-add-more">+ {{language.currentLanguage.addScheduleAddTask}}</span>
+  <span *ngIf="!hasFinishedCurrentTask" style="color: red; padding-right: 5px;" class="link-add-more">
+      {{language.currentLanguage.addScheduleSelectOneBefore}}
+  </span>
+  <span (click)="addAnotherToArr(scheduleModel.tasks)" class="link-add-more">+
+    {{language.currentLanguage.addScheduleAddTask}}</span>
 </div>
 <div class="form-group flex-row">
   <div class="row-label">
@@ -56,10 +69,10 @@
   <div class="row-input">
     <div class="input-group">
       <select class="form-control">
-        <option selected>- {{language.currentLanguage.choose}}{{language.currentLanguage.addSchedulePerform}} -</option>
+        <option selected>- {{language.currentLanguage.choose}}{{language.currentLanguage.addScheduleKindof}} -</option>
       </select>
       <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button">X</button>
+        <button *ngIf="scheduleModel.performerIds.length > 1" class="btn btn-outline-secondary" type="button">X</button>
       </div>
     </div>
   </div>

@@ -312,6 +312,7 @@ export class LocaleLanguage {
     addScheduleNote: string;
     addScheduleAddTask: string;
     addScheduleAddPerform: string;
+    addScheduleSelectOneBefore: string;
 
     constructor() { }
 }

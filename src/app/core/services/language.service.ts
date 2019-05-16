@@ -339,6 +339,7 @@ export class LanguageService {
     this.vnLanguage.addScheduleNote = 'Ghi chú';
     this.vnLanguage.addScheduleAddPerform = 'Thêm người phụ trách';
     this.vnLanguage.addScheduleAddTask = 'Thêm nhiệm vụ';
+    this.vnLanguage.addScheduleSelectOneBefore = 'Lựa chọn hiện tại chưa hoàn thành';
   }
 
   /**
@@ -659,6 +660,7 @@ export class LanguageService {
     this.enLanguage.addScheduleNote = 'Notes';
     this.enLanguage.addScheduleAddTask = 'Add another task';
     this.enLanguage.addScheduleAddPerform = 'Add another perfrom';
+    this.enLanguage.addScheduleSelectOneBefore = 'Current select has not been finished';
   }
 
   /**
