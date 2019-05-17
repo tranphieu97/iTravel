@@ -9,31 +9,31 @@
     <ngb-tab>
       <ng-template ngbTabTitle><b>General</b></ng-template>
       <ng-template ngbTabContent>
-        <app-tour-general-info></app-tour-general-info>
+        <app-tour-general-info [tourData]="tourData"></app-tour-general-info>
       </ng-template>
     </ngb-tab>
     <ngb-tab>
       <ng-template ngbTabTitle><b>Schedule</b></ng-template>
       <ng-template ngbTabContent>
-        <app-tour-schedule></app-tour-schedule>
+        <app-tour-schedule [tourData]="tourData"></app-tour-schedule>
       </ng-template>
     </ngb-tab>
     <ngb-tab>
       <ng-template ngbTabTitle><b>Feedback</b></ng-template>
       <ng-template ngbTabContent>
-        <app-tour-feedback></app-tour-feedback>
+        <app-tour-feedback [tourData]="tourData"></app-tour-feedback>
       </ng-template>
     </ngb-tab>
     <ngb-tab>
       <ng-template ngbTabTitle><b>Members</b></ng-template>
       <ng-template ngbTabContent>
-        <app-tour-member></app-tour-member>
+        <app-tour-member [tourData]="tourData"></app-tour-member>
       </ng-template>
     </ngb-tab>
     <ngb-tab>
       <ng-template ngbTabTitle><b>Preparation</b></ng-template>
       <ng-template ngbTabContent>
-        <app-tour-preparation></app-tour-preparation>
+        <app-tour-preparation [tourData]="tourData"></app-tour-preparation>
       </ng-template>
     </ngb-tab>
   </ngb-tabset>

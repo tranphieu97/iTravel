@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Tour } from 'src/app/model/tour.model';
 
 @Component({
   selector: 'app-tour-member',
@@ -6,10 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tour-member.component.scss']
 })
 export class TourMemberComponent implements OnInit {
+  @Input() tourData: Tour;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

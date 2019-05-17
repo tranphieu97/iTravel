@@ -1,3 +1,28 @@
-<p>
-  tour-general-info works!
-</p>
+<div class="row m-0 p-0">
+  <div class="col-8 p-0">
+    <h5>{{tourData.tourName}}</h5>
+    <p>{{tourData.description}}</p>
+    <div *ngFor="let location of collapsedStates">
+      <button type="button" class="btn btn-outline-primary" (click)="location.collapsed = !location.collapsed">
+        {{location.locationId}}
+      </button>
+      <div [ngbCollapse]="location.collapsed">
+        <div class="card">
+          <div class="card-body">
+            Location content, may be with image
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-4 p-0">
+    <div class="row m-0 p-0">
+      <span>Price: </span>
+      <span>{{tourData.registerCost}}</span>
+    </div>
+    <div class="row m-0 p-0">
+      <span>Trip time: </span>
+      <span>{{tourData.durationTime}}</span>
+    </div>
+  </div>
+</div>

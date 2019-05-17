@@ -1,3 +1,40 @@
-<p>
-  tour-schedule works!
-</p>
+<div class="wrapper">
+  <!-- ngfor -->
+  <div *ngFor="let schedule of tourData.schedules; let i=index"
+       class="schedule-item">
+    <!-- left -->
+    <div class="left-icon">
+      <div class="line"
+           [ngClass]="{'hide': i<=0}"></div>
+      <span class="fas fa-dot-circle icon"></span>
+      <div class="line"
+           [ngClass]="{'hide': i>=tourData.schedules.length-1}">
+      </div>
+    </div>
+
+    <!-- right -->
+    <div class="right-content">
+      <!-- schedule item -->
+      <div>
+        <span>From </span>
+        <span>{{schedule.beginTime}}</span>
+        <span> to </span>
+        <span>{{schedule.endTime}}</span>
+      </div>
+      <span>{{schedule.location}}</span>
+      <div>
+        <span>Công việc: </span>
+        <div>
+          <span *ngFor="let task of schedule.tasks">{{task}}</span>
+        </div>
+      </div>
+      <div>
+        <span>Thành viên tham gia</span>
+        <span *ngFor="let member of schedule.performerIds">{{member}}</span>
+      </div>
+      <span *ngIf="schedule.cost">Chi phí: {{schedule.cost}}</span>
+      <span *ngIf="schedule.note">Note: {{schedule.note}}</span>
+    </div>
+
+  </div>
+</div>
