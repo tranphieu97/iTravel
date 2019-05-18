@@ -8,8 +8,13 @@ import { Tour } from 'src/app/model/tour.model';
 })
 export class TourPreparationComponent implements OnInit {
   @Input() tourData: Tour;
-
+  collapsedStates = [];
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.collapsedStates = this.tourData.preparations.map(preparationItem => ({
+      preparationItem: preparationItem._id,
+      collapsed: true
+    }));
+  }
 }

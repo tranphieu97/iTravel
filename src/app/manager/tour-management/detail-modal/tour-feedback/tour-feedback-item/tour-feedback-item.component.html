@@ -1,0 +1,20 @@
+<div class="row comp">
+  <div class="col-12">
+    <div class="row m-0">
+      <!-- Avatar on the left -->
+      <div class="rounded-circle avatar" [ngStyle]="{'background-image': 'url(' + commentAuthorAvatar + ')'}">
+      </div>
+      <!-- right part -->
+      <div class="col pl-0">
+        <!-- Username and time -->
+        <div class="col-12">
+          <p><span>{{ feedbackData.from }}</span> - {{ feedbackData.time }}</p>
+        </div>
+        <!-- comment content -->
+        <div class="col-12 pr-0">
+          <p>{{ feedbackData.content }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

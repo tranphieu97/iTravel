@@ -1,3 +1,5 @@
-<p>
-  tour-feedback works!
-</p>
+<div class="wrapper">
+  <app-tour-feedback-item *ngFor="let feedback of tourData.feedbacks"
+                          [feedbackData]="feedback">
+  </app-tour-feedback-item>
+</div>

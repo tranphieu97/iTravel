@@ -1,0 +1,27 @@
+:host {
+  .avatar {
+      height: 54px;
+      width: 54px;
+      background-size: cover;
+  }
+  p {
+      font-size: 17px;
+      margin-bottom: 0px;
+      span {
+          font-size: 17px;
+          font-weight: bold;
+          color: blue;
+      }
+  }
+  .btn {
+      font-size: 17px;
+      font-weight: bold;
+      color: gray;
+  }
+  .comp {
+      padding-bottom: 15px;
+  }
+  .no-pointer {
+      cursor: default;
+  }
+}

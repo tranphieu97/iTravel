@@ -1,3 +1,10 @@
-<p>
-  tour-member works!
-</p>
+<div class="wrapper">
+  <div>
+    <span>Member limit: {{tourData.memberLimit}}</span>
+    <span>Available: 0</span>
+  </div>
+  <div *ngFor="let member of tourData.members; let i=index">
+    <p>{{member.memberId}}</p>
+    <p>{{member.contactNumber}}</p>
+  </div>
+</div>

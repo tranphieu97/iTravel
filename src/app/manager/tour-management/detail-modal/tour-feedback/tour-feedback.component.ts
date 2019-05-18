@@ -11,5 +11,7 @@ export class TourFeedbackComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    // this.tourData.feedbacks
+  }
 }
