@@ -25,4 +25,39 @@ app.post('/tourguide/add-location', (req, res) => {
             });
     }
 });
+
+app.get('/tourguide/all-tourguide', (req, res) => {
+    const tourguideFilter = {
+        'permission': {
+            $elemMatch: {
+                $eq: config.USER_PERMISSION.TOURGUIDE
+            }
+        },
+        'status': {
+            $eq: config.USER_STATUS.ACTIVE
+        }
+    };
+
+    const tourguideProjection = {
+        _id: 1,
+        username: 1,
+        firstName: 1,
+        lastName: 1
+    };
+
+    database.getCollectionDataByProjection(database.iTravelDB.Users, tourguideFilter, tourguideProjection)
+        .then((data) => {
+            res.status(201).json({
+                statusCode: 200,
+                data: data
+            });
+        })
+        .catch((ex) => {
+            console.log(ex);
+            res.status(201).json({
+                statusCode: 200,
+                data: []
+            });
+        })
+})
 // Routing - END

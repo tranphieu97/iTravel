@@ -31,6 +31,9 @@ export class AddTourComponent implements OnInit {
   public arrLocations: Array<Location> = [];
   public arrSelectedLocation: Array<Location> = [];
 
+  public arrTourguides: Array<any> = [];
+  public arrSelectedTourguide: Array<any> = [];
+
   public isLoading: Boolean = false;
   public addLocationMessage: String = '';
   public hasError: Boolean = false;
@@ -51,6 +54,16 @@ export class AddTourComponent implements OnInit {
     } else {
       this.arrProvince = this.provinceService.allProvinceCity;
     }
+
+    this.serverService.getTourguides().subscribe((res) => {
+      this.arrTourguides = res.data.map((item: any) => {
+        return {
+          _id: item._id,
+          displayName: item.lastName === '' ? item.firstName : item.lastName + ' ' + item.firstName,
+          username: item.username
+        };
+      });
+    });
   }
 
   buildAddLocationForm() {
@@ -134,6 +147,18 @@ export class AddTourComponent implements OnInit {
   removeLocation(location: Location) {
     if (this.arrSelectedLocation.indexOf(location) !== -1) {
       this.arrSelectedLocation.splice(this.arrSelectedLocation.indexOf(location), 1);
+    }
+  }
+
+  selectTourguide(tourguide: any) {
+    if (this.arrSelectedTourguide.indexOf(tourguide) === -1) {
+      this.arrSelectedTourguide.push(tourguide);
+    }
+  }
+
+  removeTourguide(tourguide: any) {
+    if (this.arrSelectedTourguide.indexOf(tourguide) !== -1) {
+      this.arrSelectedTourguide.splice(this.arrSelectedTourguide.indexOf(tourguide), 1);
     }
   }
 

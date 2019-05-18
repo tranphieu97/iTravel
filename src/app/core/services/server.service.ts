@@ -453,6 +453,13 @@ export class ServerService {
     return this.http.get(this.HOST + 'api/province-locations', { params: params });
   }
 
+  /**
+   * Create new location
+   * @param locationName
+   * @param provinceCity
+   * @param gps
+   * @param address
+   */
   postLocation(locationName: string, provinceCity: Array<string>, gps: string, address: string): Observable<any> {
     const locationData = {
       locationName,
@@ -462,5 +469,12 @@ export class ServerService {
     };
 
     return this.http.post(this.HOST + 'tourguide/add-location', locationData, this.httpOptions);
+  }
+
+  /**
+   * Get all user have tourguide permission
+   */
+  getTourguides(): Observable<any> {
+    return this.http.get(this.HOST + 'tourguide/all-tourguide');
   }
 }

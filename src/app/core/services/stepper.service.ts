@@ -16,7 +16,7 @@ export class StepperService {
 
   getStep() {
     if (!this.current) {
-      this.current = 2;
+      this.current = 1;
     }
 
     return this.current;
