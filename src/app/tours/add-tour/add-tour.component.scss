@@ -100,6 +100,7 @@
         flex-direction: row;
         justify-content: flex-end;
         margin-top: 10px;
+        align-self: flex-end !important;
 
         input {
             width: fit-content;

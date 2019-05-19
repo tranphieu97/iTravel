@@ -21,6 +21,7 @@
           <div class="flex-1 flex-items-center">
             <div class="input-group">
               <input class="form-control" placeholder="yyyy-mm-dd" name="startDate" [(ngModel)]="startDate"
+                [minDate]="today" (ngModelChange)="validateStartEndDate()"
                 ngbDatepicker #startdate="ngbDatepicker" #modelstartdate="ngModel">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar" (click)="startdate.toggle()" type="button">
@@ -39,7 +40,8 @@
         <div class="row-input flex-row">
           <div class="flex-1 flex-items-center">
             <div class="input-group">
-              <input class="form-control" placeholder="yyyy-mm-dd" name="endDate" [(ngModel)]="endDate" ngbDatepicker
+              <input class="form-control" placeholder="yyyy-mm-dd" name="endDate" 
+                [(ngModel)]="endDate" ngbDatepicker [minDate]="startDate"
                 #enddate="ngbDatepicker" #modelenddate="ngModel">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar" (click)="enddate.toggle()" type="button">
@@ -119,14 +121,22 @@
       </div>
     </div>
     <div class="stepper" *ngIf="stepperService.getStep() === 2">
+      <div class="flex-row">
+        <h4>{{language.currentLanguage.addTourAddSchedule}} {{language.currentLanguage.from}} {{startDate.day}}/{{startDate.month}} {{language.currentLanguage.to}} {{endDate.day}}/{{endDate.month}}</h4>
+      </div>
       <div class="form-group flex-row">
         <app-add-schedule></app-add-schedule>
+      </div>
+      <div class="flex-row flex-justify-end">
+        <input type="button" [value]="language.currentLanguage.addTourAddSchedule" class="btn btn-warning" style="width: fit-content;">
       </div>
     </div>
   </form>
   <div class="steps-control">
-    <input type="button" [value]="language.currentLanguage.prev" class="btn btn-outline-success">
-    <input type="button" [value]="language.currentLanguage.next" class="btn btn-outline-success">
+    <input type="button" [value]="language.currentLanguage.prev" class="btn btn-outline-success"
+      (click)="stepperService.toPrev()" [disabled]="stepperService.getStep() === 1">
+    <input type="button" [value]="language.currentLanguage.next" class="btn btn-outline-success"
+      (click)="stepperService.toNext()" [disabled]="stepperService.getStep() === stepperService.getMaxStep()">
   </div>
 </div>
 <div class="border-box tourguide-container">

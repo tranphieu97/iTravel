@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { LanguageService } from 'src/app/core/services/language.service';
 // tslint:disable-next-line:max-line-length
-import { NgbDateStruct, NgbModal, NgbTimeStruct, NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbModal, NgbTimeStruct, NgbTimepickerConfig, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { ProvinceCityService } from 'src/app/core/services/province-city.service';
 import { ProvinceCity } from 'src/app/model/province-city.model';
 import { ServerService } from 'src/app/core/services/server.service';
 import { Location } from 'src/app/model/location.model';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { StepperService } from 'src/app/core/services/stepper.service';
+import { DateStructService } from 'src/app/core/services/date-struct.service';
 
 @Component({
   selector: 'app-add-tour',
@@ -19,8 +20,9 @@ export class AddTourComponent implements OnInit {
 
   public addLocationForm: FormGroup;
 
-  public startDate: NgbDateStruct;
-  public endDate: NgbDateStruct;
+  public startDate: NgbDate;
+  public endDate: NgbDate;
+  public today: NgbDate;
   public startTime: NgbTimeStruct = { hour: 0, minute: 0, second: 0 };
   public endTime: NgbTimeStruct = { hour: 0, minute: 0, second: 0 };
 
@@ -40,12 +42,18 @@ export class AddTourComponent implements OnInit {
 
   constructor(public language: LanguageService, private timepickerConfig: NgbTimepickerConfig,
     private provinceService: ProvinceCityService, private serverService: ServerService, private modal: NgbModal,
-    private formBuilder: FormBuilder, public stepperService: StepperService) {
+    private formBuilder: FormBuilder, public stepperService: StepperService, private dateStructService: DateStructService) {
     timepickerConfig.spinners = false;
     timepickerConfig.seconds = false;
   }
 
   ngOnInit() {
+    this.stepperService.setMaxStep(2);
+
+    const now = new Date();
+    this.startDate = this.dateStructService.getDateStructFromDate(now);
+    this.endDate = this.dateStructService.getDateStructFromDate(new Date(now.getTime() + (1000 * 60 * 60 * 24)));
+
     if (this.provinceService.allProvinceCity.length === 0) {
       this.provinceService.getAllProvinceCity().subscribe((res) => {
         this.provinceService.allProvinceCity = res.data;
@@ -128,7 +136,7 @@ export class AddTourComponent implements OnInit {
             setTimeout(() => {
               try {
                 this.modal.dismissAll();
-              } catch {}
+              } catch { }
             }, 2000);
           } else {
             this.addLocationMessage = this.language.currentLanguage.addTourAddFail;
@@ -159,6 +167,17 @@ export class AddTourComponent implements OnInit {
   removeTourguide(tourguide: any) {
     if (this.arrSelectedTourguide.indexOf(tourguide) !== -1) {
       this.arrSelectedTourguide.splice(this.arrSelectedTourguide.indexOf(tourguide), 1);
+    }
+  }
+
+  validateStartEndDate() {
+    try {
+      if (this.startDate && this.endDate
+        && this.dateStructService.getDateFromDateStruct(this.startDate) > this.dateStructService.getDateFromDateStruct(this.endDate)) {
+        this.endDate = this.startDate;
+      }
+    } catch (ex) {
+      console.log(ex);
     }
   }
 

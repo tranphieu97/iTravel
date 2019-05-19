@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { LanguageService } from 'src/app/core/services/language.service';
-import { NgbDateStruct, NgbTimeStruct, NgbTimepickerConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbTimeStruct, NgbTimepickerConfig, NgbModal, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { TourSchedule } from 'src/app/model/tour-schedule.model';
 
 @Component({
@@ -12,17 +12,18 @@ export class AddScheduleComponent implements OnInit {
 
   private readonly DEFAULT_OPTION = 'SELECT_AN_OPTION';
 
-  public startDate: NgbDateStruct;
+  @Input() scheduleModel: TourSchedule;
+  @Input() arrPerform: Array<any>;
+
+  public startDate: NgbDate;
   public beginTime: NgbTimeStruct = { hour: 0, minute: 0, second: 0 };
   public endTime: NgbTimeStruct = { hour: 0, minute: 0, second: 0 };
   public arrTaskNote: Array<string>;
 
-  private hasFinishedCurrentTask = true;
-
-  @Input() scheduleModel: TourSchedule;
+  private isFinishedInput: Boolean = false;
+  private isPickedCurrentTask: Boolean = true;
 
   constructor(public language: LanguageService, private timepickerConfig: NgbTimepickerConfig, private modal: NgbModal) {
-    // timepickerConfig.spinners = false;
     timepickerConfig.seconds = false;
    }
 
@@ -30,20 +31,16 @@ export class AddScheduleComponent implements OnInit {
     this.setupDefaultView();
   }
 
-  write(value: any) {
-    console.log(value);
-  }
-
   addAnotherToArr(arr: Array<any>) {
     if (arr.length > 0 && arr[arr.length - 1] !== this.DEFAULT_OPTION) {
-      this.hasFinishedCurrentTask = true;
+      this.isPickedCurrentTask = true;
 
       arr.push(this.DEFAULT_OPTION);
       this.arrTaskNote.push('');
     } else {
-      this.hasFinishedCurrentTask = false;
+      this.isPickedCurrentTask = false;
       setTimeout(() => {
-        this.hasFinishedCurrentTask = true;
+        this.isPickedCurrentTask = true;
       }, 5000);
     }
   }
@@ -62,6 +59,10 @@ export class AddScheduleComponent implements OnInit {
       if (index > -1 && index < arr.length) {
         arr[index] = value;
       }
+
+      if (value !== this.DEFAULT_OPTION) {
+        this.isPickedCurrentTask = true;
+      }
     } catch (ex) {
       console.log(ex);
     }
@@ -75,6 +76,16 @@ export class AddScheduleComponent implements OnInit {
       }
     } catch (ex) {
       console.log(ex);
+    }
+  }
+
+  finishSchedule() {
+    if (this.scheduleModel.tasks[this.scheduleModel.tasks.length - 1] === this.DEFAULT_OPTION) {
+      this.isPickedCurrentTask = false;
+    }
+
+    else {
+      this.isFinishedInput = true;
     }
   }
 }

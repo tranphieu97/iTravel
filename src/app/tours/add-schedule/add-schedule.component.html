@@ -1,38 +1,39 @@
 <div class="flex-row flex-justify-end">
   <span class="fas fa-times-circle esc-btn"></span>
 </div>
-<div class="form-group flex-row">
-  <div class="row-label">
-    {{language.currentLanguage.addScheduleDay}}
-  </div>
-  <div class="row-input flex-row flex-content-space-evenly">
-    <div class="input-group">
-      <input class="form-control" placeholder="yyyy-mm-dd" name="startDate" [(ngModel)]="startDate" ngbDatepicker
-        #startdate="ngbDatepicker" #modelstartdate="ngModel">
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary calendar" (click)="startdate.toggle()" type="button">
-          <span><i class="fas fa-calendar-alt"></i></span>
-        </button>
+<div class="flex-col" *ngIf="!isFinishedInput">
+  <div class="form-group flex-row">
+    <div class="row-label">
+      {{language.currentLanguage.addScheduleDay}}
+    </div>
+    <div class="row-input flex-row flex-content-space-evenly">
+      <div class="input-group">
+        <input class="form-control" placeholder="yyyy-mm-dd" name="startDate" [(ngModel)]="startDate" ngbDatepicker
+          #startdate="ngbDatepicker" #modelstartdate="ngModel">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="startdate.toggle()" type="button">
+            <span><i class="fas fa-calendar-alt"></i></span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div class="form-group flex-row">
-  <div class="row-label">
-    {{language.currentLanguage.addSchedulePeriod}}
+  <div class="form-group flex-row">
+    <div class="row-label">
+      {{language.currentLanguage.addSchedulePeriod}}
+    </div>
+    <div class="row-input flex-row flex-content-space-evenly flex-items-center">
+      <span>{{language.currentLanguage.from}}</span>
+      <ngb-timepicker name="beginTime" [(ngModel)]="beginTime"></ngb-timepicker>
+      <span>{{language.currentLanguage.to}}</span>
+      <ngb-timepicker name="endTime" [(ngModel)]="endTime"></ngb-timepicker>
+    </div>
   </div>
-  <div class="row-input flex-row flex-content-space-evenly flex-items-center">
-    <span>{{language.currentLanguage.from}}</span>
-    <ngb-timepicker name="beginTime" [(ngModel)]="beginTime"></ngb-timepicker>
-    <span>{{language.currentLanguage.to}}</span>
-    <ngb-timepicker name="endTime" [(ngModel)]="endTime"></ngb-timepicker>
-  </div>
-</div>
-<div class="form-group flex-row">
-  <div class="row-label">
-    {{language.currentLanguage.addScheduleKindof}}
-  </div>
-  <div class="row-input flex-col">
+  <div class="form-group flex-row">
+    <div class="row-label">
+      {{language.currentLanguage.addScheduleKindof}}
+    </div>
+    <div class="row-input flex-col">
       <form class="flex-row flex-1 more-select-row" *ngFor="let task of scheduleModel.tasks; let i = index">
         <select (change)="setIndexValue(scheduleModel.tasks, i, $event.target.value)" [value]="scheduleModel.tasks[i]"
           class="form-control flex-1 flex-items-center row-first-input">
@@ -46,54 +47,76 @@
           <option value="Others">{{language.currentLanguage.addScheduleKindOthers}}</option>
         </select>
         <div class="input-group flex-1 flex-items-center row-second-input">
-          <input [(ngModel)]="arrTaskNote[i]" name="notes" type="text" class="form-control" [placeholder]="language.currentLanguage.addScheduleNote">
+          <input [(ngModel)]="arrTaskNote[i]" name="notes" type="text" class="form-control"
+            [placeholder]="language.currentLanguage.addScheduleNote">
           <div class="input-group-append">
             <button (click)="removeItem(scheduleModel.tasks, i)" *ngIf="scheduleModel.tasks.length > 1"
               class="btn btn-outline-secondary" type="button">X</button>
           </div>
         </div>
       </form>
+    </div>
   </div>
-</div>
-<div class="flex-row flex-justify-end">
-  <span *ngIf="!hasFinishedCurrentTask" style="color: red; padding-right: 5px;" class="link-add-more">
+  <div class="flex-row flex-justify-end">
+    <span *ngIf="!isPickedCurrentTask" style="color: red; padding-right: 5px;" class="link-add-more">
       {{language.currentLanguage.addScheduleSelectOneBefore}}
-  </span>
-  <span (click)="addAnotherToArr(scheduleModel.tasks)" class="link-add-more">+
-    {{language.currentLanguage.addScheduleAddTask}}</span>
-</div>
-<div class="form-group flex-row">
-  <div class="row-label">
-    {{language.currentLanguage.addSchedulePerform}}
+    </span>
+    <span (click)="addAnotherToArr(scheduleModel.tasks)" class="link-add-more">+
+      {{language.currentLanguage.addScheduleAddTask}}</span>
   </div>
-  <div class="row-input">
-    <div class="input-group">
-      <select class="form-control">
-        <option selected>- {{language.currentLanguage.choose}}{{language.currentLanguage.addSchedulePerform}} -</option>
-      </select>
-      <div class="input-group-append">
-        <button *ngIf="scheduleModel.performerIds.length > 1" class="btn btn-outline-secondary" type="button">X</button>
+  <div class="form-group flex-row">
+    <div class="row-label">
+      {{language.currentLanguage.addSchedulePerform}}
+    </div>
+    <div class="row-input">
+      <div class="input-group">
+        <select class="form-control">
+          <option selected>- {{language.currentLanguage.choose}}{{language.currentLanguage.addSchedulePerform}} -
+          </option>
+        </select>
+        <div class="input-group-append">
+          <button *ngIf="scheduleModel.performerIds.length > 1" class="btn btn-outline-secondary"
+            type="button">X</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div class="flex-row flex-justify-end">
-  <span class="link-add-more">+ {{language.currentLanguage.addScheduleAddPerform}}</span>
-</div>
-<div class="form-group flex-row">
-  <div class="row-label">
-    {{language.currentLanguage.addScheduleLocation}}
-    &
-    {{language.currentLanguage.addScheduleCost}}
+  <div class="flex-row flex-justify-end">
+    <span class="link-add-more">+ {{language.currentLanguage.addScheduleAddPerform}}</span>
   </div>
-  <div class="row-input flex-row">
-    <input type="text" class="form-control flex-1 flex-items-center row-first-input"
-      [placeholder]="language.currentLanguage.enter + language.currentLanguage.addScheduleLocation">
-    <input type="number" class="form-control flex-1 flex-items-center row-second-input"
-      [placeholder]="language.currentLanguage.enter + language.currentLanguage.addScheduleCost">
+  <div class="form-group flex-row">
+    <div class="row-label">
+      {{language.currentLanguage.addScheduleLocation}}
+      &
+      {{language.currentLanguage.addScheduleCost}}
+    </div>
+    <div class="row-input flex-row">
+      <input type="text" class="form-control flex-1 flex-items-center row-first-input"
+        [placeholder]="language.currentLanguage.enter + language.currentLanguage.addScheduleLocation">
+      <input type="number" class="form-control flex-1 flex-items-center row-second-input"
+        [placeholder]="language.currentLanguage.enter + language.currentLanguage.addScheduleCost">
+    </div>
+  </div>
+  <div class="flex-row flex-justify-end">
+    <input type="button" class="form-control btn btn-outline-secondary" [value]="language.currentLanguage.ok"
+      style="width: 75px;" (click)="finishSchedule()">
   </div>
 </div>
-<div class="flex-row flex-justify-end">
-  <input type="button" class="form-control btn btn-outline-secondary" [value]="language.currentLanguage.ok"
-    style="width: 75px;">
+<div class="flex-col schedule-review" *ngIf="isFinishedInput" (click)="isFinishedInput = false">
+  <div class="flex-row">
+    <div class="flex-1 schedule-title">
+      <!-- {{startDate.day}}/{{startDate.month}} -->
+      20/11/2010
+    </div>
+    <div class="flex-1 schedule-title">
+      <!-- {{beginTime.hour}}:{{beginTime.minute}} - {{endTime.hour}}:{{endTime.minute}} -->
+      00:00 - 11:11
+    </div>
+    <div class="flex-2 schedule-title">
+      {{scheduleModel.tasks.join(', ')}}
+    </div>
+  </div>
+  <div class="flex-row flex-items-center">
+    <span><i class="fas fa-chevron-down"></i></span>
+  </div>
 </div>

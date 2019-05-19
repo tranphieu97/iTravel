@@ -322,6 +322,8 @@ export class LanguageService {
     this.vnLanguage.addTourNoteSelectMore = 'Thuộc tính này có thể chọn nhiều lựa chọn';
     this.vnLanguage.addTourAddSuccess = 'Thêm thành công';
     this.vnLanguage.addTourAddFail = 'Thêm thất bại, thử lại';
+    this.vnLanguage.addTourCover = 'Ảnh bìa';
+    this.vnLanguage.addTourAddSchedule = 'Thêm kế hoạch chi tiết';
 
     // Add Schedule
     this.vnLanguage.addScheduleDay = 'Ngày';
@@ -643,6 +645,8 @@ export class LanguageService {
     this.enLanguage.addTourNoteSelectMore = 'This property is able to select more options';
     this.enLanguage.addTourAddSuccess = 'Add Success!';
     this.enLanguage.addTourAddFail = 'Add Fail, Please try again!';
+    this.enLanguage.addTourCover = 'Cover';
+    this.enLanguage.addTourAddSchedule = 'Add Schedule';
 
     // Add Schedule
     this.enLanguage.addScheduleDay = 'Day'

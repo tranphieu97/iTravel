@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NgbDateStruct, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
-import { NgbTime } from '@ng-bootstrap/ng-bootstrap/timepicker/ngb-time';
+import { NgbTimeStruct, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable({
   providedIn: 'root'
@@ -9,23 +8,15 @@ export class DateStructService {
 
   constructor() { }
 
-  getDateStructFromDate(date: Date): NgbDateStruct {
+  getDateStructFromDate(date: Date): NgbDate {
     try {
-      return {
-        day: date.getDay(),
-        month: date.getMonth(),
-        year: date.getFullYear()
-      };
+      return new NgbDate( date.getFullYear(), date.getMonth() + 1, date.getDate());
     } catch {
-      return {
-        day: 1,
-        month: 1,
-        year: 1
-      };
+      return new NgbDate( 1, 1, 1);
     }
   }
 
-  getDateFromDateStruct(dateStruct: NgbDateStruct): Date {
+  getDateFromDateStruct(dateStruct: NgbDate): Date {
     try {
       return new Date(dateStruct.year, dateStruct.month - 1, dateStruct.day);
     } catch {
@@ -33,7 +24,7 @@ export class DateStructService {
     }
   }
 
-  getDateFromDateTimeStruct(dateStruct: NgbDateStruct, timeStruct: NgbTimeStruct): Date {
+  getDateFromDateTimeStruct(dateStruct: NgbDate, timeStruct: NgbTimeStruct): Date {
     try {
       return new Date(dateStruct.year, dateStruct.month - 1, dateStruct.day, timeStruct.hour, timeStruct.minute, timeStruct.second);
     } catch {
