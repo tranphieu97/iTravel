@@ -103,6 +103,17 @@ export class ServerService {
   }
 
   /**
+   * @author Thong
+   */
+  getOneLocation(locationId: string) {
+    const listParams = new HttpParams().set('id', locationId);
+    return this.http.get<{ message: string, data: Location }>(
+      this.HOST + 'api/location',
+      { headers: this.httpOptions.headers, params: listParams }
+    );
+  }
+
+  /**
      * @author Thong
      * @description send get-request to node server for get list all ProvinceCity from ProvinceCity collection
      */
@@ -370,10 +381,10 @@ export class ServerService {
       { headers: this.httpOptions.headers, params: listParams });
   }
   createTour(tour) {
-    return this.http.post<{ message: string }>(this.HOST + 'user/create-tour', tour)
+    return this.http.post<{ message: string }>(this.HOST + 'user/create-tour', tour);
   }
   updateTour(tour) {
-    return this.http.post<{ message: string }>(this.HOST + 'user/update-tour', tour)
+    return this.http.post<{ message: string }>(this.HOST + 'user/update-tour', tour);
   }
 
 

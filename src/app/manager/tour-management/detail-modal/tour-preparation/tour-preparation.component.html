@@ -1,0 +1,15 @@
+<div class="wrapper">
+  <div *ngFor="let preparation of tourData.preparations; let i=index">
+    <button type="button" class="btn btn-outline-primary"
+            (click)="collapsedStates[i].collapsed = !collapsedStates[i].collapsed">
+      {{preparation.itemName}}
+    </button>
+    <div [ngbCollapse]="collapsedStates[i].collapsed">
+      <div class="card">
+        <div class="card-body">
+          detail content
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,77 @@
+@import 'src/styles.scss';
+
+:host {
+  height: 445px;
+  display: flex;
+  overflow-y: scroll;
+
+  .left {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+    width: 70%;
+    h5 {
+      font-size: 34px;
+      font-weight: 700;
+    }
+    p,
+    span {
+      font-size: 17px;
+    }
+    .location-item {
+      margin-bottom: 15px;
+      display: flex;
+      flex-direction: column;
+      border-radius: 0.25rem;
+      box-shadow: 2px 2px 2px 1px $DARK;
+
+      .toggle {
+        padding: 5px 10px;
+        font-weight: 500;
+        cursor: pointer;
+        border-radius: 0.25rem;
+        background-color: $SECONDARY;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .toggle:hover {
+        background-color: #cfcfff;
+      }
+
+      .location-content {
+        border: 1px solid $SECONDARY;
+        border-top: none;
+        display: flex;
+        flex-direction: column;
+
+        img {
+          width: 100%;
+        }
+      }
+    }
+
+    .footer {
+      font-size: 10px;
+      line-height: 10px;
+      color: transparent;
+    }
+  }
+
+  .right {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0 0 10px;
+    width: 30%;
+    .inline {
+      display: inline;
+      span {
+        font-size: 17px;
+        display: inline;
+      }
+      .bold {
+        font-weight: 600;
+      }
+    }
+  }
+}

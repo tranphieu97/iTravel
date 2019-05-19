@@ -1,0 +1,40 @@
+<div class="left">
+  <h5>{{tourData.tourName}}</h5>
+  <p>{{tourData.description}}</p>
+  <div class="location-item"
+    *ngFor="let location of collapsedStates; let i=index">
+    <div class="toggle"
+      (click)="collapedHandle(i)">
+      <span>
+        {{locationsData[i] ? locationsData[i].locationName : '...'}}
+      </span>
+      <div *ngIf="locationsData[i]">
+        <span *ngFor="let province of locationsData[i].provinceCity">
+          {{ province }}
+        </span>
+      </div>
+    </div>
+    <div [ngbCollapse]="location.collapsed">
+      <div class="card">
+        <div class="card-body location-content">
+          <img
+            src="https://images.pexels.com/photos/1462892/pexels-photo-1462892.jpeg?cs=srgb&dl=canh-d-ng-danh-lam-th-ng-c-nh-d-u-m-c-n-i-ti-ng-1462892.jpg&fm=jpg"
+            alt="location image">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">{{'_____'}}</div>
+</div>
+
+<div class="right">
+  <div class="inline">
+    <span class="bold">Phí tham gia: </span>
+    <span>{{tourData.registerCost | currency:'VND'}}</span>
+  </div>
+  <div class="inline">
+    <span class="bold">Hành trình: </span>
+    <span>{{tourData.durationTime}}</span>
+    <span> day(s)</span>
+  </div>
+</div>
