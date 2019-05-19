@@ -1,41 +1,41 @@
 <div class="modal-header">
   <h4 class="modal-title">Tour Detail</h4>
   <button type="button" class="close" aria-label="Close"
-          (click)="activeModal.dismiss('Cross click')">
+    (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 <div class="modal-body modal-body-custom">
   <ngb-tabset>
     <ngb-tab>
-      <ng-template ngbTabTitle><b>General</b></ng-template>
+      <ng-template ngbTabTitle><b class="title">General</b></ng-template>
       <ng-template ngbTabContent>
-        <app-tour-general-info class="p-3" [tourData]="tourData">
+        <app-tour-general-info [tourData]="tourData">
         </app-tour-general-info>
       </ng-template>
     </ngb-tab>
     <ngb-tab>
-      <ng-template ngbTabTitle><b>Schedule</b></ng-template>
+      <ng-template ngbTabTitle><b class="title">Schedule</b></ng-template>
       <ng-template ngbTabContent>
         <app-tour-schedule class="p-3" class="p-3" [tourData]="tourData">
         </app-tour-schedule>
       </ng-template>
     </ngb-tab>
     <ngb-tab>
-      <ng-template ngbTabTitle><b>Feedback</b></ng-template>
+      <ng-template ngbTabTitle><b class="title">Feedback</b></ng-template>
       <ng-template ngbTabContent>
         <app-tour-feedback class="p-3" [tourData]="tourData">
         </app-tour-feedback>
       </ng-template>
     </ngb-tab>
     <ngb-tab>
-      <ng-template ngbTabTitle><b>Members</b></ng-template>
+      <ng-template ngbTabTitle><b class="title">Members</b></ng-template>
       <ng-template ngbTabContent>
         <app-tour-member class="p-3" [tourData]="tourData"></app-tour-member>
       </ng-template>
     </ngb-tab>
     <ngb-tab>
-      <ng-template ngbTabTitle><b>Preparation</b></ng-template>
+      <ng-template ngbTabTitle><b class="title">Preparation</b></ng-template>
       <ng-template ngbTabContent>
         <app-tour-preparation class="p-3" [tourData]="tourData">
         </app-tour-preparation>
@@ -45,5 +45,5 @@
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-outline-dark"
-          (click)="activeModal.close()">Close</button>
+    (click)="activeModal.close()">Close</button>
 </div>

@@ -1,45 +1,72 @@
+@import 'src/styles.scss';
+
 :host {
-  .wrapper {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 52px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-y: scroll;
+
+  .schedule-item {
     display: flex;
-    flex-direction: column;
+    margin: 3px 0;
 
-    .schedule-item {
+    .left-icon {
       display: flex;
-      margin: 3px 0;
-      // border: 2px solid brown;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 30px;
 
-      .left-icon {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 30px;
-
-        .line {
-          flex: 1 0 auto;
-          width: 1px;
-          background-color: transparent;
-          border: none;
-          border-left: dashed 3px #444444;
-        }
-
-        .hide {
-          border-color: transparent;
-        }
-
-        .icon {
-          font-size: 16px;
-          color: #333333;
-          margin: 6px 0;
-        }
+      .line {
+        flex: 1 0 auto;
+        width: 1px;
+        background-color: transparent;
+        border: none;
+        border-left: dashed 3px #444444;
       }
 
-      .right-content {
-        flex: 1 0;
+      .hide {
+        border-color: transparent;
+      }
+
+      .icon {
+        font-size: 16px;
+        color: #333333;
+        margin: 6px 0;
+      }
+    }
+
+    .right-content {
+      flex: 1 0;
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      margin: 15px;
+      background-color: $SECONDARY;
+      border-radius: 0.25rem;
+      box-shadow: 2px 2px 2px 1px $DARK;
+
+      span {
+        font-size: 17px;
+        b {
+          font-size: 17px;
+          font-weight: 600;
+        }
+      }
+      .joining {
         display: flex;
-        flex-direction: column;
-        background-color: rgb(255, 212, 218);
-        min-height: 100px;
+        align-items: center;
+        .avatar {
+          margin: 10px;
+          height: 50px;
+          width: 50px;
+          background-size: cover;
+          border-radius: 50%;
+        }
       }
     }
   }

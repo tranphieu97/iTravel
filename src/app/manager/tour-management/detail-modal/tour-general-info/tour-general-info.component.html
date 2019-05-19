@@ -1,28 +1,41 @@
-<div class="row m-0 p-0">
-  <div class="col-8 p-0">
-    <h5>{{tourData.tourName}}</h5>
-    <p>{{tourData.description}}</p>
-    <div *ngFor="let location of collapsedStates">
-      <button type="button" class="btn btn-outline-primary" (click)="location.collapsed = !location.collapsed">
-        {{location.locationId}}
-      </button>
-      <div [ngbCollapse]="location.collapsed">
-        <div class="card">
-          <div class="card-body">
-            Location content, may be with image
-          </div>
+<div class="left">
+  <h5>{{tourData.tourName}}</h5>
+  <p>{{tourData.description}}</p>
+  <div class="location-item"
+    *ngFor="let location of collapsedStates; let i=index">
+    <div class="toggle"
+      (click)="collapedHandle(i)">
+      <span>
+        {{locationsData[i] ? locationsData[i].locationName : '...'}}
+      </span>
+      <div *ngIf="locationsData[i]">
+        <span *ngFor="let province of locationsData[i].provinceCity">
+          {{ province }}
+        </span>
+      </div>
+    </div>
+    <div [ngbCollapse]="location.collapsed">
+      <div class="card">
+        <div class="card-body location-content">
+          <img
+            src="https://images.pexels.com/photos/1462892/pexels-photo-1462892.jpeg?cs=srgb&dl=canh-d-ng-danh-lam-th-ng-c-nh-d-u-m-c-n-i-ti-ng-1462892.jpg&fm=jpg"
+            alt="location image">
         </div>
       </div>
     </div>
   </div>
-  <div class="col-4 p-0">
-    <div class="row m-0 p-0">
-      <span>Price: </span>
-      <span>{{tourData.registerCost}}</span>
-    </div>
-    <div class="row m-0 p-0">
-      <span>Trip time: </span>
-      <span>{{tourData.durationTime}}</span>
-    </div>
+  <div class="footer">{{'_____'}}</div>
+</div>
+
+<div class="right">
+  <div class="inline">
+    <span class="bold">Price: </span>
+    <span>{{tourData.registerCost}}</span>
+    <span> (VNĐ)</span>
+  </div>
+  <div class="inline">
+    <span class="bold">Trip time: </span>
+    <span>{{tourData.durationTime}}</span>
+    <span> day(s)</span>
   </div>
 </div>
