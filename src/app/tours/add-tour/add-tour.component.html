@@ -22,7 +22,7 @@
             <div class="input-group">
               <input class="form-control" placeholder="yyyy-mm-dd" name="startDate" [(ngModel)]="startDate"
                 [minDate]="today" (ngModelChange)="validateStartEndDate()"
-                ngbDatepicker #startdate="ngbDatepicker" #modelstartdate="ngModel">
+                ngbDatepicker #startdate="ngbDatepicker" #modalstartdate="ngModel">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar" (click)="startdate.toggle()" type="button">
                   <span><i class="fas fa-calendar-alt"></i></span>
@@ -42,7 +42,7 @@
             <div class="input-group">
               <input class="form-control" placeholder="yyyy-mm-dd" name="endDate" 
                 [(ngModel)]="endDate" ngbDatepicker [minDate]="startDate"
-                #enddate="ngbDatepicker" #modelenddate="ngModel">
+                #enddate="ngbDatepicker" #modalenddate="ngModel">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar" (click)="enddate.toggle()" type="button">
                   <span><i class="fas fa-calendar-alt"></i></span>
@@ -52,6 +52,46 @@
           </div>
           <div class="flex-1 flex-row flex-items-center">
             <ngb-timepicker name="endTime" [(ngModel)]="endTime"></ngb-timepicker>
+          </div>
+        </div>
+      </div>
+      <div class="form-group flex-row">
+        <label class="row-label">{{language.currentLanguage.addTourEndFeedbackTime}}</label>
+        <div class="row-input flex-row">
+          <div class="flex-1 flex-items-center">
+            <div class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="deadline" 
+                [(ngModel)]="feedbackDeadline" ngbDatepicker [minDate]="startDate" [maxDate]="endDate"
+                #feedbackdeadline="ngbDatepicker" #modalfeedbackDeadline="ngModel">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" (click)="feedbackdeadline.toggle()" type="button">
+                  <span><i class="fas fa-calendar-alt"></i></span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="flex-1 flex-row flex-items-center">
+            <ngb-timepicker name="feedbackTime" [(ngModel)]="feedbackTime"></ngb-timepicker>
+          </div>
+        </div>
+      </div>
+      <div class="form-group flex-row">
+        <label class="row-label">{{language.currentLanguage.addTourEndRegisterTime}}</label>
+        <div class="row-input flex-row">
+          <div class="flex-1 flex-items-center">
+            <div class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="register-deadline" 
+                [(ngModel)]="registerDeadline" ngbDatepicker [minDate]="startDate" [maxDate]="endDate"
+                #registerdeadline="ngbDatepicker" #modalregisterdeadline="ngModel">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" (click)="registerdeadline.toggle()" type="button">
+                  <span><i class="fas fa-calendar-alt"></i></span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="flex-1 flex-row flex-items-center">
+            <ngb-timepicker name="registerTime" [(ngModel)]="registerTime"></ngb-timepicker>
           </div>
         </div>
       </div>
@@ -130,6 +170,9 @@
       <div class="flex-row flex-justify-end">
         <input type="button" (click)="addShedule()" [value]="language.currentLanguage.addTourAddSchedule" class="btn btn-warning" style="width: fit-content;">
       </div>
+    </div>
+    <div class="stepper" *ngIf="stepperService.getStep() === 3">
+
     </div>
   </form>
   <div *ngIf="errorMess !== ''" class="alert alert-danger" style="margin-top: 5px">

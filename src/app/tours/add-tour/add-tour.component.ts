@@ -25,9 +25,13 @@ export class AddTourComponent implements OnInit {
 
   public startDate: NgbDate;
   public endDate: NgbDate;
+  public feedbackDeadline: NgbDate;
+  public registerDeadline: NgbDate;
   public today: NgbDate;
   public startTime: NgbTimeStruct = { hour: 0, minute: 0, second: 0 };
   public endTime: NgbTimeStruct = { hour: 0, minute: 0, second: 0 };
+  public feedbackTime: NgbTimeStruct = { hour: 0, minute: 0, second: 0 };
+  public registerTime: NgbTimeStruct = { hour: 0, minute: 0, second: 0 };
 
   public arrProvince: Array<ProvinceCity> = [];
   public arrSelectedProvince: Array<ProvinceCity> = [];
@@ -57,11 +61,12 @@ export class AddTourComponent implements OnInit {
 
   ngOnInit() {
     this.addTourService.setupTour();
-    this.stepperService.setMaxStep(2);
+    this.stepperService.setMaxStep(3);
 
     this.tourModel = this.addTourService.tourModel;
 
     const now = new Date();
+    this.today = this.dateStructService.getDateStructFromDate(now);
     this.startDate = this.dateStructService.getDateStructFromDate(now);
     this.endDate = this.dateStructService.getDateStructFromDate(new Date(now.getTime() + (1000 * 60 * 60 * 24)));
 
@@ -204,10 +209,11 @@ export class AddTourComponent implements OnInit {
   validatePage() {
     if (this.stepperService.getStep() === 1) {
       if (this.tourModel.tourName.trim() === '' || this.tourModel.description.trim() === ''
-        || this.arrSelectedProvince.length === 0 || this.arrSelectedLocation.length === 0
+        || this.arrSelectedLocation.length === 0
         || this.arrSelectedTourguide.length === 0) {
         this.showError(this.language.currentLanguage.addTourInputAllBefore);
       } else {
+
         this.stepperService.toNext();
       }
     } else if (this.stepperService.getStep() === 2) {

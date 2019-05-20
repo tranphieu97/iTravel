@@ -287,7 +287,7 @@ export class LanguageService {
     this.vnLanguage.permissionMessServerError = 'Lỗi hệ thống';
     this.vnLanguage.permissionMessUpdatedSuccess = 'Cập nhật thành công';
     this.vnLanguage.permissionMessUpdatedFail = 'Cập nhật thất bại, vui lòng thử lại';
-    this.vnLanguage.permissionUpdatePermissionTitle = 'Cập nhật quyền hạn:';
+    this.vnLanguage.permissionUpdatePermissionTitle = 'Cập nhật quyền hạn';
     this.vnLanguage.perrmisionSendNotifyTitle = 'Gửi thông báo:';
     this.vnLanguage.permissionSend = 'Gửi';
     this.vnLanguage.permissionEnterNotify = 'Nhập nội dung thông báo';
@@ -310,6 +310,8 @@ export class LanguageService {
     this.vnLanguage.addTourDesc = 'Mô tả';
     this.vnLanguage.addTourEnterDesc = 'Nhập mô tả';
     this.vnLanguage.addTourEndTime = 'Ngày quay về';
+    this.vnLanguage.addTourEndFeedbackTime = 'Hạn chót góp ý kiến';
+    this.vnLanguage.addTourEndRegisterTime = 'Hạn chót đăng ký';
     this.vnLanguage.addTourTime = 'Thời gian';
     this.vnLanguage.addTourProvince = 'Tỉnh Thành phố';
     this.vnLanguage.addTourLocation = 'Địa điểm';
@@ -627,13 +629,15 @@ export class LanguageService {
     // For add tour
     this.enLanguage.addTourInfoTitle = 'Tour Summary';
     this.enLanguage.addTourName = 'Tour name';
-    this.enLanguage.addTourBeginTime = 'Start Date';
+    this.enLanguage.addTourBeginTime = 'Begin Time';
     this.enLanguage.addTourDays = 'Total time';
     this.enLanguage.addTourPlace = 'Place';
     this.enLanguage.addTourEnterName = 'Enter tour name';
     this.enLanguage.addTourDesc = 'Description';
     this.enLanguage.addTourEnterDesc = 'Enter tour description';
-    this.enLanguage.addTourEndTime = 'End Date';
+    this.enLanguage.addTourEndTime = 'End Time';
+    this.enLanguage.addTourEndFeedbackTime = 'Feedback Deadline';
+    this.enLanguage.addTourEndRegisterTime = 'Register Deadline';
     this.enLanguage.addTourTime = 'Time';
     this.enLanguage.addTourProvince = 'Province City';
     this.enLanguage.addTourLocation = 'Locations';
@@ -651,7 +655,7 @@ export class LanguageService {
     this.enLanguage.addTourInputAllBefore = 'Please input all field before';
 
     // Add Schedule
-    this.enLanguage.addScheduleDay = 'Day'
+    this.enLanguage.addScheduleDay = 'Day';
     this.enLanguage.addSchedulePeriod = 'Period';
     this.enLanguage.addScheduleKindof = 'Kind of task';
     this.enLanguage.addScheduleKindMoving = 'Moving';

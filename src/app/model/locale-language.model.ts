@@ -280,6 +280,8 @@ export class LocaleLanguage {
     addTourPlace: string;
     addTourBeginTime: string;
     addTourEndTime: string;
+    addTourEndFeedbackTime: string;
+    addTourEndRegisterTime: string;
     addTourTime: string;
     addTourDays: string;
     addTourDesc: string;
