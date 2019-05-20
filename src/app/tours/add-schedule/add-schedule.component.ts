@@ -13,7 +13,7 @@ export class AddScheduleComponent implements OnInit {
   private readonly DEFAULT_OPTION = 'SELECT_AN_OPTION';
 
   @Input() scheduleModel: TourSchedule;
-  @Input() arrPerform: Array<any>;
+  // @Input() arrPerform: Array<any>;
 
   public startDate: NgbDate;
   public beginTime: NgbTimeStruct = { hour: 0, minute: 0, second: 0 };

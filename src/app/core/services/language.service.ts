@@ -324,6 +324,7 @@ export class LanguageService {
     this.vnLanguage.addTourAddFail = 'Thêm thất bại, thử lại';
     this.vnLanguage.addTourCover = 'Ảnh bìa';
     this.vnLanguage.addTourAddSchedule = 'Thêm kế hoạch chi tiết';
+    this.vnLanguage.addTourInputAllBefore = 'Vui lòng tất cả giá trị';
 
     // Add Schedule
     this.vnLanguage.addScheduleDay = 'Ngày';
@@ -647,6 +648,7 @@ export class LanguageService {
     this.enLanguage.addTourAddFail = 'Add Fail, Please try again!';
     this.enLanguage.addTourCover = 'Cover';
     this.enLanguage.addTourAddSchedule = 'Add Schedule';
+    this.enLanguage.addTourInputAllBefore = 'Please input all field before';
 
     // Add Schedule
     this.enLanguage.addScheduleDay = 'Day'

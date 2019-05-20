@@ -297,6 +297,7 @@ export class LocaleLanguage {
     addTourAddFail: string;
     addTourCover: string;
     addTourAddSchedule: string;
+    addTourInputAllBefore: string;
 
     // Add Schedule
     addScheduleDay: string;

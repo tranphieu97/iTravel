@@ -27,6 +27,9 @@ export class Tour {
     public members: TourMember[];
 
     constructor() {
-
+        this.tourName = '';
+        this.locationIds = [];
+        this.registerCost = 0;
+        this.description = '';
     }
 }

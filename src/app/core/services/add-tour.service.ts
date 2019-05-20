@@ -8,28 +8,28 @@ export class AddTourService {
 
   private arrPerformsId: Array<string>;
   private minDateCanSetSchedule: Date;
-  private currentTour: Tour;
+  public tourModel: Tour;
 
   constructor() { }
 
-  public setNewTour() {
-    this.currentTour = new Tour();
+  public setupTour() {
+    this.tourModel = new Tour();
   }
 
   public getStartDate(): Date {
-    return this.currentTour.beginTime;
+    return this.tourModel.beginTime;
   }
 
   public setStartDate(startDate: Date): void {
-    this.currentTour.beginTime = startDate;
+    this.tourModel.beginTime = startDate;
   }
 
   public getEndDate(): Date {
-    return this.currentTour.endTime;
+    return this.tourModel.endTime;
   }
 
   public setEndDate(endDate: Date): void {
-    this.currentTour.endTime = endDate;
+    this.tourModel.endTime = endDate;
   }
 
   public getArrPerformsId(): Array<string> {

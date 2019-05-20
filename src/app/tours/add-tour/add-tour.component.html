@@ -5,14 +5,14 @@
       <div class="form-group flex-row">
         <label class="row-label">{{language.currentLanguage.addTourName}}</label>
         <div class="row-input">
-          <input type="text" class="form-control" [placeholder]="language.currentLanguage.addTourEnterName">
+          <input [(ngModel)]="tourModel.tourName" name="tour-name" type="text" class="form-control" [placeholder]="language.currentLanguage.addTourEnterName">
         </div>
       </div>
       <div class="form-group flex-row">
         <label class="row-label">{{language.currentLanguage.addTourDesc}}</label>
         <div class="row-input">
-          <textarea rows="3" class="form-control" [placeholder]="language.currentLanguage.addTourEnterDesc"
-            style="resize:none"></textarea>
+          <textarea rows="3" class="form-control" [(ngModel)]="tourModel.description" name="tour-description"
+            style="resize:none" [placeholder]="language.currentLanguage.addTourEnterDesc"></textarea>
         </div>
       </div>
       <div class="form-group flex-row">
@@ -86,12 +86,12 @@
           </div>
           <div class="flex-row select-field">
             <select class="form-control flex-1" multiple>
-              <option *ngFor="let location of arrLocations" (click)="selectLocation(location)">
+              <option *ngFor="let location of arrLocations" (click)="selectItem(arrSelectedLocation, location)">
                 {{location.locationName}}
               </option>
             </select>
             <div class="selected-field flex-1">
-              <div class="tag" *ngFor="let location of arrSelectedLocation" (click)="removeLocation(location)">
+              <div class="tag" *ngFor="let location of arrSelectedLocation" (click)="removeItem(arrSelectedLocation, location)">
                 {{location.locationName}}
                 <span _ngcontent-c11="" class="fas fa-times-circle esc-btn"></span>
               </div>
@@ -106,12 +106,12 @@
         <div class="row-input flex-col">
           <div class="row-input select-field">
             <select class="form-control flex-1" multiple>
-              <option *ngFor="let tourguide of arrTourguides" (click)="selectTourguide(tourguide)">
+              <option *ngFor="let tourguide of arrTourguides" (click)="selectItem(arrSelectedTourguide, tourguide)">
                 {{tourguide.displayName}} ({{tourguide.username}})
               </option>
             </select>
             <div class="selected-field flex-1">
-              <div class="tag" *ngFor="let tourguide of arrSelectedTourguide" (click)="removeTourguide(tourguide)">
+              <div class="tag" *ngFor="let tourguide of arrSelectedTourguide" (click)="removeItem(arrSelectedTourguide, tourguide)">
                 {{tourguide.displayName}}
                 <span _ngcontent-c11="" class="fas fa-times-circle esc-btn"></span>
               </div>
@@ -125,13 +125,16 @@
         <h4>{{language.currentLanguage.addTourAddSchedule}} {{language.currentLanguage.from}} {{startDate.day}}/{{startDate.month}} {{language.currentLanguage.to}} {{endDate.day}}/{{endDate.month}}</h4>
       </div>
       <div class="form-group flex-row">
-        <app-add-schedule></app-add-schedule>
+        <app-add-schedule *ngFor="let schedule of tourModel.schedules" [scheduleModel]="schedule"></app-add-schedule>
       </div>
       <div class="flex-row flex-justify-end">
-        <input type="button" [value]="language.currentLanguage.addTourAddSchedule" class="btn btn-warning" style="width: fit-content;">
+        <input type="button" (click)="addShedule()" [value]="language.currentLanguage.addTourAddSchedule" class="btn btn-warning" style="width: fit-content;">
       </div>
     </div>
   </form>
+  <div *ngIf="errorMess !== ''" class="alert alert-danger" style="margin-top: 5px">
+    tesst
+  </div>
   <div class="steps-control">
     <input type="button" [value]="language.currentLanguage.prev" class="btn btn-outline-success"
       (click)="stepperService.toPrev()" [disabled]="stepperService.getStep() === 1">
