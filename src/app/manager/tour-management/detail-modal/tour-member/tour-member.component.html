@@ -1,10 +1,27 @@
 <div class="wrapper">
-  <div>
-    <span>Member limit: {{tourData.memberLimit}}</span>
-    <span>Available: 0</span>
+  <div class="p-3">
+    <span class="mr-4">
+      <b>Giới hạn đăng ký:</b> {{tourData.memberLimit}}
+      người
+    </span>
+    <span><b>Còn chỗ:</b> {{available}}</span>
   </div>
-  <div *ngFor="let member of tourData.members; let i=index">
-    <p>{{member.memberId}}</p>
-    <p>{{member.contactNumber}}</p>
+  <div class="member-list">
+    <div *ngFor="let member of tourData.members; let i=index"
+      class="member-item p-3">
+      <div class="avatar"
+        [ngStyle]="{'background-image': 'url('+tourMemberInfo[i].basicInfo.avatar+')'}">
+      </div>
+      <div class="right ml-4">
+        <span class="name">
+          <b>{{tourMemberInfo[i].basicInfo.firstName+' '+tourMemberInfo[i].basicInfo.lastName}}</b>
+        </span>
+        <span><b>Liên hệ:</b>
+          {{tourMemberInfo[i].tourInfo.contactNumber}}</span>
+        <span><b>Chưa thanh toán:</b>
+          {{tourMemberInfo[i].tourInfo.cost | currency:'VND'}}
+        </span>
+      </div>
+    </div>
   </div>
 </div>

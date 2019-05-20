@@ -33,8 +33,9 @@ const tourSchema = new Schema({
         amount: Number,
         unit: String,
         performers: [{
-            memberName: String,
-            amount: Number,
+            performerId: String,
+            needPrepare: Number,
+            prepared: Number,
             status: String
             // PREPARING, FINISHED
         }],
