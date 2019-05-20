@@ -1,0 +1,17 @@
+.wrapper {
+  background-color: wheat;
+  span {
+    font-size: 17px;
+    b {
+      font-weight: 600;
+    }
+  }
+  .toggle-btn {
+    display: flex;
+    // justify-content: space-between;
+    padding: 10px;
+    .blank-space {
+      flex: 1 0 auto;
+    }
+  }
+}

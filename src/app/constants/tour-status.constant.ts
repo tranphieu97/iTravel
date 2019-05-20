@@ -1,4 +1,4 @@
-export class TourStatus {
+export class ConstTourStatus {
   public readonly PENDING = 'PENDING';
   public readonly REGISTERING = 'REGISTERING';
   public readonly PREPARING = 'PREPARING';

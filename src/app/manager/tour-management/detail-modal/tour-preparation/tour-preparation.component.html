@@ -1,13 +1,21 @@
 <div class="wrapper">
   <div *ngFor="let preparation of tourData.preparations; let i=index">
-    <button type="button" class="btn btn-outline-primary"
-            (click)="collapsedStates[i].collapsed = !collapsedStates[i].collapsed">
-      {{preparation.itemName}}
-    </button>
+    <div class="toggle-btn"
+      (click)="collapsedStates[i].collapsed = !collapsedStates[i].collapsed">
+      <span class="mr-5"><b>{{preparation.itemName}}</b> </span>
+      <span class="mr-5"><b>{{preparation.amount}}</b></span>
+      <span class="blank-space"></span>
+      <span><b>{{preparation.status}}</b></span>
+    </div>
     <div [ngbCollapse]="collapsedStates[i].collapsed">
       <div class="card">
         <div class="card-body">
-          detail content
+          <span>Deadline: {{deadline}}</span>
+          <div>
+            <app-perform-item *ngFor="let performer of preparation.performers"
+              [performer]="performer"></app-perform-item>
+          </div>
+          <span>Note: {{preparation.note}}</span>
         </div>
       </div>
     </div>

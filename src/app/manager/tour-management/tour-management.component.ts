@@ -5,7 +5,7 @@ import { ServerService } from 'src/app/core/services/server.service';
 import { ConstantService } from 'src/app/core/services/constant.service';
 import { FormBuilder } from '@angular/forms';
 import { Tour } from 'src/app/model/tour.model';
-import { TourStatus } from '../../constants';
+import { ConstTourStatus } from '../../constants';
 import { DetailModalComponent } from './detail-modal/detail-modal.component';
 
 @Component({
@@ -15,7 +15,7 @@ import { DetailModalComponent } from './detail-modal/detail-modal.component';
 })
 export class TourManagementComponent implements OnInit {
   tours: Tour[];
-  tourStatus: TourStatus = new TourStatus();
+  tourStatus: ConstTourStatus = new ConstTourStatus();
 
   constructor(
     public language: LanguageService,
@@ -87,13 +87,15 @@ export class TourManagementComponent implements OnInit {
           unit: 'cái',
           performers: [
             {
-              memberName: 'Thong',
-              amount: 1,
+              performerId: '5c1549456d860c330492cac7',
+              needPrepare: 1,
+              prepared: 0,
               status: 'PREPARING'
             },
             {
-              memberName: 'Phieu',
-              amount: 1,
+              performerId: '5c9a5834c9a2893ec075a954',
+              needPrepare: 1,
+              prepared: 1,
               status: 'FINISHED'
             }
           ],

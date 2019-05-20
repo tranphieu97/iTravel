@@ -1,12 +1,17 @@
-export class TourPreparationPerformer {
-    public memberName: string;
-    public amount: number;
-    public status: string;
-    // PREPARING, FINISHED
+import { ConstTourPreparationStatus } from '../constants';
 
-    constructor(memberName: string, amount: number, status: string) {
-        this.memberName = memberName;
-        this.amount = amount;
-        this.status = status;
-    }
+export class TourPreparationPerformer {
+  private STATUS = new ConstTourPreparationStatus();
+  public performerId: string;
+  public needPrepare: number;
+  public prepared: number;
+  public status: string;
+  // PREPARING, FINISHED
+
+  constructor(performerId: string, needPrepare: number) {
+    this.performerId = performerId;
+    this.needPrepare = needPrepare;
+    this.prepared = 0;
+    this.status = this.STATUS.PREPARING;
+  }
 }
