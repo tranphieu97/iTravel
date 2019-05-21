@@ -1,21 +1,29 @@
 <div class="wrapper">
-  <div *ngFor="let preparation of tourData.preparations; let i=index">
+  <div class="preparation-item"
+    *ngFor="let preparation of tourData.preparations; let i=index">
     <div class="toggle-btn"
+      [ngClass]="{finished: preparation.status === 'FINISHED',preparing: preparation.status === 'PREPARING'}"
       (click)="collapsedStates[i].collapsed = !collapsedStates[i].collapsed">
-      <span class="mr-5"><b>{{preparation.itemName}}</b> </span>
-      <span class="mr-5"><b>{{preparation.amount}}</b></span>
+      <span class="fixed-width"><b>{{preparation.itemName}}</b></span>
+      <span class="fixed-width"><b>Đã có:
+          {{ getPrepared(preparation.performers) }} /
+          {{preparation.amount}}</b></span>
       <span class="blank-space"></span>
       <span><b>{{preparation.status}}</b></span>
     </div>
     <div [ngbCollapse]="collapsedStates[i].collapsed">
       <div class="card">
         <div class="card-body">
-          <span>Deadline: {{deadline}}</span>
-          <div>
-            <app-perform-item *ngFor="let performer of preparation.performers"
+          <span class="block"><b>Deadline: </b>{{preparation.deadline | date:'h:mm\' a - d/M'}}</span>
+          <span class="block" *ngIf="preparation.note">
+            <b>Note: </b>
+            {{preparation.note}}
+          </span>
+          <div class="perform-item-list">
+            <app-perform-item class="mr-4"
+              *ngFor="let performer of preparation.performers"
               [performer]="performer"></app-perform-item>
           </div>
-          <span>Note: {{preparation.note}}</span>
         </div>
       </div>
     </div>
