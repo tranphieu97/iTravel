@@ -8,6 +8,7 @@ export class LocaleLanguage {
     prev: string;
     from: string;
     to: string;
+    choose: string;
 
     // Layout
     tooltipNewPost: string;
@@ -279,6 +280,8 @@ export class LocaleLanguage {
     addTourPlace: string;
     addTourBeginTime: string;
     addTourEndTime: string;
+    addTourEndFeedbackTime: string;
+    addTourEndRegisterTime: string;
     addTourTime: string;
     addTourDays: string;
     addTourDesc: string;
@@ -294,6 +297,9 @@ export class LocaleLanguage {
     addTourNoteSelectMore: string;
     addTourAddSuccess: string;
     addTourAddFail: string;
+    addTourCover: string;
+    addTourAddSchedule: string;
+    addTourInputAllBefore: string;
 
     // Add Schedule
     addScheduleDay: string;
@@ -307,7 +313,11 @@ export class LocaleLanguage {
     addScheduleKindOthers: string;
     addSchedulePerform: string;
     addScheduleCost: string;
-
+    addScheduleLocation: string;
+    addScheduleNote: string;
+    addScheduleAddTask: string;
+    addScheduleAddPerform: string;
+    addScheduleSelectOneBefore: string;
 
     constructor() { }
 }

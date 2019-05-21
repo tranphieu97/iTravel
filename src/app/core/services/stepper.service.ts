@@ -14,9 +14,13 @@ export class StepperService {
     this.maxStep = maxStep;
   }
 
+  getMaxStep() {
+    return this.maxStep;
+  }
+
   getStep() {
     if (!this.current) {
-      this.current = 2;
+      this.current = 1;
     }
 
     return this.current;

@@ -5,14 +5,14 @@
       <div class="form-group flex-row">
         <label class="row-label">{{language.currentLanguage.addTourName}}</label>
         <div class="row-input">
-          <input type="text" class="form-control" [placeholder]="language.currentLanguage.addTourEnterName">
+          <input [(ngModel)]="tourModel.tourName" name="tour-name" type="text" class="form-control" [placeholder]="language.currentLanguage.addTourEnterName">
         </div>
       </div>
       <div class="form-group flex-row">
         <label class="row-label">{{language.currentLanguage.addTourDesc}}</label>
         <div class="row-input">
-          <textarea rows="4" class="form-control" [placeholder]="language.currentLanguage.addTourEnterDesc"
-            style="resize:none"></textarea>
+          <textarea rows="3" class="form-control" [(ngModel)]="tourModel.description" name="tour-description"
+            style="resize:none" [placeholder]="language.currentLanguage.addTourEnterDesc"></textarea>
         </div>
       </div>
       <div class="form-group flex-row">
@@ -21,7 +21,8 @@
           <div class="flex-1 flex-items-center">
             <div class="input-group">
               <input class="form-control" placeholder="yyyy-mm-dd" name="startDate" [(ngModel)]="startDate"
-                ngbDatepicker #startdate="ngbDatepicker" #modelstartdate="ngModel">
+                [minDate]="today" (ngModelChange)="validateStartEndDate()"
+                ngbDatepicker #startdate="ngbDatepicker" #modalstartdate="ngModel">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar" (click)="startdate.toggle()" type="button">
                   <span><i class="fas fa-calendar-alt"></i></span>
@@ -39,8 +40,9 @@
         <div class="row-input flex-row">
           <div class="flex-1 flex-items-center">
             <div class="input-group">
-              <input class="form-control" placeholder="yyyy-mm-dd" name="endDate" [(ngModel)]="endDate" ngbDatepicker
-                #enddate="ngbDatepicker" #modelenddate="ngModel">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="endDate" 
+                [(ngModel)]="endDate" ngbDatepicker [minDate]="startDate"
+                #enddate="ngbDatepicker" #modalenddate="ngModel">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar" (click)="enddate.toggle()" type="button">
                   <span><i class="fas fa-calendar-alt"></i></span>
@@ -54,8 +56,48 @@
         </div>
       </div>
       <div class="form-group flex-row">
+        <label class="row-label">{{language.currentLanguage.addTourEndFeedbackTime}}</label>
+        <div class="row-input flex-row">
+          <div class="flex-1 flex-items-center">
+            <div class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="deadline" 
+                [(ngModel)]="feedbackDeadline" ngbDatepicker [minDate]="startDate" [maxDate]="endDate"
+                #feedbackdeadline="ngbDatepicker" #modalfeedbackDeadline="ngModel">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" (click)="feedbackdeadline.toggle()" type="button">
+                  <span><i class="fas fa-calendar-alt"></i></span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="flex-1 flex-row flex-items-center">
+            <ngb-timepicker name="feedbackTime" [(ngModel)]="feedbackTime"></ngb-timepicker>
+          </div>
+        </div>
+      </div>
+      <div class="form-group flex-row">
+        <label class="row-label">{{language.currentLanguage.addTourEndRegisterTime}}</label>
+        <div class="row-input flex-row">
+          <div class="flex-1 flex-items-center">
+            <div class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="register-deadline" 
+                [(ngModel)]="registerDeadline" ngbDatepicker [minDate]="startDate" [maxDate]="endDate"
+                #registerdeadline="ngbDatepicker" #modalregisterdeadline="ngModel">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" (click)="registerdeadline.toggle()" type="button">
+                  <span><i class="fas fa-calendar-alt"></i></span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="flex-1 flex-row flex-items-center">
+            <ngb-timepicker name="registerTime" [(ngModel)]="registerTime"></ngb-timepicker>
+          </div>
+        </div>
+      </div>
+      <div class="form-group flex-row">
         <label class="row-label">{{language.currentLanguage.addTourProvince}}</label>
-        <div class="row-input select-provinces">
+        <div class="row-input select-field">
           <select class="form-control flex-1" multiple>
             <option *ngFor="let province of arrProvince" (click)="selectProvince(province)">
               {{province.provinceName}}
@@ -71,22 +113,46 @@
       </div>
       <div class="form-group flex-row">
         <label class="row-label">{{language.currentLanguage.addTourLocation}}</label>
-        <div class="row-input flex-row">
-          <div class="flex-1 select-locations">
-            <input type="text" [placeholder]="language.currentLanguage.addTourEnterLocation" class="form-control"
-              name="location-name" [(ngModel)]="searchLocationName">
-            <select class="form-control" multiple>
-              <option *ngFor="let location of arrLocations" (click)="selectLocation(location)">
+        <div class="row-input flex-col">
+          <div class="flex-row" style="margin-bottom: 3px;">
+            <div class="flex-1">
+                <input type="text" [placeholder]="language.currentLanguage.addTourEnterLocation" class="form-control"
+                name="location-name" [(ngModel)]="searchLocationName">
+            </div>
+            <div class="flex-1">
+              <input type="button" class="form-control btn-success" style="margin-left: 6px; width: 97%;"
+                [value]="language.currentLanguage.addTourNewLocation" (click)="openNewLocationDialog(addlocation)">
+            </div>
+          </div>
+          <div class="flex-row select-field">
+            <select class="form-control flex-1" multiple>
+              <option *ngFor="let location of arrLocations" (click)="selectItem(arrSelectedLocation, location)">
                 {{location.locationName}}
               </option>
             </select>
-          </div>
-          <div class="flex-1 flex-col selected-locations">
-            <input type="button" class="form-control btn-success" [value]="language.currentLanguage.addTourNewLocation"
-              (click)="openNewLocationDialog(addlocation)">
             <div class="selected-field flex-1">
-              <div class="tag" *ngFor="let location of arrSelectedLocation" (click)="removeLocation(location)">
+              <div class="tag" *ngFor="let location of arrSelectedLocation" (click)="removeItem(arrSelectedLocation, location)">
                 {{location.locationName}}
+                <span _ngcontent-c11="" class="fas fa-times-circle esc-btn"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group flex-row">
+        <label class="row-label">
+          {{language.currentLanguage.addSchedulePerform}}
+        </label>
+        <div class="row-input flex-col">
+          <div class="row-input select-field">
+            <select class="form-control flex-1" multiple>
+              <option *ngFor="let tourguide of arrTourguides" (click)="selectItem(arrSelectedTourguide, tourguide)">
+                {{tourguide.displayName}} ({{tourguide.username}})
+              </option>
+            </select>
+            <div class="selected-field flex-1">
+              <div class="tag" *ngFor="let tourguide of arrSelectedTourguide" (click)="removeItem(arrSelectedTourguide, tourguide)">
+                {{tourguide.displayName}}
                 <span _ngcontent-c11="" class="fas fa-times-circle esc-btn"></span>
               </div>
             </div>
@@ -95,14 +161,28 @@
       </div>
     </div>
     <div class="stepper" *ngIf="stepperService.getStep() === 2">
+      <div class="flex-row">
+        <h4>{{language.currentLanguage.addTourAddSchedule}} {{language.currentLanguage.from}} {{startDate.day}}/{{startDate.month}} {{language.currentLanguage.to}} {{endDate.day}}/{{endDate.month}}</h4>
+      </div>
       <div class="form-group flex-row">
-        <app-add-schedule></app-add-schedule>
+        <app-add-schedule *ngFor="let schedule of tourModel.schedules" [scheduleModel]="schedule"></app-add-schedule>
+      </div>
+      <div class="flex-row flex-justify-end">
+        <input type="button" (click)="addShedule()" [value]="language.currentLanguage.addTourAddSchedule" class="btn btn-warning" style="width: fit-content;">
       </div>
     </div>
+    <div class="stepper" *ngIf="stepperService.getStep() === 3">
+
+    </div>
   </form>
+  <div *ngIf="errorMess !== ''" class="alert alert-danger" style="margin-top: 5px">
+    tesst
+  </div>
   <div class="steps-control">
-    <input type="button" [value]="language.currentLanguage.prev" class="btn btn-outline-success">
-    <input type="button" [value]="language.currentLanguage.next" class="btn btn-outline-success">
+    <input type="button" [value]="language.currentLanguage.prev" class="btn btn-outline-success"
+      (click)="stepperService.toPrev()" [disabled]="stepperService.getStep() === 1">
+    <input type="button" [value]="language.currentLanguage.next" class="btn btn-outline-success"
+      (click)="stepperService.toNext()" [disabled]="stepperService.getStep() === stepperService.getMaxStep()">
   </div>
 </div>
 <div class="border-box tourguide-container">

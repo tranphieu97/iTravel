@@ -10,6 +10,12 @@ export class TourSchedule {
   public isActive: Boolean;
 
   constructor() {
+    this.location = '';
+    this.tasks = [];
+    this.cost = 0;
+    this.performerIds = [];
+    this.note = '';
+    this.isActive = false;
   }
 
   // constructor(

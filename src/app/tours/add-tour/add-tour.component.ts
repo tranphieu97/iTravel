@@ -1,13 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { LanguageService } from 'src/app/core/services/language.service';
 // tslint:disable-next-line:max-line-length
-import { NgbDateStruct, NgbModal, NgbTimeStruct, NgbTimepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbModal, NgbTimeStruct, NgbTimepickerConfig, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { ProvinceCityService } from 'src/app/core/services/province-city.service';
 import { ProvinceCity } from 'src/app/model/province-city.model';
 import { ServerService } from 'src/app/core/services/server.service';
 import { Location } from 'src/app/model/location.model';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { StepperService } from 'src/app/core/services/stepper.service';
+import { DateStructService } from 'src/app/core/services/date-struct.service';
+import { AddTourService } from 'src/app/core/services/add-tour.service';
+import { Tour } from 'src/app/model/tour.model';
+import { TourSchedule } from 'src/app/model/tour-schedule.model';
 
 @Component({
   selector: 'app-add-tour',
@@ -19,10 +23,15 @@ export class AddTourComponent implements OnInit {
 
   public addLocationForm: FormGroup;
 
-  public startDate: NgbDateStruct;
-  public endDate: NgbDateStruct;
+  public startDate: NgbDate;
+  public endDate: NgbDate;
+  public feedbackDeadline: NgbDate;
+  public registerDeadline: NgbDate;
+  public today: NgbDate;
   public startTime: NgbTimeStruct = { hour: 0, minute: 0, second: 0 };
   public endTime: NgbTimeStruct = { hour: 0, minute: 0, second: 0 };
+  public feedbackTime: NgbTimeStruct = { hour: 0, minute: 0, second: 0 };
+  public registerTime: NgbTimeStruct = { hour: 0, minute: 0, second: 0 };
 
   public arrProvince: Array<ProvinceCity> = [];
   public arrSelectedProvince: Array<ProvinceCity> = [];
@@ -31,18 +40,36 @@ export class AddTourComponent implements OnInit {
   public arrLocations: Array<Location> = [];
   public arrSelectedLocation: Array<Location> = [];
 
+  public arrTourguides: Array<any> = [];
+  public arrSelectedTourguide: Array<any> = [];
+
   public isLoading: Boolean = false;
   public addLocationMessage: String = '';
   public hasError: Boolean = false;
 
+  public errorMess: String = '';
+
+  public tourModel: Tour;
+
   constructor(public language: LanguageService, private timepickerConfig: NgbTimepickerConfig,
     private provinceService: ProvinceCityService, private serverService: ServerService, private modal: NgbModal,
-    private formBuilder: FormBuilder, public stepperService: StepperService) {
+    private formBuilder: FormBuilder, public stepperService: StepperService, private dateStructService: DateStructService,
+    public addTourService: AddTourService) {
     timepickerConfig.spinners = false;
     timepickerConfig.seconds = false;
   }
 
   ngOnInit() {
+    this.addTourService.setupTour();
+    this.stepperService.setMaxStep(3);
+
+    this.tourModel = this.addTourService.tourModel;
+
+    const now = new Date();
+    this.today = this.dateStructService.getDateStructFromDate(now);
+    this.startDate = this.dateStructService.getDateStructFromDate(now);
+    this.endDate = this.dateStructService.getDateStructFromDate(new Date(now.getTime() + (1000 * 60 * 60 * 24)));
+
     if (this.provinceService.allProvinceCity.length === 0) {
       this.provinceService.getAllProvinceCity().subscribe((res) => {
         this.provinceService.allProvinceCity = res.data;
@@ -51,6 +78,16 @@ export class AddTourComponent implements OnInit {
     } else {
       this.arrProvince = this.provinceService.allProvinceCity;
     }
+
+    this.serverService.getTourguides().subscribe((res) => {
+      this.arrTourguides = res.data.map((item: any) => {
+        return {
+          _id: item._id,
+          displayName: item.lastName === '' ? item.firstName : item.lastName + ' ' + item.firstName,
+          username: item.username
+        };
+      });
+    });
   }
 
   buildAddLocationForm() {
@@ -62,10 +99,6 @@ export class AddTourComponent implements OnInit {
     });
   }
 
-  /**
-   * Select a province be going in tour
-   * @param province
-   */
   selectProvince(province: ProvinceCity) {
     if (this.arrSelectedProvince.indexOf(province) === -1) {
       this.arrSelectedProvince.push(province);
@@ -74,10 +107,6 @@ export class AddTourComponent implements OnInit {
     }
   }
 
-  /**
-   * Delete a selected province from array selected province
-   * @param province
-   */
   removeProvince(province: ProvinceCity) {
     if (this.arrSelectedProvince.indexOf(province) !== -1) {
       this.arrSelectedProvince.splice(this.arrSelectedProvince.indexOf(province), 1);
@@ -115,7 +144,7 @@ export class AddTourComponent implements OnInit {
             setTimeout(() => {
               try {
                 this.modal.dismissAll();
-              } catch {}
+              } catch { }
             }, 2000);
           } else {
             this.addLocationMessage = this.language.currentLanguage.addTourAddFail;
@@ -125,16 +154,41 @@ export class AddTourComponent implements OnInit {
     }
   }
 
-  selectLocation(location: Location) {
-    if (this.arrSelectedLocation.findIndex(item => item.locationName === location.locationName) === -1) {
-      this.arrSelectedLocation.push(location);
+  selectItem(arr: Array<any>, item: any) {
+    if (arr.indexOf(item) === -1) {
+      arr.push(item);
     }
   }
 
-  removeLocation(location: Location) {
-    if (this.arrSelectedLocation.indexOf(location) !== -1) {
-      this.arrSelectedLocation.splice(this.arrSelectedLocation.indexOf(location), 1);
+  removeItem(arr: Array<any>, item: any) {
+    if (arr.indexOf(item) !== -1) {
+      arr.splice(arr.indexOf(item), 1);
     }
+  }
+
+  validateStartEndDate() {
+    try {
+      if (this.startDate && this.endDate
+        && this.dateStructService.getDateFromDateStruct(this.startDate) > this.dateStructService.getDateFromDateStruct(this.endDate)) {
+        this.endDate = this.startDate;
+      }
+    } catch (ex) {
+      console.log(ex);
+    }
+  }
+
+  addShedule() {
+    try {
+      if (this.tourModel.schedules === undefined) {
+        this.tourModel.schedules = [];
+      }
+
+      this.tourModel.schedules.push(new TourSchedule());
+    } catch (ex) {
+      console.log(ex);
+    }
+
+    console.log(this.addTourService.tourModel);
   }
 
   openNewLocationDialog(contentId) {
@@ -142,5 +196,28 @@ export class AddTourComponent implements OnInit {
     this.addLocationMessage = '';
     this.hasError = false;
     this.modal.open(contentId, { ariaLabelledBy: 'modal-basic-title' });
+  }
+
+  showError(mess: string) {
+    this.errorMess = mess;
+
+    setTimeout(() => {
+      this.errorMess = '';
+    }, 5000);
+  }
+
+  validatePage() {
+    if (this.stepperService.getStep() === 1) {
+      if (this.tourModel.tourName.trim() === '' || this.tourModel.description.trim() === ''
+        || this.arrSelectedLocation.length === 0
+        || this.arrSelectedTourguide.length === 0) {
+        this.showError(this.language.currentLanguage.addTourInputAllBefore);
+      } else {
+
+        this.stepperService.toNext();
+      }
+    } else if (this.stepperService.getStep() === 2) {
+
+    }
   }
 }

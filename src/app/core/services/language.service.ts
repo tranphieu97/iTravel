@@ -36,6 +36,7 @@ export class LanguageService {
     this.vnLanguage.prev = 'Trang trước';
     this.vnLanguage.from = 'Từ';
     this.vnLanguage.to = 'Đến';
+    this.vnLanguage.choose = 'Chọn ';
 
     // Layout
     this.vnLanguage.tooltipNewPost = 'Thêm bài viết';
@@ -286,7 +287,7 @@ export class LanguageService {
     this.vnLanguage.permissionMessServerError = 'Lỗi hệ thống';
     this.vnLanguage.permissionMessUpdatedSuccess = 'Cập nhật thành công';
     this.vnLanguage.permissionMessUpdatedFail = 'Cập nhật thất bại, vui lòng thử lại';
-    this.vnLanguage.permissionUpdatePermissionTitle = 'Cập nhật quyền hạn:';
+    this.vnLanguage.permissionUpdatePermissionTitle = 'Cập nhật quyền hạn';
     this.vnLanguage.perrmisionSendNotifyTitle = 'Gửi thông báo:';
     this.vnLanguage.permissionSend = 'Gửi';
     this.vnLanguage.permissionEnterNotify = 'Nhập nội dung thông báo';
@@ -309,6 +310,8 @@ export class LanguageService {
     this.vnLanguage.addTourDesc = 'Mô tả';
     this.vnLanguage.addTourEnterDesc = 'Nhập mô tả';
     this.vnLanguage.addTourEndTime = 'Ngày quay về';
+    this.vnLanguage.addTourEndFeedbackTime = 'Hạn chót góp ý kiến';
+    this.vnLanguage.addTourEndRegisterTime = 'Hạn chót đăng ký';
     this.vnLanguage.addTourTime = 'Thời gian';
     this.vnLanguage.addTourProvince = 'Tỉnh Thành phố';
     this.vnLanguage.addTourLocation = 'Địa điểm';
@@ -321,6 +324,9 @@ export class LanguageService {
     this.vnLanguage.addTourNoteSelectMore = 'Thuộc tính này có thể chọn nhiều lựa chọn';
     this.vnLanguage.addTourAddSuccess = 'Thêm thành công';
     this.vnLanguage.addTourAddFail = 'Thêm thất bại, thử lại';
+    this.vnLanguage.addTourCover = 'Ảnh bìa';
+    this.vnLanguage.addTourAddSchedule = 'Thêm kế hoạch chi tiết';
+    this.vnLanguage.addTourInputAllBefore = 'Vui lòng tất cả giá trị';
 
     // Add Schedule
     this.vnLanguage.addScheduleDay = 'Ngày';
@@ -333,6 +339,12 @@ export class LanguageService {
     this.vnLanguage.addScheduleKindFreedom = 'Sinh hoạt tự do';
     this.vnLanguage.addScheduleKindOthers = 'Khác';
     this.vnLanguage.addSchedulePerform = 'Chịu trách nhiệm';
+    this.vnLanguage.addScheduleCost = 'Chi phí';
+    this.vnLanguage.addScheduleLocation = 'Địa điểm';
+    this.vnLanguage.addScheduleNote = 'Ghi chú';
+    this.vnLanguage.addScheduleAddPerform = 'Thêm người phụ trách';
+    this.vnLanguage.addScheduleAddTask = 'Thêm nhiệm vụ';
+    this.vnLanguage.addScheduleSelectOneBefore = 'Lựa chọn hiện tại chưa hoàn thành';
   }
 
   /**
@@ -350,6 +362,7 @@ export class LanguageService {
     this.enLanguage.prev = 'Previous page';
     this.enLanguage.from = 'From';
     this.enLanguage.to = 'To';
+    this.enLanguage.choose = 'Choose ';
 
     // Layout
     this.enLanguage.tooltipNewPost = 'New Post';
@@ -616,13 +629,15 @@ export class LanguageService {
     // For add tour
     this.enLanguage.addTourInfoTitle = 'Tour Summary';
     this.enLanguage.addTourName = 'Tour name';
-    this.enLanguage.addTourBeginTime = 'Start Date';
+    this.enLanguage.addTourBeginTime = 'Begin Time';
     this.enLanguage.addTourDays = 'Total time';
     this.enLanguage.addTourPlace = 'Place';
     this.enLanguage.addTourEnterName = 'Enter tour name';
     this.enLanguage.addTourDesc = 'Description';
     this.enLanguage.addTourEnterDesc = 'Enter tour description';
-    this.enLanguage.addTourEndTime = 'End Date';
+    this.enLanguage.addTourEndTime = 'End Time';
+    this.enLanguage.addTourEndFeedbackTime = 'Feedback Deadline';
+    this.enLanguage.addTourEndRegisterTime = 'Register Deadline';
     this.enLanguage.addTourTime = 'Time';
     this.enLanguage.addTourProvince = 'Province City';
     this.enLanguage.addTourLocation = 'Locations';
@@ -635,9 +650,12 @@ export class LanguageService {
     this.enLanguage.addTourNoteSelectMore = 'This property is able to select more options';
     this.enLanguage.addTourAddSuccess = 'Add Success!';
     this.enLanguage.addTourAddFail = 'Add Fail, Please try again!';
+    this.enLanguage.addTourCover = 'Cover';
+    this.enLanguage.addTourAddSchedule = 'Add Schedule';
+    this.enLanguage.addTourInputAllBefore = 'Please input all field before';
 
     // Add Schedule
-    this.enLanguage.addScheduleDay = 'Day'
+    this.enLanguage.addScheduleDay = 'Day';
     this.enLanguage.addSchedulePeriod = 'Period';
     this.enLanguage.addScheduleKindof = 'Kind of task';
     this.enLanguage.addScheduleKindMoving = 'Moving';
@@ -647,6 +665,12 @@ export class LanguageService {
     this.enLanguage.addScheduleKindFreedom = 'Freedom';
     this.enLanguage.addScheduleKindOthers = 'The others';
     this.enLanguage.addSchedulePerform = 'Perform';
+    this.enLanguage.addScheduleCost = 'Cost';
+    this.enLanguage.addScheduleLocation = 'Location';
+    this.enLanguage.addScheduleNote = 'Notes';
+    this.enLanguage.addScheduleAddTask = 'Add another task';
+    this.enLanguage.addScheduleAddPerform = 'Add another perfrom';
+    this.enLanguage.addScheduleSelectOneBefore = 'Current select has not been finished';
   }
 
   /**
