@@ -1,11 +1,12 @@
 <div class="border-box tour-containner">
-  <h1>{{language.currentLanguage.addTourInfoTitle}}</h1>
-  <form>
+  <form class="flex-1">
     <div class="stepper" *ngIf="stepperService.getStep() === 1">
+      <h3>{{language.currentLanguage.addTourInfoTitle}}</h3>
       <div class="form-group flex-row">
         <label class="row-label">{{language.currentLanguage.addTourName}}</label>
         <div class="row-input">
-          <input [(ngModel)]="tourModel.tourName" name="tour-name" type="text" class="form-control" [placeholder]="language.currentLanguage.addTourEnterName">
+          <input [(ngModel)]="tourModel.tourName" name="tour-name" type="text" class="form-control"
+            [placeholder]="language.currentLanguage.addTourEnterName">
         </div>
       </div>
       <div class="form-group flex-row">
@@ -21,8 +22,8 @@
           <div class="flex-1 flex-items-center">
             <div class="input-group">
               <input class="form-control" placeholder="yyyy-mm-dd" name="startDate" [(ngModel)]="startDate"
-                [minDate]="today" (ngModelChange)="validateStartEndDate()"
-                ngbDatepicker #startdate="ngbDatepicker" #modalstartdate="ngModel">
+                [minDate]="today" (ngModelChange)="validateStartEndDate()" ngbDatepicker #startdate="ngbDatepicker"
+                #modalstartdate="ngModel">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar" (click)="startdate.toggle()" type="button">
                   <span><i class="fas fa-calendar-alt"></i></span>
@@ -40,9 +41,8 @@
         <div class="row-input flex-row">
           <div class="flex-1 flex-items-center">
             <div class="input-group">
-              <input class="form-control" placeholder="yyyy-mm-dd" name="endDate" 
-                [(ngModel)]="endDate" ngbDatepicker [minDate]="startDate"
-                #enddate="ngbDatepicker" #modalenddate="ngModel">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="endDate" [(ngModel)]="endDate" ngbDatepicker
+                [minDate]="startDate" #enddate="ngbDatepicker" #modalenddate="ngModel">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar" (click)="enddate.toggle()" type="button">
                   <span><i class="fas fa-calendar-alt"></i></span>
@@ -60,9 +60,8 @@
         <div class="row-input flex-row">
           <div class="flex-1 flex-items-center">
             <div class="input-group">
-              <input class="form-control" placeholder="yyyy-mm-dd" name="deadline" 
-                [(ngModel)]="feedbackDeadline" ngbDatepicker [minDate]="startDate" [maxDate]="endDate"
-                #feedbackdeadline="ngbDatepicker" #modalfeedbackDeadline="ngModel">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="deadline" [(ngModel)]="feedbackDeadline"
+                ngbDatepicker [maxDate]="startDate" #feedbackdeadline="ngbDatepicker" #modalfeedbackDeadline="ngModel">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar" (click)="feedbackdeadline.toggle()" type="button">
                   <span><i class="fas fa-calendar-alt"></i></span>
@@ -80,9 +79,9 @@
         <div class="row-input flex-row">
           <div class="flex-1 flex-items-center">
             <div class="input-group">
-              <input class="form-control" placeholder="yyyy-mm-dd" name="register-deadline" 
-                [(ngModel)]="registerDeadline" ngbDatepicker [minDate]="startDate" [maxDate]="endDate"
-                #registerdeadline="ngbDatepicker" #modalregisterdeadline="ngModel">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="register-deadline"
+                [(ngModel)]="registerDeadline" ngbDatepicker [maxDate]="startDate" #registerdeadline="ngbDatepicker"
+                #modalregisterdeadline="ngModel">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar" (click)="registerdeadline.toggle()" type="button">
                   <span><i class="fas fa-calendar-alt"></i></span>
@@ -116,7 +115,7 @@
         <div class="row-input flex-col">
           <div class="flex-row" style="margin-bottom: 3px;">
             <div class="flex-1">
-                <input type="text" [placeholder]="language.currentLanguage.addTourEnterLocation" class="form-control"
+              <input type="text" [placeholder]="language.currentLanguage.addTourEnterLocation" class="form-control"
                 name="location-name" [(ngModel)]="searchLocationName">
             </div>
             <div class="flex-1">
@@ -131,7 +130,8 @@
               </option>
             </select>
             <div class="selected-field flex-1">
-              <div class="tag" *ngFor="let location of arrSelectedLocation" (click)="removeItem(arrSelectedLocation, location)">
+              <div class="tag" *ngFor="let location of arrSelectedLocation"
+                (click)="removeItem(arrSelectedLocation, location)">
                 {{location.locationName}}
                 <span _ngcontent-c11="" class="fas fa-times-circle esc-btn"></span>
               </div>
@@ -151,7 +151,8 @@
               </option>
             </select>
             <div class="selected-field flex-1">
-              <div class="tag" *ngFor="let tourguide of arrSelectedTourguide" (click)="removeItem(arrSelectedTourguide, tourguide)">
+              <div class="tag" *ngFor="let tourguide of arrSelectedTourguide"
+                (click)="removeItem(arrSelectedTourguide, tourguide)">
                 {{tourguide.displayName}}
                 <span _ngcontent-c11="" class="fas fa-times-circle esc-btn"></span>
               </div>
@@ -162,17 +163,22 @@
     </div>
     <div class="stepper" *ngIf="stepperService.getStep() === 2">
       <div class="flex-row">
-        <h4>{{language.currentLanguage.addTourAddSchedule}} {{language.currentLanguage.from}} {{startDate.day}}/{{startDate.month}} {{language.currentLanguage.to}} {{endDate.day}}/{{endDate.month}}</h4>
+        <h3>{{language.currentLanguage.addTourSchedulesTitle}}</h3>
+      </div>
+      <div class="flex-row">
+        <h4>{{language.currentLanguage.addTourAddSchedule}} {{language.currentLanguage.from}}
+          {{startDate.day}}/{{startDate.month}} {{language.currentLanguage.to}} {{endDate.day}}/{{endDate.month}}</h4>
       </div>
       <div class="form-group flex-row">
         <app-add-schedule *ngFor="let schedule of tourModel.schedules" [scheduleModel]="schedule"></app-add-schedule>
       </div>
       <div class="flex-row flex-justify-end">
-        <input type="button" (click)="addShedule()" [value]="language.currentLanguage.addTourAddSchedule" class="btn btn-warning" style="width: fit-content;">
+        <input type="button" (click)="addShedule()" [value]="language.currentLanguage.addTourAddSchedule"
+          class="btn btn-warning" style="width: fit-content;">
       </div>
     </div>
     <div class="stepper" *ngIf="stepperService.getStep() === 3">
-
+      <h3>{{language.currentLanguage.addTourPreparationTitle}}</h3>
     </div>
   </form>
   <div *ngIf="errorMess !== ''" class="alert alert-danger" style="margin-top: 5px">

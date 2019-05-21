@@ -302,6 +302,8 @@ export class LanguageService {
 
     // For add tour
     this.vnLanguage.addTourInfoTitle = 'Tóm tắt Tour';
+    this.vnLanguage.addTourSchedulesTitle = 'Kế hoạch chi tiết';
+    this.vnLanguage.addTourPreparationTitle = 'Chuẩn bị chi tiết';
     this.vnLanguage.addTourName = 'Tên tour';
     this.vnLanguage.addTourBeginTime = 'Ngày khởi hành';
     this.vnLanguage.addTourDays = 'Thời lượng';
@@ -628,6 +630,8 @@ export class LanguageService {
 
     // For add tour
     this.enLanguage.addTourInfoTitle = 'Tour Summary';
+    this.enLanguage.addTourSchedulesTitle = 'Schedules Details';
+    this.enLanguage.addTourPreparationTitle = 'Preparation Details';
     this.enLanguage.addTourName = 'Tour name';
     this.enLanguage.addTourBeginTime = 'Begin Time';
     this.enLanguage.addTourDays = 'Total time';

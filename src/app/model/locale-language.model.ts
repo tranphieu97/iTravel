@@ -275,6 +275,8 @@ export class LocaleLanguage {
     // For add tour
     addTourInfoTitle: string;
     addTourGuideInfoTitle: string;
+    addTourSchedulesTitle: string;
+    addTourPreparationTitle: string;
     addTourName: string;
     addTourEnterName: string;
     addTourPlace: string;
