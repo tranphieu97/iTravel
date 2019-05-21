@@ -31,5 +31,9 @@ export class Tour {
         this.locationIds = [];
         this.registerCost = 0;
         this.description = '';
+        this.schedules = [];
+        this.preparations = [];
+        this.feedbacks = [];
+        this.members = [];
     }
 }

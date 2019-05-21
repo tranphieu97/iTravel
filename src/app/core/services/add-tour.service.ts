@@ -1,53 +1,46 @@
 import { Injectable } from '@angular/core';
 import { Tour } from 'src/app/model/tour.model';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AddTourService {
 
-  private arrPerformsId: Array<string>;
   private minDateCanSetSchedule: Date;
+  private arrPerform: Array<any>;
+
   public tourModel: Tour;
+
+  public hasRemoveSchedule: Subject<number>;
 
   constructor() { }
 
-  public setupTour() {
-    this.tourModel = new Tour();
+  public getArrPerform(): Array<any> {
+    if (!this.arrPerform) {
+      this.arrPerform = [];
+    }
+    return this.arrPerform;
   }
 
-  public getStartDate(): Date {
+  public setArrPerform(arrPerform: Array<any>): void {
+    this.arrPerform = arrPerform;
+  }
+
+  public setupTour() {
+    this.tourModel = new Tour();
+    this.hasRemoveSchedule = new Subject<number>();
+  }
+
+  getBeginTime() {
     return this.tourModel.beginTime;
   }
 
-  public setStartDate(startDate: Date): void {
-    this.tourModel.beginTime = startDate;
-  }
-
-  public getEndDate(): Date {
+  getEndTime() {
     return this.tourModel.endTime;
   }
 
-  public setEndDate(endDate: Date): void {
-    this.tourModel.endTime = endDate;
-  }
-
-  public getArrPerformsId(): Array<string> {
-    if (!this.arrPerformsId) {
-      this.arrPerformsId = [];
-    }
-    return this.arrPerformsId;
-  }
-
-  public setArrPerformsId(arrPerformsId: Array<string>): void {
-    this.arrPerformsId = arrPerformsId;
-  }
-
-  public getMinDateCanSetSchedule(): Date {
-    return this.minDateCanSetSchedule;
-  }
-
-  public setMinDateCanSetSchedule(minDateCanSetSchedule: Date): void {
-    this.minDateCanSetSchedule = minDateCanSetSchedule;
+  getCloseRegisterTime() {
+    return this.tourModel.closeRegisterTime;
   }
 }

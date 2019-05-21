@@ -67,8 +67,10 @@ export class AddTourComponent implements OnInit {
 
     const now = new Date();
     this.today = this.dateStructService.getDateStructFromDate(now);
-    this.startDate = this.dateStructService.getDateStructFromDate(now);
-    this.endDate = this.dateStructService.getDateStructFromDate(new Date(now.getTime() + (1000 * 60 * 60 * 24)));
+    this.startDate = this.dateStructService.getDateStructFromDate(new Date(now.getTime() + (7 * (1000 * 60 * 60 * 24))));
+    this.endDate = this.dateStructService.getDateStructFromDate(new Date(now.getTime() + (7 * (1000 * 60 * 60 * 24))));
+    this.feedbackDeadline = this.dateStructService.getDateStructFromDate(now);
+    this.registerDeadline = this.dateStructService.getDateStructFromDate(new Date(now.getTime() + (1 * (1000 * 60 * 60 * 24))));
 
     if (this.provinceService.allProvinceCity.length === 0) {
       this.provinceService.getAllProvinceCity().subscribe((res) => {
@@ -88,6 +90,12 @@ export class AddTourComponent implements OnInit {
         };
       });
     });
+
+    this.addTourService.hasRemoveSchedule.subscribe((index) => {
+      if (this.tourModel.schedules && this.tourModel.schedules.length > index && index >= 0) {
+        this.tourModel.schedules.splice(index, 1);
+      }
+    });
   }
 
   buildAddLocationForm() {
@@ -102,7 +110,6 @@ export class AddTourComponent implements OnInit {
   selectProvince(province: ProvinceCity) {
     if (this.arrSelectedProvince.indexOf(province) === -1) {
       this.arrSelectedProvince.push(province);
-
       this.getLocationsInSelectedProvinces();
     }
   }
@@ -110,7 +117,6 @@ export class AddTourComponent implements OnInit {
   removeProvince(province: ProvinceCity) {
     if (this.arrSelectedProvince.indexOf(province) !== -1) {
       this.arrSelectedProvince.splice(this.arrSelectedProvince.indexOf(province), 1);
-
       this.getLocationsInSelectedProvinces();
     }
   }
@@ -213,6 +219,12 @@ export class AddTourComponent implements OnInit {
         || this.arrSelectedTourguide.length === 0) {
         this.showError(this.language.currentLanguage.addTourInputAllBefore);
       } else {
+        this.tourModel.beginTime = this.dateStructService.getDateFromDateTimeStruct(this.startDate, this.startTime);
+        this.tourModel.endTime = this.dateStructService.getDateFromDateTimeStruct(this.endDate, this.endTime);
+        this.tourModel.closeFeedbackTime = this.dateStructService.getDateFromDateTimeStruct(this.feedbackDeadline, this.feedbackTime);
+        this.tourModel.closeRegisterTime = this.dateStructService.getDateFromDateTimeStruct(this.registerDeadline, this.registerTime);
+        this.tourModel.schedules.push(new TourSchedule());
+        this.addTourService.setArrPerform(this.arrSelectedTourguide);
 
         this.stepperService.toNext();
       }

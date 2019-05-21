@@ -1,4 +1,4 @@
-<div class="flex-row flex-justify-end">
+<div class="flex-row flex-justify-end" (click)="removeSchedule()">
   <span class="fas fa-times-circle esc-btn"></span>
 </div>
 <div class="flex-col" *ngIf="!isFinishedInput">
@@ -9,7 +9,7 @@
     <div class="row-input flex-row flex-content-space-evenly">
       <div class="input-group">
         <input class="form-control" placeholder="yyyy-mm-dd" name="startDate" [(ngModel)]="startDate" ngbDatepicker
-          #startdate="ngbDatepicker" #modelstartdate="ngModel">
+          #startdate="ngbDatepicker" #modelstartdate="ngModel" [minDate]="minDate" [maxDate]="maxDate">
         <div class="input-group-append">
           <button class="btn btn-outline-secondary calendar" (click)="startdate.toggle()" type="button">
             <span><i class="fas fa-calendar-alt"></i></span>
@@ -71,8 +71,8 @@
     <div class="row-input">
       <div class="input-group">
         <select class="form-control">
-          <option selected>- {{language.currentLanguage.choose}}{{language.currentLanguage.addSchedulePerform}} -
-          </option>
+          <option selected>- {{language.currentLanguage.choose}}{{language.currentLanguage.addSchedulePerform}} -</option>
+          <option *ngFor="let perform of arrPerforms" [value]="perform._id">{{perform.displayName}}</option>
         </select>
         <div class="input-group-append">
           <button *ngIf="scheduleModel.performerIds.length > 1" class="btn btn-outline-secondary"
@@ -91,9 +91,11 @@
       {{language.currentLanguage.addScheduleCost}}
     </div>
     <div class="row-input flex-row">
-      <input type="text" class="form-control flex-1 flex-items-center row-first-input"
+      <input type="text" class="form-control flex-1 flex-items-center row-first-input" name="location"
+        [(ngModel)]="scheduleModel.location"
         [placeholder]="language.currentLanguage.enter + language.currentLanguage.addScheduleLocation">
-      <input type="number" class="form-control flex-1 flex-items-center row-second-input"
+      <input type="number" class="form-control flex-1 flex-items-center row-second-input" name="cost"
+        [(ngModel)]="scheduleModel.cost"
         [placeholder]="language.currentLanguage.enter + language.currentLanguage.addScheduleCost">
     </div>
   </div>
@@ -105,12 +107,12 @@
 <div class="flex-col schedule-review" *ngIf="isFinishedInput" (click)="isFinishedInput = false">
   <div class="flex-row">
     <div class="flex-1 schedule-title">
-      <!-- {{startDate.day}}/{{startDate.month}} -->
-      20/11/2010
+      {{startDate.day}}/{{startDate.month}}
+      <!-- 20/11/2010 -->
     </div>
     <div class="flex-1 schedule-title">
-      <!-- {{beginTime.hour}}:{{beginTime.minute}} - {{endTime.hour}}:{{endTime.minute}} -->
-      00:00 - 11:11
+      {{beginTime.hour}}:{{beginTime.minute}} - {{endTime.hour}}:{{endTime.minute}}
+      <!-- 00:00 - 11:11 -->
     </div>
     <div class="flex-2 schedule-title">
       {{scheduleModel.tasks.join(', ')}}
