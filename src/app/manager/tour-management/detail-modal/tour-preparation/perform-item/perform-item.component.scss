@@ -1,0 +1,37 @@
+@import 'src/styles.scss';
+
+:host {
+  .finished {
+    background-color: $SUCCESS;
+    box-shadow: 1px 1px 1px 1px green;
+  }
+  .preparing {
+    background-color: $WARNING;
+    box-shadow: 1px 1px 1px 1px rgb(211, 137, 0);
+  }
+  .wrapper {
+    border-radius: 0.25rem;
+    display: flex;
+    padding: 10px;
+    .left-avatar {
+      background-color: indianred;
+      width: 50px;
+      height: 50px;
+      background-size: cover;
+      border-radius: 50%;
+    }
+    .right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      padding-left: 10px;
+      .name {
+        color: blue;
+      }
+      span {
+        font-size: 17px;
+        font-weight: 600;
+      }
+    }
+  }
+}

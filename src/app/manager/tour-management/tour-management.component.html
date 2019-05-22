@@ -61,8 +61,8 @@
           <tr *ngFor="let tour of tours; let i = index">
             <td>{{i+1}}</td>
             <td><strong>{{tour.tourName}}</strong></td>
-            <td>{{tour.tourGuideId}}</td>
-            <td>{{tour.creationTime}}</td>
+            <td>{{tourGuides[i].firstName+' '+tourGuides[i].lastName}}</td>
+            <td>{{tour.creationTime | date:'h:mm\' a - d/M'}}</td>
             <td>{{tour.durationTime}}</td>
             <td class="tour-status" [ngClass]="{
                 'pending-text': tour.status === tourStatus.PENDING,

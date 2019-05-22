@@ -1,17 +1,40 @@
+@import 'src/styles.scss';
+
 .wrapper {
   background-color: wheat;
   span {
     font-size: 17px;
     b {
       font-weight: 600;
+      font-size: 17px;
     }
   }
-  .toggle-btn {
-    display: flex;
-    // justify-content: space-between;
-    padding: 10px;
-    .blank-space {
-      flex: 1 0 auto;
+  .preparation-item {
+    box-shadow: 1px 1px 1px 1px #333333;
+    margin-bottom: 5px;
+    border-radius: 0.25rem;
+    .toggle-btn {
+      display: flex;
+      padding: 10px;
+      .blank-space {
+        flex: 1 0 auto;
+      }
+      .fixed-width {
+        width: 170px;
+      }
+    }
+    .finished {
+      background-color: $SUCCESS;
+    }
+    .preparing {
+      background-color: $WARNING;
+    }
+    .block {
+      display: block;
+    }
+    .perform-item-list {
+      display: flex;
+      flex-wrap: wrap;
     }
   }
 }
