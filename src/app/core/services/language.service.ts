@@ -329,6 +329,12 @@ export class LanguageService {
     this.vnLanguage.addTourCover = 'Ảnh bìa';
     this.vnLanguage.addTourAddSchedule = 'Thêm kế hoạch chi tiết';
     this.vnLanguage.addTourInputAllBefore = 'Vui lòng nhập tất cả giá trị';
+    this.vnLanguage.addTourScheduleCost = 'Chi phí theo kế hoạch: ';
+    this.vnLanguage.addTourLimitMembers = 'Số thành viên tối đa';
+    this.vnLanguage.addTourRegisterCost = 'Chi phí đăng ký';
+    this.vnLanguage.addTourTourguide = 'Dẫn đoàn';
+    this.vnLanguage.addTourContact = 'Liên hệ';
+    this.vnLanguage.addTourPeople = 'người';
 
     // Add Schedule
     this.vnLanguage.addScheduleDay = 'Ngày';
@@ -347,6 +353,14 @@ export class LanguageService {
     this.vnLanguage.addScheduleAddPerform = 'Thêm người phụ trách';
     this.vnLanguage.addScheduleAddTask = 'Thêm nhiệm vụ';
     this.vnLanguage.addScheduleSelectOneBefore = 'Lựa chọn hiện tại chưa hoàn thành';
+
+    // Add Preparetion
+    this.vnLanguage.addPreparationItemName = 'Tên vật dụng';
+    this.vnLanguage.addPreparationAmount = 'Tổng số';
+    this.vnLanguage.addPreparationUnit = 'Đơn vị';
+    this.vnLanguage.addPreparationPerforms = 'Phụ trách';
+    this.vnLanguage.addPreparationToAll = 'Tất cả';
+    this.vnLanguage.addPreparationSelectPerform = 'Chỉ định phụ trách';
   }
 
   /**
@@ -657,6 +671,12 @@ export class LanguageService {
     this.enLanguage.addTourCover = 'Cover';
     this.enLanguage.addTourAddSchedule = 'Add Schedule';
     this.enLanguage.addTourInputAllBefore = 'Please input all field before';
+    this.enLanguage.addTourScheduleCost = 'Schedule Cost: ';
+    this.enLanguage.addTourLimitMembers = 'Limit of members';
+    this.enLanguage.addTourRegisterCost = 'Register Cost';
+    this.enLanguage.addTourTourguide = 'Tourguide';
+    this.enLanguage.addTourContact = 'Contact';
+    this.enLanguage.addTourPeople = 'people';
 
     // Add Schedule
     this.enLanguage.addScheduleDay = 'Day';
@@ -675,6 +695,14 @@ export class LanguageService {
     this.enLanguage.addScheduleAddTask = 'Add another task';
     this.enLanguage.addScheduleAddPerform = 'Add another perfrom';
     this.enLanguage.addScheduleSelectOneBefore = 'Current select has not been finished';
+
+    // Add Preparetion
+    this.enLanguage.addPreparationItemName = 'Item name';
+    this.enLanguage.addPreparationAmount = 'Amount';
+    this.enLanguage.addPreparationUnit = 'Unit';
+    this.enLanguage.addPreparationPerforms = 'Performs';
+    this.enLanguage.addPreparationToAll = 'All Members';
+    this.enLanguage.addPreparationSelectPerform = 'Select performs';
   }
 
   /**

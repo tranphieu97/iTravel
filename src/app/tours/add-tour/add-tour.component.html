@@ -1,7 +1,7 @@
 <div class="border-box tour-containner">
   <form class="flex-1">
     <div class="stepper" *ngIf="stepperService.getStep() === 1">
-      <h3>{{language.currentLanguage.addTourInfoTitle}}</h3>
+      <h3 class="page-title">{{language.currentLanguage.addTourInfoTitle}}</h3>
       <div class="form-group flex-row">
         <label class="row-label">{{language.currentLanguage.addTourName}}</label>
         <div class="row-input">
@@ -162,23 +162,70 @@
       </div>
     </div>
     <div class="stepper" *ngIf="stepperService.getStep() === 2">
-      <div class="flex-row">
-        <h3>{{language.currentLanguage.addTourSchedulesTitle}}</h3>
-      </div>
+      <h3 class="page-title">{{language.currentLanguage.addTourSchedulesTitle}}</h3>
       <div class="flex-row">
         <h4>{{language.currentLanguage.addTourAddSchedule}} {{language.currentLanguage.from}}
           {{startDate.day}}/{{startDate.month}} {{language.currentLanguage.to}} {{endDate.day}}/{{endDate.month}}</h4>
       </div>
       <div class="form-group flex-row">
-        <app-add-schedule *ngFor="let schedule of tourModel.schedules; let i = index" [scheduleModel]="schedule" [index]="i"></app-add-schedule>
+        <app-add-schedule *ngFor="let schedule of tourModel.schedules; let i = index" [scheduleModel]="schedule"
+          [index]="i"></app-add-schedule>
       </div>
-      <div class="flex-row flex-justify-end">
+      <div class="flex-row flex-justify-space-between flex-align-center">
+        <h4>
+          {{language.currentLanguage.addTourScheduleCost}}
+        </h4>
         <input type="button" (click)="addShedule()" [value]="language.currentLanguage.addTourAddSchedule"
           class="btn btn-warning" style="width: fit-content;">
       </div>
     </div>
     <div class="stepper" *ngIf="stepperService.getStep() === 3">
-      <h3>{{language.currentLanguage.addTourPreparationTitle}}</h3>
+      <h3 class="page-title">{{language.currentLanguage.addTourPreparationTitle}}</h3>
+      <div class="form-group flex-row">
+        <label class="row-label">
+          {{language.currentLanguage.addTourTourguide}}
+        </label>
+        <div class="row-input">
+          <select class="form-control">
+            <option *ngFor="let tourguide of arrSelectedTourguide" [value]="tourguide._id">
+              {{tourguide.displayName}} ({{tourguide.username}})
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group flex-row">
+        <label class="row-label">
+          {{language.currentLanguage.addTourContact}}
+        </label>
+        <div class="row-input">
+          <input type="text" class="form-control">
+        </div>
+      </div>
+      <div class="form-group flex-row">
+        <label class="row-label">
+          {{language.currentLanguage.addTourLimitMembers}}
+        </label>
+        <div class="row-input input-group">
+          <input type="number" class="form-control">
+          <div class="input-group-append">
+            <span class="input-group-text">{{language.currentLanguage.addTourPeople}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group flex-row">
+        <label class="row-label">
+          {{language.currentLanguage.addTourRegisterCost}}
+        </label>
+        <div class="row-input input-group">
+          <input type="number" class="form-control" name="cost">
+          <div class="input-group-append">
+            <span class="input-group-text">.VND</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex-col">
+        <app-add-preparation></app-add-preparation>
+      </div>
     </div>
   </form>
   <div *ngIf="errorMess !== ''" class="alert alert-danger" style="margin-top: 5px">

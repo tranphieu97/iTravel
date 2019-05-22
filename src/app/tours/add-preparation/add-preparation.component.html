@@ -1,0 +1,50 @@
+<div class="flex-row flex-justify-end">
+  <span class="fas fa-times-circle esc-btn"></span>
+</div>
+<div class="flex-col">
+  <div class="flex-row form-group">
+    <div class="row-label">
+      {{language.currentLanguage.addPreparationItemName}}
+    </div>
+    <div class="row-input">
+      <input type="text" class="form-control" name="item-name" [(ngModel)]="preparationModel.itemName">
+    </div>
+  </div>
+  <div class="flex-row">
+    <div class="row-label">
+      {{language.currentLanguage.addPreparationAmount}}
+    </div>
+    <div class="row-input form-group flex-row">
+      <div class="flex-1 ">
+        <input type="number" class="form-control">
+      </div>
+      <div class="flex-1">
+        <select class="form-control">
+          <option> Cái</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="flex-row">
+    <div class="row-label">
+      {{language.currentLanguage.addPreparationPerforms}}
+    </div>
+    <div class="row-input flex-row form-check">
+      <div class="form-check flex-1">
+        <input class="form-check-input" type="radio" name="performs" value="toAll" checked>
+        <label class="form-check-label" for="exampleRadios1">
+          {{language.currentLanguage.addPreparationToAll}}
+        </label>
+      </div>
+      <div class="form-check flex-1">
+        <input class="form-check-input" type="radio" name="performs" value="select">
+        <label class="form-check-label" for="exampleRadios1">
+          {{language.currentLanguage.addPreparationSelectPerform}}
+        </label>
+      </div>
+    </div>
+  </div>
+  <div>
+
+  </div>
+</div>

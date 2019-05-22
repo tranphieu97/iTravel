@@ -53,8 +53,13 @@ export class AddScheduleComponent implements OnInit {
   }
 
   setupDefaultView() {
-    this.scheduleModel.tasks.push(this.DEFAULT_OPTION);
-    this.scheduleModel.performerIds.push(this.DEFAULT_OPTION);
+    if (this.scheduleModel.tasks.length === 0) {
+      this.scheduleModel.tasks.push(this.DEFAULT_OPTION);
+    }
+
+    if (this.scheduleModel.performerIds.length === 0) {
+      this.scheduleModel.performerIds.push(this.DEFAULT_OPTION);
+    }
 
     this.startDate = this.dateStructService.getDateStructFromDate(this.addTourService.getBeginTime());
     this.maxDate = this.dateStructService.getDateStructFromDate(this.addTourService.getEndTime());

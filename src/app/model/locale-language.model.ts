@@ -302,6 +302,12 @@ export class LocaleLanguage {
     addTourCover: string;
     addTourAddSchedule: string;
     addTourInputAllBefore: string;
+    addTourScheduleCost: string;
+    addTourLimitMembers: string;
+    addTourRegisterCost: string;
+    addTourTourguide: string;
+    addTourContact: string;
+    addTourPeople: string;
 
     // Add Schedule
     addScheduleDay: string;
@@ -320,6 +326,14 @@ export class LocaleLanguage {
     addScheduleAddTask: string;
     addScheduleAddPerform: string;
     addScheduleSelectOneBefore: string;
+
+    // Add Preparetion
+    addPreparationItemName: string;
+    addPreparationAmount: string;
+    addPreparationUnit: string;
+    addPreparationPerforms: string;
+    addPreparationToAll: string;
+    addPreparationSelectPerform: string;
 
     constructor() { }
 }

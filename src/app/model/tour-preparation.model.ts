@@ -12,20 +12,28 @@ export class TourPreparation {
   public note: string;
   public isActive: Boolean;
 
-  constructor(
-    itemName: string,
-    amount: number,
-    unit: string,
-    performers: TourPreparationPerformer[],
-    deadline: Date,
-    note: string) {
-    this.itemName = itemName;
-    this.amount = amount;
-    this.unit = unit;
-    this.performers = performers;
+  // constructor(
+  //   itemName: string,
+  //   amount: number,
+  //   unit: string,
+  //   performers: TourPreparationPerformer[],
+  //   deadline: Date,
+  //   note: string) {
+  //   this.itemName = itemName;
+  //   this.amount = amount;
+  //   this.unit = unit;
+  //   this.performers = performers;
+  //   this.status = 'PREPARING';
+  //   this.deadline = deadline;
+  //   this.note = note;
+  //   this.isActive = true;
+  // }
+  constructor() {
+    this.itemName = '';
+    this.amount = 0;
+    this.unit = '';
+    this.performers = [];
     this.status = 'PREPARING';
-    this.deadline = deadline;
-    this.note = note;
     this.isActive = true;
   }
 }

@@ -223,13 +223,18 @@ export class AddTourComponent implements OnInit {
         this.tourModel.endTime = this.dateStructService.getDateFromDateTimeStruct(this.endDate, this.endTime);
         this.tourModel.closeFeedbackTime = this.dateStructService.getDateFromDateTimeStruct(this.feedbackDeadline, this.feedbackTime);
         this.tourModel.closeRegisterTime = this.dateStructService.getDateFromDateTimeStruct(this.registerDeadline, this.registerTime);
-        this.tourModel.schedules.push(new TourSchedule());
         this.addTourService.setArrPerform(this.arrSelectedTourguide);
+
+        if (this.tourModel.schedules.length === 0) {
+          this.tourModel.schedules.push(new TourSchedule());
+        }
 
         this.stepperService.toNext();
       }
     } else if (this.stepperService.getStep() === 2) {
-
+      this.stepperService.toNext();
+    } else if (this.stepperService.getStep() === 3) {
+      
     }
   }
 }
