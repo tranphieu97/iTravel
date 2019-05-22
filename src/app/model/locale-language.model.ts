@@ -334,6 +334,8 @@ export class LocaleLanguage {
     addPreparationPerforms: string;
     addPreparationToAll: string;
     addPreparationSelectPerform: string;
+    addPreparationDeadline: string;
+    addPreparationNotes: string;
 
     constructor() { }
 }

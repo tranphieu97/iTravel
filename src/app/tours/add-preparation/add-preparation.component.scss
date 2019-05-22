@@ -19,6 +19,16 @@
     cursor: pointer;
     opacity: 0.7;
   }
+
+  .preparation-review {
+    cursor: pointer;
+
+    .preparation-title {
+      font-size: 16px;
+      font-weight: 600;
+      opacity: 0.7;
+    }
+  }
 }
 
 :host:hover {

@@ -217,7 +217,9 @@ export class AddTourComponent implements OnInit {
       if (this.tourModel.tourName.trim() === '' || this.tourModel.description.trim() === ''
         || this.arrSelectedLocation.length === 0
         || this.arrSelectedTourguide.length === 0) {
-        this.showError(this.language.currentLanguage.addTourInputAllBefore);
+        // this.showError(this.language.currentLanguage.addTourInputAllBefore);
+
+        this.stepperService.toNext();
       } else {
         this.tourModel.beginTime = this.dateStructService.getDateFromDateTimeStruct(this.startDate, this.startTime);
         this.tourModel.endTime = this.dateStructService.getDateFromDateTimeStruct(this.endDate, this.endTime);

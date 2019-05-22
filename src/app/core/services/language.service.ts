@@ -353,6 +353,8 @@ export class LanguageService {
     this.vnLanguage.addScheduleAddPerform = 'Thêm người phụ trách';
     this.vnLanguage.addScheduleAddTask = 'Thêm nhiệm vụ';
     this.vnLanguage.addScheduleSelectOneBefore = 'Lựa chọn hiện tại chưa hoàn thành';
+    this.vnLanguage.addPreparationDeadline = 'Hạn chót';
+    this.vnLanguage.addPreparationNotes = 'Ghi chú';
 
     // Add Preparetion
     this.vnLanguage.addPreparationItemName = 'Tên vật dụng';
@@ -703,6 +705,8 @@ export class LanguageService {
     this.enLanguage.addPreparationPerforms = 'Performs';
     this.enLanguage.addPreparationToAll = 'All Members';
     this.enLanguage.addPreparationSelectPerform = 'Select performs';
+    this.enLanguage.addPreparationDeadline = 'Deadline';
+    this.enLanguage.addPreparationNotes = 'Notes';
   }
 
   /**
