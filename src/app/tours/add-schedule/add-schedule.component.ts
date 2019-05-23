@@ -20,7 +20,6 @@ export class AddScheduleComponent implements OnInit {
   public startDate: NgbDate;
   public beginTime: NgbTimeStruct = { hour: 0, minute: 0, second: 0 };
   public endTime: NgbTimeStruct = { hour: 0, minute: 0, second: 0 };
-  public arrTaskNote: Array<string>;
   public arrPerforms: Array<any>;
 
   public minDate: NgbDate;
@@ -28,6 +27,9 @@ export class AddScheduleComponent implements OnInit {
 
   private isFinishedInput: Boolean = false;
   private isPickedCurrentTask: Boolean = true;
+
+  public finishedStartDate: Date;
+  public finishedEndDate: Date;
 
   constructor(public language: LanguageService, private timepickerConfig: NgbTimepickerConfig, private modal: NgbModal,
     private addTourService: AddTourService, private dateStructService: DateStructService) {
@@ -39,11 +41,10 @@ export class AddScheduleComponent implements OnInit {
   }
 
   addAnotherToArr(arr: Array<any>) {
-    if (arr.length > 0 && arr[arr.length - 1] !== this.DEFAULT_OPTION) {
+    if (arr.length > 0 && arr[arr.length - 1].trim() !== '') {
       this.isPickedCurrentTask = true;
 
-      arr.push(this.DEFAULT_OPTION);
-      this.arrTaskNote.push('');
+      arr.push('');
     } else {
       this.isPickedCurrentTask = false;
       setTimeout(() => {
@@ -54,11 +55,11 @@ export class AddScheduleComponent implements OnInit {
 
   setupDefaultView() {
     if (this.scheduleModel.tasks.length === 0) {
-      this.scheduleModel.tasks.push(this.DEFAULT_OPTION);
+      this.scheduleModel.tasks.push('');
     }
 
     if (this.scheduleModel.performerIds.length === 0) {
-      this.scheduleModel.performerIds.push(this.DEFAULT_OPTION);
+      this.scheduleModel.performerIds.push('');
     }
 
     this.startDate = this.dateStructService.getDateStructFromDate(this.addTourService.getBeginTime());
@@ -66,29 +67,12 @@ export class AddScheduleComponent implements OnInit {
     this.minDate = this.dateStructService.getDateStructFromDate(this.addTourService.getCloseRegisterTime());
 
     this.arrPerforms = this.addTourService.getArrPerform();
-
-    this.arrTaskNote = [];
-  }
-
-  setIndexValue(arr: Array<any>, index: number, value: any) {
-    try {
-      if (index > -1 && index < arr.length) {
-        arr[index] = value;
-      }
-
-      if (value !== this.DEFAULT_OPTION) {
-        this.isPickedCurrentTask = true;
-      }
-    } catch (ex) {
-      console.log(ex);
-    }
   }
 
   removeItem(arr: Array<any>, index: number) {
     try {
       if (arr.length > 1 && arr.length > index && index > -1) {
         arr.splice(index, 1);
-        this.arrTaskNote.slice(index, 1);
       }
     } catch (ex) {
       console.log(ex);
@@ -99,6 +83,15 @@ export class AddScheduleComponent implements OnInit {
     this.addTourService.hasRemoveSchedule.next(this.index);
   }
 
+  onChangeTime() {
+    try {
+      this.scheduleModel.beginTime = this.dateStructService.getDateFromDateTimeStruct(this.startDate, this.beginTime);
+      this.scheduleModel.endTime = this.dateStructService.getDateFromDateTimeStruct(this.startDate, this.endTime);
+    } catch (ex) {
+      console.log(ex);
+    }
+  }
+
   finishSchedule() {
     if (this.scheduleModel.tasks[this.scheduleModel.tasks.length - 1] === this.DEFAULT_OPTION) {
       this.isPickedCurrentTask = false;
@@ -106,6 +99,7 @@ export class AddScheduleComponent implements OnInit {
 
     else {
       this.isFinishedInput = true;
+      console.log(this.scheduleModel);
     }
   }
 }

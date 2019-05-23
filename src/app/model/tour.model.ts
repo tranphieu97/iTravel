@@ -25,6 +25,7 @@ export class Tour {
     public preparations: TourPreparation[];
     public feedbacks: TourFeedback[];
     public members: TourMember[];
+    public cover: string;
 
     constructor() {
         this.tourName = '';
@@ -35,5 +36,6 @@ export class Tour {
         this.preparations = [];
         this.feedbacks = [];
         this.members = [];
+        this.cover = '';
     }
 }

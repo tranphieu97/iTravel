@@ -17,13 +17,26 @@
         </div>
       </div>
       <div class="form-group flex-row">
+        <label class="row-label">{{language.currentLanguage.addTourCover}}</label>
+        <div class="row-input flex-row flex-justify-end">
+          <input type="button" [value]="language.currentLanguage.enter + language.currentLanguage.addTourCover"
+            class="btn btn-warning" style="width: fit-content;" (click)="inputFile.click()"
+            *ngIf="tourModel.cover === ''">
+          <input type="file" #inputFile style="display: none;" (change)="onImagePicked($event)">
+          <div class="flex-1 img-layout" *ngIf="tourModel.cover.length > 0">
+            <img [src]="tourModel.cover" alt="review">
+            <span class="fas fa-times-circle esc-btn" (click)="removeCover()"></span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group flex-row">
         <label class="row-label">{{language.currentLanguage.addTourBeginTime}}</label>
         <div class="row-input flex-row">
           <div class="flex-1 flex-items-center">
             <div class="input-group">
               <input class="form-control" placeholder="yyyy-mm-dd" name="startDate" [(ngModel)]="startDate"
                 [minDate]="today" (ngModelChange)="validateStartEndDate()" ngbDatepicker #startdate="ngbDatepicker"
-                #modalstartdate="ngModel">
+                #modalstartdate="ngModel" readonly>
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar" (click)="startdate.toggle()" type="button">
                   <span><i class="fas fa-calendar-alt"></i></span>
@@ -42,7 +55,7 @@
           <div class="flex-1 flex-items-center">
             <div class="input-group">
               <input class="form-control" placeholder="yyyy-mm-dd" name="endDate" [(ngModel)]="endDate" ngbDatepicker
-                [minDate]="startDate" #enddate="ngbDatepicker" #modalenddate="ngModel">
+                [minDate]="startDate" #enddate="ngbDatepicker" #modalenddate="ngModel" readonly>
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar" (click)="enddate.toggle()" type="button">
                   <span><i class="fas fa-calendar-alt"></i></span>
@@ -61,7 +74,8 @@
           <div class="flex-1 flex-items-center">
             <div class="input-group">
               <input class="form-control" placeholder="yyyy-mm-dd" name="deadline" [(ngModel)]="feedbackDeadline"
-                ngbDatepicker [maxDate]="startDate" #feedbackdeadline="ngbDatepicker" #modalfeedbackDeadline="ngModel">
+                readonly ngbDatepicker [maxDate]="startDate" #feedbackdeadline="ngbDatepicker"
+                #modalfeedbackDeadline="ngModel">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar" (click)="feedbackdeadline.toggle()" type="button">
                   <span><i class="fas fa-calendar-alt"></i></span>
@@ -79,7 +93,7 @@
         <div class="row-input flex-row">
           <div class="flex-1 flex-items-center">
             <div class="input-group">
-              <input class="form-control" placeholder="yyyy-mm-dd" name="register-deadline"
+              <input class="form-control" placeholder="yyyy-mm-dd" name="register-deadline" readonly
                 [(ngModel)]="registerDeadline" ngbDatepicker [maxDate]="startDate" #registerdeadline="ngbDatepicker"
                 #modalregisterdeadline="ngModel">
               <div class="input-group-append">
@@ -223,8 +237,18 @@
           </div>
         </div>
       </div>
-      <div class="flex-col">
+      <div class="flex-row">
+        <label class="row-label">
+          {{language.currentLanguage.addTourItemPreparation}}
+        </label>
+        <div class="row-input"></div>
+      </div>
+      <div class="flex-col form-group">
         <app-add-preparation></app-add-preparation>
+      </div>
+      <div class="flex-row flex-justify-end">
+        <input type="button" [value]="language.currentLanguage.addTourAddPrepataion" class="btn btn-warning"
+          style="width: fit-content;">
       </div>
     </div>
   </form>

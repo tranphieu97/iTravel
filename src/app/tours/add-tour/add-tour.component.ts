@@ -51,6 +51,8 @@ export class AddTourComponent implements OnInit {
 
   public tourModel: Tour;
 
+  public coverFile: File = null;
+
   constructor(public language: LanguageService, private timepickerConfig: NgbTimepickerConfig,
     private provinceService: ProvinceCityService, private serverService: ServerService, private modal: NgbModal,
     private formBuilder: FormBuilder, public stepperService: StepperService, private dateStructService: DateStructService,
@@ -204,6 +206,25 @@ export class AddTourComponent implements OnInit {
     this.modal.open(contentId, { ariaLabelledBy: 'modal-basic-title' });
   }
 
+  onImagePicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      this.tourModel.cover = reader.result.toString();
+    };
+    reader.readAsDataURL(file);
+    this.coverFile = file;
+
+    // reset the <input> file for the next time
+    (event.target as HTMLInputElement).value = '';
+  }
+
+  removeCover() {
+    this.coverFile = null;
+    this.tourModel.cover = '';
+  }
+
   showError(mess: string) {
     this.errorMess = mess;
 
@@ -215,11 +236,9 @@ export class AddTourComponent implements OnInit {
   validatePage() {
     if (this.stepperService.getStep() === 1) {
       if (this.tourModel.tourName.trim() === '' || this.tourModel.description.trim() === ''
-        || this.arrSelectedLocation.length === 0
-        || this.arrSelectedTourguide.length === 0) {
-        // this.showError(this.language.currentLanguage.addTourInputAllBefore);
-
-        this.stepperService.toNext();
+        || this.arrSelectedLocation.length === 0 || this.arrSelectedTourguide.length === 0
+        || this.tourModel.cover === '') {
+        this.showError(this.language.currentLanguage.addTourInputAllBefore);
       } else {
         this.tourModel.beginTime = this.dateStructService.getDateFromDateTimeStruct(this.startDate, this.startTime);
         this.tourModel.endTime = this.dateStructService.getDateFromDateTimeStruct(this.endDate, this.endTime);

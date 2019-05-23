@@ -9,7 +9,7 @@
     <div class="row-input flex-row flex-content-space-evenly">
       <div class="input-group">
         <input class="form-control" placeholder="yyyy-mm-dd" name="startDate" [(ngModel)]="startDate" ngbDatepicker
-          #startdate="ngbDatepicker" #modelstartdate="ngModel" [minDate]="minDate" [maxDate]="maxDate">
+          #startdate="ngbDatepicker" #modelstartdate="ngModel" [minDate]="minDate" [maxDate]="maxDate" readonly>
         <div class="input-group-append">
           <button class="btn btn-outline-secondary calendar" (click)="startdate.toggle()" type="button">
             <span><i class="fas fa-calendar-alt"></i></span>
@@ -24,9 +24,9 @@
     </div>
     <div class="row-input flex-row flex-content-space-evenly flex-items-center">
       <span>{{language.currentLanguage.from}}</span>
-      <ngb-timepicker name="beginTime" [(ngModel)]="beginTime"></ngb-timepicker>
+      <ngb-timepicker name="beginTime" [(ngModel)]="beginTime" (change)="onChangeTime()"></ngb-timepicker>
       <span>{{language.currentLanguage.to}}</span>
-      <ngb-timepicker name="endTime" [(ngModel)]="endTime"></ngb-timepicker>
+      <ngb-timepicker name="endTime" [(ngModel)]="endTime" (change)="onChangeTime()"></ngb-timepicker>
     </div>
   </div>
   <div class="form-group flex-row">
@@ -34,27 +34,15 @@
       {{language.currentLanguage.addScheduleKindof}}
     </div>
     <div class="row-input flex-col">
-      <form class="flex-row flex-1 more-select-row" *ngFor="let task of scheduleModel.tasks; let i = index">
-        <select (change)="setIndexValue(scheduleModel.tasks, i, $event.target.value)" [value]="scheduleModel.tasks[i]"
-          class="form-control flex-1 flex-items-center row-first-input">
-          <option value="SELECT_AN_OPTION">-
-            {{language.currentLanguage.choose}}{{language.currentLanguage.addScheduleKindof}} -</option>
-          <option value="Moving">{{language.currentLanguage.addScheduleKindMoving}}</option>
-          <option value="Eating">{{language.currentLanguage.addScheduleKindEating}}</option>
-          <option value="Visiting">{{language.currentLanguage.addScheduleKindVisiting}}</option>
-          <option value="Relaxing">{{language.currentLanguage.addScheduleKindRelaxing}}</option>
-          <option value="Freedom">{{language.currentLanguage.addScheduleKindFreedom}}</option>
-          <option value="Others">{{language.currentLanguage.addScheduleKindOthers}}</option>
-        </select>
-        <div class="input-group flex-1 flex-items-center row-second-input">
-          <input [(ngModel)]="arrTaskNote[i]" name="notes" type="text" class="form-control"
-            [placeholder]="language.currentLanguage.addScheduleNote">
-          <div class="input-group-append">
-            <button (click)="removeItem(scheduleModel.tasks, i)" *ngIf="scheduleModel.tasks.length > 1"
-              class="btn btn-outline-secondary" type="button">X</button>
-          </div>
+      <div class="flex-row more-select-row input-group" *ngFor="let task of scheduleModel.tasks; let i = index">
+        <input type="text" class="form-control" name="task" [value]="scheduleModel.tasks[i]"
+          (change)="scheduleModel.tasks[i] = $event.target.value"
+          [placeholder]="language.currentLanguage.enter + language.currentLanguage.addScheduleKindof">
+        <div class="input-group-append">
+          <button (click)="removeItem(scheduleModel.tasks, i)" *ngIf="scheduleModel.tasks.length > 1"
+            class="btn btn-outline-secondary" type="button">X</button>
         </div>
-      </form>
+      </div>
     </div>
   </div>
   <div class="flex-row flex-justify-end">
@@ -68,21 +56,14 @@
     <div class="row-label">
       {{language.currentLanguage.addSchedulePerform}}
     </div>
-    <div class="row-input">
+    <div class="row-input flex-col">
       <div class="input-group">
-        <select class="form-control">
-          <option selected>- {{language.currentLanguage.choose}}{{language.currentLanguage.addSchedulePerform}} -</option>
+        <select class="form-control" [(ngModel)]="scheduleModel.performerIds" multiple style="height: 65px;">
           <option *ngFor="let perform of arrPerforms" [value]="perform._id">{{perform.displayName}}</option>
         </select>
-        <div class="input-group-append">
-          <button *ngIf="scheduleModel.performerIds.length > 1" class="btn btn-outline-secondary"
-            type="button">X</button>
-        </div>
       </div>
+      <small>{{language.currentLanguage.addTourNoteSelectMore}}</small>
     </div>
-  </div>
-  <div class="flex-row flex-justify-end">
-    <span class="link-add-more">+ {{language.currentLanguage.addScheduleAddPerform}}</span>
   </div>
   <div class="form-group flex-row">
     <div class="row-label">
@@ -99,6 +80,15 @@
         [placeholder]="language.currentLanguage.enter + language.currentLanguage.addScheduleCost">
     </div>
   </div>
+  <div class="form-group flex-row">
+    <div class="row-label">
+      {{language.currentLanguage.addScheduleNote}}
+    </div>
+    <div class="row-input">
+      <input type="text" class="form-control" [(ngModel)]="scheduleModel.note"
+        [placeholder]="language.currentLanguage.enter + language.currentLanguage.addScheduleNote">
+    </div>
+  </div>
   <div class="flex-row flex-justify-end">
     <input type="button" class="form-control btn btn-outline-secondary" [value]="language.currentLanguage.ok"
       style="width: 75px;" (click)="finishSchedule()">
@@ -107,14 +97,12 @@
 <div class="flex-col schedule-review" *ngIf="isFinishedInput" (click)="isFinishedInput = false">
   <div class="flex-row">
     <div class="flex-1 schedule-title">
-      {{startDate.day}}/{{startDate.month}}
-      <!-- 20/11/2010 -->
+      {{scheduleModel.beginTime | date}}
     </div>
     <div class="flex-1 schedule-title">
-      {{beginTime.hour}}:{{beginTime.minute}} - {{endTime.hour}}:{{endTime.minute}}
-      <!-- 00:00 - 11:11 -->
+      {{scheduleModel.beginTime | date:'shortTime'}} - {{scheduleModel.endTime | date:'shortTime'}}
     </div>
-    <div class="flex-2 schedule-title">
+    <div class="flex-1 schedule-title">
       {{scheduleModel.tasks.join(', ')}}
     </div>
   </div>

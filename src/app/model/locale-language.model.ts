@@ -308,6 +308,8 @@ export class LocaleLanguage {
     addTourTourguide: string;
     addTourContact: string;
     addTourPeople: string;
+    addTourItemPreparation: string;
+    addTourAddPrepataion: string;
 
     // Add Schedule
     addScheduleDay: string;
@@ -326,6 +328,8 @@ export class LocaleLanguage {
     addScheduleAddTask: string;
     addScheduleAddPerform: string;
     addScheduleSelectOneBefore: string;
+    addScheduleInvalidData: string;
+    addScheduleNotes: string;
 
     // Add Preparetion
     addPreparationItemName: string;

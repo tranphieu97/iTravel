@@ -335,6 +335,8 @@ export class LanguageService {
     this.vnLanguage.addTourTourguide = 'Dẫn đoàn';
     this.vnLanguage.addTourContact = 'Liên hệ';
     this.vnLanguage.addTourPeople = 'người';
+    this.vnLanguage.addTourItemPreparation = 'Chuẩn bị vật dụng';
+    this.vnLanguage.addTourAddPrepataion = 'Thêm vật dụng';
 
     // Add Schedule
     this.vnLanguage.addScheduleDay = 'Ngày';
@@ -353,8 +355,8 @@ export class LanguageService {
     this.vnLanguage.addScheduleAddPerform = 'Thêm người phụ trách';
     this.vnLanguage.addScheduleAddTask = 'Thêm nhiệm vụ';
     this.vnLanguage.addScheduleSelectOneBefore = 'Lựa chọn hiện tại chưa hoàn thành';
-    this.vnLanguage.addPreparationDeadline = 'Hạn chót';
-    this.vnLanguage.addPreparationNotes = 'Ghi chú';
+    this.vnLanguage.addScheduleNotes = 'Ghi chú';
+
 
     // Add Preparetion
     this.vnLanguage.addPreparationItemName = 'Tên vật dụng';
@@ -363,6 +365,9 @@ export class LanguageService {
     this.vnLanguage.addPreparationPerforms = 'Phụ trách';
     this.vnLanguage.addPreparationToAll = 'Tất cả';
     this.vnLanguage.addPreparationSelectPerform = 'Chỉ định phụ trách';
+    this.vnLanguage.addPreparationDeadline = 'Hạn chót';
+    this.vnLanguage.addPreparationNotes = 'Ghi chú';
+
   }
 
   /**
@@ -679,6 +684,8 @@ export class LanguageService {
     this.enLanguage.addTourTourguide = 'Tourguide';
     this.enLanguage.addTourContact = 'Contact';
     this.enLanguage.addTourPeople = 'people';
+    this.enLanguage.addTourItemPreparation = 'Items Preparation';
+    this.enLanguage.addTourAddPrepataion = 'Add Item';
 
     // Add Schedule
     this.enLanguage.addScheduleDay = 'Day';
@@ -697,6 +704,8 @@ export class LanguageService {
     this.enLanguage.addScheduleAddTask = 'Add another task';
     this.enLanguage.addScheduleAddPerform = 'Add another perfrom';
     this.enLanguage.addScheduleSelectOneBefore = 'Current select has not been finished';
+    this.enLanguage.addScheduleInvalidData = 'Invalid Data, please try again';
+    this.enLanguage.addScheduleNotes = 'Notes';
 
     // Add Preparetion
     this.enLanguage.addPreparationItemName = 'Item name';
@@ -707,6 +716,7 @@ export class LanguageService {
     this.enLanguage.addPreparationSelectPerform = 'Select performs';
     this.enLanguage.addPreparationDeadline = 'Deadline';
     this.enLanguage.addPreparationNotes = 'Notes';
+
   }
 
   /**
