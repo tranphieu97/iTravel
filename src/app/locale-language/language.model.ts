@@ -349,6 +349,7 @@ export class Language {
     addTourPeople: string;
     addTourItemPreparation: string;
     addTourAddPrepataion: string;
+    addTourPerform: string;
   };
 
   // Add Schedule

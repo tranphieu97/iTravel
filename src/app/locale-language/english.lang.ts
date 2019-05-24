@@ -11,7 +11,8 @@ export const LangEnglish: Language = {
     prev: 'Previous page',
     from: 'From',
     to: 'To',
-    choose: 'Choose '
+    choose: 'Choose ',
+    invalidInputData: 'Input data is invalid'
   },
 
   // Layout
@@ -349,7 +350,8 @@ export const LangEnglish: Language = {
     addTourContact: 'Contact',
     addTourPeople: 'people',
     addTourItemPreparation: 'Items Preparation',
-    addTourAddPrepataion: 'Add Item'
+    addTourAddPrepataion: 'Add Item',
+    addTourPerform: 'Performs'
   },
 
   // Add Schedule

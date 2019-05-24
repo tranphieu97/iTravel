@@ -72,6 +72,7 @@ export class AddTourComponent implements OnInit {
       this.compLanguage = this.language.currentLanguage.compAddTour;
       this.commonLanguage = this.language.currentLanguage.common;
     });
+
     this.addTourService.setupTour();
     this.stepperService.setMaxStep(3);
 

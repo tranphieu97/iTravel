@@ -155,7 +155,7 @@
       </div>
       <div class="form-group flex-row">
         <label class="row-label">
-          {{compLanguage.addSchedulePerform}}
+          {{compLanguage.addTourPerform}}
         </label>
         <div class="row-input flex-col">
           <div class="row-input select-field">
@@ -213,7 +213,7 @@
         </label>
         <div class="row-input">
           <input type="text" class="form-control" [(ngModel)]="tourModel.contactNumber" name="contact"
-            [placeholder]="language.currentLanguage.enter + language.currentLanguage.addTourContact">
+            [placeholder]="commonLanguage.enter + compLanguage.addTourContact">
         </div>
       </div>
       <div class="form-group flex-row">
@@ -222,7 +222,7 @@
         </label>
         <div class="row-input input-group">
           <input type="number" class="form-control" [(ngModel)]="tourModel.memberLimit" name="limit-member"
-            [placeholder]="language.currentLanguage.enter + language.currentLanguage.addTourLimitMembers">
+            [placeholder]="commonLanguage.enter + compLanguage.addTourLimitMembers">
           <div class="input-group-append">
             <span class="input-group-text">{{compLanguage.addTourPeople}}</span>
           </div>
@@ -234,7 +234,7 @@
         </label>
         <div class="row-input input-group">
           <input type="number" class="form-control" name="cost" [(ngModel)]="tourModel.registerCost"
-            [placeholder]="language.currentLanguage.enter + language.currentLanguage.addTourRegisterCost">
+            [placeholder]="commonLanguage.enter + compLanguage.addTourRegisterCost">
           <div class="input-group-append">
             <span class="input-group-text">.VND</span>
           </div>

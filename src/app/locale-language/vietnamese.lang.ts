@@ -11,7 +11,8 @@ export const LangVietnamese: Language = {
     prev: 'Trang trước',
     from: 'Từ',
     to: 'Đến',
-    choose: 'Chọn '
+    choose: 'Chọn ',
+    invalidInputData: 'Dữ liệu nhập không đúng'
   },
 
   // Layout
@@ -346,7 +347,8 @@ export const LangVietnamese: Language = {
     addTourContact: 'Liên hệ',
     addTourPeople: 'người',
     addTourItemPreparation: 'Chuẩn bị vật dụng',
-    addTourAddPrepataion: 'Thêm vật dụng'
+    addTourAddPrepataion: 'Thêm vật dụng',
+    addTourPerform: 'Chịu trách nhiệm'
   },
 
   // Add Schedule
@@ -364,21 +366,21 @@ export const LangVietnamese: Language = {
     addScheduleCost: 'Chi phí',
     addScheduleLocation: 'Địa điểm',
     addScheduleNote: 'Ghi chú',
-    addScheduleAddTask: 'Add another task',
-    addScheduleAddPerform: 'Add another perfrom',
-    addScheduleSelectOneBefore: 'Current select has not been finished',
-    addScheduleInvalidData: 'Invalid Data, please try again',
-    addScheduleNotes: 'Notes'
+    addScheduleAddTask: 'Thêm công việc',
+    addScheduleAddPerform: 'Thêm người phụ trách',
+    addScheduleSelectOneBefore: 'Lựa chọn hiện tại chưa hoàn thành',
+    addScheduleInvalidData: 'Dữ liệu nhập không đúng, vui lòng thử lại',
+    addScheduleNotes: 'Ghi chú'
   },
 
   compAddPreparation: {
-    addPreparationItemName: 'Item name',
-    addPreparationAmount: 'Amount',
-    addPreparationUnit: 'Unit',
-    addPreparationPerforms: 'Performs',
-    addPreparationToAll: 'All Members',
-    addPreparationSelectPerform: 'Select performs',
-    addPreparationDeadline: 'Deadline',
-    addPreparationNotes: 'Notes'
+    addPreparationItemName: 'Tên Vật dụng',
+    addPreparationAmount: 'Tổng số',
+    addPreparationUnit: 'Đơn vị',
+    addPreparationPerforms: 'Người phụ trách',
+    addPreparationToAll: 'Tất cả thành viên',
+    addPreparationSelectPerform: 'Chỉ định phụ trách',
+    addPreparationDeadline: 'Hạn chót',
+    addPreparationNotes: 'Ghi chú'
   }
 };
