@@ -187,7 +187,7 @@
       </div>
       <div class="flex-row flex-justify-space-between flex-align-center">
         <h4>
-          {{language.currentLanguage.addTourScheduleCost}}
+          {{language.currentLanguage.addTourScheduleCost}} {{scheduleCost | currency:'VND'}}
         </h4>
         <input type="button" (click)="addShedule()" [value]="language.currentLanguage.addTourAddSchedule"
           class="btn btn-warning" style="width: fit-content;">
@@ -200,7 +200,7 @@
           {{language.currentLanguage.addTourTourguide}}
         </label>
         <div class="row-input">
-          <select class="form-control">
+          <select class="form-control" [(ngModel)]="tourModel.tourGuideId" name="tourguide-id">
             <option *ngFor="let tourguide of arrSelectedTourguide" [value]="tourguide._id">
               {{tourguide.displayName}} ({{tourguide.username}})
             </option>
@@ -212,7 +212,8 @@
           {{language.currentLanguage.addTourContact}}
         </label>
         <div class="row-input">
-          <input type="text" class="form-control">
+          <input type="text" class="form-control" [(ngModel)]="tourModel.contactNumber" name="contact"
+            [placeholder]="language.currentLanguage.enter + language.currentLanguage.addTourContact">
         </div>
       </div>
       <div class="form-group flex-row">
@@ -220,7 +221,8 @@
           {{language.currentLanguage.addTourLimitMembers}}
         </label>
         <div class="row-input input-group">
-          <input type="number" class="form-control">
+          <input type="number" class="form-control" [(ngModel)]="tourModel.memberLimit" name="limit-member"
+            [placeholder]="language.currentLanguage.enter + language.currentLanguage.addTourLimitMembers">
           <div class="input-group-append">
             <span class="input-group-text">{{language.currentLanguage.addTourPeople}}</span>
           </div>
@@ -231,7 +233,8 @@
           {{language.currentLanguage.addTourRegisterCost}}
         </label>
         <div class="row-input input-group">
-          <input type="number" class="form-control" name="cost">
+          <input type="number" class="form-control" name="cost" [(ngModel)]="tourModel.registerCost"
+            [placeholder]="language.currentLanguage.enter + language.currentLanguage.addTourRegisterCost">
           <div class="input-group-append">
             <span class="input-group-text">.VND</span>
           </div>
@@ -262,7 +265,33 @@
       (click)="validatePage()" [disabled]="stepperService.getStep() === stepperService.getMaxStep()">
   </div>
 </div>
-<div class="border-box tourguide-container">
+<div class="border-box tour-review-container">
+  <div class="flex-row tour-cover">
+    <div class="flex-1 img-layout" *ngIf="tourModel.cover.length > 0">
+      <img [src]="tourModel.cover">
+    </div>
+    <h3 class="tour-title" [ngClass]="{'picture-caption': tourModel.cover.length > 0}">
+      {{tourModel.tourName}}
+    </h3>
+  </div>
+  <div class="flex-row flex-items-center">
+    <span class="tour-location" *ngFor="let location of arrSelectedLocation">
+      <i class="fas fa-map-marker-alt"></i>{{location.locationName}}</span>
+  </div>
+  <div class="flex-row tour-desc">
+    <p class="tour-desc">{{tourModel.description}}</p>
+  </div>
+  <div class="flex-row">
+    <div class="flex-4">
+
+    </div>
+    <div class="flex-6">
+
+    </div>
+  </div>
+  <div>
+
+  </div>
 </div>
 
 <ng-template #addlocation let-modal>

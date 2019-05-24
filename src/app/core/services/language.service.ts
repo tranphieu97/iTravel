@@ -37,6 +37,7 @@ export class LanguageService {
     this.vnLanguage.from = 'Từ';
     this.vnLanguage.to = 'Đến';
     this.vnLanguage.choose = 'Chọn ';
+    this.vnLanguage.invalidInputData = 'Dữ liệu nhập vào không đúng';
 
     // Layout
     this.vnLanguage.tooltipNewPost = 'Thêm bài viết';
@@ -386,6 +387,7 @@ export class LanguageService {
     this.enLanguage.from = 'From';
     this.enLanguage.to = 'To';
     this.enLanguage.choose = 'Choose ';
+    this.enLanguage.invalidInputData = 'Input data is invalid';
 
     // Layout
     this.enLanguage.tooltipNewPost = 'New Post';

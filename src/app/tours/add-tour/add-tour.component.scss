@@ -1,149 +1,196 @@
-@import 'src/styles.scss';
+@import "src/styles.scss";
 
 :host {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: row;
+  flex-grow: 12;
+  flex-wrap: wrap;
+
+  .img-layout {
+    display: block;
+    position: relative;
+    padding: 5px;
+    border: 1px solid $SECONDARY;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    .esc-btn {
+      position: absolute;
+      right: -5px;
+      top: -5px;
+      cursor: pointer;
+    }
+  }
+
+  form {
+    overflow-y: scroll;
+    padding: 10px;
+  }
+
+  option,
+  select,
+  input {
+    font-size: 16px;
+  }
+
+  .tour-containner {
     display: flex;
-    height: 100%;
-    width: 100%;
+    flex: 7;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: auto;
+    height: 95%;
+
+    form input,
+    form label,
+    form textarea {
+      font-size: 16px;
+    }
+
+    ngb-timepicker {
+      margin: auto;
+    }
+
+    .stepper {
+      width: 100%;
+      height: 100%;
+
+      .page-title {
+        text-align: center;
+        color: $RED;
+        font-weight: 700;
+      }
+    }
+
+    .select-field {
+      display: flex;
+      flex-direction: row;
+      max-height: 140px;
+
+      select {
+        height: 140px;
+        margin-right: 5px;
+      }
+    }
+
+    .selected-field {
+      display: flex;
+      flex-direction: row;
+      align-content: flex-start;
+      flex-wrap: wrap;
+
+      height: 140px;
+      min-height: 140px;
+
+      padding: 5px;
+      border: 1px solid $SECONDARY;
+      overflow-y: auto;
+    }
+
+    .tag {
+      height: fit-content;
+      width: fit-content;
+
+      display: flex;
+      justify-content: center;
+
+      padding: 5px 5px;
+      margin: 2px;
+
+      background-color: lightgray;
+      font-size: 15px;
+      border-radius: 5px;
+
+      position: relative;
+
+      .esc-btn {
+        position: absolute;
+        top: -3px;
+        right: -3px;
+      }
+    }
+  }
+
+  .tour-review-container {
+    display: flex;
+    flex: 5;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 95%;
+    overflow-y: auto;
+
+    .tour-cover {
+      position: relative;
+      width: 100%;
+
+      img {
+        opacity: 0.9;
+      }
+
+      .tour-title {
+        font-weight: 700;
+        color: $RED;
+        font-size: 25px;
+        text-align: center;
+        width: 100%;
+      }
+
+      .picture-caption {
+        position: absolute;
+        top: 40%;
+        background-color: rgba(255, 255, 255, 0.5);
+        padding: 10px 0;
+      }
+    }
+
+    .tour-desc {
+      text-align: justify;
+      font-size: 14px;
+    }
+
+    .tour-location {
+      margin: 0 5px;
+      font-size: 16px;
+      font-weight: 600;
+
+      i {
+          padding-right: 3px;
+      }
+    }
+  }
+
+  .steps-control {
+    display: flex;
     flex-direction: row;
-    flex-grow: 12;
-    flex-wrap: wrap;
+    justify-content: flex-end;
+    margin-top: 10px;
+    align-self: flex-end !important;
 
-    .img-layout {
-        display: block;
-        position: relative;
-        padding: 5px;
-        border: 1px solid $SECONDARY;
-
-        img {
-            width: 100%;
-            height: auto;
-        }
-
-        .esc-btn {
-            position: absolute;
-            right: -5px;
-            top: -5px;
-            cursor: pointer;
-        }
+    input {
+      width: fit-content;
+      padding: 5px 10px;
+      margin: 0 10px;
+      font-size: 13px !important;
     }
-
-    form {
-        overflow-y: scroll;
-        padding: 10px;
-    }
-
-    option, select, input {
-        font-size: 16px;
-    }
-
-    .tour-containner {
-        display: flex;
-        flex: 7;
-        flex-direction: column;
-        justify-content: space-between;
-        overflow-y: auto;
-        height: 95%;
-
-        form input, form label, form textarea {
-            font-size: 16px;
-        }
-
-        ngb-timepicker {
-            margin: auto;
-        }
-
-        .stepper {
-            width: 100%;
-            height: 100%;
-
-            .page-title {
-                text-align: center;
-                color: $RED;
-                font-weight: 700;
-            }
-        }
-
-        .select-field {
-            display: flex;
-            flex-direction: row;
-            max-height: 140px;
-    
-            select {
-                height: 140px;
-                margin-right: 5px;
-            }
-        }
-    
-        .selected-field {
-            display: flex;
-            flex-direction: row;
-            align-content: flex-start;
-            flex-wrap: wrap;
-    
-            height: 140px;
-            min-height: 140px;
-    
-            padding: 5px;
-            border: 1px solid $SECONDARY;
-            overflow-y: auto;
-        }
-    
-        .tag {
-            height: fit-content;
-            width: fit-content;
-    
-            display: flex;
-            justify-content: center;
-    
-            padding: 5px 5px;
-            margin: 2px;
-    
-            background-color: lightgray;
-            font-size: 15px;
-            border-radius: 5px;
-
-            position: relative;
-
-            .esc-btn {
-                position: absolute;
-                top: -3px;
-                right: -3px;
-            }
-        }
-    }
-
-    .tourguide-container {
-        display: flex;
-        flex: 5;
-        flex-direction: column;
-        justify-content: stretch;
-        height: 95%;
-    }
-
-    .steps-control {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-        margin-top: 10px;
-        align-self: flex-end !important;
-
-        input {
-            width: fit-content;
-            padding: 5px 10px;
-            margin: 0 10px;
-            font-size: 13px !important;
-        }
-    }
+  }
 }
 
 .modal-body {
-    input, label, option {
-        font-size: 16px;
-    }
+  input,
+  label,
+  option {
+    font-size: 16px;
+  }
 
-    .error-mess {
-        color: red !important;
-        font-size: 13px;
-        margin-top: 5px;
-    }
+  .error-mess {
+    color: red !important;
+    font-size: 13px;
+    margin-top: 5px;
+  }
 }

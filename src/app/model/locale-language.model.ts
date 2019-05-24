@@ -9,6 +9,7 @@ export class LocaleLanguage {
     from: string;
     to: string;
     choose: string;
+    invalidInputData: string;
 
     // Layout
     tooltipNewPost: string;

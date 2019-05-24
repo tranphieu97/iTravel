@@ -12,7 +12,7 @@ import { DateStructService } from 'src/app/core/services/date-struct.service';
 })
 export class AddScheduleComponent implements OnInit {
 
-  private readonly DEFAULT_OPTION = 'SELECT_AN_OPTION';
+  private readonly DEFAULT_OPTION = '';
 
   @Input() scheduleModel: TourSchedule;
   @Input() index: number;
@@ -25,8 +25,9 @@ export class AddScheduleComponent implements OnInit {
   public minDate: NgbDate;
   public maxDate: NgbDate;
 
-  private isFinishedInput: Boolean = false;
-  private isPickedCurrentTask: Boolean = true;
+  public isFinishedInput: Boolean = false;
+  public isPickedCurrentTask: Boolean = true;
+  public isValidDate: Boolean = true;
 
   public finishedStartDate: Date;
   public finishedEndDate: Date;
@@ -87,19 +88,26 @@ export class AddScheduleComponent implements OnInit {
     try {
       this.scheduleModel.beginTime = this.dateStructService.getDateFromDateTimeStruct(this.startDate, this.beginTime);
       this.scheduleModel.endTime = this.dateStructService.getDateFromDateTimeStruct(this.startDate, this.endTime);
+      if (this.scheduleModel.beginTime > this.scheduleModel.endTime) {
+        this.isValidDate = false;
+      } else {
+        this.isValidDate = true;
+      }
     } catch (ex) {
       console.log(ex);
     }
   }
 
+  onChangeCost() {
+    this.addTourService.hasChangeCost.next();
+  }
+
   finishSchedule() {
+    this.onChangeTime();
     if (this.scheduleModel.tasks[this.scheduleModel.tasks.length - 1] === this.DEFAULT_OPTION) {
       this.isPickedCurrentTask = false;
-    }
-
-    else {
+    }  else if (this.isValidDate) {
       this.isFinishedInput = true;
-      console.log(this.scheduleModel);
     }
   }
 }

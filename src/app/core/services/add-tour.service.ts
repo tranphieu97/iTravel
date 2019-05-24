@@ -14,6 +14,7 @@ export class AddTourService {
 
   public hasRemoveSchedule: Subject<number>;
   public hasRemovePreparation: Subject<number>;
+  public hasChangeCost: Subject<any>;
 
   constructor() { }
 
@@ -32,6 +33,7 @@ export class AddTourService {
     this.tourModel = new Tour();
     this.hasRemoveSchedule = new Subject<number>();
     this.hasRemovePreparation = new Subject<number>();
+    this.hasChangeCost = new Subject<any>();
   }
 
   getBeginTime() {

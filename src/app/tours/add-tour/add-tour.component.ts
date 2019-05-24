@@ -52,6 +52,7 @@ export class AddTourComponent implements OnInit {
   public tourModel: Tour;
 
   public coverFile: File = null;
+  public scheduleCost: number;
 
   constructor(public language: LanguageService, private timepickerConfig: NgbTimepickerConfig,
     private provinceService: ProvinceCityService, private serverService: ServerService, private modal: NgbModal,
@@ -97,6 +98,14 @@ export class AddTourComponent implements OnInit {
       if (this.tourModel.schedules && this.tourModel.schedules.length > index && index >= 0) {
         this.tourModel.schedules.splice(index, 1);
       }
+    });
+
+    this.scheduleCost = 0;
+    this.addTourService.hasChangeCost.subscribe(() => {
+      this.scheduleCost = 0;
+      this.tourModel.schedules.forEach(schedule => {
+        this.scheduleCost = this.scheduleCost + schedule.cost;
+      });
     });
   }
 
