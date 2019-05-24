@@ -23,8 +23,8 @@
   </div>
 </div>
 <div class="noti-container" *ngIf="!userService.isLogin">
-  {{language.currentLanguage.notificationNeedLogin}}
+  {{compLanguage.notificationNeedLogin}}
 </div>
 <div class="noti-container" *ngIf="userService.isLogin && recentNotificationItems.length===0">
-  {{language.currentLanguage.notificationNoMessage}}
+  {{compLanguage.notificationNoMessage}}
 </div>

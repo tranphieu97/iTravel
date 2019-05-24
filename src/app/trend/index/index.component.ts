@@ -20,10 +20,13 @@ export class IndexComponent implements OnInit, OnDestroy {
   pieChartHasError: Boolean = false;
 
   theMostSearchKeyword: String = '';
+  compLanguage;
 
   constructor(private amchartServices: AmChartsService, private server: ServerService, public language: LanguageService) { }
 
   ngOnInit() {
+    this.compLanguage = this.language.currentLanguage.pageTrend;
+    this.language.hasChangeLanguage.subscribe(() => this.compLanguage = this.language.currentLanguage.pageTrend);
     this.pieChartEndDate = new Date(Date.now());
     this.pieChartStartDate = new Date(this.pieChartEndDate.getFullYear(),
       this.pieChartEndDate.getMonth(), this.pieChartEndDate.getDay() - 7);

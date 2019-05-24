@@ -30,7 +30,7 @@
                 <span class="input-group-text"><i class="fas fa-search"></i></span>
             </div>
             <input type="text" [(ngModel)]="searchBoxText" name="search" class="form-control"
-                [placeholder]="language.currentLanguage.headerSearch">
+                [placeholder]="compLanguage.headerSearch">
             <div class="input-group-append">
                 <span class="input-group-text"><i class="la la-close kt-quick-search__close"
                         style="display: none;"></i></span>
@@ -49,9 +49,9 @@
         <span ngbDropdownToggle><i class="fas fa-globe-asia"></i></span>
         <div ngbDropdownMenu>
             <a class="dropdown-item"
-                (click)="this.language.setVietnamese();">{{language.currentLanguage.headerVietnamese}}</a>
+                (click)="this.language.setVietnamese();">{{compLanguage.headerVietnamese}}</a>
             <a class="dropdown-item"
-                (click)="this.language.setEnglish();">{{language.currentLanguage.headerEnglish}}</a>
+                (click)="this.language.setEnglish();">{{compLanguage.headerEnglish}}</a>
         </div>
     </div>
 
@@ -61,26 +61,26 @@
 
     <div ngbDropdown *ngIf="user.isLogin" class="toolbar-icon-wide dropdown">
         <span ngbDropdownToggle>
-            {{language.currentLanguage.headerHi}} <strong>{{this.user.currentUser.fullName}}</strong>
+            {{compLanguage.headerHi}} <strong>{{this.user.currentUser.fullName}}</strong>
         </span>
         <img ngbDropdownToggle [src]="this.user.currentUser.avatar" id="user-avatar">
         <div ngbDropdownMenu id="user-dropdown">
             <a *ngIf="false" class="dropdown-item" [routerLink]="['/user/profile']"
-                routerLinkActive="router-link-active">{{language.currentLanguage.headerPersonalInfo}}</a>
+                routerLinkActive="router-link-active">{{compLanguage.headerPersonalInfo}}</a>
             <a class="dropdown-item" [routerLink]="['/user/posts']"
-                routerLinkActive="router-link-active">{{language.currentLanguage.headerUserContribution}}</a>
-            <a class="dropdown-item" (click)="this.user.logOut()">{{language.currentLanguage.headerLogOut}}</a>
+                routerLinkActive="router-link-active">{{compLanguage.headerUserContribution}}</a>
+            <a class="dropdown-item" (click)="this.user.logOut()">{{compLanguage.headerLogOut}}</a>
         </div>
     </div>
 
     <div ngbDropdown *ngIf="!user.isLogin" class="toolbar-icon-wide dropdown">
         <span ngbDropdownToggle id="login-span">
-            {{language.currentLanguage.headerHi}}
-            <strong>{{language.currentLanguage.headerQuestionToLogin}}</strong>
+            {{compLanguage.headerHi}}
+            <strong>{{compLanguage.headerQuestionToLogin}}</strong>
         </span>
         <div ngbDropdownMenu id="visiter-dropdown">
-            <a class="dropdown-item" [routerLink]="['/auth/login']">{{language.currentLanguage.headerLogin}}</a>
-            <a class="dropdown-item" [routerLink]="['/auth/register']">{{language.currentLanguage.headerRegister}}</a>
+            <a class="dropdown-item" [routerLink]="['/auth/login']">{{compLanguage.headerLogin}}</a>
+            <a class="dropdown-item" [routerLink]="['/auth/register']">{{compLanguage.headerRegister}}</a>
         </div>
     </div>
 </div>

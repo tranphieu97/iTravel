@@ -1,4 +1,12 @@
 export class Language {
+  /**
+   * phần ngôn ngữ cho component có dạng tiền tố 'comp' + 'tên component'
+   * phần ngôn ngữ cho module có dạng tiền tố 'page' + 'tên module'
+   * không cần ghi tiền tố phân biệt component như trước nữa,
+   * vd: 'postManagementTablePostCreationTime'
+   * giờ đã nằm trong compPostManagememt, có thể viết ngắn thành 'tablePostCreationTime'
+   */
+
   // Common
   common: {
     ok: string;

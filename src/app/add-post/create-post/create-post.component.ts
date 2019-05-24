@@ -24,7 +24,7 @@ export class CreatePostComponent implements OnInit {
   newImageFiles: { imgFile: File, contentId: string }[] = [];
   coverFile: File = null;
   // variable store current language
-  compLanguage = this.language.currentLanguage;
+  compLanguage = this.language.currentLanguage.compCreatePost;
   // variable store alert
   alertContent = '';
   // saved alert content
@@ -115,7 +115,7 @@ export class CreatePostComponent implements OnInit {
 
     // subscribe when change language
     this.language.hasChangeLanguage.asObservable().subscribe(() => {
-      this.compLanguage = this.language.currentLanguage;
+      this.compLanguage = this.language.currentLanguage.compCreatePost;
       this.changeLanguage();
     });
 

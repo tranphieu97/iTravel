@@ -26,10 +26,14 @@ export class FilterbyRegionComponent implements OnInit, OnDestroy {
 
   isReloadPieChart: Boolean = false;
 
+  compLanguage;
+
   constructor(private activatedRoute: ActivatedRoute, private route: Router, public language: LanguageService,
     private server: ServerService, private amchartServices: AmChartsService) { }
 
   ngOnInit() {
+    this.compLanguage = this.language.currentLanguage.compFilterbyRegion;
+    this.language.hasChangeLanguage.subscribe(() => this.compLanguage = this.language.currentLanguage.compFilterbyRegion);
     this.activatedRoute.params.subscribe((params) => {
       // 'part' is name of id attribute in region.routing.ts for this component
       this.regionID = params['part'];
@@ -87,13 +91,13 @@ export class FilterbyRegionComponent implements OnInit, OnDestroy {
   setRegionTitle() {
     switch (this.regionID) {
       case this.RegionPartParamID.TheNorth:
-        this.regionTitle = this.language.currentLanguage.regionTheNorth;
+        this.regionTitle = this.compLanguage.regionTheNorth;
         break;
       case this.RegionPartParamID.TheCentral:
-        this.regionTitle = this.language.currentLanguage.regionTheCentral;
+        this.regionTitle = this.compLanguage.regionTheCentral;
         break;
       case this.RegionPartParamID.TheSouth:
-        this.regionTitle = this.language.currentLanguage.regionTheSouth;
+        this.regionTitle = this.compLanguage.regionTheSouth;
         break;
     }
   }

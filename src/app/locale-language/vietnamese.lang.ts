@@ -1,6 +1,6 @@
 import { Language } from './language.model';
 
-export const vietnamese: Language = {
+export const LangVietnamese: Language = {
   // Common
   common: {
     ok: 'Ok',

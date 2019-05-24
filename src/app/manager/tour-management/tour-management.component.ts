@@ -17,6 +17,7 @@ export class TourManagementComponent implements OnInit {
   tours: Tour[];
   tourStatus: ConstTourStatus = new ConstTourStatus();
   tourGuides = [];
+  compLanguage;
 
   constructor(
     public language: LanguageService,

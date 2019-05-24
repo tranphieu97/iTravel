@@ -1,7 +1,7 @@
 <div class="content-box post-management">
   <div class="post-management-title">
     <h4>
-      {{language.currentLanguage.userPostManagementTitle}}
+      {{compLanguage.userPostManagementTitle}}
     </h4>
     <span (click)="refreshListPost()"><i class="fas fa-sync-alt"></i></span>
   </div>
@@ -10,30 +10,30 @@
       <form class="form-inline">
         <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="chosenKindOfPost">
           <label ngbButtonLabel class="btn-primary">
-            <input ngbButton (click)="filterListPostByPostStatus('ANY')" type="radio" [value]="FLAG_KIND_OF_POST.ALL"> {{language.currentLanguage.userPostManagementAllPost}}
+            <input ngbButton (click)="filterListPostByPostStatus('ANY')" type="radio" [value]="FLAG_KIND_OF_POST.ALL"> {{compLanguage.userPostManagementAllPost}}
           </label>
           <label ngbButtonLabel class="btn-success">
-            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.APPROVED)" type="radio" [value]="FLAG_KIND_OF_POST.APPROVED">{{language.currentLanguage.userPostManagementApproved}}
+            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.APPROVED)" type="radio" [value]="FLAG_KIND_OF_POST.APPROVED">{{compLanguage.userPostManagementApproved}}
           </label>
           <label ngbButtonLabel class="btn-warning">
-            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.PENDING)" type="radio" value="FLAG_KIND_OF_POST.PENDING">{{language.currentLanguage.userPostManagementPending}}
+            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.PENDING)" type="radio" value="FLAG_KIND_OF_POST.PENDING">{{compLanguage.userPostManagementPending}}
           </label>
           <label ngbButtonLabel class="btn-danger">
-            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.DENY)" type="radio" [value]="FLAG_KIND_OF_POST.DENIED">{{language.currentLanguage.userPostManagementDenied}}
+            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.DENY)" type="radio" [value]="FLAG_KIND_OF_POST.DENIED">{{compLanguage.userPostManagementDenied}}
           </label>
         </div>
 
         <div class="form-group">
-          <label class="control-title">{{language.currentLanguage.userPostManagementTablePostName}}:</label>
-          <input name="post-title" (input)="filterListPostByTypingKeyWord()" [(ngModel)]="searchKeyword" class="form-control" type="text" [placeholder]="language.currentLanguage.userPostManagementEnterPostTitle">
+          <label class="control-title">{{compLanguage.userPostManagementTablePostName}}:</label>
+          <input name="post-title" (input)="filterListPostByTypingKeyWord()" [(ngModel)]="searchKeyword" class="form-control" type="text" [placeholder]="compLanguage.userPostManagementEnterPostTitle">
         </div>
         <div class="form-group">
           <div ngbDropdown class="d-inline-block">
-            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{language.currentLanguage.userPostManagementPostTimeTitle}}</button>
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{compLanguage.userPostManagementPostTimeTitle}}</button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <button class="dropdown-item">{{language.currentLanguage.userPostManagementPostTimeOneWeek}}</button>
-              <button class="dropdown-item">{{language.currentLanguage.userPostManagementPostTimeOneMonth}}</button>
-              <button class="dropdown-item">{{language.currentLanguage.userPostManagementPostTimeAll}}</button>
+              <button class="dropdown-item">{{compLanguage.userPostManagementPostTimeOneWeek}}</button>
+              <button class="dropdown-item">{{compLanguage.userPostManagementPostTimeOneMonth}}</button>
+              <button class="dropdown-item">{{compLanguage.userPostManagementPostTimeAll}}</button>
             </div>
           </div>
         </div>
@@ -47,11 +47,11 @@
         <thead class="thead-light">
           <tr>
             <th scope="col">#</th>
-            <th scope="col">{{language.currentLanguage.userPostManagementTablePostName}}</th>
-            <th scope="col">{{language.currentLanguage.userPostManagementTablePostCreationTime}}</th>
-            <th scope="col">{{language.currentLanguage.userPostManagementTablePostCategories}}</th>
-            <th scope="col">{{language.currentLanguage.userPostManagementTablePostStatus}}</th>
-            <th scope="col" class="action-cell">{{language.currentLanguage.userPostManagementTableAction}}</th>
+            <th scope="col">{{compLanguage.userPostManagementTablePostName}}</th>
+            <th scope="col">{{compLanguage.userPostManagementTablePostCreationTime}}</th>
+            <th scope="col">{{compLanguage.userPostManagementTablePostCategories}}</th>
+            <th scope="col">{{compLanguage.userPostManagementTablePostStatus}}</th>
+            <th scope="col" class="action-cell">{{compLanguage.userPostManagementTableAction}}</th>
           </tr>
         </thead>
         <tbody>
@@ -79,7 +79,7 @@
 
 <ng-template #postreview let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">{{this.language.currentLanguage.postManagementPostViewTitle}}</h4>
+    <h4 class="modal-title" id="modal-basic-title">{{this.compLanguage.postManagementPostViewTitle}}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -88,22 +88,22 @@
     <app-post id="review-post" [postId]="postViewId"></app-post>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close()">{{this.language.currentLanguage.postManagementPostViewOk}}</button>
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close()">{{this.compLanguage.postManagementPostViewOk}}</button>
   </div>
 </ng-template>
 
 <ng-template #editconfirm let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">{{this.language.currentLanguage.userPostManagementEditTitle}}</h4>
+    <h4 class="modal-title" id="modal-basic-title">{{this.compLanguage.userPostManagementEditTitle}}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body review-post-body">
-      {{this.language.currentLanguage.userPostManagementEditMessage}}
+      {{this.compLanguage.userPostManagementEditMessage}}
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-danger" (click)="modal.close()">{{this.language.currentLanguage.userPostManagementEditCancel}}</button>
-    <button type="button" class="btn btn-success" [routerLink]="['/create-post/', postViewId]" (click)="modal.close()" >{{this.language.currentLanguage.userPostManagementEditOK}}</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close()">{{this.compLanguage.userPostManagementEditCancel}}</button>
+    <button type="button" class="btn btn-success" [routerLink]="['/create-post/', postViewId]" (click)="modal.close()" >{{this.compLanguage.userPostManagementEditOK}}</button>
   </div>
 </ng-template>

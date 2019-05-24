@@ -28,11 +28,14 @@ export class HeaderComponent implements OnInit {
     isShowVisiterTool: false
   };
 
+  compLanguage;
+
   constructor(public masterPage: MasterPageService, private server: ServerService, public language: LanguageService,
     public user: UserService, private router: Router) { }
 
   ngOnInit() {
-
+    this.compLanguage = this.language.currentLanguage.compHeader;
+    this.language.hasChangeLanguage.subscribe(() => this.compLanguage = this.language.currentLanguage.compHeader);
   }
 
   searchByText() {

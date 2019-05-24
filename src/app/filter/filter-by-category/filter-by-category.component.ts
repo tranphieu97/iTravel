@@ -17,6 +17,8 @@ export class FilterByCategoryComponent implements OnInit {
 
   theMostAmountOfView: CardViewPost;
 
+  compLanguage;
+
   constructor(private constant: ConstantService, private activatedRoute: ActivatedRoute, private router: Router,
     private server: ServerService, private language: LanguageService) { }
 
@@ -35,6 +37,8 @@ export class FilterByCategoryComponent implements OnInit {
         });
       }
     });
+    this.compLanguage = this.language.currentLanguage.pageFilter;
+    this.language.hasChangeLanguage.subscribe(() => this.compLanguage = this.language.currentLanguage.pageFilter);
   }
 
   /**

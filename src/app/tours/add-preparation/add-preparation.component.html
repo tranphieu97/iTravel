@@ -4,17 +4,17 @@
 <div class="flex-col" *ngIf="!hasFinishedInput">
   <div class="flex-row form-group">
     <div class="row-label">
-      {{language.currentLanguage.addPreparationItemName}}
+      {{compLanguage.addPreparationItemName}}
     </div>
     <div class="row-input">
       <input type="text" class="form-control" name="item-name"
-        [placeholder]="language.currentLanguage.enter + language.currentLanguage.addPreparationItemName"
+        [placeholder]="commonLanguage.enter + compLanguage.addPreparationItemName"
         [(ngModel)]="preparationModel.itemName">
     </div>
   </div>
   <div class="flex-row form-group">
     <div class="row-label">
-      {{language.currentLanguage.addPreparationAmount}}
+      {{compLanguage.addPreparationAmount}}
     </div>
     <div class="row-input form-group flex-row">
       <div class="flex-1 ">
@@ -29,7 +29,7 @@
   </div>
   <div class="flex-row form-group">
     <div class="row-label">
-      {{language.currentLanguage.addPreparationDeadline}}
+      {{compLanguage.addPreparationDeadline}}
     </div>
     <div class="row-input flex-row">
       <div class="flex-1 flex-items-center">
@@ -47,34 +47,34 @@
   </div>
   <div class="flex-row form-group">
     <div class="row-label">
-      {{language.currentLanguage.addPreparationPerforms}}
+      {{compLanguage.addPreparationPerforms}}
     </div>
     <div class="row-input flex-row form-check">
       <div class="form-check flex-1">
         <input class="form-check-input" type="radio" name="performs" value="toAll" checked>
         <label class="form-check-label" for="exampleRadios1">
-          {{language.currentLanguage.addPreparationToAll}}
+          {{compLanguage.addPreparationToAll}}
         </label>
       </div>
       <div class="form-check flex-1">
         <input class="form-check-input" type="radio" name="performs" value="select">
         <label class="form-check-label" for="exampleRadios1">
-          {{language.currentLanguage.addPreparationSelectPerform}}
+          {{compLanguage.addPreparationSelectPerform}}
         </label>
       </div>
     </div>
   </div>
   <div class="flex-row form-group">
     <div class="row-label">
-      {{language.currentLanguage.addPreparationNotes}}
+      {{compLanguage.addPreparationNotes}}
     </div>
     <div class="row-input">
       <input type="text" class="form-control"
-        [placeholder]="language.currentLanguage.enter + language.currentLanguage.addPreparationNotes">
+        [placeholder]="commonLanguage.enter + compLanguage.addPreparationNotes">
     </div>
   </div>
   <div class="flex-row flex-justify-end">
-    <input type="button" class="form-control btn btn-outline-secondary" [value]="language.currentLanguage.ok"
+    <input type="button" class="form-control btn btn-outline-secondary" [value]="commonLanguage.ok"
       style="width: 75px;">
   </div>
 </div>
