@@ -1,25 +1,25 @@
 <div class="border-box tour-containner">
   <form class="flex-1">
     <div class="stepper" *ngIf="stepperService.getStep() === 1">
-      <h3 class="page-title">{{language.currentLanguage.addTourInfoTitle}}</h3>
+      <h3 class="page-title">{{compLanguage.addTourInfoTitle}}</h3>
       <div class="form-group flex-row">
-        <label class="row-label">{{language.currentLanguage.addTourName}}</label>
+        <label class="row-label">{{compLanguage.addTourName}}</label>
         <div class="row-input">
           <input [(ngModel)]="tourModel.tourName" name="tour-name" type="text" class="form-control"
-            [placeholder]="language.currentLanguage.addTourEnterName">
+            [placeholder]="compLanguage.addTourEnterName">
         </div>
       </div>
       <div class="form-group flex-row">
-        <label class="row-label">{{language.currentLanguage.addTourDesc}}</label>
+        <label class="row-label">{{compLanguage.addTourDesc}}</label>
         <div class="row-input">
           <textarea rows="3" class="form-control" [(ngModel)]="tourModel.description" name="tour-description"
-            style="resize:none" [placeholder]="language.currentLanguage.addTourEnterDesc"></textarea>
+            style="resize:none" [placeholder]="compLanguage.addTourEnterDesc"></textarea>
         </div>
       </div>
       <div class="form-group flex-row">
-        <label class="row-label">{{language.currentLanguage.addTourCover}}</label>
+        <label class="row-label">{{compLanguage.addTourCover}}</label>
         <div class="row-input flex-row flex-justify-end">
-          <input type="button" [value]="language.currentLanguage.enter + language.currentLanguage.addTourCover"
+          <input type="button" [value]="commonLanguage.enter + compLanguage.addTourCover"
             class="btn btn-warning" style="width: fit-content;" (click)="inputFile.click()"
             *ngIf="tourModel.cover === ''">
           <input type="file" #inputFile style="display: none;" (change)="onImagePicked($event)">
@@ -30,7 +30,7 @@
         </div>
       </div>
       <div class="form-group flex-row">
-        <label class="row-label">{{language.currentLanguage.addTourBeginTime}}</label>
+        <label class="row-label">{{compLanguage.addTourBeginTime}}</label>
         <div class="row-input flex-row">
           <div class="flex-1 flex-items-center">
             <div class="input-group">
@@ -50,7 +50,7 @@
         </div>
       </div>
       <div class="form-group flex-row">
-        <label class="row-label">{{language.currentLanguage.addTourEndTime}}</label>
+        <label class="row-label">{{compLanguage.addTourEndTime}}</label>
         <div class="row-input flex-row">
           <div class="flex-1 flex-items-center">
             <div class="input-group">
@@ -69,7 +69,7 @@
         </div>
       </div>
       <div class="form-group flex-row">
-        <label class="row-label">{{language.currentLanguage.addTourEndFeedbackTime}}</label>
+        <label class="row-label">{{compLanguage.addTourEndFeedbackTime}}</label>
         <div class="row-input flex-row">
           <div class="flex-1 flex-items-center">
             <div class="input-group">
@@ -89,7 +89,7 @@
         </div>
       </div>
       <div class="form-group flex-row">
-        <label class="row-label">{{language.currentLanguage.addTourEndRegisterTime}}</label>
+        <label class="row-label">{{compLanguage.addTourEndRegisterTime}}</label>
         <div class="row-input flex-row">
           <div class="flex-1 flex-items-center">
             <div class="input-group">
@@ -109,7 +109,7 @@
         </div>
       </div>
       <div class="form-group flex-row">
-        <label class="row-label">{{language.currentLanguage.addTourProvince}}</label>
+        <label class="row-label">{{compLanguage.addTourProvince}}</label>
         <div class="row-input select-field">
           <select class="form-control flex-1" multiple>
             <option *ngFor="let province of arrProvince" (click)="selectProvince(province)">
@@ -125,16 +125,16 @@
         </div>
       </div>
       <div class="form-group flex-row">
-        <label class="row-label">{{language.currentLanguage.addTourLocation}}</label>
+        <label class="row-label">{{compLanguage.addTourLocation}}</label>
         <div class="row-input flex-col">
           <div class="flex-row" style="margin-bottom: 3px;">
             <div class="flex-1">
-              <input type="text" [placeholder]="language.currentLanguage.addTourEnterLocation" class="form-control"
+              <input type="text" [placeholder]="compLanguage.addTourEnterLocation" class="form-control"
                 name="location-name" [(ngModel)]="searchLocationName">
             </div>
             <div class="flex-1">
               <input type="button" class="form-control btn-warning" style="margin-left: 6px; width: 97%;"
-                [value]="language.currentLanguage.addTourNewLocation" (click)="openNewLocationDialog(addlocation)">
+                [value]="compLanguage.addTourNewLocation" (click)="openNewLocationDialog(addlocation)">
             </div>
           </div>
           <div class="flex-row select-field">
@@ -155,7 +155,7 @@
       </div>
       <div class="form-group flex-row">
         <label class="row-label">
-          {{language.currentLanguage.addSchedulePerform}}
+          {{compLanguage.addSchedulePerform}}
         </label>
         <div class="row-input flex-col">
           <div class="row-input select-field">
@@ -176,10 +176,10 @@
       </div>
     </div>
     <div class="stepper" *ngIf="stepperService.getStep() === 2">
-      <h3 class="page-title">{{language.currentLanguage.addTourSchedulesTitle}}</h3>
+      <h3 class="page-title">{{compLanguage.addTourSchedulesTitle}}</h3>
       <div class="flex-row">
-        <h4>{{language.currentLanguage.addTourAddSchedule}} {{language.currentLanguage.from}}
-          {{startDate.day}}/{{startDate.month}} {{language.currentLanguage.to}} {{endDate.day}}/{{endDate.month}}</h4>
+        <h4>{{compLanguage.addTourAddSchedule}} {{commonLanguage.from}}
+          {{startDate.day}}/{{startDate.month}} {{commonLanguage.to}} {{endDate.day}}/{{endDate.month}}</h4>
       </div>
       <div class="form-group flex-row">
         <app-add-schedule *ngFor="let schedule of tourModel.schedules; let i = index" [scheduleModel]="schedule"
@@ -187,17 +187,17 @@
       </div>
       <div class="flex-row flex-justify-space-between flex-align-center">
         <h4>
-          {{language.currentLanguage.addTourScheduleCost}} {{scheduleCost | currency:'VND'}}
+          {{compLanguage.addTourScheduleCost}} {{scheduleCost | currency:'VND'}}
         </h4>
-        <input type="button" (click)="addShedule()" [value]="language.currentLanguage.addTourAddSchedule"
+        <input type="button" (click)="addShedule()" [value]="compLanguage.addTourAddSchedule"
           class="btn btn-warning" style="width: fit-content;">
       </div>
     </div>
     <div class="stepper" *ngIf="stepperService.getStep() === 3">
-      <h3 class="page-title">{{language.currentLanguage.addTourPreparationTitle}}</h3>
+      <h3 class="page-title">{{compLanguage.addTourPreparationTitle}}</h3>
       <div class="form-group flex-row">
         <label class="row-label">
-          {{language.currentLanguage.addTourTourguide}}
+          {{compLanguage.addTourTourguide}}
         </label>
         <div class="row-input">
           <select class="form-control" [(ngModel)]="tourModel.tourGuideId" name="tourguide-id">
@@ -209,7 +209,7 @@
       </div>
       <div class="form-group flex-row">
         <label class="row-label">
-          {{language.currentLanguage.addTourContact}}
+          {{compLanguage.addTourContact}}
         </label>
         <div class="row-input">
           <input type="text" class="form-control" [(ngModel)]="tourModel.contactNumber" name="contact"
@@ -218,19 +218,19 @@
       </div>
       <div class="form-group flex-row">
         <label class="row-label">
-          {{language.currentLanguage.addTourLimitMembers}}
+          {{compLanguage.addTourLimitMembers}}
         </label>
         <div class="row-input input-group">
           <input type="number" class="form-control" [(ngModel)]="tourModel.memberLimit" name="limit-member"
             [placeholder]="language.currentLanguage.enter + language.currentLanguage.addTourLimitMembers">
           <div class="input-group-append">
-            <span class="input-group-text">{{language.currentLanguage.addTourPeople}}</span>
+            <span class="input-group-text">{{compLanguage.addTourPeople}}</span>
           </div>
         </div>
       </div>
       <div class="form-group flex-row">
         <label class="row-label">
-          {{language.currentLanguage.addTourRegisterCost}}
+          {{compLanguage.addTourRegisterCost}}
         </label>
         <div class="row-input input-group">
           <input type="number" class="form-control" name="cost" [(ngModel)]="tourModel.registerCost"
@@ -242,7 +242,7 @@
       </div>
       <div class="flex-row">
         <label class="row-label">
-          {{language.currentLanguage.addTourItemPreparation}}
+          {{compLanguage.addTourItemPreparation}}
         </label>
         <div class="row-input"></div>
       </div>
@@ -250,7 +250,7 @@
         <app-add-preparation></app-add-preparation>
       </div>
       <div class="flex-row flex-justify-end">
-        <input type="button" [value]="language.currentLanguage.addTourAddPrepataion" class="btn btn-warning"
+        <input type="button" [value]="compLanguage.addTourAddPrepataion" class="btn btn-warning"
           style="width: fit-content;">
       </div>
     </div>
@@ -259,9 +259,9 @@
     {{errorMess}}
   </div>
   <div class="steps-control">
-    <input type="button" [value]="language.currentLanguage.prev" class="btn btn-outline-success"
+    <input type="button" [value]="commonLanguage.prev" class="btn btn-outline-success"
       (click)="stepperService.toPrev()" [disabled]="stepperService.getStep() === 1">
-    <input type="button" [value]="language.currentLanguage.next" class="btn btn-outline-success"
+    <input type="button" [value]="commonLanguage.next" class="btn btn-outline-success"
       (click)="validatePage()" [disabled]="stepperService.getStep() === stepperService.getMaxStep()">
   </div>
 </div>
@@ -296,7 +296,7 @@
 
 <ng-template #addlocation let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">{{language.currentLanguage.addTourNewLocation}}</h4>
+    <h4 class="modal-title" id="modal-basic-title">{{compLanguage.addTourNewLocation}}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -304,17 +304,17 @@
   <div class="modal-body">
     <form *ngIf="!isLoading" [formGroup]="addLocationForm">
       <div class="form-group">
-        <label>{{language.currentLanguage.addTourLocationName}}</label>
+        <label>{{compLanguage.addTourLocationName}}</label>
         <input type="text" class="form-control" formControlName="locationName"
-          [placeholder]="language.currentLanguage.enter + language.currentLanguage.addTourLocationName">
+          [placeholder]="commonLanguage.enter + compLanguage.addTourLocationName">
         <span
           *ngIf="!addLocationForm.get('locationName').valid && (addLocationForm.get('locationName').dirty || addLocationForm.get('locationName').touched)"
           class="error-mess form-text text-muted">
-          {{language.currentLanguage.thisFieldIsRequired}}
+          {{commonLanguage.thisFieldIsRequired}}
         </span>
       </div>
       <div class="form-group">
-        <label>{{language.currentLanguage.addTourLocationProvince}}</label>
+        <label>{{compLanguage.addTourLocationProvince}}</label>
         <select class="form-control" multiple formControlName="provinceCity">
           <option *ngFor="let province of arrProvince">
             {{province.provinceName}}
@@ -323,23 +323,23 @@
         <span
           *ngIf="!addLocationForm.get('provinceCity').valid && (addLocationForm.get('provinceCity').dirty || addLocationForm.get('provinceCity').touched)"
           class="error-mess form-text text-muted">
-          {{language.currentLanguage.thisFieldIsRequired}}
+          {{commonLanguage.thisFieldIsRequired}}
         </span>
-        <small>{{language.currentLanguage.addTourNoteSelectMore}}</small>
+        <small>{{compLanguage.addTourNoteSelectMore}}</small>
       </div>
       <div class="form-group">
-        <label>{{language.currentLanguage.addTourLocationGPS}}</label>
+        <label>{{compLanguage.addTourLocationGPS}}</label>
         <input type="text" class="form-control" formControlName="gps"
-          [placeholder]="language.currentLanguage.enter + language.currentLanguage.addTourLocationGPS">
+          [placeholder]="commonLanguage.enter + compLanguage.addTourLocationGPS">
       </div>
       <div class="form-group">
-        <label>{{language.currentLanguage.addTourLocationAddress}}</label>
+        <label>{{compLanguage.addTourLocationAddress}}</label>
         <input type="text" class="form-control" formControlName="address"
-          [placeholder]="language.currentLanguage.enter + language.currentLanguage.addTourLocationAddress">
+          [placeholder]="commonLanguage.enter + compLanguage.addTourLocationAddress">
         <span
           *ngIf="!addLocationForm.get('address').valid && (addLocationForm.get('address').dirty || addLocationForm.get('address').touched)"
           class="error-mess form-text text-muted">
-          {{language.currentLanguage.thisFieldIsRequired}}
+          {{commonLanguage.thisFieldIsRequired}}
         </span>
       </div>
     </form>
@@ -350,9 +350,9 @@
     <app-loading *ngIf="isLoading"></app-loading>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-danger" (click)="modal.close()">{{language.currentLanguage.cancel}}</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close()">{{commonLanguage.cancel}}</button>
     <button type="button" class="btn btn-success" [disabled]="!addLocationForm.valid" (click)="addLocation()">
-      {{language.currentLanguage.ok}}
+      {{commonLanguage.ok}}
     </button>
   </div>
 </ng-template>

@@ -11,9 +11,13 @@ import { LanguageService } from 'src/app/core/services/language.service';
 })
 export class LayoutComponent implements OnInit {
 
+  compLanguage;
+
   constructor(public mtpService: MasterPageService, public user: UserService, public language: LanguageService) { }
 
   ngOnInit() {
+    this.compLanguage = {...this.language.currentLanguage.compLayout};
+    this.language.hasChangeLanguage.subscribe(() => this.compLanguage = {...this.language.currentLanguage.compLayout});
   }
 
 }

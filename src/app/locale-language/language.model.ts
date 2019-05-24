@@ -1,5 +1,14 @@
-export class LocaleLanguage {
-    // Common
+export class Language {
+  /**
+   * phần ngôn ngữ cho component có dạng tiền tố 'comp' + 'tên component'
+   * phần ngôn ngữ cho module có dạng tiền tố 'page' + 'tên module'
+   * không cần ghi tiền tố phân biệt component như trước nữa,
+   * vd: 'postManagementTablePostCreationTime'
+   * giờ đã nằm trong compPostManagememt, có thể viết ngắn thành 'tablePostCreationTime'
+   */
+
+  // Common
+  common: {
     ok: string;
     cancel: string;
     thisFieldIsRequired: string;
@@ -10,15 +19,19 @@ export class LocaleLanguage {
     to: string;
     choose: string;
     invalidInputData: string;
+  };
 
-    // Layout
+  // Layout
+  compLayout: {
     tooltipNewPost: string;
     tooltipPostManagement: string;
     tooltipUserManagement: string;
     tooltipNewTour: string;
     tooltipTourManagement: string;
+  };
 
-    // For Header Component
+  // For Header Component
+  compHeader: {
     headerHi: string;
     headerSearch: string;
     headerVietnamese: string;
@@ -29,8 +42,10 @@ export class LocaleLanguage {
     headerPersonalInfo: string;
     headerLogOut: string;
     headerUserContribution: string;
+  };
 
-    // For Login Component
+  // For Login Component
+  compLogin: {
     loginTitle: string;
     loginUsername: string;
     loginPassword: string;
@@ -45,8 +60,10 @@ export class LocaleLanguage {
     loginErrorPasswordLength: string;
     loginEnterUsername: string;
     loginEnterPassword: string;
+  };
 
-    // For Register Component
+  // For Register Component
+  compRegister: {
     registerTitle: string;
     registerFirstName: string;
     registerLastName: string;
@@ -69,8 +86,10 @@ export class LocaleLanguage {
     registerEnterUsername: string;
     registerEnterPassword: string;
     registerEnterConfirmPassword: string;
+  };
 
-    // For Menu in NavigationBar Component
+  // For Menu in NavigationBar Component
+  compNavigationBar: {
     menuHome: string;
     menuVNRegions: string;
     menuTravel: string;
@@ -93,8 +112,10 @@ export class LocaleLanguage {
     menuItemContribution: string;
     menuItemPolicies: string;
     menuItemFeedback: string;
+  };
 
-    // For Feedback Component
+  // For Feedback Component
+  compFeedback: {
     feedbackTitle: string;
     feedbackName: string;
     feedbackKindOf: string;
@@ -117,12 +138,16 @@ export class LocaleLanguage {
     feedbackErrorContentRequired: string;
     feedbackSuccess: string;
     feedbackFail: string;
+  };
 
-    // For Notification
+  // For Notification
+  compNotification: {
     notificationNeedLogin: string;
     notificationNoMessage: string;
+  };
 
-    // For Post Manager
+  // For Post Manager
+  compPostManagement: {
     postManagementTitle: string;
     postManagementStartDate: string;
     postManagementEndDate: string;
@@ -154,14 +179,16 @@ export class LocaleLanguage {
     postManagementErrorEmptyReason: string;
     postManagementErrorInvalidDenyData: string;
     postManagementErrorPostDenied: string;
+  };
 
-    // For Policies
-    policiesTitle: string;
+  // For Policies
+  compPolicies: { policiesTitle: string };
 
-    // For HomePage
-    homeIndexPostIn: string;
+  // For HomePage
+  pageHome: { homeIndexPostIn: string };
 
-    // For Create Post
+  // For Create Post
+  compCreatePost: {
     createPostTitle: string;
     createPostTitlePlaceholder: string;
     createPostDescription: string;
@@ -200,20 +227,26 @@ export class LocaleLanguage {
     createPostInvalidTopicEmpty: string;
     createPostAlertSaveSuccess: string;
     createPostAlertSaveAlready: string;
+  };
 
-    // For Region
+  // For Region
+  compFilterbyRegion: {
     regionTheNorth: string;
     regionTheCentral: string;
     regionTheSouth: string;
     regionPostRatio: string;
+  };
 
-    // For Trend
+  // For Trend
+  pageTrend: {
     trendSearchCharTitle: string;
     trendSearchChartDes: string;
     trendPostViewChartTitle: string;
     trendTop10PostViewAmount: string;
+  };
 
-    // For Travel and Cuisine Filter
+  // For Travel and Cuisine Filter
+  pageFilter: {
     filterTheMostAmountOfViewPost: string;
     filterTheMostAmountOfView: string;
     filterFullTitle: string;
@@ -221,8 +254,10 @@ export class LocaleLanguage {
     filterFullKeyword: string;
     filterFullRegion: string;
     filterFullFilter: string;
+  };
 
-    // For User
+  // For User
+  compUserPostManagement: {
     userPostManagementTitle: string;
     userPostManagementApproved: string;
     userPostManagementPending: string;
@@ -243,8 +278,10 @@ export class LocaleLanguage {
     userPostManagementPostTimeOneMonth: string;
     userPostManagementPostTimeAll: string;
     userPostManagementListPostEmpty: string;
+  };
 
-    // For Permission Management
+  // For Permission Management
+  compPermissionManagement: {
     permissionTitle: string;
     permissionSearchHint: string;
     permissionSetPermission: string;
@@ -267,13 +304,14 @@ export class LocaleLanguage {
     permissionBlockTitle: string;
     permissionBlockReason: string;
     permissionUnBlockTitle: string;
-
     // For block message
     blockPolicyViolation: string;
     blockAccountImpersonation: string;
     blockOffensiveBehavior: string;
+  };
 
-    // For add tour
+  // For add tour
+  compAddTour: {
     addTourInfoTitle: string;
     addTourGuideInfoTitle: string;
     addTourSchedulesTitle: string;
@@ -311,8 +349,10 @@ export class LocaleLanguage {
     addTourPeople: string;
     addTourItemPreparation: string;
     addTourAddPrepataion: string;
+  };
 
-    // Add Schedule
+  // Add Schedule
+  compAddSchedule: {
     addScheduleDay: string;
     addSchedulePeriod: string;
     addScheduleKindof: string;
@@ -331,8 +371,9 @@ export class LocaleLanguage {
     addScheduleSelectOneBefore: string;
     addScheduleInvalidData: string;
     addScheduleNotes: string;
+  };
 
-    // Add Preparetion
+  compAddPreparation: {
     addPreparationItemName: string;
     addPreparationAmount: string;
     addPreparationUnit: string;
@@ -341,6 +382,7 @@ export class LocaleLanguage {
     addPreparationSelectPerform: string;
     addPreparationDeadline: string;
     addPreparationNotes: string;
+  };
 
-    constructor() { }
+  constructor() {}
 }

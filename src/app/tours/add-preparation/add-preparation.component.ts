@@ -19,10 +19,19 @@ export class AddPreparationComponent implements OnInit {
   public maxDate: NgbDate;
   public hasFinishedInput: Boolean = false;
 
+  compLanguage;
+  commonLanguage;
+
   constructor(public language: LanguageService, private dateStructService: DateStructService, private addTourService: AddTourService) { }
 
   ngOnInit() {
     this.setupDefault();
+    this.compLanguage = this.language.currentLanguage.compAddPreparation;
+    this.commonLanguage = this.language.currentLanguage.common;
+    this.language.hasChangeLanguage.subscribe(() => {
+      this.compLanguage = this.language.currentLanguage.compAddPreparation;
+      this.commonLanguage = this.language.currentLanguage.common;
+    });
   }
 
   setupDefault() {

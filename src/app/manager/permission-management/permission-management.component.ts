@@ -27,6 +27,7 @@ export class PermissionManagementComponent implements OnInit {
   hasError: Boolean = false;
   message: String = '';
   selectedBlockReason: string;
+  compLanguage;
 
   constructor(private server: ServerService, public language: LanguageService, private constant: ConstantService,
     private modal: NgbModal, private _user: UserService) { }
@@ -51,6 +52,9 @@ export class PermissionManagementComponent implements OnInit {
         isChecked: false
       });
     });
+
+    this.compLanguage = this.language.currentLanguage.compPermissionManagement;
+    this.language.hasChangeLanguage.subscribe(() => this.compLanguage = this.language.currentLanguage.compPermissionManagement);
   }
 
   /**
@@ -160,23 +164,23 @@ export class PermissionManagementComponent implements OnInit {
       switch (res.MessageCode) {
         case 'MUP_M01':
           this.hasError = false;
-          this.message = this.language.currentLanguage.permissionMessUpdatedSuccess;
+          this.message = this.compLanguage.permissionMessUpdatedSuccess;
           break;
         case 'MUP_E02':
           this.hasError = true;
-          this.message = this.language.currentLanguage.permissionMessUpdatedFail;
+          this.message = this.compLanguage.permissionMessUpdatedFail;
           break;
         case 'MUP_E04':
           this.hasError = true;
-          this.message = this.language.currentLanguage.permissionMessIncorrectPassword;
+          this.message = this.compLanguage.permissionMessIncorrectPassword;
           break;
         case 'MUP_E06':
           this.hasError = true;
-          this.message = this.language.currentLanguage.permissionMessServerError;
+          this.message = this.compLanguage.permissionMessServerError;
           break;
         default:
           this.hasError = true;
-          this.message = this.language.currentLanguage.permissionMessIncorrectData;
+          this.message = this.compLanguage.permissionMessIncorrectData;
           break;
       }
     }

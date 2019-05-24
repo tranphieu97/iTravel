@@ -54,6 +54,9 @@ export class AddTourComponent implements OnInit {
   public coverFile: File = null;
   public scheduleCost: number;
 
+  compLanguage;
+  commonLanguage;
+
   constructor(public language: LanguageService, private timepickerConfig: NgbTimepickerConfig,
     private provinceService: ProvinceCityService, private serverService: ServerService, private modal: NgbModal,
     private formBuilder: FormBuilder, public stepperService: StepperService, private dateStructService: DateStructService,
@@ -63,6 +66,12 @@ export class AddTourComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.compLanguage = this.language.currentLanguage.compAddTour;
+    this.commonLanguage = this.language.currentLanguage.common;
+    this.language.hasChangeLanguage.subscribe(() => {
+      this.compLanguage = this.language.currentLanguage.compAddTour;
+      this.commonLanguage = this.language.currentLanguage.common;
+    });
     this.addTourService.setupTour();
     this.stepperService.setMaxStep(3);
 
@@ -155,7 +164,7 @@ export class AddTourComponent implements OnInit {
           this.isLoading = false;
 
           if (res.statusCode === 201) {
-            this.addLocationMessage = this.language.currentLanguage.addTourAddSuccess;
+            this.addLocationMessage = this.compLanguage.addTourAddSuccess;
             this.hasError = false;
 
             setTimeout(() => {
@@ -164,7 +173,7 @@ export class AddTourComponent implements OnInit {
               } catch { }
             }, 2000);
           } else {
-            this.addLocationMessage = this.language.currentLanguage.addTourAddFail;
+            this.addLocationMessage = this.compLanguage.addTourAddFail;
             this.hasError = true;
           }
         });
@@ -247,7 +256,7 @@ export class AddTourComponent implements OnInit {
       if (this.tourModel.tourName.trim() === '' || this.tourModel.description.trim() === ''
         || this.arrSelectedLocation.length === 0 || this.arrSelectedTourguide.length === 0
         || this.tourModel.cover === '') {
-        this.showError(this.language.currentLanguage.addTourInputAllBefore);
+        this.showError(this.compLanguage.addTourInputAllBefore);
       } else {
         this.tourModel.beginTime = this.dateStructService.getDateFromDateTimeStruct(this.startDate, this.startTime);
         this.tourModel.endTime = this.dateStructService.getDateFromDateTimeStruct(this.endDate, this.endTime);
@@ -264,7 +273,7 @@ export class AddTourComponent implements OnInit {
     } else if (this.stepperService.getStep() === 2) {
       this.stepperService.toNext();
     } else if (this.stepperService.getStep() === 3) {
-      
+
     }
   }
 }

@@ -17,6 +17,7 @@ export class FeedbackComponent implements OnInit {
   message: String = '';
   isSuccess: Boolean = false;
   isFail: Boolean = false;
+  compLanguage;
 
   constructor(private server: ServerService, private router: Router,
     public language: LanguageService, public user: UserService) { }
@@ -32,21 +33,24 @@ export class FeedbackComponent implements OnInit {
     this.message = '';
     this.isFail = false;
     this.isSuccess = false;
+
+    this.compLanguage = this.language.currentLanguage.compFeedback;
+    this.language.hasChangeLanguage.subscribe(() => this.compLanguage = this.language.currentLanguage.compFeedback);
   }
 
   validationForm(): boolean {
     if (this.feedback.name.trim() === '') {
-      this.message = this.language.currentLanguage.feedbackErrorNameRequired;
+      this.message = this.compLanguage.feedbackErrorNameRequired;
       return false;
     }
 
     if (this.feedback.kindOf.trim() === '') {
-      this.message = this.language.currentLanguage.feedbackErrorKindOfRequired;
+      this.message = this.compLanguage.feedbackErrorKindOfRequired;
       return false;
     }
 
     if (this.feedback.content.trim() === '') {
-      this.message = this.language.currentLanguage.feedbackErrorContentRequired;
+      this.message = this.compLanguage.feedbackErrorContentRequired;
       return false;
     }
 
@@ -57,12 +61,12 @@ export class FeedbackComponent implements OnInit {
     if (this.validationForm()) {
       this.server.postFeedback(this.feedback).subscribe((res) => {
         if (res.message === 'Success!') {
-          this.message = this.language.currentLanguage.feedbackSuccess;
+          this.message = this.compLanguage.feedbackSuccess;
           this.isSuccess = true;
           this.isFail = false;
           this.feedback = new Feedback();
         } else {
-          this.message = this.language.currentLanguage.feedbackFail;
+          this.message = this.compLanguage.feedbackFail;
           this.isFail = true;
           this.isSuccess = false;
         }

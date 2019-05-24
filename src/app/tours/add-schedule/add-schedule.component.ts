@@ -32,6 +32,9 @@ export class AddScheduleComponent implements OnInit {
   public finishedStartDate: Date;
   public finishedEndDate: Date;
 
+  compLanguage;
+  commonLanguage;
+
   constructor(public language: LanguageService, private timepickerConfig: NgbTimepickerConfig, private modal: NgbModal,
     private addTourService: AddTourService, private dateStructService: DateStructService) {
     timepickerConfig.seconds = false;
@@ -39,6 +42,12 @@ export class AddScheduleComponent implements OnInit {
 
   ngOnInit() {
     this.setupDefaultView();
+    this.compLanguage = this.language.currentLanguage.compAddSchedule;
+    this.commonLanguage = this.language.currentLanguage.common;
+    this.language.hasChangeLanguage.subscribe(() => {
+      this.compLanguage = this.language.currentLanguage.compAddSchedule;
+      this.commonLanguage = this.language.currentLanguage.common;
+    });
   }
 
   addAnotherToArr(arr: Array<any>) {

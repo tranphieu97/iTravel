@@ -36,6 +36,8 @@ export class PostManagementComponent implements OnInit {
 
   denyForm: FormGroup;
 
+  compLanguage;
+
   constructor(public language: LanguageService, private calendar: NgbCalendar, private server: ServerService,
     private modalService: NgbModal, public constant: ConstantService, private formBuilder: FormBuilder) { }
 
@@ -48,6 +50,9 @@ export class PostManagementComponent implements OnInit {
       postTitle: [null, [Validators.required]],
       denyReason: [null, [Validators.required]]
     });
+
+    this.compLanguage = this.language.currentLanguage.compPostManagement;
+    this.language.hasChangeLanguage.subscribe(() => this.compLanguage = this.language.currentLanguage.compPostManagement);
   }
 
   /**
@@ -92,13 +97,13 @@ export class PostManagementComponent implements OnInit {
    */
   validateDateForm() {
     if (this.startDate === undefined || this.endDate === undefined) {
-      this.errorMessage = this.language.currentLanguage.postManagementErrorEmptyDate;
+      this.errorMessage = this.compLanguage.postManagementErrorEmptyDate;
       this.hasError = true;
     } else {
       if (this.validDateFormat(this.startDate) && this.validDateFormat(this.endDate)) {
         if (this.convertDateStructToDate(this.startDate) > this.convertDateStructToDate(this.endDate)) {
           this.hasError = true;
-          this.errorMessage = this.language.currentLanguage.postManagementErrorStartAfterEnd;
+          this.errorMessage = this.compLanguage.postManagementErrorStartAfterEnd;
         } else {
           this.hasError = false;
 
@@ -108,7 +113,7 @@ export class PostManagementComponent implements OnInit {
           this.filterListPostByDate(startD, endD);
         }
       } else {
-        this.errorMessage = this.language.currentLanguage.postManagementErrorInvalidDate;
+        this.errorMessage = this.compLanguage.postManagementErrorInvalidDate;
         this.hasError = true;
       }
     }
@@ -214,13 +219,13 @@ export class PostManagementComponent implements OnInit {
         this.refreshListPost();
       } else if (result.message.indexOf('It was approved before') !== -1) {
         this.hasError = true;
-        this.errorMessage = this.language.currentLanguage.postManagementPostApprovedBefore;
+        this.errorMessage = this.compLanguage.postManagementPostApprovedBefore;
       } else if (result.message.indexOf('Not found post') !== -1) {
         this.hasError = true;
-        this.errorMessage = this.language.currentLanguage.postManagementPostNotFound;
+        this.errorMessage = this.compLanguage.postManagementPostNotFound;
       } else {
         this.hasError = true;
-        this.errorMessage = this.language.currentLanguage.postManagementErrorChangeStatus;
+        this.errorMessage = this.compLanguage.postManagementErrorChangeStatus;
       }
     });
   }
@@ -236,7 +241,7 @@ export class PostManagementComponent implements OnInit {
 
     if (formControlPostId !== postId || formControlReasion === '') {
       this.hasError = true;
-      this.errorMessage = this.language.currentLanguage.postManagementErrorInvalidDenyData;
+      this.errorMessage = this.compLanguage.postManagementErrorInvalidDenyData;
     } else {
       this.server.updatePostStatus(postId, this.constant.POST_STATUS.DENY, formControlReasion).subscribe((res) => {
         if (res) {
@@ -244,13 +249,13 @@ export class PostManagementComponent implements OnInit {
             this.refreshListPost();
           } else if (res.message.indexOf('It was denied before') !== -1) {
             this.hasError = true;
-            this.errorMessage = this.language.currentLanguage.postManagementErrorPostDenied;
+            this.errorMessage = this.compLanguage.postManagementErrorPostDenied;
           } else if (res.message.indexOf('Not found post') !== -1) {
             this.hasError = true;
-            this.errorMessage = this.language.currentLanguage.postManagementPostNotFound;
+            this.errorMessage = this.compLanguage.postManagementPostNotFound;
           } else {
             this.hasError = true;
-            this.errorMessage = this.language.currentLanguage.postManagementErrorChangeStatus;
+            this.errorMessage = this.compLanguage.postManagementErrorChangeStatus;
           }
         }
       });
