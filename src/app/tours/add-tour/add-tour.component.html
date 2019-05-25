@@ -19,10 +19,9 @@
       <div class="form-group flex-row">
         <label class="row-label">{{compLanguage.addTourCover}}</label>
         <div class="row-input flex-row flex-justify-end">
-          <input type="button" [value]="commonLanguage.enter + compLanguage.addTourCover"
-            class="btn btn-warning" style="width: fit-content;" (click)="inputFile.click()"
-            *ngIf="tourModel.cover === ''">
-          <input type="file" #inputFile style="display: none;" (change)="onImagePicked($event)">
+          <input type="button" [value]="commonLanguage.enter + compLanguage.addTourCover" class="btn btn-warning"
+            style="width: fit-content;" (click)="inputFile.click()" *ngIf="tourModel.cover === ''">
+          <input type="file" #inputFile style="display: none;" (change)="onCoverPicked($event)">
           <div class="flex-1 img-layout" *ngIf="tourModel.cover.length > 0">
             <img [src]="tourModel.cover" alt="review">
             <span class="fas fa-times-circle esc-btn" (click)="removeCover()"></span>
@@ -189,8 +188,8 @@
         <h4>
           {{compLanguage.addTourScheduleCost}} {{scheduleCost | currency:'VND'}}
         </h4>
-        <input type="button" (click)="addShedule()" [value]="compLanguage.addTourAddSchedule"
-          class="btn btn-warning" style="width: fit-content;">
+        <input type="button" (click)="addShedule()" [value]="compLanguage.addTourAddSchedule" class="btn btn-warning"
+          style="width: fit-content;">
       </div>
     </div>
     <div class="stepper" *ngIf="stepperService.getStep() === 3">
@@ -259,10 +258,10 @@
     {{errorMess}}
   </div>
   <div class="steps-control">
-    <input type="button" [value]="commonLanguage.prev" class="btn btn-outline-success"
-      (click)="stepperService.toPrev()" [disabled]="stepperService.getStep() === 1">
-    <input type="button" [value]="commonLanguage.next" class="btn btn-outline-success"
-      (click)="validatePage()" [disabled]="stepperService.getStep() === stepperService.getMaxStep()">
+    <input type="button" [value]="commonLanguage.prev" class="btn btn-outline-success" (click)="stepperService.toPrev()"
+      [disabled]="stepperService.getStep() === 1">
+    <input type="button" [value]="commonLanguage.next" class="btn btn-outline-success" (click)="validatePage()"
+      [disabled]="stepperService.getStep() === stepperService.getMaxStep()">
   </div>
 </div>
 <div class="border-box tour-review-container">
@@ -303,6 +302,10 @@
   </div>
   <div class="modal-body">
     <form *ngIf="!isLoading" [formGroup]="addLocationForm">
+      <div class="alert" *ngIf="addLocationMessage !== ''"
+        [ngClass]="{'alert-success': !hasError, 'alert-danger': hasError}">
+        {{addLocationMessage}}
+      </div>
       <div class="form-group">
         <label>{{compLanguage.addTourLocationName}}</label>
         <input type="text" class="form-control" formControlName="locationName"
@@ -342,11 +345,11 @@
           {{commonLanguage.thisFieldIsRequired}}
         </span>
       </div>
+      <div class="form-group">
+        <label>{{compLanguage.addTourLocationImgage}}</label>
+        <input type="file" class="form-control-file" formControlName="image" (change)="onLocationImagePicked($event)">
+      </div>
     </form>
-    <div class="alert" *ngIf="addLocationMessage !== ''"
-      [ngClass]="{'alert-success': !hasError, 'alert-danger': hasError}">
-      {{addLocationMessage}}
-    </div>
     <app-loading *ngIf="isLoading"></app-loading>
   </div>
   <div class="modal-footer">

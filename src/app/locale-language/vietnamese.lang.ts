@@ -334,6 +334,7 @@ export const LangVietnamese: Language = {
     addTourLocationProvince: 'Thuộc tỉnh',
     addTourLocationGPS: 'Toạ độ GPS',
     addTourLocationAddress: 'Địa chỉ',
+    addTourLocationImage: 'Hình ảnh',
     addTourNoteSelectMore: 'Thuộc tính này có thể chọn nhiều lựa chọn',
     addTourAddSuccess: 'Thêm thành công',
     addTourAddFail: 'Thêm thất bại, thử lại',
