@@ -65,6 +65,7 @@ export const LangEnglish: Language = {
     registerUsername: 'Choose a Username',
     registerPassword: 'Choose a Password',
     registerConfirmPassword: 'Confirm Password',
+    // tslint:disable-next-line: quotemark
     registerAcceptPolicies: "I accept this website's policies",
     registerRegister: 'Register',
     registerBackToHome: 'Back to Home',
@@ -114,6 +115,7 @@ export const LangEnglish: Language = {
   // For Menu in NavigationBar Component
   compNavigationBar: {
     menuHome: 'Home',
+    // tslint:disable-next-line: quotemark
     menuVNRegions: "Vietnam's Regions",
     menuTravel: 'Travel',
     menuCuisine: 'Cuisine',
@@ -227,6 +229,7 @@ export const LangEnglish: Language = {
     createPostInvalidTopicEmpty: 'Post content can not be empty!',
     createPostAlertSaveSuccess:
       'Your post was saved successfully, click to see.',
+    // tslint:disable-next-line: quotemark
     createPostAlertSaveAlready: "Your post was saved, can't save any more!"
   },
 
@@ -264,6 +267,7 @@ export const LangEnglish: Language = {
     userPostManagementPending: 'Pending',
     userPostManagementDenied: 'Denied',
     userPostManagementAllPost: 'All Post',
+    // tslint:disable-next-line: quotemark
     userPostManagementEnterPostTitle: "Enter Post's title",
     userPostManagementTablePostName: 'Title',
     userPostManagementTablePostCreationTime: 'Creation Time',
@@ -272,6 +276,7 @@ export const LangEnglish: Language = {
     userPostManagementTableAction: 'Action',
     userPostManagementEditTitle: 'Edit Post',
     userPostManagementEditMessage:
+      // tslint:disable-next-line: quotemark
       "Edit Post's content will send it to pending list",
     userPostManagementEditCancel: 'Cancel',
     userPostManagementEditOK: 'Ok',
