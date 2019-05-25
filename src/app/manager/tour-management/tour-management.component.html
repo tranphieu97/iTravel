@@ -2,7 +2,7 @@
   <!-- title -->
   <div class="tour-management-title">
     <h4>
-      Tours Management
+      {{compLanguage.screenTitle}}
     </h4>
     <span (click)="refreshListTour()"><i class="fas fa-sync-alt"></i></span>
   </div>
@@ -48,11 +48,11 @@
         <thead class="thead-light">
           <tr>
             <th>#</th>
-            <th>Tourname</th>
-            <th>TourGuide</th>
-            <th>Creation time</th>
-            <th>Duration</th>
-            <th>Status</th>
+            <th>{{compLanguage.tourName}}</th>
+            <th>{{compLanguage.tourGuide}}</th>
+            <th>{{compLanguage.creationTime}}</th>
+            <th>{{compLanguage.tripDuration}}</th>
+            <th>{{compLanguage.status}}</th>
             <th class="tour-detail">Action</th>
           </tr>
         </thead>
@@ -62,18 +62,26 @@
             <td><strong>{{tour.tourName}}</strong></td>
             <td>{{tourGuides[i].firstName+' '+tourGuides[i].lastName}}</td>
             <td>{{tour.creationTime | date:'h:mm\' a - d/M'}}</td>
-            <td>{{tour.durationTime}}</td>
+            <td>{{tour.durationTime}}{{' '+compLanguage.tripDurationUnit}}</td>
             <td class="tour-status" [ngClass]="{
                 'pending-text': tour.status === tourStatus.PENDING,
                 'registering-text': tour.status === tourStatus.REGISTERING,
                 'running-text': tour.status === tourStatus.RUNNING,
                 'finished-text': tour.status === tourStatus.FINISHED
               }">
-              {{tour.status}}
+              {{tour.status === tourStatus.PENDING 
+                ? compLanguage.statusPending 
+                : tour.status === tourStatus.REGISTERING 
+                ? compLanguage.statusRegistering 
+                : tour.status === tourStatus.RUNNING 
+                ? compLanguage.statusRunning 
+                : tour.status === tourStatus.FINISHED 
+                ? compLanguage.statusFinished 
+                : compLanguage.statusPending}}
             </td>
             <td class="tour-detail">
               <button class="btn btn-primary" (click)="openDetail(tour)">
-                Detail
+                {{compLanguage.detailBtn}}
               </button>
             </td>
           </tr>

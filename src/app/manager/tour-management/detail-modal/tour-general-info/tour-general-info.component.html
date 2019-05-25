@@ -1,10 +1,29 @@
-<div class="left">
+<div class="cover"
+  [ngStyle]="{'background-image': 'url('+ tourData.cover +')'}">
   <h5>{{tourData.tourName}}</h5>
-  <p>{{tourData.description}}</p>
-  <div class="location-item"
-    *ngFor="let location of collapsedStates; let i=index">
-    <div class="toggle"
-      (click)="collapedHandle(i)">
+</div>
+
+<div class="content">
+  <div class="left-desc">
+    <p>{{tourData.description}}</p>
+  </div>
+  <div class="right">
+    <div class="inline">
+      <span class="bold">{{compLanguage.registerCost+': '}}</span>
+      <span>{{tourData.registerCost | currency:'VND'}}</span>
+    </div>
+    <div class="inline">
+      <span class="bold">{{compLanguage.tripDuration+': '}}</span>
+      <span>{{tourData.durationTime}}</span>
+      <span>{{' '+compLanguage.tripDurationUnit}}</span>
+    </div>
+  </div>
+</div>
+
+<div class="locations" *ngIf="locationsData">
+  <div class="location-item ml-4"
+    *ngFor="let location of locationsData; let i=index">
+    <div class="title">
       <span>
         {{locationsData[i] ? locationsData[i].locationName : '...'}}
       </span>
@@ -14,27 +33,11 @@
         </span>
       </div>
     </div>
-    <div [ngbCollapse]="location.collapsed">
-      <div class="card">
-        <div class="card-body location-content">
-          <img
-            src="https://images.pexels.com/photos/1462892/pexels-photo-1462892.jpeg?cs=srgb&dl=canh-d-ng-danh-lam-th-ng-c-nh-d-u-m-c-n-i-ti-ng-1462892.jpg&fm=jpg"
-            alt="location image">
-        </div>
-      </div>
+    <div class="location-content">
+      <img *ngIf="locationsData[i]"
+        [src]="locationsData[i].image"
+        alt="location image">
     </div>
   </div>
-  <div class="footer">{{'_____'}}</div>
 </div>
-
-<div class="right">
-  <div class="inline">
-    <span class="bold">Phí tham gia: </span>
-    <span>{{tourData.registerCost | currency:'VND'}}</span>
-  </div>
-  <div class="inline">
-    <span class="bold">Hành trình: </span>
-    <span>{{tourData.durationTime}}</span>
-    <span> day(s)</span>
-  </div>
-</div>
+<div class="footer">{{'_____'}}</div>

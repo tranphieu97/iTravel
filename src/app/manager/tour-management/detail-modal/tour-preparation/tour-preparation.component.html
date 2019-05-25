@@ -5,18 +5,21 @@
       [ngClass]="{finished: preparation.status === 'FINISHED',preparing: preparation.status === 'PREPARING'}"
       (click)="collapsedStates[i].collapsed = !collapsedStates[i].collapsed">
       <span class="fixed-width"><b>{{preparation.itemName}}</b></span>
-      <span class="fixed-width"><b>Đã có:
+      <span class="fixed-width"><b>{{compLanguage.prepared}}:
           {{ getPrepared(preparation.performers) }} /
           {{preparation.amount}}</b></span>
       <span class="blank-space"></span>
-      <span><b>{{preparation.status}}</b></span>
+      <span><b>{{preparation.status === 'FINISHED' 
+        ? compLanguage.statusPrepared 
+        : compLanguage.statusPreparing}}</b></span>
     </div>
     <div [ngbCollapse]="collapsedStates[i].collapsed">
       <div class="card">
         <div class="card-body">
-          <span class="block"><b>Deadline: </b>{{preparation.deadline | date:'h:mm\' a - d/M'}}</span>
+          <span
+            class="block"><b>{{compLanguage.deadline+': '}}</b>{{preparation.deadline | date:'h:mm\' a - d/M'}}</span>
           <span class="block" *ngIf="preparation.note">
-            <b>Note: </b>
+            <b>{{compLanguage.note+': '}}</b>
             {{preparation.note}}
           </span>
           <div class="perform-item-list">

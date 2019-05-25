@@ -17,6 +17,7 @@ const tourSchema = new Schema({
     memberLimit: Number,
     status: String,
     // PENDING, REGISTERING, RUNNING, FINISHED
+    cover: String,
     isActive: Boolean,
     schedules: [{
         beginTime: Date,

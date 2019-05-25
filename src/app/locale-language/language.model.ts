@@ -398,5 +398,44 @@ export class Language {
     addPreparationRollOf: string;
   };
 
+  compTourManagement: {
+    screenTitle: string;
+    tourName: string;
+    tourGuide: string;
+    creationTime: string;
+    status: string;
+    statusPending: string;
+    statusRegistering: string;
+    statusRunning: string;
+    statusFinished: string;
+    statusPreparing: string;
+    statusPrepared: string;
+    detailBtn: string;
+    modalTitle: string;
+    generalTab: string;
+    scheduleTab: string;
+    feedbackTab: string;
+    membersTab: string;
+    preparationTab: string;
+    closeBtn: string;
+    registerCost: string;
+    tripDuration: string;
+    tripDurationUnit: string;
+    memberLimit: string;
+    memberLimitUnit: string;
+    available: string;
+    contact: string;
+    needToPay: string;
+    prepared: string;
+    deadline: string;
+    note: string;
+    from: string;
+    to: string;
+    location: string;
+    task: string;
+    joiningMember: string;
+    scheduleCost: string;
+  };
+
   constructor() {}
 }

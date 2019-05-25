@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { Tour } from 'src/app/model/tour.model';
 import { ServerService } from 'src/app/core/services/server.service';
+import { LanguageService } from 'src/app/core/services/language.service';
 
 @Component({
   selector: 'app-tour-schedule',
@@ -17,10 +18,19 @@ export class TourScheduleComponent implements OnInit, AfterViewInit {
       avatar: string;
     };
   }[][] = [];
+  compLanguage;
 
-  constructor(private serverService: ServerService) {}
+  constructor(
+    private serverService: ServerService,
+    private languageService: LanguageService
+  ) {}
 
   ngOnInit() {
+    this.compLanguage = this.languageService.currentLanguage.compTourManagement;
+    this.languageService.hasChangeLanguage.subscribe(
+      () =>
+        (this.compLanguage = this.languageService.currentLanguage.compTourManagement)
+    );
     this.participantInfos = this.tourData.schedules.map(schedule =>
       schedule.performerIds.map(memId => ({
         memberId: memId,
