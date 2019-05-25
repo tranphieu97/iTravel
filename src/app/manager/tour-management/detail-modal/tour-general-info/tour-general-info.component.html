@@ -20,9 +20,9 @@
   </div>
 </div>
 
-<div class="locations">
+<div class="locations" *ngIf="locationsData">
   <div class="location-item ml-4"
-    *ngFor="let location of collapsedStates; let i=index">
+    *ngFor="let location of locationsData; let i=index">
     <div class="title">
       <span>
         {{locationsData[i] ? locationsData[i].locationName : '...'}}
@@ -34,8 +34,8 @@
       </div>
     </div>
     <div class="location-content">
-      <img
-        src="https://images.pexels.com/photos/1462892/pexels-photo-1462892.jpeg?cs=srgb&dl=canh-d-ng-danh-lam-th-ng-c-nh-d-u-m-c-n-i-ti-ng-1462892.jpg&fm=jpg"
+      <img *ngIf="locationsData[i]"
+        [src]="locationsData[i].image"
         alt="location image">
     </div>
   </div>

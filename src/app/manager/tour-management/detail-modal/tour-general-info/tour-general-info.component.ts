@@ -11,7 +11,6 @@ import { LanguageService } from 'src/app/core/services/language.service';
 })
 export class TourGeneralInfoComponent implements OnInit, AfterViewInit {
   @Input() tourData: Tour;
-  collapsedStates = [];
   locationsData: Location[] = [];
 
   compLanguage;
@@ -27,10 +26,6 @@ export class TourGeneralInfoComponent implements OnInit, AfterViewInit {
       () =>
         (this.compLanguage = this.languageService.currentLanguage.compTourManagement)
     );
-    this.collapsedStates = this.tourData.locationIds.map(id => ({
-      locationId: id,
-      collapsed: true
-    }));
   }
 
   ngAfterViewInit() {
@@ -38,16 +33,6 @@ export class TourGeneralInfoComponent implements OnInit, AfterViewInit {
       this.serverService
         .getOneLocation(id)
         .subscribe(res => (this.locationsData[index] = res.data));
-      // .subscribe(res => console.log(res.data));
     });
-  }
-
-  collapedHandle(index: number) {
-    const currentState = this.collapsedStates[index].collapsed;
-    this.collapsedStates.map(state => {
-      state.collapsed = true;
-      return state;
-    });
-    this.collapsedStates[index].collapsed = !currentState;
   }
 }

@@ -1,5 +1,6 @@
 export class Location {
     public _id: string;
+    public image: string;
 
     constructor(
         public locationName: string, // place
