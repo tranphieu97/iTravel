@@ -15,32 +15,33 @@
     <!-- schedule item -->
     <div class="row m-0 p-0">
       <div class="col-4 p-0">
-        <span><b>Từ </b></span>
+        <span><b>{{compLanguage.from+' '}}</b></span>
         <span>{{schedule.beginTime | date:'h:mm\' a - d/M'}}</span>
       </div>
       <div class="col-4 p-0">
-        <span><b>Đến </b></span>
+        <span><b>{{compLanguage.to+' '}}</b></span>
         <span>{{schedule.endTime | date:'h:mm\' a - d/M'}}</span>
       </div>
     </div>
     <div>
-      <span><b>Địa điểm: </b></span>
+      <span><b>{{compLanguage.location+': '}}</b></span>
       <span>{{schedule.location}}</span>
     </div>
     <div>
-      <span><b>Công việc: </b></span>
+      <span><b>{{compLanguage.task+': '}}</b></span>
       <span *ngFor="let task of schedule.tasks"> {{task}} </span>
     </div>
     <div class="joining">
-      <span><b>Tham gia: </b></span>
+      <span><b>{{compLanguage.joiningMember+': '}}</b></span>
       <div
         class="avatar"
         *ngFor="let memInfo of participantInfos[scheduleIndex]; let i=index"
         [ngStyle]="{'background-image': 'url(' + memInfo.info.avatar + ')'}">
       </div>
     </div>
-    <span *ngIf="schedule.cost"><b>Chi phí:
+    <span *ngIf="schedule.cost"><b>{{compLanguage.scheduleCost+':'}}
       </b>{{schedule.cost | currency:'VND'}}</span>
-    <span *ngIf="schedule.note"><b>Ghi chú: </b>{{schedule.note}}</span>
+    <span
+      *ngIf="schedule.note"><b>{{compLanguage.note+': '}}</b>{{schedule.note}}</span>
   </div>
 </div>

@@ -20,12 +20,9 @@ export class TourManagementComponent implements OnInit {
   compLanguage;
 
   constructor(
-    public language: LanguageService,
-    private calendar: NgbCalendar,
+    public languageService: LanguageService,
     private server: ServerService,
-    private modalService: NgbModal,
-    public constant: ConstantService,
-    private formBuilder: FormBuilder
+    private modalService: NgbModal
   ) {}
 
   getTourGuide() {
@@ -39,6 +36,11 @@ export class TourManagementComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.compLanguage = this.languageService.currentLanguage.compTourManagement;
+    this.languageService.hasChangeLanguage.subscribe(
+      () =>
+        (this.compLanguage = this.languageService.currentLanguage.compTourManagement)
+    );
     // test get tour
     // this.server.getTour('5cb4744b393d6515e4757a0a').subscribe(res => console.log(res))
 

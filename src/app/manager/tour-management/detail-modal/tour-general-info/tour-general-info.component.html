@@ -29,12 +29,12 @@
 
 <div class="right">
   <div class="inline">
-    <span class="bold">Phí tham gia: </span>
+    <span class="bold">{{compLanguage.registerCost+': '}}</span>
     <span>{{tourData.registerCost | currency:'VND'}}</span>
   </div>
   <div class="inline">
-    <span class="bold">Hành trình: </span>
+    <span class="bold">{{compLanguage.tripDuration+': '}}</span>
     <span>{{tourData.durationTime}}</span>
-    <span> day(s)</span>
+    <span>{{' '+compLanguage.tripDurationUnit}}</span>
   </div>
 </div>

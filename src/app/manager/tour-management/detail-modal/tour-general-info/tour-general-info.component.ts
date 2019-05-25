@@ -2,6 +2,7 @@ import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { Tour } from 'src/app/model/tour.model';
 import { ServerService } from 'src/app/core/services/server.service';
 import { Location } from 'src/app/model/location.model';
+import { LanguageService } from 'src/app/core/services/language.service';
 
 @Component({
   selector: 'app-tour-general-info',
@@ -13,9 +14,19 @@ export class TourGeneralInfoComponent implements OnInit, AfterViewInit {
   collapsedStates = [];
   locationsData: Location[] = [];
 
-  constructor(private serverService: ServerService) {}
+  compLanguage;
+
+  constructor(
+    private serverService: ServerService,
+    private languageService: LanguageService
+  ) {}
 
   ngOnInit() {
+    this.compLanguage = this.languageService.currentLanguage.compTourManagement;
+    this.languageService.hasChangeLanguage.subscribe(
+      () =>
+        (this.compLanguage = this.languageService.currentLanguage.compTourManagement)
+    );
     this.collapsedStates = this.tourData.locationIds.map(id => ({
       locationId: id,
       collapsed: true

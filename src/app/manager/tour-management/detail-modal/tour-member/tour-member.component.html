@@ -1,10 +1,10 @@
 <div class="wrapper">
   <div class="p-3">
     <span class="mr-4">
-      <b>Giới hạn đăng ký:</b> {{tourData.memberLimit}}
-      người
+      <b>{{compLanguage.memberLimit+': '}}</b>{{tourData.memberLimit}}
+      {{compLanguage.memberLimitUnit}}
     </span>
-    <span><b>Còn chỗ:</b> {{available}}</span>
+    <span><b>{{compLanguage.available+': '}}</b>{{available}}</span>
   </div>
   <div class="member-list">
     <div *ngFor="let member of tourData.members; let i=index"
@@ -16,9 +16,9 @@
         <span class="name">
           <b>{{tourMemberInfo[i].basicInfo.firstName+' '+tourMemberInfo[i].basicInfo.lastName}}</b>
         </span>
-        <span><b>Liên hệ:</b>
+        <span><b>{{compLanguage.contact}}:</b>
           {{tourMemberInfo[i].tourInfo.contactNumber}}</span>
-        <span><b>Chưa thanh toán:</b>
+        <span><b>{{compLanguage.needToPay}}:</b>
           {{tourMemberInfo[i].tourInfo.cost | currency:'VND'}}
         </span>
       </div>

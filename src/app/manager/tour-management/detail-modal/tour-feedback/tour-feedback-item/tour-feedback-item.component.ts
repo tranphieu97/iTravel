@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { TourFeedback } from 'src/app/model/tour-feedback.model';
 import { ServerService } from 'src/app/core/services/server.service';
+import { LanguageService } from 'src/app/core/services/language.service';
 
 @Component({
   selector: 'app-tour-feedback-item',

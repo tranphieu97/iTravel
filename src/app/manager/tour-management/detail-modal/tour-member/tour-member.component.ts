@@ -2,6 +2,7 @@ import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { Tour } from 'src/app/model/tour.model';
 import { ServerService } from 'src/app/core/services/server.service';
 import { TourMember } from 'src/app/model/tour-member.model';
+import { LanguageService } from 'src/app/core/services/language.service';
 
 @Component({
   selector: 'app-tour-member',
@@ -15,10 +16,19 @@ export class TourMemberComponent implements OnInit, AfterViewInit {
     basicInfo: { firstName: string; lastName: string; avatar: string };
   }[];
   available = 0;
+  compLanguage;
 
-  constructor(private serverService: ServerService) {}
+  constructor(
+    private serverService: ServerService,
+    private languageService: LanguageService
+  ) {}
 
   ngOnInit() {
+    this.compLanguage = this.languageService.currentLanguage.compTourManagement;
+    this.languageService.hasChangeLanguage.subscribe(
+      () =>
+        (this.compLanguage = this.languageService.currentLanguage.compTourManagement)
+    );
     this.available = this.tourData.memberLimit - this.tourData.members.length;
     this.tourMemberInfo = this.tourData.members.map(member => ({
       tourInfo: member,

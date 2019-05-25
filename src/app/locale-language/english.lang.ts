@@ -65,7 +65,7 @@ export const LangEnglish: Language = {
     registerUsername: 'Choose a Username',
     registerPassword: 'Choose a Password',
     registerConfirmPassword: 'Confirm Password',
-    registerAcceptPolicies: 'I accept this website\'s policies',
+    registerAcceptPolicies: "I accept this website's policies",
     registerRegister: 'Register',
     registerBackToHome: 'Back to Home',
     registerBackToLogin: 'Back to Login',
@@ -114,7 +114,7 @@ export const LangEnglish: Language = {
   // For Menu in NavigationBar Component
   compNavigationBar: {
     menuHome: 'Home',
-    menuVNRegions: 'Vietnam\'s Regions',
+    menuVNRegions: "Vietnam's Regions",
     menuTravel: 'Travel',
     menuCuisine: 'Cuisine',
     menuPlans: 'Plans',
@@ -227,7 +227,7 @@ export const LangEnglish: Language = {
     createPostInvalidTopicEmpty: 'Post content can not be empty!',
     createPostAlertSaveSuccess:
       'Your post was saved successfully, click to see.',
-    createPostAlertSaveAlready: 'Your post was saved, can\'t save any more!'
+    createPostAlertSaveAlready: "Your post was saved, can't save any more!"
   },
 
   // For Region
@@ -264,7 +264,7 @@ export const LangEnglish: Language = {
     userPostManagementPending: 'Pending',
     userPostManagementDenied: 'Denied',
     userPostManagementAllPost: 'All Post',
-    userPostManagementEnterPostTitle: 'Enter Post\'s title',
+    userPostManagementEnterPostTitle: "Enter Post's title",
     userPostManagementTablePostName: 'Title',
     userPostManagementTablePostCreationTime: 'Creation Time',
     userPostManagementTablePostCategories: 'Categories',
@@ -272,7 +272,7 @@ export const LangEnglish: Language = {
     userPostManagementTableAction: 'Action',
     userPostManagementEditTitle: 'Edit Post',
     userPostManagementEditMessage:
-      'Edit Post\'s content will send it to pending list',
+      "Edit Post's content will send it to pending list",
     userPostManagementEditCancel: 'Cancel',
     userPostManagementEditOK: 'Ok',
     userPostManagementPostTimeTitle: 'Creation Time ',
@@ -385,5 +385,44 @@ export const LangEnglish: Language = {
     addPreparationSelectPerform: 'Select performs',
     addPreparationDeadline: 'Deadline',
     addPreparationNotes: 'Notes'
+  },
+
+  compTourManagement: {
+    screenTitle: 'Tour Managememt',
+    tourName: 'Tourname',
+    tourGuide: 'Tour guide',
+    creationTime: 'Creation time',
+    status: 'Status',
+    statusPending: 'PENDING',
+    statusRegistering: 'REGISTERING',
+    statusRunning: 'RUNNING',
+    statusFinished: 'FINISHED',
+    statusPreparing: 'PREPARING',
+    statusPrepared: 'FINISHED',
+    detailBtn: 'Detail',
+    modalTitle: 'Tour Detail',
+    generalTab: 'General',
+    scheduleTab: 'Schedule',
+    feedbackTab: 'Feedback',
+    membersTab: 'Members',
+    preparationTab: 'Preparation',
+    closeBtn: 'Close',
+    registerCost: 'Cost',
+    tripDuration: 'Trip duration',
+    tripDurationUnit: 'day(s)',
+    memberLimit: 'Member limit',
+    memberLimitUnit: 'people',
+    available: 'Available',
+    contact: 'Contact',
+    needToPay: 'Need to pay',
+    prepared: 'Prepared',
+    deadline: 'Deadline',
+    note: 'Note',
+    from: 'From',
+    to: 'To',
+    location: 'Location',
+    task: 'Task',
+    joiningMember: 'Joining',
+    scheduleCost: 'Cost'
   }
 };
