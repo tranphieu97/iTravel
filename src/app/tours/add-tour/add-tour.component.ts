@@ -52,6 +52,7 @@ export class AddTourComponent implements OnInit {
   public tourModel: Tour;
 
   public coverFile: File = null;
+  public locationImage: File = null;
   public scheduleCost: number;
 
   compLanguage;
@@ -125,6 +126,7 @@ export class AddTourComponent implements OnInit {
       provinceCity: [null, [Validators.required]],
       gps: [null],
       address: [null, [Validators.required]],
+      image: ['']
     });
   }
 
@@ -160,25 +162,40 @@ export class AddTourComponent implements OnInit {
     if (this.addLocationForm.valid) {
       this.isLoading = true;
       const formData = this.addLocationForm.value;
-      this.serverService.postLocation(formData.locationName, formData.provinceCity, formData.gps, formData.address)
-        .subscribe((res) => {
-          this.isLoading = false;
 
-          if (res.statusCode === 201) {
-            this.addLocationMessage = this.compLanguage.addTourAddSuccess;
-            this.hasError = false;
+      this.serverService.uploadImage([{ imgFile: this.locationImage, contentId: 'locationImg' }])
+        .subscribe(uploadRes => {
+          if (uploadRes) {
+            this.serverService.postLocation(formData.locationName, formData.provinceCity,
+              formData.gps, formData.address, uploadRes.imageUrls[0])
+              .subscribe((res) => {
+                this.isLoading = false;
 
-            setTimeout(() => {
-              try {
-                this.modal.dismissAll();
-              } catch { }
-            }, 2000);
+                if (res.statusCode === 201) {
+                  this.addLocationMessage = this.compLanguage.addTourAddSuccess;
+                  this.hasError = false;
+
+                  setTimeout(() => {
+                    try {
+                      this.modal.dismissAll();
+                    } catch { }
+                  }, 10000);
+                } else {
+                  this.addLocationMessage = this.compLanguage.addTourAddFail;
+                  this.hasError = true;
+                }
+              });
           } else {
             this.addLocationMessage = this.compLanguage.addTourAddFail;
             this.hasError = true;
+            this.isLoading = false;
           }
         });
     }
+  }
+
+  onLocationImagePicked(event: any) {
+    this.locationImage = (event.target as HTMLInputElement).files[0];
   }
 
   selectItem(arr: Array<any>, item: any) {
@@ -225,7 +242,7 @@ export class AddTourComponent implements OnInit {
     this.modal.open(contentId, { ariaLabelledBy: 'modal-basic-title' });
   }
 
-  onImagePicked(event: Event) {
+  onCoverPicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
     const reader = new FileReader();
 

@@ -337,6 +337,7 @@ export const LangEnglish: Language = {
     addTourLocationProvince: 'Province',
     addTourLocationGPS: 'GPS',
     addTourLocationAddress: 'Address',
+    addTourLocationImage: 'Image',
     addTourNoteSelectMore: 'This property is able to select more options',
     addTourAddSuccess: 'Add Success!',
     addTourAddFail: 'Add Fail, Please try again!',

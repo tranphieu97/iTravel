@@ -335,6 +335,7 @@ export class Language {
     addTourLocationProvince: string;
     addTourLocationGPS: string;
     addTourLocationAddress: string;
+    addTourLocationImage: string;
     addTourNoteSelectMore: string;
     addTourAddSuccess: string;
     addTourAddFail: string;

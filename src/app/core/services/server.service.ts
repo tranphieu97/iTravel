@@ -471,12 +471,13 @@ export class ServerService {
    * @param gps
    * @param address
    */
-  postLocation(locationName: string, provinceCity: Array<string>, gps: string, address: string): Observable<any> {
+  postLocation(locationName: string, provinceCity: Array<string>, gps: string, address: string, image: string): Observable<any> {
     const locationData = {
       locationName,
       provinceCity,
       gps,
-      address
+      address,
+      image
     };
 
     return this.http.post(this.HOST + 'tourguide/add-location', locationData, this.httpOptions);
