@@ -19,6 +19,8 @@ export class AddPreparationComponent implements OnInit {
   public maxDate: NgbDate;
   public hasFinishedInput: Boolean = false;
 
+  public isInvalidDate: Boolean = false;
+
   compLanguage;
   commonLanguage;
 
@@ -39,13 +41,22 @@ export class AddPreparationComponent implements OnInit {
 
     this.preparationDeadline = this.dateStructService.getDateStructFromDate(this.addTourService.getBeginTime());
     this.maxDate = this.dateStructService.getDateStructFromDate(this.addTourService.getBeginTime());
+    this.onChangeDeadline();
   }
 
   removePreparation() {
     this.addTourService.hasRemovePreparation.next(this.index);
   }
 
-  finishedPreparation() {
+  onChangeDeadline() {
+    this.preparationModel.deadline = this.dateStructService.getDateFromDateStruct(this.preparationDeadline);
+  }
 
+  finishedPreparation() {
+    if (this.preparationModel.itemName === null || this.preparationModel.itemName.trim() === '') {
+      this.isInvalidDate = true;
+    } else {
+      this.hasFinishedInput = true;
+    }
   }
 }

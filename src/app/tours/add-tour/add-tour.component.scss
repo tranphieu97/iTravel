@@ -121,7 +121,7 @@
     flex: 5;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
+    align-items: stretch;
     height: 95%;
     overflow-y: auto;
 
@@ -162,6 +162,12 @@
       i {
           padding-right: 3px;
       }
+    }
+
+    .tour-time {
+      font-size: 15px;
+      font-weight: 600;
+      margin: 3px 10px;
     }
   }
 

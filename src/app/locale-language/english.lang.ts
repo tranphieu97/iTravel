@@ -352,7 +352,9 @@ export const LangEnglish: Language = {
     addTourPeople: 'people',
     addTourItemPreparation: 'Items Preparation',
     addTourAddPrepataion: 'Add Item',
-    addTourPerform: 'Performs'
+    addTourPerform: 'Performs',
+    addTourDurationTime: 'Tour\' Duration Time',
+    addTourDay: 'days'
   },
 
   // Add Schedule
@@ -374,7 +376,8 @@ export const LangEnglish: Language = {
     addScheduleAddPerform: 'Add another perfrom',
     addScheduleSelectOneBefore: 'Current select has not been finished',
     addScheduleInvalidData: 'Invalid Data, please try again',
-    addScheduleNotes: 'Notes'
+    addScheduleNotes: 'Notes',
+    addScheduleNoteSelectMore: 'This option is be able to select more'
   },
 
   compAddPreparation: {
@@ -385,6 +388,15 @@ export const LangEnglish: Language = {
     addPreparationToAll: 'All Members',
     addPreparationSelectPerform: 'Select performs',
     addPreparationDeadline: 'Deadline',
-    addPreparationNotes: 'Notes'
+    addPreparationNotes: 'Notes',
+    addPreparationGlassOf: 'Glass',
+    addPreparationBowlOf: 'Bowl',
+    addPreparationSliceOf: 'Slice',
+    addPreparationCartonOf: 'Carton',
+    addPreparationPieceOf: 'Piece',
+    addPreparationBagOf: 'Bag',
+    addPreparationBarOf: 'Bar',
+    addPreparationBottleOf: 'Bottle',
+    addPreparationRollOf: 'Roll',
   }
 };

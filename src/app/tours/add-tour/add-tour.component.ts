@@ -12,6 +12,7 @@ import { DateStructService } from 'src/app/core/services/date-struct.service';
 import { AddTourService } from 'src/app/core/services/add-tour.service';
 import { Tour } from 'src/app/model/tour.model';
 import { TourSchedule } from 'src/app/model/tour-schedule.model';
+import { TourPreparation } from 'src/app/model/tour-preparation.model';
 
 @Component({
   selector: 'app-add-tour',
@@ -117,6 +118,12 @@ export class AddTourComponent implements OnInit {
       this.tourModel.schedules.forEach(schedule => {
         this.scheduleCost = this.scheduleCost + schedule.cost;
       });
+    });
+
+    this.addTourService.hasRemovePreparation.subscribe((index) => {
+      if (this.tourModel.preparations && this.tourModel.preparations.length > index && index >= 0) {
+        this.tourModel.preparations.splice(index, 1);
+      }
     });
   }
 
@@ -235,6 +242,18 @@ export class AddTourComponent implements OnInit {
     console.log(this.addTourService.tourModel);
   }
 
+  addPreparation() {
+    try {
+      if (this.tourModel.preparations === undefined) {
+        this.tourModel.preparations = [];
+      }
+
+      this.tourModel.preparations.push(new TourPreparation());
+    } catch (ex) {
+      console.log(ex);
+    }
+  }
+
   openNewLocationDialog(contentId) {
     this.buildAddLocationForm();
     this.addLocationMessage = '';
@@ -280,6 +299,7 @@ export class AddTourComponent implements OnInit {
         this.tourModel.endTime = this.dateStructService.getDateFromDateTimeStruct(this.endDate, this.endTime);
         this.tourModel.closeFeedbackTime = this.dateStructService.getDateFromDateTimeStruct(this.feedbackDeadline, this.feedbackTime);
         this.tourModel.closeRegisterTime = this.dateStructService.getDateFromDateTimeStruct(this.registerDeadline, this.registerTime);
+        this.tourModel.durationTime = ((this.tourModel.endTime.valueOf() - this.tourModel.beginTime.valueOf()) / 86400000) + 1;
         this.addTourService.setArrPerform(this.arrSelectedTourguide);
 
         if (this.tourModel.schedules.length === 0) {
@@ -289,6 +309,10 @@ export class AddTourComponent implements OnInit {
         this.stepperService.toNext();
       }
     } else if (this.stepperService.getStep() === 2) {
+
+      if (this.tourModel.preparations.length === 0) {
+        this.tourModel.preparations.push(new TourPreparation());
+      }
       this.stepperService.toNext();
     } else if (this.stepperService.getStep() === 3) {
 

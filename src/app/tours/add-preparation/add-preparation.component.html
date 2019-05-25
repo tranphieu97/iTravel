@@ -1,4 +1,4 @@
-<div class="flex-row flex-justify-end">
+<div class="flex-row flex-justify-end" *ngIf="!hasFinishedInput">
   <span class="fas fa-times-circle esc-btn" (click)="removePreparation()"></span>
 </div>
 <div class="flex-col" *ngIf="!hasFinishedInput">
@@ -7,10 +7,13 @@
       {{compLanguage.addPreparationItemName}}
     </div>
     <div class="row-input">
-      <input type="text" class="form-control" name="item-name"
+      <input type="text" class="form-control" name="item-name" (change)="isInvalidDate = false"
         [placeholder]="commonLanguage.enter + compLanguage.addPreparationItemName"
         [(ngModel)]="preparationModel.itemName">
     </div>
+  </div>
+  <div class="flex-row flex-justify-end" style="color: red" *ngIf="isInvalidDate">
+    {{commonLanguage.invalidInputData}}
   </div>
   <div class="flex-row form-group">
     <div class="row-label">
@@ -22,7 +25,15 @@
       </div>
       <div class="flex-1">
         <select class="form-control" name="unit" [(ngModel)]="preparationModel.unit">
-          <option value=""> Cái</option>
+          <option selected value="Glass"> {{compLanguage.addPreparationGlassOf}}</option>
+          <option value="Bowl"> {{compLanguage.addPreparationBowlOf}}</option>
+          <option value="Slice"> {{compLanguage.addPreparationSliceOf}}</option>
+          <option value="Carton"> {{compLanguage.addPreparationCartonOf}}</option>
+          <option value="Piece"> {{compLanguage.addPreparationPieceOf}}</option>
+          <option value="Bag"> {{compLanguage.addPreparationBagOf}}</option>
+          <option value="Bar"> {{compLanguage.addPreparationBarOf}}</option>
+          <option value="Bottle"> {{compLanguage.addPreparationBottleOf}}</option>
+          <option value="Roll"> {{compLanguage.addPreparationRollOf}}</option>
         </select>
       </div>
     </div>
@@ -36,7 +47,7 @@
         <div class="input-group">
           <input class="form-control" placeholder="yyyy-mm-dd" name="preparation-date" [(ngModel)]="preparationDeadline"
             ngbDatepicker #preparationDate="ngbDatepicker" #modelpreparationDate="ngModel" [maxDate]="maxDate">
-          <div class="input-group-append">
+          <div class="input-group-append" (change)="onChangeDeadline()">
             <button class="btn btn-outline-secondary calendar" (click)="preparationDate.toggle()" type="button">
               <span><i class="fas fa-calendar-alt"></i></span>
             </button>
@@ -69,23 +80,23 @@
       {{compLanguage.addPreparationNotes}}
     </div>
     <div class="row-input">
-      <input type="text" class="form-control"
-        [placeholder]="commonLanguage.enter + compLanguage.addPreparationNotes">
+      <input type="text" class="form-control" [placeholder]="commonLanguage.enter + compLanguage.addPreparationNotes">
     </div>
   </div>
   <div class="flex-row flex-justify-end">
-    <input type="button" class="form-control btn btn-outline-secondary" [value]="commonLanguage.ok"
-      style="width: 75px;">
+    <input type="button" class="form-control btn btn-outline-secondary" [value]="commonLanguage.ok" style="width: 75px;"
+      (click)="finishedPreparation()">
   </div>
 </div>
-<div class="flex-col preparation-review" *ngIf="hasFinishedInput">
+<div class="flex-col preparation-review" *ngIf="hasFinishedInput" (click)="hasFinishedInput = false">
   <div class="flex-row">
     <div class="flex-1 preparation-title">
-        {{preparationModel.itemName}}
+      {{preparationModel.itemName}}
     </div>
     <div class="flex-1 preparation-title">
-        {{preparationModel.amount + preparationModel.unit}}
+      {{preparationModel.amount + preparationModel.unit}}
     </div>
+    <span class="fas fa-times-circle esc-btn" (click)="removePreparation()"></span>
   </div>
   <div class="flex-row flex-items-center">
     <span><i class="fas fa-chevron-down"></i></span>

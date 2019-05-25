@@ -349,7 +349,9 @@ export const LangVietnamese: Language = {
     addTourPeople: 'người',
     addTourItemPreparation: 'Chuẩn bị vật dụng',
     addTourAddPrepataion: 'Thêm vật dụng',
-    addTourPerform: 'Chịu trách nhiệm'
+    addTourPerform: 'Chịu trách nhiệm',
+    addTourDurationTime: 'Thời gian chuyến đi',
+    addTourDay: 'Ngày'
   },
 
   // Add Schedule
@@ -371,7 +373,8 @@ export const LangVietnamese: Language = {
     addScheduleAddPerform: 'Thêm người phụ trách',
     addScheduleSelectOneBefore: 'Lựa chọn hiện tại chưa hoàn thành',
     addScheduleInvalidData: 'Dữ liệu nhập không đúng, vui lòng thử lại',
-    addScheduleNotes: 'Ghi chú'
+    addScheduleNotes: 'Ghi chú',
+    addScheduleNoteSelectMore: 'Nội dung này có thể có nhiều lựa chọn nhiều'
   },
 
   compAddPreparation: {
@@ -382,6 +385,15 @@ export const LangVietnamese: Language = {
     addPreparationToAll: 'Tất cả thành viên',
     addPreparationSelectPerform: 'Chỉ định phụ trách',
     addPreparationDeadline: 'Hạn chót',
-    addPreparationNotes: 'Ghi chú'
+    addPreparationNotes: 'Ghi chú',
+    addPreparationGlassOf: 'Ly',
+    addPreparationBowlOf: 'Tô',
+    addPreparationSliceOf: 'Lát',
+    addPreparationCartonOf: 'Thùng',
+    addPreparationPieceOf: 'Cái',
+    addPreparationBagOf: 'Túi',
+    addPreparationBarOf: 'Thanh',
+    addPreparationBottleOf: 'Chai',
+    addPreparationRollOf: 'Cuộn',
   }
 };

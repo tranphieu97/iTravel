@@ -185,7 +185,7 @@
           [index]="i"></app-add-schedule>
       </div>
       <div class="flex-row flex-justify-space-between flex-align-center">
-        <h4>
+        <h4 style="color: red; font-weight: 600;">
           {{compLanguage.addTourScheduleCost}} {{scheduleCost | currency:'VND'}}
         </h4>
         <input type="button" (click)="addShedule()" [value]="compLanguage.addTourAddSchedule" class="btn btn-warning"
@@ -246,11 +246,12 @@
         <div class="row-input"></div>
       </div>
       <div class="flex-col form-group">
-        <app-add-preparation></app-add-preparation>
+        <app-add-preparation *ngFor="let preparation of tourModel.preparations; let i = index"
+          [preparationModel]="preparation" [index]="i"></app-add-preparation>
       </div>
       <div class="flex-row flex-justify-end">
         <input type="button" [value]="compLanguage.addTourAddPrepataion" class="btn btn-warning"
-          style="width: fit-content;">
+          style="width: fit-content;" (click)="addPreparation()">
       </div>
     </div>
   </form>
@@ -277,15 +278,46 @@
     <span class="tour-location" *ngFor="let location of arrSelectedLocation">
       <i class="fas fa-map-marker-alt"></i>{{location.locationName}}</span>
   </div>
+  <div class="flex-row flex-items-center" *ngIf="tourModel.durationTime">
+    <span style="font-size: 16px; font-weight: 600; color:orangered">{{tourModel.durationTime}} {{compLanguage.addTourDay}}</span>
+  </div>
   <div class="flex-row tour-desc">
     <p class="tour-desc">{{tourModel.description}}</p>
   </div>
-  <div class="flex-row">
-    <div class="flex-4">
-
+  <div class="flex-row" *ngIf="tourModel.closeFeedbackTime">
+    <span class="tour-time" style="color: orangered;"><i class="far fa-dot-circle"></i></span>
+    <div class="flex-6 tour-time">
+      {{tourModel.closeFeedbackTime | date:'medium'}}
     </div>
-    <div class="flex-6">
-
+    <div class="flex-4 tour-time">
+      {{compLanguage.addTourEndFeedbackTime}}
+    </div>
+  </div>
+  <div class="flex-row" *ngIf="tourModel.closeRegisterTime">
+    <span class="tour-time" style="color: orangered;"><i class="far fa-dot-circle"></i></span>
+    <div class="flex-6 tour-time">
+      {{tourModel.closeRegisterTime | date:'medium'}}
+    </div>
+    <div class="flex-4 tour-time">
+      {{compLanguage.addTourEndRegisterTime}}
+    </div>
+  </div>
+  <div class="flex-row" *ngIf="tourModel.beginTime">
+    <span class="tour-time" style="color: orangered;"><i class="far fa-dot-circle"></i></span>
+    <div class="flex-6 tour-time">
+      {{tourModel.beginTime | date:'medium'}}
+    </div>
+    <div class="flex-4 tour-time">
+      {{compLanguage.addTourBeginTime}}
+    </div>
+  </div>
+  <div class="flex-row" *ngIf="tourModel.endTime">
+    <span class="tour-time" style="color: orangered;"><i class="far fa-dot-circle"></i></span>
+    <div class="flex-6 tour-time">
+      {{tourModel.endTime | date:'medium'}}
+    </div>
+    <div class="flex-4 tour-time">
+      {{compLanguage.addTourEndTime}}
     </div>
   </div>
   <div>

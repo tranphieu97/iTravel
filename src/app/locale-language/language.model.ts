@@ -351,6 +351,8 @@ export class Language {
     addTourItemPreparation: string;
     addTourAddPrepataion: string;
     addTourPerform: string;
+    addTourDurationTime: string;
+    addTourDay: string;
   };
 
   // Add Schedule
@@ -373,6 +375,7 @@ export class Language {
     addScheduleSelectOneBefore: string;
     addScheduleInvalidData: string;
     addScheduleNotes: string;
+    addScheduleNoteSelectMore: string;
   };
 
   compAddPreparation: {
@@ -384,6 +387,15 @@ export class Language {
     addPreparationSelectPerform: string;
     addPreparationDeadline: string;
     addPreparationNotes: string;
+    addPreparationGlassOf: string;
+    addPreparationBowlOf: string;
+    addPreparationSliceOf: string;
+    addPreparationCartonOf: string;
+    addPreparationPieceOf: string;
+    addPreparationBagOf: string;
+    addPreparationBarOf: string;
+    addPreparationBottleOf: string;
+    addPreparationRollOf: string;
   };
 
   constructor() {}
