@@ -353,6 +353,8 @@ export class Language {
     addTourPerform: string;
     addTourDurationTime: string;
     addTourDay: string;
+    addTourInputScheduleBefore: string;
+    addTourInputPreparationBefore: string;
   };
 
   // Add Schedule

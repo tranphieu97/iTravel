@@ -359,7 +359,9 @@ export const LangEnglish: Language = {
     addTourAddPrepataion: 'Add Item',
     addTourPerform: 'Performs',
     addTourDurationTime: 'Tour\' Duration Time',
-    addTourDay: 'days'
+    addTourDay: 'days',
+    addTourInputPreparationBefore: 'Plese input preparation informations',
+    addTourInputScheduleBefore: 'Please input schedule details'
   },
 
   // Add Schedule

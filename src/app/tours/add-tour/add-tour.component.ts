@@ -76,7 +76,7 @@ export class AddTourComponent implements OnInit {
     });
 
     this.addTourService.setupTour();
-    this.stepperService.setMaxStep(3);
+    this.stepperService.setMaxStep(4);
 
     this.tourModel = this.addTourService.tourModel;
 
@@ -309,13 +309,24 @@ export class AddTourComponent implements OnInit {
         this.stepperService.toNext();
       }
     } else if (this.stepperService.getStep() === 2) {
-
-      if (this.tourModel.preparations.length === 0) {
-        this.tourModel.preparations.push(new TourPreparation());
+      if (!this.addTourService.validateSchedule()) {
+        this.showError(this.compLanguage.addTourInputScheduleBefore);
+      } else {
+        if (this.tourModel.preparations.length === 0) {
+          this.tourModel.preparations.push(new TourPreparation());
+        }
+        this.errorMess = '';
+        this.stepperService.toNext();
       }
-      this.stepperService.toNext();
     } else if (this.stepperService.getStep() === 3) {
-
+      if (this.tourModel.registerCost < 0 || this.tourModel.tourGuideId === '' || this.tourModel.contactNumber === '') {
+        this.showError(this.compLanguage.addTourInputAllBefore);
+      } else if (!this.addTourService.validatePreparations()) {
+        this.showError(this.compLanguage.addTourInputPreparationBefore);
+      } else {
+        this.errorMess = '';
+        this.stepperService.toNext();
+      }
     }
   }
 }

@@ -75,6 +75,7 @@ export class AddScheduleComponent implements OnInit {
     this.startDate = this.dateStructService.getDateStructFromDate(this.addTourService.getBeginTime());
     this.maxDate = this.dateStructService.getDateStructFromDate(this.addTourService.getEndTime());
     this.minDate = this.dateStructService.getDateStructFromDate(this.addTourService.getCloseRegisterTime());
+    this.onChangeTime();
 
     this.arrPerforms = this.addTourService.getArrPerform();
   }
@@ -115,6 +116,10 @@ export class AddScheduleComponent implements OnInit {
     this.onChangeTime();
     if (this.scheduleModel.tasks[this.scheduleModel.tasks.length - 1] === this.DEFAULT_OPTION) {
       this.isPickedCurrentTask = false;
+
+      setTimeout(() => {
+        this.isPickedCurrentTask = true;
+      }, 5000);
     }  else if (this.isValidDate) {
       this.isFinishedInput = true;
     }

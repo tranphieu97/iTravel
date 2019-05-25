@@ -15,6 +15,9 @@ export class AddPreparationComponent implements OnInit {
   @Input() preparationModel: TourPreparation;
   @Input() index: number;
 
+  public arrPerforms: Array<any>;
+  public isCheckedAllMember: Boolean = true;
+
   public preparationDeadline: NgbDate;
   public maxDate: NgbDate;
   public hasFinishedInput: Boolean = false;
@@ -34,6 +37,8 @@ export class AddPreparationComponent implements OnInit {
       this.compLanguage = this.language.currentLanguage.compAddPreparation;
       this.commonLanguage = this.language.currentLanguage.common;
     });
+
+    this.arrPerforms = this.addTourService.getArrPerform();
   }
 
   setupDefault() {
