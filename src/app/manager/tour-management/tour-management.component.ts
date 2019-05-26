@@ -1,9 +1,7 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LanguageService } from 'src/app/core/services/language.service';
-import { NgbCalendar, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ServerService } from 'src/app/core/services/server.service';
-import { ConstantService } from 'src/app/core/services/constant.service';
-import { FormBuilder } from '@angular/forms';
 import { Tour } from 'src/app/model/tour.model';
 import { ConstTourStatus } from '../../constants';
 import { DetailModalComponent } from './detail-modal/detail-modal.component';

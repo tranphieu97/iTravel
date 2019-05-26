@@ -5,6 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { UserRoutingModule } from './user.routing';
 import { UserPostManagementComponent } from './user-post-management/user-post-management.component';
 import { PostViewModule } from '../post-view/post-view.module';
+import { UserTourComponent } from './user-tour/user-tour.component';
 
 @NgModule({
   imports: [
@@ -13,6 +14,6 @@ import { PostViewModule } from '../post-view/post-view.module';
     UserRoutingModule,
     PostViewModule
   ],
-  declarations: [UserProfileComponent, UserPostManagementComponent]
+  declarations: [UserProfileComponent, UserPostManagementComponent, UserTourComponent]
 })
 export class UserModule { }

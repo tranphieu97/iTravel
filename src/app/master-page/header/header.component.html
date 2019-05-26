@@ -69,6 +69,8 @@
                 routerLinkActive="router-link-active">{{compLanguage.headerPersonalInfo}}</a>
             <a class="dropdown-item" [routerLink]="['/user/posts']"
                 routerLinkActive="router-link-active">{{compLanguage.headerUserContribution}}</a>
+            <a class="dropdown-item" [routerLink]="['/user/tours']"
+                routerLinkActive="router-link-active">{{compLanguage.headerUserTour}}</a>
             <a class="dropdown-item" (click)="this.user.logOut()">{{compLanguage.headerLogOut}}</a>
         </div>
     </div>

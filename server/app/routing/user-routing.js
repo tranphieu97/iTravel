@@ -559,7 +559,7 @@ app.post('/user/remove-tour', async (req, res) => {
         });
     } catch (error) {
         res.status(500).json({
-            message: 'Fail!'
+            message: error.message
         });
     }
 });
@@ -570,14 +570,19 @@ app.post('/user/remove-tour', async (req, res) => {
  */
 app.get('/user/get-tours', async (req, res) => {
     try {
-        const tours = await Tour.find({})
+        let queryObj = {}
+        if(req.param('userId')){
+            const userId = authentication.getTokenUserId(req.headers.authorization);
+            queryObj = {'members.memberId': userId}
+        }
+        const tours = await Tour.find(queryObj)
         res.status(200).json({
             data: tours,
             message: 'Success!'
         });
     } catch (error) {
         res.status(500).json({
-            message: 'Fail!'
+            message: error.message
         });
     }
 });
