@@ -63,21 +63,21 @@
     <div class="row-input flex-col form-check">
       <div class="flex-row">
         <div class="form-check flex-1">
-          <input class="form-check-input" type="radio" name="performs" value="toAll" (change)="isCheckedAllMember = true" [checked]="isCheckedAllMember">
-          <label class="form-check-label" for="exampleRadios1">
+          <input class="form-check-input" type="radio" name="performs" value="toAll" (change)="preparationModel.isRequired = true" [checked]="preparationModel.isRequired">
+          <label class="form-check-label">
             {{compLanguage.addPreparationToAll}}
           </label>
         </div>
         <div class="form-check flex-1">
-          <input class="form-check-input" type="radio" name="performs" value="select" (change)="isCheckedAllMember = false" [checked]="!isCheckedAllMember">
-          <label class="form-check-label" for="exampleRadios1">
+          <input class="form-check-input" type="radio" name="performs" value="select" (change)="preparationModel.isRequired = false" [checked]="!preparationModel.isRequired">
+          <label class="form-check-label">
             {{compLanguage.addPreparationSelectPerform}}
           </label>
         </div>
       </div>
       <div class="flex-row form-group" *ngFor="let perform of arrPerforms; let i = index">
-        <input *ngIf="!isCheckedAllMember" class="form-control flex-1" type="text" [value]="perform.displayName" readonly>
-        <input *ngIf="!isCheckedAllMember" class="form-control flex-1" type="number" value="0">
+        <input *ngIf="!preparationModel.isRequired" class="form-control flex-1" type="text" [value]="perform.displayName" readonly>
+        <input *ngIf="!preparationModel.isRequired" class="form-control flex-1" type="number" [(ngModel)]="perform.amount" (change)="onChangePerformerAmountItem()">
       </div>
     </div>
   </div>

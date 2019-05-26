@@ -353,7 +353,9 @@ export const LangVietnamese: Language = {
     addTourDurationTime: 'Thời gian chuyến đi',
     addTourDay: 'Ngày',
     addTourInputPreparationBefore: 'Vui lòng nhập thông tin chuẩn bị',
-    addTourInputScheduleBefore: 'Vui lòng nhập kế hoạch chi tiết'
+    addTourInputScheduleBefore: 'Vui lòng nhập kế hoạch chi tiết',
+    addTourReviewer: 'Người thẩm định',
+    addTourCreateTour: 'Tạo chuyến đi mới'
   },
 
   // Add Schedule

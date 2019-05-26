@@ -11,6 +11,7 @@ export class TourPreparation {
   public deadline: Date;
   public note: string;
   public isActive: Boolean;
+  public isRequired: Boolean;
 
   // constructor(
   //   itemName: string,
@@ -35,5 +36,6 @@ export class TourPreparation {
     this.performers = [];
     this.status = 'PREPARING';
     this.isActive = true;
+    this.isRequired = true;
   }
 }

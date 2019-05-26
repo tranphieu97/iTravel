@@ -355,6 +355,8 @@ export class Language {
     addTourDay: string;
     addTourInputScheduleBefore: string;
     addTourInputPreparationBefore: string;
+    addTourReviewer: string;
+    addTourCreateTour: string;
   };
 
   // Add Schedule

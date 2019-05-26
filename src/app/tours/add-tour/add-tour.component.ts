@@ -13,6 +13,7 @@ import { AddTourService } from 'src/app/core/services/add-tour.service';
 import { Tour } from 'src/app/model/tour.model';
 import { TourSchedule } from 'src/app/model/tour-schedule.model';
 import { TourPreparation } from 'src/app/model/tour-preparation.model';
+import { TourReviewer } from 'src/app/model/tour-reviewer.model';
 
 @Component({
   selector: 'app-add-tour',
@@ -23,6 +24,7 @@ import { TourPreparation } from 'src/app/model/tour-preparation.model';
 export class AddTourComponent implements OnInit {
 
   public addLocationForm: FormGroup;
+  public validPage: ValidPage = new ValidPage();
 
   public startDate: NgbDate;
   public endDate: NgbDate;
@@ -39,10 +41,14 @@ export class AddTourComponent implements OnInit {
 
   public searchLocationName: String = '';
   public arrLocations: Array<Location> = [];
+  public arrFilterLocations: Array<Location> = [];
   public arrSelectedLocation: Array<Location> = [];
 
   public arrTourguides: Array<any> = [];
   public arrSelectedTourguide: Array<any> = [];
+
+  public arrReviewer: Array<any> = [];
+  public arrSelectedReviewer: Array<any> = [];
 
   public isLoading: Boolean = false;
   public addLocationMessage: String = '';
@@ -106,6 +112,16 @@ export class AddTourComponent implements OnInit {
       });
     });
 
+    this.serverService.getReviewer().subscribe(res => {
+      this.arrReviewer = res.data.map((item: any) => {
+        return {
+          _id: item._id,
+          displayName: item.lastName === '' ? item.firstName : item.lastName + ' ' + item.firstName,
+          username: item.username
+        };
+      });
+    });
+
     this.addTourService.hasRemoveSchedule.subscribe((index) => {
       if (this.tourModel.schedules && this.tourModel.schedules.length > index && index >= 0) {
         this.tourModel.schedules.splice(index, 1);
@@ -156,8 +172,13 @@ export class AddTourComponent implements OnInit {
       this.serverService.getLocationsInProvinces(this.arrSelectedProvince.map(province => province.provinceName))
         .subscribe((res) => {
           if (res.data) {
-            this.arrLocations = res.data.map(location =>
-              new Location(location.locationName, location.provinceCity, location.gps, location.address));
+            this.arrLocations = res.data.map(location => {
+              const mapLocation = new Location(location.locationName, location.provinceCity, location.gps, location.address);
+              mapLocation._id = location._id;
+              return mapLocation;
+            });
+
+            this.arrFilterLocations = Object.assign(this.arrLocations);
           }
         });
     } else {
@@ -215,6 +236,20 @@ export class AddTourComponent implements OnInit {
     if (arr.indexOf(item) !== -1) {
       arr.splice(arr.indexOf(item), 1);
     }
+  }
+
+  changeArrReviewer(reviewer: any) {
+    if (this.arrSelectedReviewer.includes(reviewer)) {
+      this.arrSelectedReviewer.splice(this.arrSelectedReviewer.indexOf(reviewer), 1);
+    } else {
+      this.arrSelectedReviewer.push(reviewer);
+    }
+
+    this.tourModel.reviewers = this.arrSelectedReviewer.map(user => {
+      return new TourReviewer(user._id);
+    });
+
+    console.log(this.tourModel);
   }
 
   validateStartEndDate() {
@@ -288,18 +323,37 @@ export class AddTourComponent implements OnInit {
     }, 5000);
   }
 
+  filterLocation(keyword: any) {
+    if (keyword !== undefined && keyword !== null) {
+      this.arrFilterLocations = Object.assign(this.arrLocations
+        .filter(x => x.locationName.toLowerCase().includes(keyword.trim().toLowerCase())));
+    } else {
+      this.arrFilterLocations = this.arrLocations;
+    }
+  }
+
   validatePage() {
     if (this.stepperService.getStep() === 1) {
       if (this.tourModel.tourName.trim() === '' || this.tourModel.description.trim() === ''
         || this.arrSelectedLocation.length === 0 || this.arrSelectedTourguide.length === 0
         || this.tourModel.cover === '') {
+
+        // PAGE 1 - INVALID
+        this.validPage.First = false;
         this.showError(this.compLanguage.addTourInputAllBefore);
       } else {
+        // PAGE 1 - VALID
+        this.validPage.First = true;
+
+        // Store data to model
         this.tourModel.beginTime = this.dateStructService.getDateFromDateTimeStruct(this.startDate, this.startTime);
         this.tourModel.endTime = this.dateStructService.getDateFromDateTimeStruct(this.endDate, this.endTime);
         this.tourModel.closeFeedbackTime = this.dateStructService.getDateFromDateTimeStruct(this.feedbackDeadline, this.feedbackTime);
         this.tourModel.closeRegisterTime = this.dateStructService.getDateFromDateTimeStruct(this.registerDeadline, this.registerTime);
-        this.tourModel.durationTime = ((this.tourModel.endTime.valueOf() - this.tourModel.beginTime.valueOf()) / 86400000) + 1;
+        this.tourModel.durationTime = ((this.dateStructService.getDateFromDateStruct(this.endDate).valueOf() - this.dateStructService.getDateFromDateStruct(this.startDate).valueOf()) / 86400000) + 1;
+        this.tourModel.locationIds = this.arrSelectedLocation.map(x => x._id);
+
+        // Pass data to next page
         this.addTourService.setArrPerform(this.arrSelectedTourguide);
 
         if (this.tourModel.schedules.length === 0) {
@@ -310,23 +364,51 @@ export class AddTourComponent implements OnInit {
       }
     } else if (this.stepperService.getStep() === 2) {
       if (!this.addTourService.validateSchedule()) {
+        // PAGE 2 - INVALID
+        this.validPage.Second = false;
         this.showError(this.compLanguage.addTourInputScheduleBefore);
       } else {
+        // PAGE 2 - VALID
+        this.validPage.Second = true;
         if (this.tourModel.preparations.length === 0) {
           this.tourModel.preparations.push(new TourPreparation());
         }
+
+        this.addTourService.sortTourSchedule();
         this.errorMess = '';
         this.stepperService.toNext();
       }
     } else if (this.stepperService.getStep() === 3) {
-      if (this.tourModel.registerCost < 0 || this.tourModel.tourGuideId === '' || this.tourModel.contactNumber === '') {
+      if (this.tourModel.registerCost === null || this.tourModel.registerCost < 0
+        || this.tourModel.memberLimit === null || this.tourModel.memberLimit < 1) {
+        // PAGE 3 - INVALID
+        this.validPage.Third = false;
         this.showError(this.compLanguage.addTourInputAllBefore);
       } else if (!this.addTourService.validatePreparations()) {
+        // PAGE 3 - INVALID
+        this.validPage.Third = false;
         this.showError(this.compLanguage.addTourInputPreparationBefore);
       } else {
+        // PAGE 3 - VALID
+        this.validPage.Third = false;
         this.errorMess = '';
         this.stepperService.toNext();
       }
+    }
+  }
+}
+
+class ValidPage {
+  public First: Boolean = false;
+  public Second: Boolean = false;
+  public Third: Boolean = false;
+  constructor() {}
+
+  public isValid(): Boolean {
+    if (this.First && this.Second && this.Third) {
+      return true;
+    } else {
+      return false;
     }
   }
 }

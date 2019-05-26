@@ -4,6 +4,7 @@ import { TourPreparation } from 'src/app/model/tour-preparation.model';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { DateStructService } from 'src/app/core/services/date-struct.service';
 import { AddTourService } from 'src/app/core/services/add-tour.service';
+import { TourPreparationPerformer } from 'src/app/model/tour-preparation-performer.model';
 
 @Component({
   selector: 'app-add-preparation',
@@ -38,12 +39,26 @@ export class AddPreparationComponent implements OnInit {
       this.commonLanguage = this.language.currentLanguage.common;
     });
 
-    this.arrPerforms = this.addTourService.getArrPerform();
+    this.arrPerforms = this.addTourService.getArrPerform().map((performer: any) => {
+      return {
+        displayName: performer.displayName,
+        _id: performer._id,
+        username: performer.username,
+        amount: 0
+      };
+    });
+
+    this.arrPerforms.forEach(itemPerformer => {
+      const existPerform = this.preparationModel.performers.findIndex(performer => {
+        return performer.performerId === itemPerformer._id;
+      });
+      if (existPerform !== -1) {
+        itemPerformer.amount = this.preparationModel.performers[existPerform].needPrepare;
+      }
+    });
   }
 
   setupDefault() {
-    this.preparationModel = new TourPreparation();
-
     this.preparationDeadline = this.dateStructService.getDateStructFromDate(this.addTourService.getBeginTime());
     this.maxDate = this.dateStructService.getDateStructFromDate(this.addTourService.getBeginTime());
     this.onChangeDeadline();
@@ -57,11 +72,28 @@ export class AddPreparationComponent implements OnInit {
     this.preparationModel.deadline = this.dateStructService.getDateFromDateStruct(this.preparationDeadline);
   }
 
+  onSelectPerform() {
+    if (this.preparationModel.isRequired) {
+      this.preparationModel.performers = [];
+    }
+  }
+
+  onChangePerformerAmountItem() {
+    this.preparationModel.performers = [];
+
+    this.arrPerforms.forEach(performer => {
+      if (performer.amount > 0) {
+        this.preparationModel.performers.push(new TourPreparationPerformer(performer._id, performer.amount));
+      }
+    });
+  }
+
   finishedPreparation() {
     if (this.preparationModel.itemName === null || this.preparationModel.itemName.trim() === '') {
       this.isInvalidDate = true;
     } else {
       this.hasFinishedInput = true;
     }
+    console.log(this.preparationModel);
   }
 }

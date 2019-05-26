@@ -93,12 +93,10 @@ export class AddTourService {
       let isValid = true;
       if (this.tourModel.preparations && this.tourModel.preparations.length > 0) {
         this.tourModel.preparations.forEach(preparation => {
-          if (preparation.itemName === '' || preparation.itemName.trim() === '' || preparation.amount < 1) {
+          if (preparation.itemName.trim() === '' || preparation.amount === null || preparation.amount < 1) {
             isValid = false;
           }
         });
-      } else {
-        isValid = true;
       }
 
       return isValid;
@@ -106,5 +104,9 @@ export class AddTourService {
       console.log(er);
       return false;
     }
+  }
+
+  sortTourSchedule() {
+    this.tourModel.schedules.sort((schedule1, schedule2) => (schedule2.beginTime.valueOf() - schedule1.beginTime.valueOf()));
   }
 }

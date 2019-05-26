@@ -59,5 +59,49 @@ app.get('/tourguide/all-tourguide', (req, res) => {
                 data: []
             });
         })
-})
+});
+
+app.get('/tourguide/all-reviewer', (req, res) => {
+    const reviewerFilter = {
+        $or: [{
+            'permission': {
+                $elemMatch: {
+                    $eq: config.USER_PERMISSION.TOURGUIDE
+                }
+            }
+        }, {
+            'permission': {
+                $elemMatch: {
+                    $eq: config.USER_PERMISSION.ADMIN
+                }
+            }
+        }
+        ],
+        'status': {
+            $eq: config.USER_STATUS.ACTIVE
+        }
+    };
+
+    const reviewerProjection = {
+        _id: 1,
+        username: 1,
+        firstName: 1,
+        lastName: 1
+    };
+
+    database.getCollectionDataByProjection(database.iTravelDB.Users, reviewerFilter, reviewerProjection)
+        .then((data) => {
+            res.status(201).json({
+                statusCode: 200,
+                data: data
+            });
+        })
+        .catch((ex) => {
+            console.log(ex);
+            res.status(201).json({
+                statusCode: 200,
+                data: []
+            });
+        })
+});
 // Routing - END

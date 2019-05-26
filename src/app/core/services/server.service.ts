@@ -489,4 +489,8 @@ export class ServerService {
   getTourguides(): Observable<any> {
     return this.http.get(this.HOST + 'tourguide/all-tourguide');
   }
+
+  getReviewer(): Observable<any> {
+    return this.http.get(this.HOST + 'tourguide/all-reviewer');
+  }
 }
