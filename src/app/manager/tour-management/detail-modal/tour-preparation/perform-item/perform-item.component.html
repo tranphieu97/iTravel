@@ -1,0 +1,9 @@
+<div *ngIf="basicInfo" class="wrapper"
+  [ngClass]="{finished: performer.status === 'FINISHED',preparing: performer.status === 'PREPARING'}">
+  <div class="left-avatar"
+    [ngStyle]="{'background-image': 'url('+basicInfo.avatar+')'}"></div>
+  <div class="right">
+    <span class="name">{{basicInfo.firstName+' '+basicInfo.lastName}}</span>
+    <span>{{performer.needPrepare}}/{{performer.prepared}}</span>
+  </div>
+</div>

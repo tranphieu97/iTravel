@@ -1,27 +1,115 @@
-<div class="form-group flex-row">
-  <div class="row-label">
-    {{language.currentLanguage.addScheduleDay}}
-  </div>
-  <div class="row-input flex-row flex-content-space-evenly">
-    <div class="input-group">
-      <input class="form-control" placeholder="yyyy-mm-dd" name="startDate" [(ngModel)]="startDate"
-        ngbDatepicker #startdate="ngbDatepicker" #modelstartdate="ngModel">
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary calendar" (click)="startdate.toggle()" type="button">
-          <span><i class="fas fa-calendar-alt"></i></span>
-        </button>
+<div class="flex-row flex-justify-end">
+  <span class="fas fa-times-circle esc-btn" (click)="removeSchedule(); onChangeCost();"></span>
+</div>
+<div class="flex-col" *ngIf="!isFinishedInput">
+  <div class="form-group flex-row">
+    <div class="row-label">
+      {{compLanguage.addScheduleDay}}
+    </div>
+    <div class="row-input flex-row flex-content-space-evenly">
+      <div class="input-group">
+        <input class="form-control" placeholder="yyyy-mm-dd" name="startDate" [(ngModel)]="startDate" ngbDatepicker
+          #startdate="ngbDatepicker" #modelstartdate="ngModel" [minDate]="minDate" [maxDate]="maxDate" readonly>
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="startdate.toggle()" type="button">
+            <span><i class="fas fa-calendar-alt"></i></span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div class="form-group flex-row">
-  <div class="row-label">
-    {{language.currentLanguage.addSchedulePeriod}}
+  <div class="form-group flex-row">
+    <div class="row-label">
+      {{compLanguage.addSchedulePeriod}}
+    </div>
+    <div class="row-input flex-row flex-content-space-evenly flex-items-center">
+      <span>{{commonLanguage.from}}</span>
+      <ngb-timepicker name="beginTime" [(ngModel)]="beginTime" (change)="onChangeTime()"></ngb-timepicker>
+      <span>{{commonLanguage.to}}</span>
+      <ngb-timepicker name="endTime" [(ngModel)]="endTime" (change)="onChangeTime()"></ngb-timepicker>
+    </div>
   </div>
-  <div class="row-input flex-row flex-content-space-evenly flex-items-center">
-    <span>{{language.currentLanguage.from}}</span>
-    <ngb-timepicker name="beginTime" [(ngModel)]="beginTime"></ngb-timepicker>
-    <span>{{language.currentLanguage.to}}</span>
-    <ngb-timepicker name="endTime" [(ngModel)]="endTime"></ngb-timepicker>
+  <div *ngIf="!isValidDate" class="flex-row flex-justify-end" style="color: red; padding-bottom: 5px;">
+    {{commonLanguage.invalidInputData}}
+  </div>
+  <div class="form-group flex-row">
+    <div class="row-label">
+      {{compLanguage.addScheduleKindof}}
+    </div>
+    <div class="row-input flex-col">
+      <div class="flex-row more-select-row input-group" *ngFor="let task of scheduleModel.tasks; let i = index">
+        <input type="text" class="form-control" name="task" [value]="scheduleModel.tasks[i]"
+          (change)="scheduleModel.tasks[i] = $event.target.value"
+          [placeholder]="commonLanguage.enter + compLanguage.addScheduleKindof">
+        <div class="input-group-append">
+          <button (click)="removeItem(scheduleModel.tasks, i)" *ngIf="scheduleModel.tasks.length > 1"
+            class="btn btn-outline-secondary" type="button">X</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex-row flex-justify-end">
+    <span *ngIf="!isPickedCurrentTask" style="color: red; padding-right: 5px;" class="link-add-more">
+      {{compLanguage.addScheduleSelectOneBefore}}
+    </span>
+    <span (click)="addAnotherToArr(scheduleModel.tasks)" class="link-add-more">+
+      {{compLanguage.addScheduleAddTask}}</span>
+  </div>
+  <div class="form-group flex-row">
+    <div class="row-label">
+      {{compLanguage.addSchedulePerform}}
+    </div>
+    <div class="row-input flex-col">
+      <div class="input-group">
+        <select class="form-control" [(ngModel)]="scheduleModel.performerIds" multiple style="height: 65px;">
+          <option *ngFor="let perform of arrPerforms" [value]="perform._id">{{perform.displayName}}</option>
+        </select>
+      </div>
+      <small>{{compLanguage.addTourNoteSelectMore}}</small>
+    </div>
+  </div>
+  <div class="form-group flex-row">
+    <div class="row-label">
+      {{compLanguage.addScheduleLocation}}
+      &
+      {{compLanguage.addScheduleCost}}
+    </div>
+    <div class="row-input flex-row">
+      <input type="text" class="form-control flex-1 flex-items-center row-first-input" name="location"
+        [(ngModel)]="scheduleModel.location"
+        [placeholder]="commonLanguage.enter + compLanguage.addScheduleLocation">
+      <input type="number" class="form-control flex-1 flex-items-center row-second-input" name="cost"
+        [(ngModel)]="scheduleModel.cost" (change)="onChangeCost()"
+        [placeholder]="commonLanguage.enter + compLanguage.addScheduleCost">
+    </div>
+  </div>
+  <div class="form-group flex-row">
+    <div class="row-label">
+      {{compLanguage.addScheduleNote}}
+    </div>
+    <div class="row-input">
+      <input type="text" class="form-control" [(ngModel)]="scheduleModel.note"
+        [placeholder]="commonLanguage.enter + compLanguage.addScheduleNote">
+    </div>
+  </div>
+  <div class="flex-row flex-justify-end">
+    <input type="button" class="form-control btn btn-outline-secondary" [value]="commonLanguage.ok"
+      style="width: 75px;" (click)="finishSchedule()">
+  </div>
+</div>
+<div class="flex-col schedule-review" *ngIf="isFinishedInput" (click)="isFinishedInput = false">
+  <div class="flex-row">
+    <div class="flex-1 schedule-title">
+      {{scheduleModel.beginTime | date}}
+    </div>
+    <div class="flex-1 schedule-title">
+      {{scheduleModel.beginTime | date:'shortTime'}} - {{scheduleModel.endTime | date:'shortTime'}}
+    </div>
+    <div class="flex-1 schedule-title">
+      {{scheduleModel.tasks.join(', ')}}
+    </div>
+  </div>
+  <div class="flex-row flex-items-center">
+    <span><i class="fas fa-chevron-down"></i></span>
   </div>
 </div>

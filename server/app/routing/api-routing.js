@@ -2,6 +2,9 @@
 const database = require('../database.js');
 const config = require('../../_config.js');
 
+// Import models file
+const { Tour } = require('../../model/mongoose/models')
+
 // Get app instance from index
 const jwt = require('jsonwebtoken');
 const app = require('../../index');
@@ -577,6 +580,41 @@ app.get('/api/locations', (req, res, next) => {
 });
 
 /**
+ * @name GET-one-location
+ * @author Thong
+ * @param {locationId}
+ * @description receive request from serverService, include a postId in request
+ * then query the post has that Id
+ */
+app.get('/api/location', (req, res) => {
+    if (!req.param('id') || req.param('id').length !== 24) {
+        res.status(200).json({
+            message: 'Invalid location Id'
+        })
+    } else {
+        // in request has post Id, create query object from that
+        const queryObj = { _id: new ObjectId(req.param('id')) }
+
+        const projectionObj = { }
+
+        database.getOneWithProjection(database.iTravelDB.Locations, queryObj, projectionObj)
+            .then((receiveData) => {
+                if (receiveData) {
+                    res.status(200).json({
+                        message: 'Get location by id successfully!',
+                        data: receiveData
+                    })
+                } else {
+                    res.status(200).json({
+                        message: `Failed! Can not find location ${req.param('id')}`
+                    })
+                }
+            })
+            .catch(err => console.log('GET-one-location', err.message))
+    }
+});
+
+/**
  * @name GET-post-categories
  * @author Thong
  * @param request
@@ -813,6 +851,26 @@ app.get('/api/province-locations', (req, res) => {
     } else {
         res.status(404).json({
             data: []
+        });
+    }
+});
+
+/**
+ * @name getTour
+ * @param {tourId}
+ * @author Thong
+ */
+app.get('/api/get-tour', async (req, res) => {
+    try {
+        const tourId = req.param('tourId')
+        const tour = await Tour.findById(tourId)
+        res.status(200).json({
+            data: tour,
+            message: 'Success!'
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: 'Fail!'
         });
     }
 });

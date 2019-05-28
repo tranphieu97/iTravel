@@ -1,52 +1,52 @@
 <div class="feedback-form">
-  <h3>{{language.currentLanguage.feedbackTitle}}</h3>
+  <h3>{{compLanguage.feedbackTitle}}</h3>
   <div [ngClass]="{'alert': true, 'alert-success': isSuccess, 'alert-danger': isFail}" *ngIf="isSuccess || isFail" role="alert">
     {{this.message}}
   </div>
   <form>
     <div class="feedback-row two-col">
       <div>
-        <label for="name" >{{language.currentLanguage.feedbackName}} <span>(*)</span> </label>
+        <label for="name" >{{compLanguage.feedbackName}} <span>(*)</span> </label>
         <input type="text" [(ngModel)]="feedback.name" name="name"
-          class="form-control" id="name" [placeholder]="language.currentLanguage.feedbackEnterName" required >
+          class="form-control" id="name" [placeholder]="compLanguage.feedbackEnterName" required >
       </div>
       <div>
-        <label for="kindof" >{{language.currentLanguage.feedbackKindOf}} <span>(*)</span></label>
+        <label for="kindof" >{{compLanguage.feedbackKindOf}} <span>(*)</span></label>
         <select class="form-control" id="kindof" [(ngModel)]="feedback.kindOf" name="kindof">
-          <option selected="selected">{{language.currentLanguage.feedbackAboutContent}}</option>
-          <option>{{language.currentLanguage.feedbackAboutSystem}}</option>
-          <option>{{language.currentLanguage.feedbackAboutUser}}</option>
-          <option>{{language.currentLanguage.feedbackAboutPolicies}}</option>
-          <option>{{language.currentLanguage.feedbackAboutOthers}}</option>
+          <option selected="selected">{{compLanguage.feedbackAboutContent}}</option>
+          <option>{{compLanguage.feedbackAboutSystem}}</option>
+          <option>{{compLanguage.feedbackAboutUser}}</option>
+          <option>{{compLanguage.feedbackAboutPolicies}}</option>
+          <option>{{compLanguage.feedbackAboutOthers}}</option>
         </select>
       </div>
     </div>
 
     <div class="feedback-row two-col">
       <div>
-        <label for="username" >{{language.currentLanguage.feedbackUsername}} <span>(*)</span></label>
+        <label for="username" >{{compLanguage.feedbackUsername}} <span>(*)</span></label>
         <input type="text" [(ngModel)]="feedback.from" name="username" [disabled]="user.isLogin"
-          class="form-control" id="username" [placeholder]="language.currentLanguage.feedbackEnterUsername" required>
+          class="form-control" id="username" [placeholder]="compLanguage.feedbackEnterUsername" required>
       </div>
       <div>
-        <label for="contact" >{{language.currentLanguage.feedbackAdditionalContact}}</label>
+        <label for="contact" >{{compLanguage.feedbackAdditionalContact}}</label>
         <input type="datetime" [(ngModel)]="feedback.contact" name="contact"
-          class="form-control" id="contact" [placeholder]="language.currentLanguage.feedbackEnterAdditionalContact">
+          class="form-control" id="contact" [placeholder]="compLanguage.feedbackEnterAdditionalContact">
       </div>
     </div>
 
     <div class="feedback-row">
       <div>
-        <label for="content" >{{language.currentLanguage.feedbackContent}} <span>(*)</span></label>
+        <label for="content" >{{compLanguage.feedbackContent}} <span>(*)</span></label>
         <textarea [(ngModel)]="this.feedback.content" name="content"
-          class="form-control" id="content" rows="11" [placeholder]="language.currentLanguage.feedbackEnterContent" required></textarea>
+          class="form-control" id="content" rows="11" [placeholder]="compLanguage.feedbackEnterContent" required></textarea>
       </div>
     </div>
 
     <div class="feedback-row row-center">
       <div>
-        <button type="submit" (click)="submitForm()" class="btn btn-success">{{language.currentLanguage.feedbackSubmit}}</button>
-        <button (click)="cancelForm()" class="btn btn-danger">{{language.currentLanguage.feedbackCancel}}</button>
+        <button type="submit" (click)="submitForm()" class="btn btn-success">{{compLanguage.feedbackSubmit}}</button>
+        <button (click)="cancelForm()" class="btn btn-danger">{{compLanguage.feedbackCancel}}</button>
       </div>
     </div>
   </form>

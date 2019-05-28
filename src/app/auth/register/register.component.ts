@@ -32,10 +32,14 @@ export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
 
+  compLanguage;
+
   constructor(private router: Router, private formBuilder: FormBuilder,
     private authentication: AuthenticationService, public language: LanguageService) { }
 
   ngOnInit() {
+    this.compLanguage = this.language.currentLanguage.compRegister;
+    this.language.hasChangeLanguage.subscribe(() =>  this.compLanguage = this.language.currentLanguage.compRegister);
     this.registerForm = this.formBuilder.group({
       firstName: [null, [Validators.required]],
       lastName: [null, []],
