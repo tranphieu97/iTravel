@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../../model/user.model';
 import { AuthenticationService } from './authentication.service';
 import { Subject } from 'rxjs';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,8 @@ export class UserService {
 
   hasChangeUser: Subject<any> = new Subject<any>();
   isLoginChange = new Subject();
+
+  private jwtHelpper: JwtHelperService = new JwtHelperService();
 
   constructor(private authentication: AuthenticationService) {
     this.currentUser = new User();
@@ -44,5 +47,21 @@ export class UserService {
     this.isLogin = false;
     this.authentication.clearToken();
     this.hasChangeUser.next();
+  }
+
+  getTokenUserId(): string {
+    try {
+      const token = this.authentication.getLocalToken();
+
+      if (token !== '') {
+        const decodeToken = this.jwtHelpper.decodeToken(token);
+        return decodeToken._id;
+      } else {
+        return '';
+      }
+    } catch (er) {
+      console.log(er);
+      return '';
+    }
   }
 }

@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose')
+const { Schema, model } = require('mongoose');
 
 const tourSchema = new Schema({
     _id: Schema.Types.ObjectId,
@@ -9,6 +9,7 @@ const tourSchema = new Schema({
     tourGuideId: Schema.Types.ObjectId,
     contactNumber: String,
     creationTime: Date,
+    createdBy: String,
     beginTime: Date,
     endTime: Date,
     closeFeedbackTime: Date,
@@ -59,7 +60,7 @@ const tourSchema = new Schema({
     }]
 })
 
-const Tour = model('Tour', tourSchema, 'Tours')
+const Tour = model('Tour', tourSchema, 'Tours');
 
 module.exports = {
     Tour

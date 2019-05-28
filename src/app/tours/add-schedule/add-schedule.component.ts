@@ -38,7 +38,7 @@ export class AddScheduleComponent implements OnInit {
   constructor(public language: LanguageService, private timepickerConfig: NgbTimepickerConfig, private modal: NgbModal,
     private addTourService: AddTourService, private dateStructService: DateStructService) {
     timepickerConfig.seconds = false;
-   }
+  }
 
   ngOnInit() {
     this.setupDefaultView();
@@ -75,6 +75,17 @@ export class AddScheduleComponent implements OnInit {
     this.startDate = this.dateStructService.getDateStructFromDate(this.addTourService.getBeginTime());
     this.maxDate = this.dateStructService.getDateStructFromDate(this.addTourService.getEndTime());
     this.minDate = this.dateStructService.getDateStructFromDate(this.addTourService.getCloseRegisterTime());
+
+    if (this.scheduleModel.beginTime) {
+      this.startDate = this.dateStructService.getDateStructFromDate(this.scheduleModel.beginTime);
+      this.beginTime = this.dateStructService.getTimeStructFormDate(this.scheduleModel.beginTime);
+    }
+
+    if (this.scheduleModel.endTime) {
+      this.endTime = this.dateStructService.getTimeStructFormDate(this.scheduleModel.endTime);
+    }
+
+    this.onChangeTime();
 
     this.arrPerforms = this.addTourService.getArrPerform();
   }
@@ -115,7 +126,11 @@ export class AddScheduleComponent implements OnInit {
     this.onChangeTime();
     if (this.scheduleModel.tasks[this.scheduleModel.tasks.length - 1] === this.DEFAULT_OPTION) {
       this.isPickedCurrentTask = false;
-    }  else if (this.isValidDate) {
+
+      setTimeout(() => {
+        this.isPickedCurrentTask = true;
+      }, 5000);
+    } else if (this.isValidDate) {
       this.isFinishedInput = true;
     }
   }

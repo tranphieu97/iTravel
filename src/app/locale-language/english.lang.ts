@@ -360,7 +360,12 @@ export const LangEnglish: Language = {
     addTourAddPrepataion: 'Add Item',
     addTourPerform: 'Performs',
     addTourDurationTime: 'Tour\' Duration Time',
-    addTourDay: 'days'
+    addTourDay: 'days',
+    addTourInputPreparationBefore: 'Plese input preparation informations',
+    addTourInputScheduleBefore: 'Please input schedule details',
+    addTourReviewer: 'Reviewer',
+    addTourCreateTour: 'Create New Tour',
+    addTourAddError: 'Unknow create tour error, try again!'
   },
 
   // Add Schedule

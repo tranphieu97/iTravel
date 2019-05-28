@@ -1,5 +1,6 @@
 <div class="border-box tour-containner">
-  <form class="flex-1">
+  <app-loading *ngIf="isCreating"></app-loading>
+  <form class="flex-1" *ngIf="!isCreating">
     <div class="stepper" *ngIf="stepperService.getStep() === 1">
       <h3 class="page-title">{{compLanguage.addTourInfoTitle}}</h3>
       <div class="form-group flex-row">
@@ -129,7 +130,7 @@
           <div class="flex-row" style="margin-bottom: 3px;">
             <div class="flex-1">
               <input type="text" [placeholder]="compLanguage.addTourEnterLocation" class="form-control"
-                name="location-name" [(ngModel)]="searchLocationName">
+                (keyup)="filterLocation($event.target.value)">
             </div>
             <div class="flex-1">
               <input type="button" class="form-control btn-warning" style="margin-left: 6px; width: 97%;"
@@ -138,7 +139,7 @@
           </div>
           <div class="flex-row select-field">
             <select class="form-control flex-1" multiple>
-              <option *ngFor="let location of arrLocations" (click)="selectItem(arrSelectedLocation, location)">
+              <option *ngFor="let location of arrFilterLocations" (click)="selectItem(arrSelectedLocation, location)">
                 {{location.locationName}}
               </option>
             </select>
@@ -196,27 +197,6 @@
       <h3 class="page-title">{{compLanguage.addTourPreparationTitle}}</h3>
       <div class="form-group flex-row">
         <label class="row-label">
-          {{compLanguage.addTourTourguide}}
-        </label>
-        <div class="row-input">
-          <select class="form-control" [(ngModel)]="tourModel.tourGuideId" name="tourguide-id">
-            <option *ngFor="let tourguide of arrSelectedTourguide" [value]="tourguide._id">
-              {{tourguide.displayName}} ({{tourguide.username}})
-            </option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group flex-row">
-        <label class="row-label">
-          {{compLanguage.addTourContact}}
-        </label>
-        <div class="row-input">
-          <input type="text" class="form-control" [(ngModel)]="tourModel.contactNumber" name="contact"
-            [placeholder]="commonLanguage.enter + compLanguage.addTourContact">
-        </div>
-      </div>
-      <div class="form-group flex-row">
-        <label class="row-label">
           {{compLanguage.addTourLimitMembers}}
         </label>
         <div class="row-input input-group">
@@ -254,11 +234,52 @@
           style="width: fit-content;" (click)="addPreparation()">
       </div>
     </div>
+    <div class="stepper" *ngIf="stepperService.getStep() === 4">
+      <h3 class="page-title">{{compLanguage.addTourReviewer}}</h3>
+      <div class="form-group flex-row">
+        <label class="row-label">
+          {{compLanguage.addTourTourguide}}
+        </label>
+        <div class="row-input">
+          <select class="form-control" [(ngModel)]="tourModel.tourGuideId" name="tourguide-id">
+            <option *ngFor="let tourguide of arrSelectedTourguide" [value]="tourguide._id">
+              {{tourguide.displayName}} ({{tourguide.username}})
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group flex-row">
+        <label class="row-label">
+          {{compLanguage.addTourContact}}
+        </label>
+        <div class="row-input">
+          <input type="text" class="form-control" [(ngModel)]="tourModel.contactNumber" name="contact"
+            [placeholder]="commonLanguage.enter + compLanguage.addTourContact">
+        </div>
+      </div>
+      <div class="flex-row form-group">
+        <label class="row-label">
+          {{compLanguage.addTourReviewer}}
+        </label>
+        <div class="row-input flex-col">
+          <div class="input-group flex-row form-group" *ngFor="let reviewer of arrReviewer">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <input type="checkbox" name="reviewer" (change)="changeArrReviewer(reviewer)"
+                  [checked]="arrSelectedReviewer.includes(reviewer)">
+              </div>
+            </div>
+            <input type="text" class="form-control" [value]="reviewer.displayName + ' (' + reviewer.username + ')'"
+              readonly>
+          </div>
+        </div>
+      </div>
+    </div>
   </form>
   <div *ngIf="errorMess !== ''" class="alert alert-danger" style="margin-top: 5px">
     {{errorMess}}
   </div>
-  <div class="steps-control">
+  <div class="steps-control" *ngIf="!isCreating">
     <input type="button" [value]="commonLanguage.prev" class="btn btn-outline-success" (click)="stepperService.toPrev()"
       [disabled]="stepperService.getStep() === 1">
     <input type="button" [value]="commonLanguage.next" class="btn btn-outline-success" (click)="validatePage()"
@@ -266,62 +287,94 @@
   </div>
 </div>
 <div class="border-box tour-review-container">
-  <div class="flex-row tour-cover">
-    <div class="flex-1 img-layout" *ngIf="tourModel.cover.length > 0">
-      <img [src]="tourModel.cover">
+  <div class="flex-col" style="overflow-y: auto">
+    <div class="flex-row tour-cover">
+      <div class="flex-1 img-layout" *ngIf="tourModel.cover.length > 0">
+        <img [src]="tourModel.cover">
+      </div>
+      <h3 class="tour-title" [ngClass]="{'picture-caption': tourModel.cover.length > 0}">
+        {{tourModel.tourName}}
+      </h3>
     </div>
-    <h3 class="tour-title" [ngClass]="{'picture-caption': tourModel.cover.length > 0}">
-      {{tourModel.tourName}}
-    </h3>
+    <div class="flex-row flex-items-center">
+      <span class="tour-location" *ngFor="let location of arrSelectedLocation">
+        <i class="fas fa-map-marker-alt" style="color: red"></i>{{location.locationName}}</span>
+    </div>
+    <div class="flex-row flex-items-center" *ngIf="tourModel.durationTime">
+      <span style="font-size: 18px; font-weight: 600; color: red; margin-right: 5px;">
+        {{tourModel.registerCost | currency:'VND'}} -
+      </span>
+      <span style="font-size: 18px; font-weight: 600; color:orangered"> {{tourModel.durationTime}}
+        {{compLanguage.addTourDay}}</span>
+    </div>
+    <div class="flex-row tour-desc">
+      <p class="tour-desc">{{tourModel.description}}</p>
+    </div>
+    <div class="flex-row" *ngIf="tourModel.closeFeedbackTime">
+      <span class="tour-time" style="color: orangered;"><i class="far fa-dot-circle"></i></span>
+      <div class="flex-6 tour-time">
+        {{tourModel.closeFeedbackTime | date:'medium'}}
+      </div>
+      <div class="flex-4 tour-time">
+        {{compLanguage.addTourEndFeedbackTime}}
+      </div>
+    </div>
+    <div class="flex-row" *ngIf="tourModel.closeRegisterTime">
+      <span class="tour-time" style="color: orangered;"><i class="far fa-dot-circle"></i></span>
+      <div class="flex-6 tour-time">
+        {{tourModel.closeRegisterTime | date:'medium'}}
+      </div>
+      <div class="flex-4 tour-time">
+        {{compLanguage.addTourEndRegisterTime}}
+      </div>
+    </div>
+    <div class="flex-row" *ngIf="tourModel.beginTime">
+      <span class="tour-time" style="color: orangered;"><i class="far fa-dot-circle"></i></span>
+      <div class="flex-6 tour-time">
+        {{tourModel.beginTime | date:'medium'}}
+      </div>
+      <div class="flex-4 tour-time">
+        {{compLanguage.addTourBeginTime}}
+      </div>
+    </div>
+    <div class="flex-row" *ngIf="tourModel.endTime">
+      <span class="tour-time" style="color: orangered;"><i class="far fa-dot-circle"></i></span>
+      <div class="flex-6 tour-time">
+        {{tourModel.endTime | date:'medium'}}
+      </div>
+      <div class="flex-4 tour-time">
+        {{compLanguage.addTourEndTime}}
+      </div>
+    </div>
+    <div class="flex-col" *ngIf="tourModel.schedules && tourModel.schedules.length > 0">
+      <div class="flex-row tour-part-title">
+        {{compLanguage.addTourSchedulesTitle}}
+      </div>
+      <div class="flex-row" *ngFor="let schedule of tourModel.schedules">
+        <div class="flex-3 tour-details">
+          {{schedule.beginTime | date:'short'}} - {{schedule.endTime | date:'short'}}
+        </div>
+        <div class="flex-2 tour-details">
+          {{schedule.tasks.join(', ')}}
+        </div>
+      </div>
+    </div>
+    <div class="flex-col" *ngIf="tourModel.preparations && tourModel.preparations.length > 0">
+      <div class="flex-row tour-part-title">
+        {{compLanguage.addTourPreparationTitle}}
+      </div>
+      <div class="flex-row" *ngFor="let preparation of tourModel.preparations">
+        <div class="flex-1 tour-details" *ngIf="preparation.itemName.trim() !== ''">
+          {{preparation.itemName | titlecase}}
+        </div>
+        <div class="flex-1 tour-details" *ngIf="preparation.itemName.trim() !== ''">
+          {{preparation.amount}}
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="flex-row flex-items-center">
-    <span class="tour-location" *ngFor="let location of arrSelectedLocation">
-      <i class="fas fa-map-marker-alt"></i>{{location.locationName}}</span>
-  </div>
-  <div class="flex-row flex-items-center" *ngIf="tourModel.durationTime">
-    <span style="font-size: 16px; font-weight: 600; color:orangered">{{tourModel.durationTime}} {{compLanguage.addTourDay}}</span>
-  </div>
-  <div class="flex-row tour-desc">
-    <p class="tour-desc">{{tourModel.description}}</p>
-  </div>
-  <div class="flex-row" *ngIf="tourModel.closeFeedbackTime">
-    <span class="tour-time" style="color: orangered;"><i class="far fa-dot-circle"></i></span>
-    <div class="flex-6 tour-time">
-      {{tourModel.closeFeedbackTime | date:'medium'}}
-    </div>
-    <div class="flex-4 tour-time">
-      {{compLanguage.addTourEndFeedbackTime}}
-    </div>
-  </div>
-  <div class="flex-row" *ngIf="tourModel.closeRegisterTime">
-    <span class="tour-time" style="color: orangered;"><i class="far fa-dot-circle"></i></span>
-    <div class="flex-6 tour-time">
-      {{tourModel.closeRegisterTime | date:'medium'}}
-    </div>
-    <div class="flex-4 tour-time">
-      {{compLanguage.addTourEndRegisterTime}}
-    </div>
-  </div>
-  <div class="flex-row" *ngIf="tourModel.beginTime">
-    <span class="tour-time" style="color: orangered;"><i class="far fa-dot-circle"></i></span>
-    <div class="flex-6 tour-time">
-      {{tourModel.beginTime | date:'medium'}}
-    </div>
-    <div class="flex-4 tour-time">
-      {{compLanguage.addTourBeginTime}}
-    </div>
-  </div>
-  <div class="flex-row" *ngIf="tourModel.endTime">
-    <span class="tour-time" style="color: orangered;"><i class="far fa-dot-circle"></i></span>
-    <div class="flex-6 tour-time">
-      {{tourModel.endTime | date:'medium'}}
-    </div>
-    <div class="flex-4 tour-time">
-      {{compLanguage.addTourEndTime}}
-    </div>
-  </div>
-  <div>
-
+  <div class="steps-control">
+    <input type="button" [value]="compLanguage.addTourCreateTour" class="btn btn-success" [disabled]="!validTour() || isCreating" (click)="createTour()">
   </div>
 </div>
 

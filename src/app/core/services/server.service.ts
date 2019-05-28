@@ -19,6 +19,7 @@ import { PostRating } from 'src/app/model/post-rating.model';
 import { environment } from '../../../environments/environment';
 import { Notification } from 'src/app/model/notification.model';
 import { NotificationItem } from 'src/app/model/notification-item.model';
+import { Tour } from 'src/app/model/tour.model';
 
 @Injectable({
   providedIn: 'root'
@@ -372,24 +373,29 @@ export class ServerService {
   updateNotification(listNotifications: NotificationItem[]) {
     return this.http.patch<{ message: string }>(this.HOST + 'user/send-notification', listNotifications);
   }
+
   getTours() {
-    return this.http.get<{ data: any, message: string }>(this.HOST + 'user/get-tours');
+    return this.http.get<{ data: any, message: string }>(this.HOST + 'tourguide/get-tours');
   }
+
   getUserTours(userIdFilter: boolean) { // filter by userId or not
     const listParams = new HttpParams().set('userId', String(userIdFilter));
     return this.http.get<{ data: any, message: string }>(this.HOST + 'user/get-tours',
       { headers: this.httpOptions.headers, params: listParams });
   }
+
   getTour(tourId: string) {
     const listParams = new HttpParams().set('tourId', tourId);
-    return this.http.get<{ data: any, message: string }>(this.HOST + 'user/get-tour',
+    return this.http.get<{ data: any, message: string }>(this.HOST + 'api/get-tour',
       { headers: this.httpOptions.headers, params: listParams });
   }
-  createTour(tour) {
-    return this.http.post<{ message: string }>(this.HOST + 'user/create-tour', tour);
+
+  createTour(tour: Tour) {
+    return this.http.post<{ message: string, statusCode: number }>(this.HOST + 'tourguide/create-tour', tour);
   }
-  updateTour(tour) {
-    return this.http.post<{ message: string }>(this.HOST + 'user/update-tour', tour);
+
+  updateTour(tour: Tour) {
+    return this.http.post<{ message: string }>(this.HOST + 'tourguide/update-tour', tour);
   }
 
 
@@ -493,5 +499,9 @@ export class ServerService {
    */
   getTourguides(): Observable<any> {
     return this.http.get(this.HOST + 'tourguide/all-tourguide');
+  }
+
+  getReviewer(): Observable<any> {
+    return this.http.get(this.HOST + 'tourguide/all-reviewer');
   }
 }

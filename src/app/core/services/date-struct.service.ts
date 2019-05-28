@@ -16,6 +16,14 @@ export class DateStructService {
     }
   }
 
+  getTimeStructFormDate(date: Date): NgbTimeStruct {
+    try {
+      return { hour: date.getHours(), minute: date.getMinutes(), second: 0 };
+    } catch {
+      return { hour: 0, minute: 0, second: 0 };
+    }
+  }
+
   getDateFromDateStruct(dateStruct: NgbDate): Date {
     try {
       return new Date(dateStruct.year, dateStruct.month - 1, dateStruct.day);

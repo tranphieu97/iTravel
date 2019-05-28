@@ -12,6 +12,7 @@ export class StepperService {
 
   setMaxStep(maxStep: number) {
     this.maxStep = maxStep;
+    this.current = 1;
   }
 
   getMaxStep() {

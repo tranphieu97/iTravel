@@ -1,5 +1,5 @@
-<div class="flex-row flex-justify-end" (click)="removeSchedule(); onChangeCost();">
-  <span class="fas fa-times-circle esc-btn"></span>
+<div class="flex-row flex-justify-end">
+  <span class="fas fa-times-circle esc-btn" (click)="removeSchedule(); onChangeCost();"></span>
 </div>
 <div class="flex-col" *ngIf="!isFinishedInput">
   <div class="form-group flex-row">

@@ -354,6 +354,11 @@ export class Language {
     addTourPerform: string;
     addTourDurationTime: string;
     addTourDay: string;
+    addTourInputScheduleBefore: string;
+    addTourInputPreparationBefore: string;
+    addTourReviewer: string;
+    addTourCreateTour: string;
+    addTourAddError: string;
   };
 
   // Add Schedule
