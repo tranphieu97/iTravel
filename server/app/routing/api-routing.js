@@ -863,14 +863,15 @@ app.get('/api/province-locations', (req, res) => {
 app.get('/api/get-tour', async (req, res) => {
     try {
         const tourId = req.param('tourId')
-        const tour = await Tour.findById(tourId)
+        const tour = await Tour.findById(tourId, '-preparations -members', () => {})
         res.status(200).json({
             data: tour,
             message: 'Success!'
         });
     } catch (error) {
-        res.status(500).json({
-            message: 'Fail!'
+        res.status(200).json({
+            message: 'Fail!',
+            statusCode: 500
         });
     }
 });
