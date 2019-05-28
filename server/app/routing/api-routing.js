@@ -2,6 +2,9 @@
 const database = require('../database.js');
 const config = require('../../_config.js');
 
+// Import models file
+const { Tour } = require('../../model/mongoose/models')
+
 // Get app instance from index
 const jwt = require('jsonwebtoken');
 const app = require('../../index');
@@ -848,6 +851,26 @@ app.get('/api/province-locations', (req, res) => {
     } else {
         res.status(404).json({
             data: []
+        });
+    }
+});
+
+/**
+ * @name getTour
+ * @param {tourId}
+ * @author Thong
+ */
+app.get('/api/get-tour', async (req, res) => {
+    try {
+        const tourId = req.param('tourId')
+        const tour = await Tour.findById(tourId)
+        res.status(200).json({
+            data: tour,
+            message: 'Success!'
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: 'Fail!'
         });
     }
 });

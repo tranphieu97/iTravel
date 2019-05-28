@@ -63,13 +63,13 @@
     <div class="row-input flex-col form-check">
       <div class="flex-row">
         <div class="form-check flex-1">
-          <input class="form-check-input" type="radio" name="performs" value="toAll" (change)="preparationModel.isRequired = true" [checked]="preparationModel.isRequired">
+          <input class="form-check-input" type="radio" name="performs" value="toAll" (change)="preparationModel.isRequired = true; onSelectPerform()" [checked]="preparationModel.isRequired">
           <label class="form-check-label">
             {{compLanguage.addPreparationToAll}}
           </label>
         </div>
         <div class="form-check flex-1">
-          <input class="form-check-input" type="radio" name="performs" value="select" (change)="preparationModel.isRequired = false" [checked]="!preparationModel.isRequired">
+          <input class="form-check-input" type="radio" name="performs" value="select" (change)="preparationModel.isRequired = false; onSelectPerform()" [checked]="!preparationModel.isRequired">
           <label class="form-check-label">
             {{compLanguage.addPreparationSelectPerform}}
           </label>

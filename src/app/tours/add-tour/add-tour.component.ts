@@ -14,6 +14,8 @@ import { Tour } from 'src/app/model/tour.model';
 import { TourSchedule } from 'src/app/model/tour-schedule.model';
 import { TourPreparation } from 'src/app/model/tour-preparation.model';
 import { TourReviewer } from 'src/app/model/tour-reviewer.model';
+import { UserService } from 'src/app/core/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-tour',
@@ -24,7 +26,6 @@ import { TourReviewer } from 'src/app/model/tour-reviewer.model';
 export class AddTourComponent implements OnInit {
 
   public addLocationForm: FormGroup;
-  public validPage: ValidPage = new ValidPage();
 
   public startDate: NgbDate;
   public endDate: NgbDate;
@@ -50,7 +51,9 @@ export class AddTourComponent implements OnInit {
   public arrReviewer: Array<any> = [];
   public arrSelectedReviewer: Array<any> = [];
 
+  public isCreating: Boolean = false;
   public isLoading: Boolean = false;
+
   public addLocationMessage: String = '';
   public hasError: Boolean = false;
 
@@ -68,7 +71,7 @@ export class AddTourComponent implements OnInit {
   constructor(public language: LanguageService, private timepickerConfig: NgbTimepickerConfig,
     private provinceService: ProvinceCityService, private serverService: ServerService, private modal: NgbModal,
     private formBuilder: FormBuilder, public stepperService: StepperService, private dateStructService: DateStructService,
-    public addTourService: AddTourService) {
+    public addTourService: AddTourService, private userService: UserService, private router: Router) {
     timepickerConfig.spinners = false;
     timepickerConfig.seconds = false;
   }
@@ -248,8 +251,6 @@ export class AddTourComponent implements OnInit {
     this.tourModel.reviewers = this.arrSelectedReviewer.map(user => {
       return new TourReviewer(user._id);
     });
-
-    console.log(this.tourModel);
   }
 
   validateStartEndDate() {
@@ -339,11 +340,9 @@ export class AddTourComponent implements OnInit {
         || this.tourModel.cover === '') {
 
         // PAGE 1 - INVALID
-        this.validPage.First = false;
         this.showError(this.compLanguage.addTourInputAllBefore);
       } else {
         // PAGE 1 - VALID
-        this.validPage.First = true;
 
         // Store data to model
         this.tourModel.beginTime = this.dateStructService.getDateFromDateTimeStruct(this.startDate, this.startTime);
@@ -365,11 +364,9 @@ export class AddTourComponent implements OnInit {
     } else if (this.stepperService.getStep() === 2) {
       if (!this.addTourService.validateSchedule()) {
         // PAGE 2 - INVALID
-        this.validPage.Second = false;
         this.showError(this.compLanguage.addTourInputScheduleBefore);
       } else {
         // PAGE 2 - VALID
-        this.validPage.Second = true;
         if (this.tourModel.preparations.length === 0) {
           this.tourModel.preparations.push(new TourPreparation());
         }
@@ -382,33 +379,67 @@ export class AddTourComponent implements OnInit {
       if (this.tourModel.registerCost === null || this.tourModel.registerCost < 0
         || this.tourModel.memberLimit === null || this.tourModel.memberLimit < 1) {
         // PAGE 3 - INVALID
-        this.validPage.Third = false;
         this.showError(this.compLanguage.addTourInputAllBefore);
       } else if (!this.addTourService.validatePreparations()) {
         // PAGE 3 - INVALID
-        this.validPage.Third = false;
         this.showError(this.compLanguage.addTourInputPreparationBefore);
       } else {
         // PAGE 3 - VALID
-        this.validPage.Third = false;
         this.errorMess = '';
         this.stepperService.toNext();
       }
     }
   }
-}
 
-class ValidPage {
-  public First: Boolean = false;
-  public Second: Boolean = false;
-  public Third: Boolean = false;
-  constructor() {}
-
-  public isValid(): Boolean {
-    if (this.First && this.Second && this.Third) {
-      return true;
-    } else {
+  validTour(): Boolean {
+    try {
+      if (this.tourModel.tourName.trim() !== '' && this.tourModel.description.trim() !== ''
+        && this.tourModel.endTime > this.tourModel.beginTime && this.tourModel.beginTime > this.tourModel.closeRegisterTime
+        && this.tourModel.closeRegisterTime > this.tourModel.closeFeedbackTime
+        && this.tourModel.cover !== ''
+        && this.tourModel.schedules.length > 0
+        && this.tourModel.locationIds.length > 0
+        && this.tourModel.memberLimit !== null && this.tourModel.memberLimit > 0
+        && this.tourModel.registerCost !== null && this.tourModel.registerCost > 0
+        && this.tourModel.reviewers.length > 0
+        && this.tourModel.tourGuideId !== '' && this.tourModel.contactNumber !== '') {
+        return true;
+      } else {
+        return false;
+      }
+    } catch {
       return false;
+    }
+  }
+
+  createTour() {
+    if (this.validTour()) {
+      this.isCreating = true;
+      const tmpCover = this.tourModel.cover;
+
+      this.serverService.uploadImage([{ imgFile: this.coverFile, contentId: 'locationImg' }])
+        .subscribe((uploadRes) => {
+          if (uploadRes.imageUrls && uploadRes.imageUrls[0]) {
+            this.tourModel.cover = uploadRes.imageUrls[0];
+            this.tourModel.creationTime = new Date();
+            this.tourModel.createdBy = this.userService.getTokenUserId();
+
+            this.serverService.createTour(this.tourModel)
+              .subscribe((res) => {
+                this.isCreating = false;
+
+                if (res.statusCode === 201) {
+                  this.router.navigate(['manager/tours']);
+                } else {
+                  this.tourModel.cover = tmpCover;
+                  this.showError(this.compLanguage.addTourAddError);
+                }
+              });
+          } else {
+            this.isCreating = false;
+            this.showError(this.compLanguage.addTourAddError);
+          }
+        });
     }
   }
 }

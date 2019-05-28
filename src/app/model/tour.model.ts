@@ -29,6 +29,7 @@ export class Tour {
     public members: TourMember[];
     public reviewers: TourReviewer[];
     public cover: string;
+    public createdBy: string;
 
     constructor() {
         const constTour = new ConstTourStatus();
@@ -48,5 +49,6 @@ export class Tour {
         this.feedbacks = [];
         this.members = [];
         this.reviewers = [];
+        this.createdBy = '';
     }
 }

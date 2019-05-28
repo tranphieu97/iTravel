@@ -1,5 +1,6 @@
 <div class="border-box tour-containner">
-  <form class="flex-1">
+  <app-loading *ngIf="isCreating"></app-loading>
+  <form class="flex-1" *ngIf="!isCreating">
     <div class="stepper" *ngIf="stepperService.getStep() === 1">
       <h3 class="page-title">{{compLanguage.addTourInfoTitle}}</h3>
       <div class="form-group flex-row">
@@ -278,7 +279,7 @@
   <div *ngIf="errorMess !== ''" class="alert alert-danger" style="margin-top: 5px">
     {{errorMess}}
   </div>
-  <div class="steps-control">
+  <div class="steps-control" *ngIf="!isCreating">
     <input type="button" [value]="commonLanguage.prev" class="btn btn-outline-success" (click)="stepperService.toPrev()"
       [disabled]="stepperService.getStep() === 1">
     <input type="button" [value]="commonLanguage.next" class="btn btn-outline-success" (click)="validatePage()"
@@ -373,7 +374,7 @@
     </div>
   </div>
   <div class="steps-control">
-    <input type="button" [value]="compLanguage.addTourCreateTour" class="btn btn-success" [disabled]="!validPage.isValid()">
+    <input type="button" [value]="compLanguage.addTourCreateTour" class="btn btn-success" [disabled]="!validTour() || isCreating" (click)="createTour()">
   </div>
 </div>
 

@@ -363,7 +363,8 @@ export const LangEnglish: Language = {
     addTourInputPreparationBefore: 'Plese input preparation informations',
     addTourInputScheduleBefore: 'Please input schedule details',
     addTourReviewer: 'Reviewer',
-    addTourCreateTour: 'Create New Tour'
+    addTourCreateTour: 'Create New Tour',
+    addTourAddError: 'Unknow create tour error, try again!'
   },
 
   // Add Schedule
