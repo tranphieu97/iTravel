@@ -30,7 +30,7 @@ export class UserTourComponent implements OnInit {
       () =>
         (this.compLanguage = this.languageService.currentLanguage.compTourManagement)
     );
-    this.serverService.getUserTours(true).subscribe(res => {
+    this.serverService.getToursByUser(true).subscribe(res => {
       if (res.data) {
         this.tours = res.data;
       }

@@ -375,10 +375,10 @@ export class ServerService {
   }
 
   getTours() {
-    return this.http.get<{ data: any, message: string }>(this.HOST + 'tourguide/get-tours');
+    return this.http.get<{ data: any, message: string }>(this.HOST + 'user/get-tours');
   }
 
-  getUserTours(userIdFilter: boolean) { // filter by userId or not
+  getToursByUser(userIdFilter: boolean) { // filter by userId or not
     const listParams = new HttpParams().set('userId', String(userIdFilter));
     return this.http.get<{ data: any, message: string }>(this.HOST + 'user/get-tours',
       { headers: this.httpOptions.headers, params: listParams });

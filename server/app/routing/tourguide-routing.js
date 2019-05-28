@@ -110,24 +110,6 @@ app.get('/tourguide/all-reviewer', (req, res) => {
 });
 
 /**
- * @name getTours
- * @author Thong
- */
-app.get('/tourguide/get-tours', async (req, res) => {
-    try {
-        const tours = await Tour.find({})
-        res.status(200).json({
-            data: tours,
-            message: 'Success!'
-        });
-    } catch (error) {
-        res.status(500).json({
-            message: 'Fail!'
-        });
-    }
-});
-
-/**
  * @name createTour
  * @param {Tour}
  * @author Thong
@@ -154,7 +136,7 @@ app.post('/tourguide/create-tour', async (req, res) => {
  * @param {Tour}
  * @author Thong
  */
-app.post('/tourguide/update-tour', async (req, res) => {
+app.patch('/tourguide/update-tour', async (req, res) => {
     try {
         const updatedTour = new Tour(req.body)
         const id = updatedTour._id
@@ -175,7 +157,7 @@ app.post('/tourguide/update-tour', async (req, res) => {
  * @param {Tour}
  * @author Thong
  */
-app.post('/tourguide/remove-tour', async (req, res) => {
+app.patch('/tourguide/remove-tour', async (req, res) => {
     try {
         const id = req.param('tourId')
         await Tour.updateOne({ _id: id }, { $set: { isActive: false } })
