@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://itravels.tech'
+  apiUrl: 'http://itravels.tech:7979'
 };
