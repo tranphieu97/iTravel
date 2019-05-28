@@ -35,7 +35,9 @@ export const LangEnglish: Language = {
     headerSearch: 'Search',
     headerPersonalInfo: 'Personal Information',
     headerLogOut: 'Sign Out',
-    headerUserContribution: 'Contribution'
+    headerUserContribution: 'Contribution',
+    headerUserTour: 'Your tours',
+    headerUpdateProfile: 'Update Profile'
   },
 
   // For Login

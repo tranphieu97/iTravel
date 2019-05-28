@@ -3,7 +3,6 @@ import { MasterPageService } from '../../core/services/master-page.service';
 import { SharedModule } from '../../shared/shared.module';
 import { ServerService } from '../../core/services/server.service';
 import { SearchHistory } from 'src/app/model/searchHistory.model';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { UserService } from '../../core/services/user.service';
 import { LanguageService } from '../../core/services/language.service';

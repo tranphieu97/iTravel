@@ -476,7 +476,7 @@ app.patch('/user/send-notification', async (req, res) => {
             "notificationItems": req.body
         };
         newListNotifications.notificationItems = newListNotifications.notificationItems.map((notiItem) => {
-            !notiItem._id 
+            !notiItem._id
                 ? notiItem._id = new ObjectId()
                 : notiItem._id = new ObjectId(notiItem._id);
             return notiItem;
@@ -503,4 +503,143 @@ app.patch('/user/send-notification', async (req, res) => {
             })
     }
 });
+
+app.patch('/user/upload-avatar', (req, res) => {
+    if (req.body) {
+        const userObjectId = new ObjectId(req.body.userId);
+
+        const userFilter = {
+            '_id': new ObjectId(req.body.userId)
+        };
+
+        const changedField = {
+            'avatar': req.body.imgLink
+        };
+
+        database.updateDocumentByFilter(database.iTravelDB.Users, userFilter, changedField)
+            .then((updateResult) => {
+                if (updateResult.matchedCount === 1) {
+                    res.status(200).json({
+                        statusCode: 201
+                    });
+                } else {
+                    res.status(200).json({
+                        statusCode: 404
+                    });
+                }
+            })
+            .catch(() => {
+                res.status(200).json({
+                    statusCode: 404
+                });
+            });
+    } else {
+        res.status(200).json({
+            statusCode: 404
+        });
+    }
+});
+
+// /**
+//  * @name createTour
+//  * @param {Tour}
+//  * @author Thong
+//  */
+// app.post('/user/create-tour', async (req, res) => {
+//     try {
+//         const newTour = new Tour(req.body)
+//         newTour._id = new ObjectId()
+//         await newTour.save()
+//         res.status(200).json({
+//             message: 'Success!'
+//         });
+//     } catch (error) {
+//         res.status(500).json({
+//             message: 'Fail!'
+//         });
+//     }
+// });
+
+// /**
+//  * @name updateTour
+//  * @param {Tour}
+//  * @author Thong
+//  */
+// app.post('/user/update-tour', async (req, res) => {
+//     try {
+//         const updatedTour = new Tour(req.body)
+//         const id = updatedTour._id
+//         delete updatedTour._id
+//         await Tour.updateOne({ _id: id }, updatedTour)
+//         res.status(200).json({
+//             message: 'Success!'
+//         });
+//     } catch (error) {
+//         res.status(500).json({
+//             message: 'Fail!'
+//         });
+//     }
+// });
+
+// /**
+//  * @name removeTour
+//  * @param {Tour}
+//  * @author Thong
+//  */
+// app.post('/user/remove-tour', async (req, res) => {
+//     try {
+//         const id = req.param('tourId')
+//         await Tour.updateOne({ _id: id }, { $set: { isActive: false } })
+//         res.status(200).json({
+//             message: 'Success!'
+//         });
+//     } catch (error) {
+//         res.status(500).json({
+//             message: error.message
+//         });
+//     }
+// });
+
+// /**
+//  * @name getTours
+//  * @author Thong
+//  */
+// app.get('/user/get-tours', async (req, res) => {
+//     try {
+//         let queryObj = {}
+//         if(req.param('userId')){
+//             const userId = authentication.getTokenUserId(req.headers.authorization);
+//             queryObj = {'members.memberId': userId}
+//         }
+//         const tours = await Tour.find(queryObj)
+//         res.status(200).json({
+//             data: tours,
+//             message: 'Success!'
+//         });
+//     } catch (error) {
+//         res.status(500).json({
+//             message: error.message
+//         });
+//     }
+// });
+
+// /**
+//  * @name getTour
+//  * @param {tourId}
+//  * @author Thong
+//  */
+// app.get('/user/get-tour', async (req, res) => {
+//     try {
+//         const tourId = req.param('tourId')
+//         const tour = await Tour.findById(tourId)
+//         res.status(200).json({
+//             data: tour,
+//             message: 'Success!'
+//         });
+//     } catch (error) {
+//         res.status(500).json({
+//             message: 'Fail!'
+//         });
+//     }
+// });
 // Routing - END

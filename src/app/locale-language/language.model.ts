@@ -42,6 +42,8 @@ export class Language {
     headerPersonalInfo: string;
     headerLogOut: string;
     headerUserContribution: string;
+    headerUserTour: string;
+    headerUpdateProfile: string;
   };
 
   // For Login Component

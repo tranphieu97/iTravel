@@ -378,6 +378,12 @@ export class ServerService {
     return this.http.get<{ data: any, message: string }>(this.HOST + 'tourguide/get-tours');
   }
 
+  getUserTours(userIdFilter: boolean) { // filter by userId or not
+    const listParams = new HttpParams().set('userId', String(userIdFilter));
+    return this.http.get<{ data: any, message: string }>(this.HOST + 'user/get-tours',
+      { headers: this.httpOptions.headers, params: listParams });
+  }
+
   getTour(tourId: string) {
     const listParams = new HttpParams().set('tourId', tourId);
     return this.http.get<{ data: any, message: string }>(this.HOST + 'api/get-tour',
@@ -497,5 +503,18 @@ export class ServerService {
 
   getReviewer(): Observable<any> {
     return this.http.get(this.HOST + 'tourguide/all-reviewer');
+  }
+
+  getUserInfomation(userId: string): Observable<any> {
+
+  }
+
+  updateAvatar(userId: string, imgLink: string): Observable<any> {
+    const updateBody = {
+      userId: userId,
+      imgLink: imgLink
+    };
+
+    return this.http.patch(this.HOST + 'user/upload-avatar', updateBody);
   }
 }

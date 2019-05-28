@@ -1,6 +1,17 @@
-<div class="flex-1">
-
+<div class="flex-1 border-box flex-col">
+  <div class="avatar-box">
+    <app-loading *ngIf="isUploading"></app-loading>
+    <img *ngIf="!isUploading">
+  </div>
+  <div class="alert alert-danger">
+    Lỗi cmnrr
+  </div>
+  <div class="flex-row form-group flex-items-center">
+    <input type="button" class="btn btn-warning" value="Update Avatar" style="padding: 5px 10px; font-size: 16px;"
+      (click)="uploadAvatar.click()" [disabled]="isUploading">
+    <input type="file" style="display: none" #uploadAvatar>
+  </div>
 </div>
-<div class="flex-1">
+<div class="flex-1 border-box">
 
 </div>

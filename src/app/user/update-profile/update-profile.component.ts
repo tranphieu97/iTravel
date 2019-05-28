@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UpdateProfileComponent implements OnInit {
 
+  public isUploading: Boolean = false;
+
   constructor() { }
 
   ngOnInit() {
