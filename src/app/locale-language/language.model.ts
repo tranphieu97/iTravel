@@ -441,6 +441,25 @@ export class Language {
     task: string;
     joiningMember: string;
     scheduleCost: string;
+    editBtn: string;
+    saveBtn: string;
+    tourguide: string;
+  };
+
+  compUserTour: {
+    screenTitle: string;
+    tourName: string;
+    departureTime: string;
+    status: string;
+    statusPending: string;
+    statusRegistering: string;
+    statusRunning: string;
+    statusFinished: string;
+    statusPreparing: string;
+    statusPrepared: string;
+    detailBtn: string;
+    tripDuration: string;
+    tripDurationUnit: string;
   };
 
   constructor() {}

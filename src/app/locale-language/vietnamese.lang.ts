@@ -439,6 +439,25 @@ export const LangVietnamese: Language = {
     location: 'Địa điểm',
     task: 'Nhiệm vụ',
     joiningMember: 'Tham gia',
-    scheduleCost: 'Chi phí'
+    scheduleCost: 'Chi phí',
+    editBtn: 'Sửa',
+    saveBtn: 'Lưu',
+    tourguide: 'Hướng dẫn viên'
+  },
+
+  compUserTour: {
+    screenTitle: 'Tour của bạn',
+    tourName: 'Tour',
+    departureTime: 'Khời hành',
+    status: 'Trạng thái',
+    statusPending: 'Chờ Góp Ý',
+    statusRegistering: 'Cho Đăng Ký',
+    statusRunning: 'Đang Diên Ra',
+    statusFinished: 'Đã Kết Thúc',
+    statusPreparing: 'Đang Chuẩn Bị',
+    statusPrepared: 'Đã Xong',
+    detailBtn: 'Chi Tiết',
+    tripDuration: 'Thời gian hành trình',
+    tripDurationUnit: 'ngày'
   }
 };

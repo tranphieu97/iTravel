@@ -9,15 +9,13 @@
         class="perform-item-btn edit"
         type="button"
         (click)="onClickEdit()">
-        <!-- localtext -->
-        Edit
+        {{compLanguage.editBtn}}
       </button>
       <button *ngIf="isEditing"
         class="perform-item-btn submit"
         type="button"
         (click)="onClickSave()">
-        <!-- localtext -->
-        Save
+        {{compLanguage.saveBtn}}
       </button>
       <span *ngIf="!isEditing">
         {{performer.needPrepare}}/{{performer.prepared}}

@@ -26,10 +26,10 @@ export class UserTourComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.compLanguage = this.languageService.currentLanguage.compTourManagement;
+    this.compLanguage = this.languageService.currentLanguage.compUserTour;
     this.languageService.hasChangeLanguage.subscribe(
       () =>
-        (this.compLanguage = this.languageService.currentLanguage.compTourManagement)
+        (this.compLanguage = this.languageService.currentLanguage.compUserTour)
     );
     this.serverService.getToursByUser(true).subscribe(res => {
       if (res.data) {

@@ -23,7 +23,7 @@
           {{tourMemberInfo[i].tourInfo.cost | currency:'VND'}}
         </span>
         <span class="tour-guide"
-          *ngIf="tourMemberInfo[i].tourInfo.memberId === tourData.tourGuideId"><b>{{'Tourguide'}}</b>
+          *ngIf="tourMemberInfo[i].tourInfo.memberId === tourData.tourGuideId"><b>{{compLanguage.tourguide}}</b>
         </span>
       </div>
     </div>

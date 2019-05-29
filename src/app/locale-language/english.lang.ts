@@ -447,6 +447,25 @@ export const LangEnglish: Language = {
     location: 'Location',
     task: 'Task',
     joiningMember: 'Joining',
-    scheduleCost: 'Cost'
+    scheduleCost: 'Cost',
+    editBtn: 'Edit',
+    saveBtn: 'Save',
+    tourguide: 'Tourguide'
+  },
+
+  compUserTour: {
+    screenTitle: 'Your tours',
+    tourName: 'Tourname',
+    departureTime: 'Departure time',
+    status: 'Status',
+    statusPending: 'PENDING',
+    statusRegistering: 'REGISTERING',
+    statusRunning: 'RUNNING',
+    statusFinished: 'FINISHED',
+    statusPreparing: 'PREPARING',
+    statusPrepared: 'FINISHED',
+    detailBtn: 'Detail',
+    tripDuration: 'Trip duration',
+    tripDurationUnit: 'day(s)'
   }
 };
