@@ -395,7 +395,7 @@ export class ServerService {
   }
 
   updateTour(tour: Tour) {
-    return this.http.post<{ message: string }>(this.HOST + 'tourguide/update-tour', tour);
+    return this.http.patch<{ message: string }>(this.HOST + 'tourguide/update-tour', tour);
   }
 
 

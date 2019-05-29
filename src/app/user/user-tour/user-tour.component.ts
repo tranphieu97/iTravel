@@ -5,6 +5,7 @@ import { Tour } from 'src/app/model/tour.model';
 import { ConstTourStatus } from 'src/app/constants';
 import { LanguageService } from 'src/app/core/services/language.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DetailModalComponent } from 'src/app/manager/tour-management/detail-modal/detail-modal.component';
 
 @Component({
   selector: 'app-user-tour',
@@ -35,5 +36,13 @@ export class UserTourComponent implements OnInit {
         this.tours = res.data;
       }
     });
+  }
+
+  openDetail(tour: Tour) {
+    const modalRef = this.modalService.open(DetailModalComponent, {
+      centered: true,
+      size: 'lg'
+    });
+    modalRef.componentInstance.tourData = tour;
   }
 }

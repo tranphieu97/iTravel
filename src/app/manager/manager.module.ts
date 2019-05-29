@@ -30,6 +30,7 @@ import { PerformItemComponent } from './tour-management/detail-modal/tour-prepar
     TourFeedbackItemComponent,
     PerformItemComponent
   ],
+  exports: [DetailModalComponent],
   entryComponents: [DetailModalComponent]
 })
 export class ManagerModule {}

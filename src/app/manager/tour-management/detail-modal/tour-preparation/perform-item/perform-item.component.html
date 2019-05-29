@@ -4,6 +4,26 @@
     [ngStyle]="{'background-image': 'url('+basicInfo.avatar+')'}"></div>
   <div class="right">
     <span class="name">{{basicInfo.firstName+' '+basicInfo.lastName}}</span>
-    <span>{{performer.needPrepare}}/{{performer.prepared}}</span>
+    <div class="num-prepared">
+      <button *ngIf="!isEditing"
+        class="perform-item-btn edit"
+        type="button"
+        (click)="onClickEdit()">
+        <!-- localtext -->
+        Edit
+      </button>
+      <button *ngIf="isEditing"
+        class="perform-item-btn submit"
+        type="button"
+        (click)="onClickSave()">
+        <!-- localtext -->
+        Save
+      </button>
+      <span *ngIf="!isEditing">
+        {{performer.needPrepare}}/{{performer.prepared}}
+      </span>
+      <input *ngIf="isEditing" type="text" maxlength="4" #inputEle
+        (input)="onInputPrepared(inputEle)">
+    </div>
   </div>
 </div>

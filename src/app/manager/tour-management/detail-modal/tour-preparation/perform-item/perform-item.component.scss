@@ -24,14 +24,47 @@
     .right {
       display: flex;
       flex-direction: column;
-      align-items: flex-end;
       padding-left: 10px;
       .name {
         color: blue;
+        min-width: 110px;
+        text-align: justify;
       }
       span {
         font-size: 17px;
         font-weight: 600;
+      }
+      .num-prepared {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+        .perform-item-btn {
+          width: 55px;
+          font-size: 17px;
+          font-weight: 600;
+          border: none;
+          box-shadow: 1px 1px 1px 1px #333333;
+          border-radius: 0.25rem;
+        }
+        .edit {
+          background-color: #ff7500cf;
+        }
+        .submit {
+          background-color: #69ff00cf;
+        }
+        input {
+          border: none;
+          border-bottom: solid 2px #333333;
+          border-radius: 0.25rem;
+          background: none;
+          width: 45px;
+          text-align: center;
+          font-size: 17px;
+          font-weight: 600;
+          padding: 0;
+          height: 25px;
+        }
       }
     }
   }

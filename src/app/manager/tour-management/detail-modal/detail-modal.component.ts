@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Tour } from 'src/app/model/tour.model';
 import { LanguageService } from 'src/app/core/services/language.service';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-detail-modal',
@@ -14,7 +15,8 @@ export class DetailModalComponent implements OnInit {
 
   constructor(
     public activeModal: NgbActiveModal,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private userService: UserService
   ) {}
 
   ngOnInit() {

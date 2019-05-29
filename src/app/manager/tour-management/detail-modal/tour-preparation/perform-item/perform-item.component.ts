@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { TourPreparationPerformer } from 'src/app/model/tour-preparation-performer.model';
 import { ServerService } from 'src/app/core/services/server.service';
 
@@ -9,7 +9,10 @@ import { ServerService } from 'src/app/core/services/server.service';
 })
 export class PerformItemComponent implements OnInit {
   @Input() performer: TourPreparationPerformer;
+  @Input() tourId: string;
   basicInfo;
+  isEditing = false;
+  @ViewChild('inputEle') inputEleRef: ElementRef;
 
   constructor(private serverService: ServerService) {}
 
@@ -21,5 +24,21 @@ export class PerformItemComponent implements OnInit {
           this.basicInfo = res.data;
         }
       });
+  }
+
+  onClickEdit() {
+    this.isEditing = true;
+  }
+
+  onClickSave() {
+    this.isEditing = false;
+    if (!this.inputEleRef.nativeElement.value) {
+      return;
+    }
+    // update database
+  }
+
+  onInputPrepared(input: HTMLInputElement) {
+    input.value = input.value.replace(/\D/gi, '').slice(0, 4);
   }
 }
