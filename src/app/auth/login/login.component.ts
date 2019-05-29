@@ -63,6 +63,7 @@ export class LoginComponent implements OnInit {
           this.user.currentUser.setUserRequiredInfo(res.data._id, res.data.username,
             res.data.firstName, res.data.lastName, res.data.avatar);
           this.user.currentUser.isAdmin = res.data.isAdmin;
+          this.user.currentUser.isTourguide = res.data.isTourguide;
           this.user.isLogin = true;
           this.isLoading = false;
           this.router.navigate(['home']);

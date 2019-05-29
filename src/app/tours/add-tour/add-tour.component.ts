@@ -422,7 +422,7 @@ export class AddTourComponent implements OnInit {
           if (uploadRes.imageUrls && uploadRes.imageUrls[0]) {
             this.tourModel.cover = uploadRes.imageUrls[0];
             this.tourModel.creationTime = new Date();
-            this.tourModel.createdBy = this.userService.getTokenUserId();
+            this.tourModel.createdBy = this.userService.getUserId();
 
             this.serverService.createTour(this.tourModel)
               .subscribe((res) => {

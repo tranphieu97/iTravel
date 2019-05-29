@@ -11,6 +11,7 @@ export class User {
     public hometown: string;
     public point: number;
     public isAdmin: boolean;
+    public isTourguide: boolean;
     public permission: string;
 
     constructor() {
@@ -25,6 +26,7 @@ export class User {
         this.hometown = null;
         this.point = 0;
         this.isAdmin = false;
+        this.isTourguide = false;
         this.permission = null;
         this.email = null;
     }
