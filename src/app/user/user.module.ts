@@ -5,6 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { UserRoutingModule } from './user.routing';
 import { UserPostManagementComponent } from './user-post-management/user-post-management.component';
 import { PostViewModule } from '../post-view/post-view.module';
+import { UpdateProfileComponent } from './update-profile/update-profile.component';
 import { UserTourComponent } from './user-tour/user-tour.component';
 import { ManagerModule } from '../manager/manager.module';
 import { DetailModalComponent } from '../manager/tour-management/detail-modal/detail-modal.component';
@@ -17,7 +18,7 @@ import { DetailModalComponent } from '../manager/tour-management/detail-modal/de
     PostViewModule,
     ManagerModule
   ],
-  declarations: [UserProfileComponent, UserPostManagementComponent, UserTourComponent],
+  declarations: [UserProfileComponent, UserPostManagementComponent, UserTourComponent, UpdateProfileComponent],
   entryComponents: [DetailModalComponent]
 })
 export class UserModule { }

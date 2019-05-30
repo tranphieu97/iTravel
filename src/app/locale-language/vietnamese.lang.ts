@@ -36,7 +36,8 @@ export const LangVietnamese: Language = {
     headerPersonalInfo: 'Thông tin cá nhân',
     headerLogOut: 'Đăng xuất',
     headerUserContribution: 'Đóng góp',
-    headerUserTour: 'Tour của bạn'
+    headerUserTour: 'Tour của bạn',
+    headerUpdateProfile: 'Cập nhật thông tin'
   },
 
   // For Login

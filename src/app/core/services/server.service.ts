@@ -504,4 +504,21 @@ export class ServerService {
   getReviewer(): Observable<any> {
     return this.http.get(this.HOST + 'tourguide/all-reviewer');
   }
+
+  getUserInfomation(userId: string): Observable<any> {
+    const params = {
+      userId: userId
+    };
+
+    return this.http.get(this.HOST + 'user/information', { params: params });
+  }
+
+  updateAvatar(userId: string, imgLink: string): Observable<any> {
+    const updateBody = {
+      userId: userId,
+      imgLink: imgLink
+    };
+
+    return this.http.patch(this.HOST + 'user/upload-avatar', updateBody);
+  }
 }

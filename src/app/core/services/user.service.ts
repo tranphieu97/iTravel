@@ -30,6 +30,7 @@ export class UserService {
         if (this.authentication.validUserInfoByToken(userData.username, userData.isAdmin)) {
           this.currentUser.setUserRequiredInfo(userData._id, userData.username, userData.firstName, userData.lastName, userData.avatar);
           this.currentUser.isAdmin = userData.isAdmin;
+          this.currentUser.isTourguide = userData.isTourguide;
           this.isLogin = true;
           this.isLoginChange.next();
         }
@@ -63,5 +64,9 @@ export class UserService {
       console.log(er);
       return '';
     }
+  }
+
+  getUserId(): string {
+    return this.getTokenUserId();
   }
 }

@@ -101,6 +101,51 @@ app.get('/user/profile', async (req, res) => {
 });
 
 /**
+ * @name USER - GET User's profile
+ * @author phieu-th
+ * @description
+ * @returns 
+ */
+app.get('/user/information', async (req, res) => {
+    const userId = req.param('userId');
+
+    const userFilter = {
+        '_id': new ObjectId(userId)
+    };
+
+    const inforProjection = {
+        projection: {
+            avatar: 1,
+            hometown: 1,
+            birthDay: 1,
+            firstName: 1,
+            lastName: 1,
+            email: 1
+        }
+    };
+
+    database.getOneWithProjection(database.iTravelDB.Users, userFilter, inforProjection)
+        .then((userInfo) => {
+            if (userInfo) {
+                res.status(200).json({
+                    data: userInfo,
+                    statusCode: 200
+                });
+            } else {
+                res.status(200).json({
+                    statusCode: 404
+                });
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(200).json({
+                statusCode: 404
+            });
+        });
+});
+
+/**
  * @name USER - POST Token Login
  * @author phieu-th
  * @description re-login by token stored in localstorage
@@ -139,15 +184,21 @@ app.post('/user/token-login', async (req, res) => {
                         });
                     } else {
                         let isAdmin = false;
+                        let isTourguide = false;
 
                         if (userInfo.permission.includes(config.USER_PERMISSION.ADMIN)) {
                             isAdmin = true;
                         }
 
+                        if (userInfo.permission.includes(config.USER_PERMISSION.TOURGUIDE)) {
+                            isTourguide = true;
+                        }
+
                         const userData = {
                             _id: userInfo._id,
                             username: userInfo.username,
-                            isAdmin: isAdmin
+                            isAdmin: isAdmin,
+                            isTourguide: isTourguide
                         }
 
                         const data = {
@@ -156,7 +207,8 @@ app.post('/user/token-login', async (req, res) => {
                             firstName: userInfo.firstName,
                             lastName: userInfo.lastName,
                             avatar: userInfo.avatar,
-                            isAdmin: isAdmin
+                            isAdmin: isAdmin,
+                            isTourguide: isTourguide
                         }
                         authentication.insertUserSignInLog(userInfo.username);
                         jwt.sign(userData, config.SECRET_KEY, { expiresIn: '23h' }, (err, jwtToken) => {
@@ -476,7 +528,7 @@ app.patch('/user/send-notification', async (req, res) => {
             "notificationItems": req.body
         };
         newListNotifications.notificationItems = newListNotifications.notificationItems.map((notiItem) => {
-            !notiItem._id 
+            !notiItem._id
                 ? notiItem._id = new ObjectId()
                 : notiItem._id = new ObjectId(notiItem._id);
             return notiItem;
@@ -504,6 +556,42 @@ app.patch('/user/send-notification', async (req, res) => {
     }
 });
 
+app.patch('/user/upload-avatar', (req, res) => {
+    if (req.body) {
+        const userObjectId = new ObjectId(req.body.userId);
+
+        const userFilter = {
+            '_id': new ObjectId(req.body.userId)
+        };
+
+        const changedField = {
+            'avatar': req.body.imgLink
+        };
+
+        database.updateDocumentByFilter(database.iTravelDB.Users, userFilter, changedField)
+            .then((updateResult) => {
+                if (updateResult.matchedCount === 1) {
+                    res.status(200).json({
+                        statusCode: 201
+                    });
+                } else {
+                    res.status(200).json({
+                        statusCode: 404
+                    });
+                }
+            })
+            .catch(() => {
+                res.status(200).json({
+                    statusCode: 404
+                });
+            });
+    } else {
+        res.status(200).json({
+            statusCode: 404
+        });
+    }
+});
+
 /**
  * @name getTours
  * @author Thong
@@ -511,9 +599,9 @@ app.patch('/user/send-notification', async (req, res) => {
 app.get('/user/get-tours', async (req, res) => {
     try {
         let queryObj = {}
-        if(req.param('userId')){
+        if (req.param('userId')) {
             const userId = authentication.getTokenUserId(req.headers.authorization);
-            queryObj = {'members.memberId': userId}
+            queryObj = { 'members.memberId': userId }
         }
         const tours = await Tour.find(queryObj)
         res.status(200).json({
