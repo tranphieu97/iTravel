@@ -23,8 +23,10 @@
             {{preparation.note}}
           </span>
           <div class="perform-item-list">
-            <app-perform-item [tourId]="tourData._id" class="mr-4"
+            <app-perform-item class="mr-4"
               *ngFor="let performer of preparation.performers"
+              [updatePreparation]="updatePreparation"
+              [preparationId]="preparation._id"
               [performer]="performer"></app-perform-item>
           </div>
         </div>

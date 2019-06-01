@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { TourPreparationPerformer } from 'src/app/model/tour-preparation-performer.model';
 import { ServerService } from 'src/app/core/services/server.service';
 import { LanguageService } from 'src/app/core/services/language.service';
+import { ConstTourPreparationStatus } from 'src/app/constants';
 
 @Component({
   selector: 'app-perform-item',
@@ -10,11 +11,13 @@ import { LanguageService } from 'src/app/core/services/language.service';
 })
 export class PerformItemComponent implements OnInit {
   @Input() performer: TourPreparationPerformer;
-  @Input() tourId: string;
+  @Input() preparationId: string;
+  @Input() updatePreparation;
   @ViewChild('inputEle') inputEleRef: ElementRef;
   basicInfo;
   isEditing = false;
   compLanguage;
+  PREPARE_STATUS = new ConstTourPreparationStatus();
 
   constructor(
     private serverService: ServerService,
@@ -22,6 +25,7 @@ export class PerformItemComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // this.performer.prepared
     this.compLanguage = this.languageService.currentLanguage.compTourManagement;
     this.languageService.hasChangeLanguage.subscribe(
       () =>
@@ -42,10 +46,18 @@ export class PerformItemComponent implements OnInit {
 
   onClickSave() {
     this.isEditing = false;
-    if (!this.inputEleRef.nativeElement.value) {
+    const newPrepared = this.inputEleRef.nativeElement.value;
+    if (newPrepared === '') {
       return;
     }
-    // update database
+    // update prepared and status on client
+    this.performer.prepared = Number(newPrepared);
+    if (this.performer.prepared >= this.performer.needPrepare) {
+      this.performer.status = this.PREPARE_STATUS.FINISHED;
+    } else {
+      this.performer.status = this.PREPARE_STATUS.PREPARING;
+    }
+    this.updatePreparation(this.preparationId);
   }
 
   onInputPrepared(input: HTMLInputElement) {

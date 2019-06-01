@@ -856,6 +856,51 @@ app.get('/api/province-locations', (req, res) => {
 });
 
 /**
+ * @name updateTour for user
+ * @param {Tour}
+ * @author Thong
+ */
+app.patch('/api/update-tour', async (req, res) => {
+    try {
+        const id = req.param('tourId');
+        const updateObj = req.body;
+        console.log(updateObj)
+        // validate have permission on update field
+        await Tour.updateOne({ _id: id }, { $set: { isActive: false } })
+        await Tour.updateOne(
+            { 
+                _id: '5cd7b102c9b2a630387bafb4', 
+                'preparations.itemName': 'Xe',
+            }, 
+            { 
+                $set: { 'preparations.$.status': 'UPDATED' } 
+            })
+        res.status(200).json({
+            message: 'Success!'
+        });
+    } catch (error) {
+        res.status(200).json({
+            message: error.message
+        });
+    }
+
+    // try {
+    //     const tourId = req.query('tourId')
+    //     console.log(tourId)
+    //     const tour = await Tour.findById(tourId, 'preparations', () => {})
+    //     res.status(200).json({
+    //         data: tour,
+    //         message: 'Success!'
+    //     });
+    // } catch (error) {
+    //     res.status(200).json({
+    //         message: 'Fail!',
+    //         statusCode: 500
+    //     });
+    // }
+});
+
+/**
  * @name getTour
  * @param {tourId}
  * @author Thong

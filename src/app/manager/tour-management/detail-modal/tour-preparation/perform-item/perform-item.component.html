@@ -18,9 +18,10 @@
         {{compLanguage.saveBtn}}
       </button>
       <span *ngIf="!isEditing">
-        {{performer.needPrepare}}/{{performer.prepared}}
+        {{performer.prepared}}/{{performer.needPrepare}}
       </span>
       <input *ngIf="isEditing" type="text" maxlength="4" #inputEle
+        [placeholder]="performer.prepared"
         (input)="onInputPrepared(inputEle)">
     </div>
   </div>
