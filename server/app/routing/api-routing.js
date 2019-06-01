@@ -587,13 +587,13 @@ app.get('/api/locations', (req, res, next) => {
  * then query the post has that Id
  */
 app.get('/api/location', (req, res) => {
-    if (!req.param('id') || req.param('id').length !== 24) {
+    if (!req.query.id || req.query.id.length !== 24) {
         res.status(200).json({
             message: 'Invalid location Id'
         })
     } else {
         // in request has post Id, create query object from that
-        const queryObj = { _id: new ObjectId(req.param('id')) }
+        const queryObj = { _id: new ObjectId(req.query.id) }
 
         const projectionObj = { }
 
@@ -606,7 +606,7 @@ app.get('/api/location', (req, res) => {
                     })
                 } else {
                     res.status(200).json({
-                        message: `Failed! Can not find location ${req.param('id')}`
+                        message: `Failed! Can not find location ${req.query.id}`
                     })
                 }
             })
@@ -643,14 +643,14 @@ app.get('/api/post-categories', (req, res, next) => {
  * 
  */
 app.get('/api/user-info', (req, res) => {
-    if (req.param('userId') === null || req.param('userId') === undefined || req.param('userId').length !== 24) {
+    if (req.query.userId === null || req.query.userId === undefined || req.query.userId.length !== 24) {
         res.status(200).json({
             message: 'Invalid user Id'
         })
     }
     else {
         // in request has post Id, create query object from that
-        const queryObj = { _id: new ObjectId(req.param('userId')) }
+        const queryObj = { _id: new ObjectId(req.query.userId) }
         // console.log(queryObj);
 
         // create projection object to return only id, username, avatar
@@ -681,16 +681,16 @@ app.get('/api/user-info', (req, res) => {
  * then query the post has that Id
  */
 app.get('/api/post', (req, res) => {
-    if (!req.param('postId') || req.param('postId').length !== 24) {
+    if (!req.query.postId || req.query.postId.length !== 24) {
         res.status(200).json({
             message: 'Invalid post Id'
         })
     } else {
         // in request has post Id, create query object from that
-        const queryObj = { _id: new ObjectId(req.param('postId')) }
+        const queryObj = { _id: new ObjectId(req.query.postId) }
 
         //
-        postService.countViewPost(req.param('postId'));
+        postService.countViewPost(req.query.postId);
         //
         database.getCollectionFilterData(database.iTravelDB.Posts, queryObj)
             .then(([post]) => {
@@ -813,7 +813,7 @@ app.post('/user/post', (req, res, next) => {
 });
 
 app.get('/api/province-locations', (req, res) => {
-    const arrProvincesName = req.param('arrProvincesName');
+    const arrProvincesName = req.query.arrProvincesName;
 
     if (arrProvincesName !== undefined && arrProvincesName.length > 0) {
         let filterProvince = {
@@ -856,58 +856,13 @@ app.get('/api/province-locations', (req, res) => {
 });
 
 /**
- * @name updateTour for user
- * @param {Tour}
- * @author Thong
- */
-app.patch('/api/update-tour', async (req, res) => {
-    try {
-        const id = req.param('tourId');
-        const updateObj = req.body;
-        console.log(updateObj)
-        // validate have permission on update field
-        await Tour.updateOne({ _id: id }, { $set: { isActive: false } })
-        await Tour.updateOne(
-            { 
-                _id: '5cd7b102c9b2a630387bafb4', 
-                'preparations.itemName': 'Xe',
-            }, 
-            { 
-                $set: { 'preparations.$.status': 'UPDATED' } 
-            })
-        res.status(200).json({
-            message: 'Success!'
-        });
-    } catch (error) {
-        res.status(200).json({
-            message: error.message
-        });
-    }
-
-    // try {
-    //     const tourId = req.query('tourId')
-    //     console.log(tourId)
-    //     const tour = await Tour.findById(tourId, 'preparations', () => {})
-    //     res.status(200).json({
-    //         data: tour,
-    //         message: 'Success!'
-    //     });
-    // } catch (error) {
-    //     res.status(200).json({
-    //         message: 'Fail!',
-    //         statusCode: 500
-    //     });
-    // }
-});
-
-/**
  * @name getTour
  * @param {tourId}
  * @author Thong
  */
 app.get('/api/get-tour', async (req, res) => {
     try {
-        const tourId = req.param('tourId')
+        const tourId = req.query.tourId;
         const tour = await Tour.findById(tourId, '-preparations -members', () => {})
         res.status(200).json({
             data: tour,

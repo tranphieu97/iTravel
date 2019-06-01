@@ -3,6 +3,7 @@ import { Tour } from 'src/app/model/tour.model';
 import { TourPreparationPerformer } from 'src/app/model/tour-preparation-performer.model';
 import { LanguageService } from 'src/app/core/services/language.service';
 import { ConstTourPreparationStatus } from 'src/app/constants';
+import { ServerService } from 'src/app/core/services/server.service';
 
 @Component({
   selector: 'app-tour-preparation',
@@ -15,7 +16,10 @@ export class TourPreparationComponent implements OnInit {
   compLanguage;
   PREPARE_STATUS = new ConstTourPreparationStatus();
 
-  constructor(private languageService: LanguageService) {}
+  constructor(
+    private languageService: LanguageService,
+    private serverService: ServerService
+  ) {}
 
   ngOnInit() {
     this.compLanguage = this.languageService.currentLanguage.compTourManagement;
@@ -33,7 +37,7 @@ export class TourPreparationComponent implements OnInit {
     const needUpdatePreparation = this.tourData.preparations.find(
       preparation => preparation._id === id
     );
-    // update preparation status
+    // caculate preparation status
     if (
       needUpdatePreparation &&
       this.getPrepared(needUpdatePreparation.performers) >=
@@ -43,11 +47,18 @@ export class TourPreparationComponent implements OnInit {
     } else {
       needUpdatePreparation.status = this.PREPARE_STATUS.PREPARING;
     }
-    // update status before update server
-    // if(this.tourData.preparations.every(prepareItem => prepareItem.status === this.PREPARE_STATUS.FINISHED)){
-    //   this.tourData.preparations
-    // }
-    console.log(this.tourData.preparations[0]._id);
+    this.serverService
+      .updateTourPreparation(
+        {
+          tourId: this.tourData._id,
+          preparationId: id
+        },
+        {
+          performers: needUpdatePreparation.performers,
+          status: needUpdatePreparation.status
+        }
+      )
+      .subscribe();
   }
 
   getPrepared(performers: TourPreparationPerformer[]) {

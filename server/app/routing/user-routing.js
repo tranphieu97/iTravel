@@ -615,4 +615,50 @@ app.get('/user/get-tours', async (req, res) => {
         });
     }
 });
+
+/**
+ * @name updateTour for user
+ * @param {Tour}
+ * @author Thong
+ */
+app.patch('/user/update-tour-preparation', async (req, res) => {
+    try {
+        const tourId = req.query.tourId;
+        const preparationId = req.query.preparationId;
+        let queryObj;
+        if(tourId && preparationId){
+            queryObj = {
+                _id: tourId,
+                'preparations._id': preparationId
+            };
+        } else {
+            console.log('Update preparation error: Invalid param');
+            res.status(200).json({
+                message: 'Invalid param'
+            });
+        }
+        const needUpdateObj = req.body;
+        // fix _id from string to ObjectId
+        needUpdateObj.performers = needUpdateObj.performers.map(performer => {
+            performer._id = new ObjectId(performer._id);
+            return performer;
+        });
+        await Tour.updateOne( queryObj,
+        { 
+            $set: { 
+                'preparations.$.performers': needUpdateObj.performers,
+                'preparations.$.status': needUpdateObj.status
+            } 
+        });
+        console.log('Update preparation successful');
+        res.status(200).json({
+            message: 'Success'
+        });
+    } catch (error) {
+        console.log('Update preparation failed:', error.message);
+        res.status(200).json({
+            message: error.message
+        });
+    }
+});
 // Routing - END

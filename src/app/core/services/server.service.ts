@@ -398,6 +398,13 @@ export class ServerService {
     return this.http.patch<{ message: string }>(this.HOST + 'tourguide/update-tour', tour);
   }
 
+  updateTourPreparation(queryObj, updateObj) {
+    const listParams = new HttpParams()
+      .set('tourId', queryObj.tourId)
+      .set('preparationId', queryObj.preparationId);
+    return this.http.patch<{ message: string }>(this.HOST + 'user/update-tour-preparation', updateObj,
+      { headers: this.httpOptions.headers, params: listParams });
+  }
 
   /**
    * Get user post by UserId
