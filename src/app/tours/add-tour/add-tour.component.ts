@@ -429,7 +429,7 @@ export class AddTourComponent implements OnInit {
                 this.isCreating = false;
 
                 if (res.statusCode === 201) {
-                  this.router.navigate(['manager/tours']);
+                  this.router.navigate(['tours/manager']);
                 } else {
                   this.tourModel.cover = tmpCover;
                   this.showError(this.compLanguage.addTourAddError);

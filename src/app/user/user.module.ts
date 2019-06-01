@@ -7,8 +7,8 @@ import { UserPostManagementComponent } from './user-post-management/user-post-ma
 import { PostViewModule } from '../post-view/post-view.module';
 import { UpdateProfileComponent } from './update-profile/update-profile.component';
 import { UserTourComponent } from './user-tour/user-tour.component';
-import { ManagerModule } from '../manager/manager.module';
-import { DetailModalComponent } from '../manager/tour-management/detail-modal/detail-modal.component';
+import { ToursModule } from '../tours/tours.module';
+import { DetailModalComponent } from '../tours/tour-management/detail-modal/detail-modal.component';
 
 @NgModule({
   imports: [
@@ -16,7 +16,7 @@ import { DetailModalComponent } from '../manager/tour-management/detail-modal/de
     SharedModule,
     UserRoutingModule,
     PostViewModule,
-    ManagerModule
+    ToursModule
   ],
   declarations: [UserProfileComponent, UserPostManagementComponent, UserTourComponent, UpdateProfileComponent],
   entryComponents: [DetailModalComponent]

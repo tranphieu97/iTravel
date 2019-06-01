@@ -24,7 +24,7 @@
             <div class="toolbar-part toolbar-tour">
                 <span [routerLink]="['/tours/add-tour']" *ngIf="this.user.currentUser.isAdmin" [ngbTooltip]="tipNewTour" placement="left"><i
                         class="fas fa-journal-whills"></i></span>
-                <span [routerLink]="['/manager/tours']" *ngIf="this.user.currentUser.isAdmin" [ngbTooltip]="tipTourManagement" placement="left"><i
+                <span [routerLink]="['/tours/manager']" *ngIf="this.user.currentUser.isAdmin" [ngbTooltip]="tipTourManagement" placement="left"><i
                         class="fas fa-route"></i></span>
             </div>
         </div>

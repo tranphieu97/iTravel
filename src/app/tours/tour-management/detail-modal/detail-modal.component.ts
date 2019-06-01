@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class DetailModalComponent implements OnInit {
   @Input() tourData: Tour;
   compLanguage;
-  allowSeeFeedback = ['/manager/tours'];
+  allowSeeFeedback = ['/tours/manager'];
   currentPath: string;
 
   constructor(
