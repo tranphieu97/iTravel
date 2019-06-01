@@ -444,5 +444,17 @@ export class Language {
     scheduleCost: string;
   };
 
+  compUpdateProfile: {
+    firstName: string;
+    lastName: string;
+    hometown: string;
+    birthday: string;
+    email: string;
+    uploadAvatar: string;
+    updateProfile: string;
+    updateSuccess: string;
+    updateFail: string;
+  };
+
   constructor() {}
 }

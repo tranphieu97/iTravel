@@ -10,9 +10,10 @@ export class DateStructService {
 
   getDateStructFromDate(date: Date): NgbDate {
     try {
-      return new NgbDate( date.getFullYear(), date.getMonth() + 1, date.getDate());
-    } catch {
-      return new NgbDate( 1, 1, 1);
+      return new NgbDate(date.getFullYear(), date.getMonth() + 1, date.getDate());
+    } catch (er) {
+      console.log(er);
+      return new NgbDate(2000, 1, 1);
     }
   }
 

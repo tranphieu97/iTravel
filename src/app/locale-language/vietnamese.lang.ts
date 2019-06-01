@@ -441,5 +441,17 @@ export const LangVietnamese: Language = {
     task: 'Nhiệm vụ',
     joiningMember: 'Tham gia',
     scheduleCost: 'Chi phí'
+  },
+
+  compUpdateProfile: {
+    birthday: 'Sinh nhật',
+    email: 'Email',
+    firstName: 'Tên',
+    lastName: 'Họ',
+    hometown: 'Quê quán',
+    updateFail: 'Cập nhật thất bại, vui lòng thử lại',
+    updateProfile: 'Cập nhật thông tin',
+    updateSuccess: 'Cập nhật thành công!',
+    uploadAvatar: 'Tải lên ảnh đại diện'
   }
 };
