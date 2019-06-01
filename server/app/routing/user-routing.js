@@ -558,14 +558,50 @@ app.patch('/user/send-notification', async (req, res) => {
 
 app.patch('/user/upload-avatar', (req, res) => {
     if (req.body) {
-        const userObjectId = new ObjectId(req.body.userId);
-
         const userFilter = {
             '_id': new ObjectId(req.body.userId)
         };
 
         const changedField = {
             'avatar': req.body.imgLink
+        };
+
+        database.updateDocumentByFilter(database.iTravelDB.Users, userFilter, changedField)
+            .then((updateResult) => {
+                if (updateResult.matchedCount === 1) {
+                    res.status(200).json({
+                        statusCode: 201
+                    });
+                } else {
+                    res.status(200).json({
+                        statusCode: 404
+                    });
+                }
+            })
+            .catch(() => {
+                res.status(200).json({
+                    statusCode: 404
+                });
+            });
+    } else {
+        res.status(200).json({
+            statusCode: 404
+        });
+    }
+});
+
+app.patch('/user/update-profile', async (req, res) => {
+    if (req.body) {
+        const userFilter = {
+            '_id': new ObjectId(req.body._id)
+        };
+
+        const changedField = {
+            'firstName': req.body.firstName,
+            'lastName': req.body.lastName,
+            'email': req.body.email,
+            'birthDay': req.body.birthDay,
+            'hometown': req.body.hometown
         };
 
         database.updateDocumentByFilter(database.iTravelDB.Users, userFilter, changedField)

@@ -6,7 +6,7 @@ export class User {
     public lastName: string;
     public fullName: string;
     public avatar: string;
-    public birthDay: string;
+    public birthDay: Date;
     public level: string;
     public hometown: string;
     public point: number;
@@ -47,7 +47,7 @@ export class User {
      * @param permission
      */
     setFullUserInfo(_id: string, username: string, email: string, firstName: string, lastName: string, avatar: string,
-        birthDay: string, level: string, hometown: string, point: number, permission: string) {
+        birthDay: Date, level: string, hometown: string, point: number, permission: string) {
         this._id = _id;
         this.username = username;
         this.firstName = firstName;

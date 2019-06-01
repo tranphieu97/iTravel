@@ -56,8 +56,12 @@ export class IndexComponent implements OnInit {
   refreshListPost() {
     this.isLoading = true;
     this.server.getCardViewPost().subscribe((result) => {
-      this.listAllCardViewPost = result;
-      this.listShowCardViewPosts = result;
+      this.listAllCardViewPost = result.sort((post1, post2) => {
+        return (new Date(post2.createdTime).valueOf() - new Date(post1.createdTime).valueOf());
+      });
+      this.listShowCardViewPosts = result.sort((post1, post2) => {
+        return (new Date(post2.createdTime).valueOf() - new Date(post1.createdTime).valueOf());
+      });
       this.masterPage.selectedProvince = this.constant.ALL_PROVINCE;
 
       this.masterPage.setCountAmountOfProvincePost(this.listAllCardViewPost);

@@ -468,5 +468,17 @@ export const LangEnglish: Language = {
     detailBtn: 'Detail',
     tripDuration: 'Trip duration',
     tripDurationUnit: 'day(s)'
+  },
+
+  compUpdateProfile: {
+    birthday: 'Birthday',
+    email: 'Email',
+    firstName: 'First name',
+    lastName: 'Last name',
+    hometown: 'Hometown',
+    updateFail: 'Update Fail, try again!',
+    updateProfile: 'Update Profile',
+    updateSuccess: 'Update Success!',
+    uploadAvatar: 'Upload Avatar'
   }
 };

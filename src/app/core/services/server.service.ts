@@ -528,4 +528,17 @@ export class ServerService {
 
     return this.http.patch(this.HOST + 'user/upload-avatar', updateBody);
   }
+
+  updateProfile(userId: string, userProfileModel: any): Observable<any> {
+    const updateBody = {
+      _id: userId,
+      firstName: userProfileModel.firstName,
+      lastName: userProfileModel.lastName,
+      email: userProfileModel.email,
+      birthDay: userProfileModel.birthDay,
+      hometown: userProfileModel.hometown
+    };
+
+    return this.http.patch(this.HOST + 'user/update-profile', updateBody);
+  }
 }

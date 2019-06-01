@@ -3,6 +3,7 @@ import { User } from '../../model/user.model';
 import { AuthenticationService } from './authentication.service';
 import { Subject } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { ServerService } from './server.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +12,14 @@ export class UserService {
 
   isLogin: Boolean = false;
   currentUser: User;
+  hasChangeUserInfo: Subject<any> = new Subject<any>();
 
   hasChangeUser: Subject<any> = new Subject<any>();
   isLoginChange = new Subject();
 
   private jwtHelpper: JwtHelperService = new JwtHelperService();
 
-  constructor(private authentication: AuthenticationService) {
+  constructor(private authentication: AuthenticationService, private server: ServerService) {
     this.currentUser = new User();
 
     // Check is exist user token in local
@@ -36,6 +38,22 @@ export class UserService {
         }
       });
     }
+
+    this.hasChangeUserInfo.subscribe(() => {
+      if (this.getUserId() !== '') {
+        this.server.getUserInfomation(this.getUserId()).subscribe(res => {
+          if (res.statusCode === 200) {
+            this.currentUser.avatar = res.data.avatar;
+            this.currentUser.firstName = res.data.firstName;
+            this.currentUser.lastName = res.data.lastName;
+            this.currentUser.email = res.data.email;
+            this.currentUser.hometown = res.data.hometown;
+            this.currentUser.birthDay = new Date(res.data.birthDay);
+            this.setFullname();
+          }
+        });
+      }
+    });
   }
 
   /**
@@ -63,6 +81,14 @@ export class UserService {
     } catch (er) {
       console.log(er);
       return '';
+    }
+  }
+
+  setFullname() {
+    if (this.currentUser) {
+      this.currentUser.fullName = this.currentUser.lastName !== undefined
+        ? this.currentUser.firstName + '' + this.currentUser.lastName
+        : this.currentUser.firstName;
     }
   }
 

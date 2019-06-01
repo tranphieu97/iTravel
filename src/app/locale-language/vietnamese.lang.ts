@@ -460,5 +460,17 @@ export const LangVietnamese: Language = {
     detailBtn: 'Chi Tiết',
     tripDuration: 'Thời gian hành trình',
     tripDurationUnit: 'ngày'
+  },
+
+  compUpdateProfile: {
+    birthday: 'Sinh nhật',
+    email: 'Email',
+    firstName: 'Tên',
+    lastName: 'Họ',
+    hometown: 'Quê quán',
+    updateFail: 'Cập nhật thất bại, vui lòng thử lại',
+    updateProfile: 'Cập nhật thông tin',
+    updateSuccess: 'Cập nhật thành công!',
+    uploadAvatar: 'Tải lên ảnh đại diện'
   }
 };
