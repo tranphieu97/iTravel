@@ -3,6 +3,8 @@ import { TourPreparationPerformer } from 'src/app/model/tour-preparation-perform
 import { ServerService } from 'src/app/core/services/server.service';
 import { LanguageService } from 'src/app/core/services/language.service';
 import { ConstTourPreparationStatus } from 'src/app/constants';
+import { UserService } from 'src/app/core/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-perform-item',
@@ -15,17 +17,23 @@ export class PerformItemComponent implements OnInit {
   @Input() updatePreparation;
   @ViewChild('inputEle') inputEleRef: ElementRef;
   basicInfo;
-  isEditing = false;
   compLanguage;
   PREPARE_STATUS = new ConstTourPreparationStatus();
+  isEditing = false;
+  userHasEditPermission: boolean;
+  allowSeeEdit = ['/user/tours'];
+  currentPath: string;
 
   constructor(
     private serverService: ServerService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private userService: UserService,
+    private router: Router
   ) {}
 
   ngOnInit() {
-    // this.performer.prepared
+    this.currentPath = this.router.url;
+    this.userHasEditPermission = this.performer.performerId === this.userService.currentUser._id;
     this.compLanguage = this.languageService.currentLanguage.compTourManagement;
     this.languageService.hasChangeLanguage.subscribe(
       () =>

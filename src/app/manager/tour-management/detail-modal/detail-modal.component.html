@@ -23,7 +23,7 @@
         </app-tour-schedule>
       </ng-template>
     </ngb-tab>
-    <ngb-tab>
+    <ngb-tab *ngIf="allowSeeFeedback.includes(currentPath)">
       <ng-template ngbTabTitle><b class="title">{{compLanguage.feedbackTab}}</b>
       </ng-template>
       <ng-template ngbTabContent>
