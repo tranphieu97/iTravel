@@ -44,6 +44,7 @@
             flex-direction: column;
             justify-content: flex-start;
             flex: 1 1;
+            max-height: calc(100% - 50px);
 
             .post-management-control {
                 padding: 5px;

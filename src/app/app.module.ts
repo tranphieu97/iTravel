@@ -16,6 +16,7 @@ import { SharedModule } from './shared/shared.module';
 import { AuthLayoutComponent } from './web-layout/auth-layout/auth-layout.component';
 import { HorizontalCardViewPostComponent } from './card-view-style/horizontal-card-view-post/horizontal-card-view-post.component';
 import { NotificationComponent } from './master-page/notification/notification.component';
+import { TourViewComponent } from './tours/tour-view/tour-view.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { NotificationComponent } from './master-page/notification/notification.c
     NavbarMenuComponent,
     HeaderComponent,
     AuthLayoutComponent,
-    NotificationComponent
+    NotificationComponent,
+    TourViewComponent
   ],
   imports: [
     BrowserModule,
