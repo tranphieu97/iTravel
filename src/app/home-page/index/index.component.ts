@@ -4,6 +4,7 @@ import { ServerService } from '../../core/services/server.service';
 import { MasterPageService } from '../../core/services/master-page.service';
 import { LanguageService } from '../../core/services/language.service';
 import { ConstantService } from '../../core/services/constant.service';
+import { ConstTourStatus } from 'src/app/constants';
 
 @Component({
   selector: 'app-index',
@@ -18,8 +19,12 @@ export class IndexComponent implements OnInit {
   isLoadingPost: Boolean = true;
   isLoadingTour: Boolean = true;
 
+  arrPendingTour: Array<any> = [];
+  arrRegisteringTour: Array<any> = [];
+
   compLanguage;
   commonLanguage;
+  TOUR_STATUS: ConstTourStatus = new ConstTourStatus();
 
   constructor(private server: ServerService, public masterPage: MasterPageService, public language: LanguageService,
     private constant: ConstantService) { }
@@ -85,7 +90,8 @@ export class IndexComponent implements OnInit {
     this.isLoadingTour = true;
     this.server.getToursCardInfo().subscribe(res => {
       if (res.statusCode === 200) {
-        console.log(res.data);
+        this.arrPendingTour = res.data.filter(tour => tour.status === this.TOUR_STATUS.PENDING);
+        this.arrRegisteringTour = res.data.filter(tour => tour.status === this.TOUR_STATUS.REGISTERING);
       }
       this.isLoadingTour = false;
     });

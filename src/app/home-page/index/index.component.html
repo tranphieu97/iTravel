@@ -35,8 +35,14 @@
             <h4>{{compLanguage.homeTourBuilding}}</h4>
         </div>
         <app-loading *ngIf="isLoadingTour"></app-loading>
-        <div class="flex-1" *ngIf="!isLoadingTour">
-
+        <div class="flex-1 flex-col" *ngIf="!isLoadingTour">
+            <div class="flex-row pending-tour" *ngFor="let tour of arrPendingTour">
+                <div class="flex-4 flex-col">
+                    <h4>
+                        <u> #{{tour.tourName}}</u>
+                    </h4>
+                </div>
+            </div>
         </div>
     </div>
 </div>

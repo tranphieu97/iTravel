@@ -77,4 +77,15 @@
             background: $WHITE;
         }
     }
+
+    .pending-tour {
+        margin: 5px;
+        padding: 3px;
+        border: 1px solid $SECONDARY;
+    }
+
+    .pending-tour:hover {
+        background-color: $SECONDARY;
+        cursor: pointer;
+    }
 }
