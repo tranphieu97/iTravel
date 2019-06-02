@@ -5,15 +5,9 @@ import { SharedModule } from '../shared/shared.module';
 import { ManagerRoutingModule } from './manager.routing';
 import { PostViewModule } from '../post-view/post-view.module';
 import { PermissionManagementComponent } from './permission-management/permission-management.component';
-import { TourManagementComponent } from './tour-management/tour-management.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    ManagerRoutingModule,
-    PostViewModule
-  ],
-  declarations: [PostManagementComponent, PermissionManagementComponent, TourManagementComponent]
+  imports: [CommonModule, SharedModule, ManagerRoutingModule, PostViewModule],
+  declarations: [PostManagementComponent, PermissionManagementComponent]
 })
-export class ManagerModule { }
+export class ManagerModule {}

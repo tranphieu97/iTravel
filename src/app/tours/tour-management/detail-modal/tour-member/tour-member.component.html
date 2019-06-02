@@ -1,0 +1,31 @@
+<div class="wrapper">
+  <div class="p-3">
+    <span class="mr-4">
+      <b>{{compLanguage.memberLimit+': '}}</b>{{tourData.memberLimit}}
+      {{compLanguage.memberLimitUnit}}
+    </span>
+    <span><b>{{compLanguage.available+': '}}</b>{{available}}</span>
+  </div>
+  <div class="member-list">
+    <div *ngFor="let member of tourData.members; let i=index"
+      class="member-item p-3">
+      <div class="avatar"
+        [ngStyle]="{'background-image': 'url('+tourMemberInfo[i].basicInfo.avatar+')'}">
+      </div>
+      <div class="right ml-4">
+        <span class="name">
+          <b>{{tourMemberInfo[i].basicInfo.firstName+' '+tourMemberInfo[i].basicInfo.lastName}}</b>
+        </span>
+        <span><b>{{compLanguage.contact}}:</b>
+          {{tourMemberInfo[i].tourInfo.contactNumber}}</span>
+        <span
+          *ngIf="tourMemberInfo[i].tourInfo.memberId !== tourData.tourGuideId"><b>{{compLanguage.needToPay}}:</b>
+          {{tourMemberInfo[i].tourInfo.cost | currency:'VND'}}
+        </span>
+        <span class="tour-guide"
+          *ngIf="tourMemberInfo[i].tourInfo.memberId === tourData.tourGuideId"><b>{{compLanguage.tourguide}}</b>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

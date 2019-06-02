@@ -1,3 +1,4 @@
+<div class="flex-row flex-1">
 <div class="index-part">
     <div class="content-box">
         <app-viet-nam-map></app-viet-nam-map>
@@ -7,7 +8,7 @@
     <div class="content-box list-post">
         <div class="list-post-title">
             <h4>
-                {{language.currentLanguage.homeIndexPostIn}}
+                {{language.currentLanguage.pageHome.homeIndexPostIn}}
                 {{masterPage.selectedProvince}}
             </h4>
             <span (click)="refreshListPost()"><i class="fas fa-sync-alt"></i></span>
@@ -16,5 +17,14 @@
         <div class="list-post-content" *ngIf="!isLoading">
             <app-card-view-post *ngFor="let post of listShowCardViewPosts" [inputPost]="post"></app-card-view-post>
         </div>
+    </div>
+</div>
+</div>
+<div class="flex-row flex-1">
+    <div class="border-box flex-3" style="margin-right: 5px; margin-top: 0px;">
+
+    </div>
+    <div class="border-box flex-1" style="margin-left: 5px; margin-top: 0px;">
+
     </div>
 </div>

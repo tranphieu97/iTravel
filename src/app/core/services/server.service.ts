@@ -19,6 +19,7 @@ import { PostRating } from 'src/app/model/post-rating.model';
 import { environment } from '../../../environments/environment';
 import { Notification } from 'src/app/model/notification.model';
 import { NotificationItem } from 'src/app/model/notification-item.model';
+import { Tour } from 'src/app/model/tour.model';
 
 @Injectable({
   providedIn: 'root'
@@ -100,6 +101,17 @@ export class ServerService {
      */
   getListLocations() {
     return this.http.get<{ message: string; data: Location[] }>(this.HOST + 'api/locations');
+  }
+
+  /**
+   * @author Thong
+   */
+  getOneLocation(locationId: string) {
+    const listParams = new HttpParams().set('id', locationId);
+    return this.http.get<{ message: string, data: Location }>(
+      this.HOST + 'api/location',
+      { headers: this.httpOptions.headers, params: listParams }
+    );
   }
 
   /**
@@ -361,21 +373,38 @@ export class ServerService {
   updateNotification(listNotifications: NotificationItem[]) {
     return this.http.patch<{ message: string }>(this.HOST + 'user/send-notification', listNotifications);
   }
+
   getTours() {
     return this.http.get<{ data: any, message: string }>(this.HOST + 'user/get-tours');
   }
-  getTour(tourId: string) {
-    const listParams = new HttpParams().set('tourId', tourId);
-    return this.http.get<{ data: any, message: string }>(this.HOST + 'user/get-tour',
+
+  getToursByUser(userIdFilter: boolean) { // filter by userId or not
+    const listParams = new HttpParams().set('userId', String(userIdFilter));
+    return this.http.get<{ data: any, message: string }>(this.HOST + 'user/get-tours',
       { headers: this.httpOptions.headers, params: listParams });
   }
-  createTour(tour) {
-    return this.http.post<{ message: string }>(this.HOST + 'user/create-tour', tour)
-  }
-  updateTour(tour) {
-    return this.http.post<{ message: string }>(this.HOST + 'user/update-tour', tour)
+
+  getTour(tourId: string) {
+    const listParams = new HttpParams().set('tourId', tourId);
+    return this.http.get<{ data: any, message: string }>(this.HOST + 'api/get-tour',
+      { headers: this.httpOptions.headers, params: listParams });
   }
 
+  createTour(tour: Tour) {
+    return this.http.post<{ message: string, statusCode: number }>(this.HOST + 'tourguide/create-tour', tour);
+  }
+
+  updateTour(tour: Tour) {
+    return this.http.patch<{ message: string }>(this.HOST + 'tourguide/update-tour', tour);
+  }
+
+  updateTourPreparation(queryObj, updateObj) {
+    const listParams = new HttpParams()
+      .set('tourId', queryObj.tourId)
+      .set('preparationId', queryObj.preparationId);
+    return this.http.patch<{ message: string }>(this.HOST + 'user/update-tour-preparation', updateObj,
+      { headers: this.httpOptions.headers, params: listParams });
+  }
 
   /**
    * Get user post by UserId
@@ -419,6 +448,15 @@ export class ServerService {
     return this.http.patch(this.HOST + 'manager/set-user-permission', params);
   }
 
+  /**
+   * Block account by userId, write log about block manager
+   * @name blockUser
+   * @author phieu-th
+   * @param userId
+   * @param blockReason
+   * @param changedBy
+   * @param confirmPassword
+   */
   blockUser(userId: string, blockReason: string, changedBy: string, confirmPassword: string): Observable<any> {
     const params = {
       userId: userId,
@@ -428,5 +466,79 @@ export class ServerService {
     };
 
     return this.http.patch(this.HOST + 'manager/block-user', params);
+  }
+
+  /**
+   * Get list locations by list provinces
+   * @name getLocationsInProvinces
+   * @author phieu-th
+   * @param arrProvincesName
+   */
+  getLocationsInProvinces(arrProvincesName: Array<string>): Observable<any> {
+    const params = {
+      arrProvincesName: arrProvincesName
+    };
+
+    return this.http.get(this.HOST + 'api/province-locations', { params: params });
+  }
+
+  /**
+   * Create new location
+   * @param locationName
+   * @param provinceCity
+   * @param gps
+   * @param address
+   */
+  postLocation(locationName: string, provinceCity: Array<string>, gps: string, address: string, image: string): Observable<any> {
+    const locationData = {
+      locationName,
+      provinceCity,
+      gps,
+      address,
+      image
+    };
+
+    return this.http.post(this.HOST + 'tourguide/add-location', locationData, this.httpOptions);
+  }
+
+  /**
+   * Get all user have tourguide permission
+   */
+  getTourguides(): Observable<any> {
+    return this.http.get(this.HOST + 'tourguide/all-tourguide');
+  }
+
+  getReviewer(): Observable<any> {
+    return this.http.get(this.HOST + 'tourguide/all-reviewer');
+  }
+
+  getUserInfomation(userId: string): Observable<any> {
+    const params = {
+      userId: userId
+    };
+
+    return this.http.get(this.HOST + 'user/information', { params: params });
+  }
+
+  updateAvatar(userId: string, imgLink: string): Observable<any> {
+    const updateBody = {
+      userId: userId,
+      imgLink: imgLink
+    };
+
+    return this.http.patch(this.HOST + 'user/upload-avatar', updateBody);
+  }
+
+  updateProfile(userId: string, userProfileModel: any): Observable<any> {
+    const updateBody = {
+      _id: userId,
+      firstName: userProfileModel.firstName,
+      lastName: userProfileModel.lastName,
+      email: userProfileModel.email,
+      birthDay: userProfileModel.birthDay,
+      hometown: userProfileModel.hometown
+    };
+
+    return this.http.patch(this.HOST + 'user/update-profile', updateBody);
   }
 }

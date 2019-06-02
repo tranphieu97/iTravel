@@ -156,14 +156,14 @@ app.post('/auth/login', async (req, res) => {
                             });
                         } else {
                             let isAdmin = false;
-                            let isTourGuide = false;
+                            let isTourguide = false;
 
                             if (userInfo.permission.includes(config.USER_PERMISSION.ADMIN)) {
                                 isAdmin = true;
                             }
 
                             if (userInfo.permission.includes(config.USER_PERMISSION.TOURGUIDE)) {
-                                isTourGuide = true;
+                                isTourguide = true;
                             }
 
                             // This object use for create token
@@ -172,7 +172,7 @@ app.post('/auth/login', async (req, res) => {
                                 _id: userInfo._id,
                                 username: userInfo.username,
                                 isAdmin: isAdmin,
-                                isTourGuide: isTourGuide
+                                isTourguide: isTourguide
                             };
 
                             const data = {
@@ -182,7 +182,7 @@ app.post('/auth/login', async (req, res) => {
                                 lastName: userInfo.lastName,
                                 avatar: userInfo.avatar,
                                 isAdmin: isAdmin,
-                                isTourGuide: isTourGuide
+                                isTourguide: isTourguide
                             };
 
                             authentication.insertUserSignInLog(userInfo.username);

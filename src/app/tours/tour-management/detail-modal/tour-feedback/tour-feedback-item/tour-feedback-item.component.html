@@ -1,0 +1,22 @@
+<div class="row m-0 p-0 wrapper">
+  <div class="col-12">
+    <div class="row m-0">
+      <!-- Avatar on the left -->
+      <div class="avatar"
+        [ngStyle]="{'background-image': 'url(' + authorInfo.avatar + ')'}">
+      </div>
+      <!-- right part -->
+      <div class="col pl-0">
+        <!-- Username and time -->
+        <div class="col-12">
+          <p><span>{{ authorInfo.firstName+' '+authorInfo.lastName }}</span> -
+            {{ feedbackData.time | date:'h:mm\' a - d/M' }}</p>
+        </div>
+        <!-- comment content -->
+        <div class="col-12 pr-0">
+          <p>{{ feedbackData.content }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

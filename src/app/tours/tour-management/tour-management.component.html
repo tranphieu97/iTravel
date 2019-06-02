@@ -1,0 +1,92 @@
+<div class="content-box tour-management">
+  <!-- title -->
+  <div class="tour-management-title">
+    <h4>
+      {{compLanguage.screenTitle}}
+    </h4>
+    <span (click)="refreshListTour()"><i class="fas fa-sync-alt"></i></span>
+  </div>
+
+  <div class="tour-management-content">
+    <!-- <div class="tour-management-control">
+      <form class="form-inline">
+        <div class="form-group">
+          <label class="control-title">Start date</label>
+          <div class="input-group">
+            <input class="form-control" placeholder="yyyy-mm-dd" name="startDate" (focus)="resetError()"
+              [(ngModel)]="startDate" ngbDatepicker #startdate="ngbDatepicker" #modelstartdate="ngModel">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="startdate.toggle()" type="button">
+                <span><i class="fas fa-calendar-alt"></i></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-title">End date</label>
+          <div class="input-group">
+            <input class="form-control" placeholder="yyyy-mm-dd" name="endDate" (focus)="resetError()"
+              [(ngModel)]="endDate" ngbDatepicker #enddate="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="enddate.toggle()" type="button">
+                <span><i class="fas fa-calendar-alt"></i></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button (click)="validateDateForm()" class="btn btn-success" type="button"
+            [disabled]="startDate === undefined || endDate === undefined">
+            Filter
+          </button>
+        </div>
+      </form>
+    </div> -->
+
+    <div class="tour-management-table">
+      <table class="table table-hover">
+        <thead class="thead-light">
+          <tr>
+            <th>#</th>
+            <th>{{compLanguage.tourName}}</th>
+            <th>{{compLanguage.tourGuide}}</th>
+            <th>{{compLanguage.creationTime}}</th>
+            <th>{{compLanguage.tripDuration}}</th>
+            <th>{{compLanguage.status}}</th>
+            <th class="tour-detail">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tour of tours; let i = index">
+            <td>{{i+1}}</td>
+            <td><strong>{{tour.tourName}}</strong></td>
+            <td>{{tourGuides[i].firstName+' '+tourGuides[i].lastName}}</td>
+            <td>{{tour.creationTime | date:'h:mm\' a - d/M'}}</td>
+            <td>{{tour.durationTime}}{{' '+compLanguage.tripDurationUnit}}</td>
+            <td class="tour-status" [ngClass]="{
+                'pending-text': tour.status === tourStatus.PENDING,
+                'registering-text': tour.status === tourStatus.REGISTERING,
+                'running-text': tour.status === tourStatus.RUNNING,
+                'finished-text': tour.status === tourStatus.FINISHED
+              }">
+              {{tour.status === tourStatus.PENDING 
+                ? compLanguage.statusPending 
+                : tour.status === tourStatus.REGISTERING 
+                ? compLanguage.statusRegistering 
+                : tour.status === tourStatus.RUNNING 
+                ? compLanguage.statusRunning 
+                : tour.status === tourStatus.FINISHED 
+                ? compLanguage.statusFinished 
+                : compLanguage.statusPending}}
+            </td>
+            <td class="tour-detail">
+              <button class="btn btn-primary" (click)="openDetail(tour)">
+                {{compLanguage.detailBtn}}
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

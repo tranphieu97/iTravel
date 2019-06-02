@@ -101,6 +101,51 @@ app.get('/user/profile', async (req, res) => {
 });
 
 /**
+ * @name USER - GET User's profile
+ * @author phieu-th
+ * @description
+ * @returns 
+ */
+app.get('/user/information', async (req, res) => {
+    const userId = req.param('userId');
+
+    const userFilter = {
+        '_id': new ObjectId(userId)
+    };
+
+    const inforProjection = {
+        projection: {
+            avatar: 1,
+            hometown: 1,
+            birthDay: 1,
+            firstName: 1,
+            lastName: 1,
+            email: 1
+        }
+    };
+
+    database.getOneWithProjection(database.iTravelDB.Users, userFilter, inforProjection)
+        .then((userInfo) => {
+            if (userInfo) {
+                res.status(200).json({
+                    data: userInfo,
+                    statusCode: 200
+                });
+            } else {
+                res.status(200).json({
+                    statusCode: 404
+                });
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(200).json({
+                statusCode: 404
+            });
+        });
+});
+
+/**
  * @name USER - POST Token Login
  * @author phieu-th
  * @description re-login by token stored in localstorage
@@ -139,15 +184,21 @@ app.post('/user/token-login', async (req, res) => {
                         });
                     } else {
                         let isAdmin = false;
+                        let isTourguide = false;
 
                         if (userInfo.permission.includes(config.USER_PERMISSION.ADMIN)) {
                             isAdmin = true;
                         }
 
+                        if (userInfo.permission.includes(config.USER_PERMISSION.TOURGUIDE)) {
+                            isTourguide = true;
+                        }
+
                         const userData = {
                             _id: userInfo._id,
                             username: userInfo.username,
-                            isAdmin: isAdmin
+                            isAdmin: isAdmin,
+                            isTourguide: isTourguide
                         }
 
                         const data = {
@@ -156,7 +207,8 @@ app.post('/user/token-login', async (req, res) => {
                             firstName: userInfo.firstName,
                             lastName: userInfo.lastName,
                             avatar: userInfo.avatar,
-                            isAdmin: isAdmin
+                            isAdmin: isAdmin,
+                            isTourguide: isTourguide
                         }
                         authentication.insertUserSignInLog(userInfo.username);
                         jwt.sign(userData, config.SECRET_KEY, { expiresIn: '23h' }, (err, jwtToken) => {
@@ -463,7 +515,7 @@ app.patch('/user/send-notification', async (req, res) => {
                 || eachNotify.content.length <= 0
                 || eachNotify.content.length > 200
                 || eachNotify.linkTo.length > 200) {
-                console.log('validate notifications fail');
+                console.log('validate notifications fail', eachNotify);
                 res.status(200).json({
                     message: 'Invalid list notifications'
                 })
@@ -476,8 +528,10 @@ app.patch('/user/send-notification', async (req, res) => {
             "notificationItems": req.body
         };
         newListNotifications.notificationItems = newListNotifications.notificationItems.map((notiItem) => {
-            notiItem._id = new ObjectId(notiItem._id)
-            return notiItem
+            !notiItem._id
+                ? notiItem._id = new ObjectId()
+                : notiItem._id = new ObjectId(notiItem._id);
+            return notiItem;
         })
         // create query object from userId
         const userId = authentication.getTokenUserId(req.headers.authorization);
@@ -502,62 +556,74 @@ app.patch('/user/send-notification', async (req, res) => {
     }
 });
 
-/**
- * @name createTour
- * @param {Tour}
- * @author Thong
- */
-app.post('/user/create-tour', async (req, res) => {
-    try {
-        const newTour = new Tour(req.body)
-        newTour._id = new ObjectId()
-        await newTour.save()
+app.patch('/user/upload-avatar', (req, res) => {
+    if (req.body) {
+        const userFilter = {
+            '_id': new ObjectId(req.body.userId)
+        };
+
+        const changedField = {
+            'avatar': req.body.imgLink
+        };
+
+        database.updateDocumentByFilter(database.iTravelDB.Users, userFilter, changedField)
+            .then((updateResult) => {
+                if (updateResult.matchedCount === 1) {
+                    res.status(200).json({
+                        statusCode: 201
+                    });
+                } else {
+                    res.status(200).json({
+                        statusCode: 404
+                    });
+                }
+            })
+            .catch(() => {
+                res.status(200).json({
+                    statusCode: 404
+                });
+            });
+    } else {
         res.status(200).json({
-            message: 'Success!'
-        });
-    } catch (error) {
-        res.status(500).json({
-            message: 'Fail!'
+            statusCode: 404
         });
     }
 });
 
-/**
- * @name updateTour
- * @param {Tour}
- * @author Thong
- */
-app.post('/user/update-tour', async (req, res) => {
-    try {
-        const updatedTour = new Tour(req.body)
-        const id = updatedTour._id
-        delete updatedTour._id
-        await Tour.updateOne({ _id: id }, updatedTour)
-        res.status(200).json({
-            message: 'Success!'
-        });
-    } catch (error) {
-        res.status(500).json({
-            message: 'Fail!'
-        });
-    }
-});
+app.patch('/user/update-profile', async (req, res) => {
+    if (req.body) {
+        const userFilter = {
+            '_id': new ObjectId(req.body._id)
+        };
 
-/**
- * @name removeTour
- * @param {Tour}
- * @author Thong
- */
-app.post('/user/remove-tour', async (req, res) => {
-    try {
-        const id = req.param('tourId')
-        await Tour.updateOne({ _id: id }, { $set: { isActive: false } })
+        const changedField = {
+            'firstName': req.body.firstName,
+            'lastName': req.body.lastName,
+            'email': req.body.email,
+            'birthDay': req.body.birthDay,
+            'hometown': req.body.hometown
+        };
+
+        database.updateDocumentByFilter(database.iTravelDB.Users, userFilter, changedField)
+            .then((updateResult) => {
+                if (updateResult.matchedCount === 1) {
+                    res.status(200).json({
+                        statusCode: 201
+                    });
+                } else {
+                    res.status(200).json({
+                        statusCode: 404
+                    });
+                }
+            })
+            .catch(() => {
+                res.status(200).json({
+                    statusCode: 404
+                });
+            });
+    } else {
         res.status(200).json({
-            message: 'Success!'
-        });
-    } catch (error) {
-        res.status(500).json({
-            message: 'Fail!'
+            statusCode: 404
         });
     }
 });
@@ -568,34 +634,66 @@ app.post('/user/remove-tour', async (req, res) => {
  */
 app.get('/user/get-tours', async (req, res) => {
     try {
-        const tours = await Tour.find({})
+        let queryObj = {}
+        if (req.param('userId')) {
+            const userId = authentication.getTokenUserId(req.headers.authorization);
+            queryObj = { 'members.memberId': userId }
+        }
+        const tours = await Tour.find(queryObj)
         res.status(200).json({
             data: tours,
             message: 'Success!'
         });
     } catch (error) {
-        res.status(500).json({
-            message: 'Fail!'
+        res.status(200).json({
+            message: error.message,
+            statusCode: 500
         });
     }
 });
 
 /**
- * @name getTour
- * @param {tourId}
+ * @name updateTour for user
+ * @param {Tour}
  * @author Thong
  */
-app.get('/user/get-tour', async (req, res) => {
+app.patch('/user/update-tour-preparation', async (req, res) => {
     try {
-        const tourId = req.param('tourId')
-        const tour = await Tour.findById(tourId)
+        const tourId = req.query.tourId;
+        const preparationId = req.query.preparationId;
+        let queryObj;
+        if(tourId && preparationId){
+            queryObj = {
+                _id: tourId,
+                'preparations._id': preparationId
+            };
+        } else {
+            console.log('Update preparation error: Invalid param');
+            res.status(200).json({
+                message: 'Invalid param'
+            });
+        }
+        const needUpdateObj = req.body;
+        // fix _id from string to ObjectId
+        needUpdateObj.performers = needUpdateObj.performers.map(performer => {
+            performer._id = new ObjectId(performer._id);
+            return performer;
+        });
+        await Tour.updateOne( queryObj,
+        { 
+            $set: { 
+                'preparations.$.performers': needUpdateObj.performers,
+                'preparations.$.status': needUpdateObj.status
+            } 
+        });
+        console.log('Update preparation successful');
         res.status(200).json({
-            data: tour,
-            message: 'Success!'
+            message: 'Success'
         });
     } catch (error) {
-        res.status(500).json({
-            message: 'Fail!'
+        console.log('Update preparation failed:', error.message);
+        res.status(200).json({
+            message: error.message
         });
     }
 });

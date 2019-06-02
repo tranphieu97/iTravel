@@ -1,5 +1,5 @@
 <div>
-  <h1>{{language.currentLanguage.loginTitle}}</h1>
+  <h1>{{compLanguage.loginTitle}}</h1>
 </div>
 <div class="login-form">
   <div class="alert alert-danger" *ngIf="isFailLogin"
@@ -8,45 +8,45 @@
   </div>
   <form [formGroup]="loginForm" novalidate>
     <div class="form-group">
-      <label>{{language.currentLanguage.loginUsername}} <span class="red-span">(*)</span>:</label>
+      <label>{{compLanguage.loginUsername}} <span class="red-span">(*)</span>:</label>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1"><i class="far fa-user"></i></span>
         </div>
-        <input formControlName="username" type="text" class="form-control" [placeholder]="language.currentLanguage.loginEnterUsername" name="username">
+        <input formControlName="username" type="text" class="form-control" [placeholder]="compLanguage.loginEnterUsername" name="username">
       </div>
       <div *ngIf="!loginForm.get('username').valid && (loginForm.get('username').dirty || loginForm.get('username').touched)" class="form-mess">
         <div *ngIf="loginForm.get('username').hasError('required')" class="error-mess">
-            {{language.currentLanguage.loginErrorUsernameRequired}}
+            {{compLanguage.loginErrorUsernameRequired}}
         </div>
         <div *ngIf="loginForm.get('username').hasError('minlength') || loginForm.get('username').hasError('maxlength')" class="error-mess">
-            {{language.currentLanguage.loginErrorUsernameLength}}
+            {{compLanguage.loginErrorUsernameLength}}
         </div>
         <div *ngIf="loginForm.get('username').hasError('pattern')" class="error-mess">
-            {{language.currentLanguage.loginErrorUsernamePattern}}
+            {{compLanguage.loginErrorUsernamePattern}}
         </div>
       </div>
     </div>
     <div class="form-group">
-      <label>{{language.currentLanguage.loginPassword}} <span class="red-span">(*)</span>:</label>
+      <label>{{compLanguage.loginPassword}} <span class="red-span">(*)</span>:</label>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1"><i class="fas fa-unlock-alt"></i></span>
         </div>
-        <input formControlName="password" type="password" class="form-control" [placeholder]="language.currentLanguage.loginEnterPassword" name="password">
+        <input formControlName="password" type="password" class="form-control" [placeholder]="compLanguage.loginEnterPassword" name="password">
       </div>
       <div *ngIf="!loginForm.get('password').valid && (loginForm.get('password').dirty || loginForm.get('password').touched)" class="form-mess">
         <div *ngIf="loginForm.get('password').hasError('required')" class="error-mess">
-            {{language.currentLanguage.loginErrorPasswordRequired}}
+            {{compLanguage.loginErrorPasswordRequired}}
         </div>
         <div *ngIf="loginForm.get('password').hasError('minlength')" class="error-mess">
-            {{language.currentLanguage.loginErrorPasswordLength}}
+            {{compLanguage.loginErrorPasswordLength}}
         </div>
       </div>
     </div>
     <div class="form-row">
       <button type="submit" (click)="validateData()" class="btn btn-success" [disabled]="loginForm.invalid || isLoading" >
-        {{language.currentLanguage.loginSignIn}}
+        {{compLanguage.loginSignIn}}
       </button>
       <app-loading *ngIf="isLoading"></app-loading>
     </div>
@@ -54,9 +54,9 @@
 </div>
 <div class="google-login" *ngIf="false">
   <button type="button" class="btn btn-danger btn-block" [disabled]="true">
-    <span><i class="fab fa-google"></i></span>{{language.currentLanguage.loginSignInWithGoogle}}<b>Google</b>
+    <span><i class="fab fa-google"></i></span>{{compLanguage.loginSignInWithGoogle}}<b>Google</b>
   </button>
 </div>
 <div class="auth-additional">
-  <p>{{language.currentLanguage.loginNotRegister}}<span (click)="redirectToRegister()" id="create-account-link">{{language.currentLanguage.loginCreatAnAccount}}</span></p>
+  <p>{{compLanguage.loginNotRegister}}<span (click)="redirectToRegister()" id="create-account-link">{{compLanguage.loginCreatAnAccount}}</span></p>
 </div>

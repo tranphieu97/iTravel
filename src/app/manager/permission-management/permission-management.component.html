@@ -1,14 +1,14 @@
 <div class="content-box permission-management">
   <div class="permission-management-title">
     <h4>
-      {{language.currentLanguage.permissionTitle}}
+      {{compLanguage.permissionTitle}}
     </h4>
   </div>
   <div class="permission-management-content">
     <div class="select-account">
       <div>
         <input (keyup)="searchUsernameByKeyword()" [(ngModel)]="searchKeyword" [disabled]="isLoading" type="text"
-          class="form-control" [placeholder]="language.currentLanguage.permissionSearchHint" name="searchKeyword">
+          class="form-control" [placeholder]="compLanguage.permissionSearchHint" name="searchKeyword">
       </div>
       <app-loading *ngIf="isLoading"></app-loading>
       <div *ngIf="!isLoading" class="list-account">
@@ -29,26 +29,26 @@
         </div>
         <div class="setting-row">
           <label>
-            {{language.currentLanguage.permissionUpdatePermissionTitle}}
+            {{compLanguage.permissionUpdatePermissionTitle}}
           </label>
           <div class="setting-for-account">
             <input type="button" class="btn btn-success" (click)="openConfirmDialog(updatePermission)" *ngIf="currentAccount.status === constant.USER_STATUS.ACTIVE"
-              [value]="language.currentLanguage.permissionUpdatePermission" [disabled]="isWaitingUpdate">
-            <input type="button" class="btn btn-danger" [value]="language.currentLanguage.permissionBlock"
+              [value]="compLanguage.permissionUpdatePermission" [disabled]="isWaitingUpdate">
+            <input type="button" class="btn btn-danger" [value]="compLanguage.permissionBlock"
               [disabled]="isWaitingUpdate" (click)="openConfirmDialog(block)" *ngIf="currentAccount.status === constant.USER_STATUS.ACTIVE">
-            <input type="button" class="btn btn-danger" [value]="language.currentLanguage.permissionUnBlockTitle"
+            <input type="button" class="btn btn-danger" [value]="compLanguage.permissionUnBlockTitle"
               [disabled]="isWaitingUpdate" (click)="openConfirmDialog(unblock)" *ngIf="currentAccount.status === constant.USER_STATUS.BLOCK">
             <app-loading *ngIf="isWaitingUpdate"></app-loading>
           </div>
         </div>
         <div class="setting-row">
           <label>
-            {{language.currentLanguage.perrmisionSendNotifyTitle}}
+            {{compLanguage.perrmisionSendNotifyTitle}}
           </label>
           <div class="input-group">
-            <input type="text" class="form-control" [placeholder]="language.currentLanguage.permissionEnterNotify">
+            <input type="text" class="form-control" [placeholder]="compLanguage.permissionEnterNotify">
             <div class="input-group-append">
-              <input type="button" class="btn btn-success" [value]="language.currentLanguage.permissionSend">
+              <input type="button" class="btn btn-success" [value]="compLanguage.permissionSend">
             </div>
           </div>
         </div>
@@ -59,14 +59,14 @@
 
 <ng-template #updatePermission let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">{{language.currentLanguage.permissionConfirmTitle}}</h4>
+    <h4 class="modal-title" id="modal-basic-title">{{compLanguage.permissionConfirmTitle}}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body form-group">
     <div>
-      <label>{{language.currentLanguage.permissionChoosePermission}}</label>
+      <label>{{compLanguage.permissionChoosePermission}}</label>
       <div class="form-check" *ngFor="let permission of listPermission">
         <input class="form-check-input" type="checkbox" value="" [checked]="permission.isChecked"
           (change)="permission.isChecked = !permission.isChecked">
@@ -76,88 +76,88 @@
       </div>
     </div>
     <div class="form-group">
-      <label>{{language.currentLanguage.permissionTypeConfirmPassword}}</label>
+      <label>{{compLanguage.permissionTypeConfirmPassword}}</label>
       <input type="password" class="form-control" [(ngModel)]="confirmPassword">
     </div>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-danger"
-      (click)="modal.close()">{{language.currentLanguage.permissionConfirmCancel}}</button>
+      (click)="modal.close()">{{compLanguage.permissionConfirmCancel}}</button>
     <button type="button" class="btn btn-success" (click)="updateCurrrentAccountPermission()"
       [disabled]="confirmPassword === undefined || confirmPassword === ''">
-      {{language.currentLanguage.permissionConfirmOk}}
+      {{compLanguage.permissionConfirmOk}}
     </button>
   </div>
 </ng-template>
 
 <ng-template #block let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">{{language.currentLanguage.permissionBlockTitle}}</h4>
+    <h4 class="modal-title" id="modal-basic-title">{{compLanguage.permissionBlockTitle}}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body form-group">
     <div>
-      <label>{{language.currentLanguage.permissionBlockReason}}</label>
+      <label>{{compLanguage.permissionBlockReason}}</label>
       <form>
         <div class="form-check">
           <input class="form-check-input" type="radio" [value]="constant.BLOCK_ID.MPU_B01"
             [name]="constant.BLOCK_ID.MPU_B01" [(ngModel)]="selectedBlockReason" checked>
           <label class="form-check-label">
-            {{language.currentLanguage.blockPolicyViolation}}
+            {{compLanguage.blockPolicyViolation}}
           </label>
         </div>
         <div class="form-check">
           <input class="form-check-input" type="radio" [name]="constant.BLOCK_ID.MPU_B02"
             [value]="constant.BLOCK_ID.MPU_B02" [(ngModel)]="selectedBlockReason">
           <label class="form-check-label">
-            {{language.currentLanguage.blockAccountImpersonation}}
+            {{compLanguage.blockAccountImpersonation}}
           </label>
         </div>
         <div class="form-check">
           <input class="form-check-input" type="radio" [value]="constant.BLOCK_ID.MPU_B03"
             [name]="constant.BLOCK_ID.MPU_B03" [(ngModel)]="selectedBlockReason">
           <label class="form-check-label">
-            {{language.currentLanguage.blockOffensiveBehavior}}
+            {{compLanguage.blockOffensiveBehavior}}
           </label>
         </div>
       </form>
     </div>
     <div class="form-group">
-      <label>{{language.currentLanguage.permissionTypeConfirmPassword}}</label>
+      <label>{{compLanguage.permissionTypeConfirmPassword}}</label>
       <input type="password" class="form-control" [(ngModel)]="confirmPassword">
     </div>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-danger"
-      (click)="modal.close()">{{language.currentLanguage.permissionConfirmCancel}}</button>
+      (click)="modal.close()">{{compLanguage.permissionConfirmCancel}}</button>
     <button type="button" class="btn btn-success" (click)="blockCurrentAccount()"
       [disabled]="confirmPassword === undefined || confirmPassword === ''">
-      {{language.currentLanguage.permissionConfirmOk}}
+      {{compLanguage.permissionConfirmOk}}
     </button>
   </div>
 </ng-template>
 
 <ng-template #unblock let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">{{language.currentLanguage.permissionUnBlockTitle}}</h4>
+    <h4 class="modal-title" id="modal-basic-title">{{compLanguage.permissionUnBlockTitle}}</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body form-group">
     <div class="form-group">
-      <label>{{language.currentLanguage.permissionTypeConfirmPassword}}</label>
+      <label>{{compLanguage.permissionTypeConfirmPassword}}</label>
       <input type="password" class="form-control" [(ngModel)]="confirmPassword">
     </div>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-danger"
-      (click)="modal.close()">{{language.currentLanguage.permissionConfirmCancel}}</button>
+      (click)="modal.close()">{{compLanguage.permissionConfirmCancel}}</button>
     <button type="button" class="btn btn-success" 
       [disabled]="confirmPassword === undefined || confirmPassword === ''">
-      {{language.currentLanguage.permissionConfirmOk}}
+      {{compLanguage.permissionConfirmOk}}
     </button>
   </div>
 </ng-template>

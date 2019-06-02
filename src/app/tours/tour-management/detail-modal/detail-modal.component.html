@@ -1,0 +1,54 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{compLanguage.modalTitle}}</h4>
+  <button type="button" class="close" aria-label="Close"
+    (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body modal-body-custom">
+  <ngb-tabset>
+    <ngb-tab>
+      <ng-template ngbTabTitle><b class="title">{{compLanguage.generalTab}}</b>
+      </ng-template>
+      <ng-template ngbTabContent>
+        <app-tour-general-info [tourData]="tourData">
+        </app-tour-general-info>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab>
+      <ng-template ngbTabTitle><b class="title">{{compLanguage.scheduleTab}}</b>
+      </ng-template>
+      <ng-template ngbTabContent>
+        <app-tour-schedule class="p-3" class="p-3" [tourData]="tourData">
+        </app-tour-schedule>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab *ngIf="allowSeeFeedback.includes(currentPath)">
+      <ng-template ngbTabTitle><b class="title">{{compLanguage.feedbackTab}}</b>
+      </ng-template>
+      <ng-template ngbTabContent>
+        <app-tour-feedback class="p-3" [tourData]="tourData">
+        </app-tour-feedback>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab>
+      <ng-template ngbTabTitle><b class="title">{{compLanguage.membersTab}}</b>
+      </ng-template>
+      <ng-template ngbTabContent>
+        <app-tour-member class="p-3" [tourData]="tourData"></app-tour-member>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab>
+      <ng-template ngbTabTitle><b
+          class="title">{{compLanguage.preparationTab}}</b></ng-template>
+      <ng-template ngbTabContent>
+        <app-tour-preparation class="p-3" [tourData]="tourData">
+        </app-tour-preparation>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark"
+    (click)="activeModal.close()">{{compLanguage.closeBtn}}</button>
+</div>

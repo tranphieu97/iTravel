@@ -1,0 +1,22 @@
+:host {
+  .avatar {
+    height: 54px;
+    width: 54px;
+    background-size: cover;
+    border-radius: 50%;
+    background-color: khaki;
+    background-position: center;
+  }
+  p {
+    font-size: 17px;
+    margin-bottom: 0px;
+    span {
+      font-size: 17px;
+      font-weight: bold;
+      color: blue;
+    }
+  }
+  .wrapper {
+    padding-bottom: 15px;
+  }
+}

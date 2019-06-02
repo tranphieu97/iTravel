@@ -178,7 +178,7 @@ exports.insertOneToColection = async (collectionName, document) => {
                             }
                             return 1;
                         });
-                        deferred.reject(insertOne);
+                        deferred.resolve(insertOne);
                     }
                     catch (e) {
                         console.log('Error insert data to ' + collectionName);
@@ -347,8 +347,8 @@ exports.replaceDocumentById = async (collectionName, documentFiler, changeDocume
 /**
  * @name getOneWithProjection
  * @author Thong
- * @description get one document of a collection, user filter to find document, 
- * use projection to filtout collumns do not need
+ * @description get one document of a collection, use filter to find document, 
+ * use projection to filout collumns do not need
  * @param {string} collectionName
  * @param {object} filter the object filter use to find the true document
  * @param {object} projectionObj use to choose collumns to return

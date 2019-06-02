@@ -25,8 +25,8 @@ app.use(cors);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 // allow outside connect to /images and map to server/images folder on server
-app.use('/api/images', express.static(path.join("images")));
-// app.use('/api/images', express.static(path.join("server/images")))
+// app.use('/api/images', express.static(path.join("images"))); // DEPLOY
+app.use('/api/images', express.static(path.join("server/images"))) // DEVELOP
 // app.use('/', express.static(path.join(__dirname, "angular")));
 // app.use('/home', express.static(path.join(__dirname, "angular")))
 
@@ -94,3 +94,4 @@ require('./app/routing/authentication-routing');
 require('./app/routing/manager-routing.js');
 require('./app/routing/user-routing.js');
 require('./app/routing/upload-routing.js');
+require('./app/routing/tourguide-routing');

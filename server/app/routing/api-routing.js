@@ -2,6 +2,9 @@
 const database = require('../database.js');
 const config = require('../../_config.js');
 
+// Import models file
+const { Tour } = require('../../model/mongoose/models')
+
 // Get app instance from index
 const jwt = require('jsonwebtoken');
 const app = require('../../index');
@@ -577,6 +580,41 @@ app.get('/api/locations', (req, res, next) => {
 });
 
 /**
+ * @name GET-one-location
+ * @author Thong
+ * @param {locationId}
+ * @description receive request from serverService, include a postId in request
+ * then query the post has that Id
+ */
+app.get('/api/location', (req, res) => {
+    if (!req.query.id || req.query.id.length !== 24) {
+        res.status(200).json({
+            message: 'Invalid location Id'
+        })
+    } else {
+        // in request has post Id, create query object from that
+        const queryObj = { _id: new ObjectId(req.query.id) }
+
+        const projectionObj = { }
+
+        database.getOneWithProjection(database.iTravelDB.Locations, queryObj, projectionObj)
+            .then((receiveData) => {
+                if (receiveData) {
+                    res.status(200).json({
+                        message: 'Get location by id successfully!',
+                        data: receiveData
+                    })
+                } else {
+                    res.status(200).json({
+                        message: `Failed! Can not find location ${req.query.id}`
+                    })
+                }
+            })
+            .catch(err => console.log('GET-one-location', err.message))
+    }
+});
+
+/**
  * @name GET-post-categories
  * @author Thong
  * @param request
@@ -605,14 +643,14 @@ app.get('/api/post-categories', (req, res, next) => {
  * 
  */
 app.get('/api/user-info', (req, res) => {
-    if (req.param('userId') === null || req.param('userId') === undefined || req.param('userId').length !== 24) {
+    if (req.query.userId === null || req.query.userId === undefined || req.query.userId.length !== 24) {
         res.status(200).json({
             message: 'Invalid user Id'
         })
     }
     else {
         // in request has post Id, create query object from that
-        const queryObj = { _id: new ObjectId(req.param('userId')) }
+        const queryObj = { _id: new ObjectId(req.query.userId) }
         // console.log(queryObj);
 
         // create projection object to return only id, username, avatar
@@ -643,16 +681,16 @@ app.get('/api/user-info', (req, res) => {
  * then query the post has that Id
  */
 app.get('/api/post', (req, res) => {
-    if (!req.param('postId') || req.param('postId').length !== 24) {
+    if (!req.query.postId || req.query.postId.length !== 24) {
         res.status(200).json({
             message: 'Invalid post Id'
         })
     } else {
         // in request has post Id, create query object from that
-        const queryObj = { _id: new ObjectId(req.param('postId')) }
+        const queryObj = { _id: new ObjectId(req.query.postId) }
 
         //
-        postService.countViewPost(req.param('postId'));
+        postService.countViewPost(req.query.postId);
         //
         database.getCollectionFilterData(database.iTravelDB.Posts, queryObj)
             .then(([post]) => {
@@ -771,6 +809,70 @@ app.post('/user/post', (req, res, next) => {
                     });
             }
         }
+    }
+});
+
+app.get('/api/province-locations', (req, res) => {
+    const arrProvincesName = req.query.arrProvincesName;
+
+    if (arrProvincesName !== undefined && arrProvincesName.length > 0) {
+        let filterProvince = {
+            'provinceCity': {
+                $elemMatch: {
+                    $in: arrProvincesName
+                }
+            }
+        };
+
+        // If array just contains 1 item, request understand it become string
+        // So, that string need change to array
+        if (typeof arrProvincesName === 'string') {
+            filterProvince = {
+                'provinceCity': {
+                    $elemMatch: {
+                        $in: [arrProvincesName]
+                    }
+                }
+            };
+        }
+        
+
+        database.getCollectionFilterData(database.iTravelDB.Locations, filterProvince)
+            .then((collectionData) => {
+                res.status(200).json({
+                    data: collectionData
+                });
+            })
+            .catch(() => {
+                res.status(404).json({
+                    data: []
+                });
+            })
+    } else {
+        res.status(404).json({
+            data: []
+        });
+    }
+});
+
+/**
+ * @name getTour
+ * @param {tourId}
+ * @author Thong
+ */
+app.get('/api/get-tour', async (req, res) => {
+    try {
+        const tourId = req.query.tourId;
+        const tour = await Tour.findById(tourId, '-preparations -members', () => {})
+        res.status(200).json({
+            data: tour,
+            message: 'Success!'
+        });
+    } catch (error) {
+        res.status(200).json({
+            message: 'Fail!',
+            statusCode: 500
+        });
     }
 });
 

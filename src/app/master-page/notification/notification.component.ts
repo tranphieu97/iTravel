@@ -18,7 +18,8 @@ export class NotificationComponent implements OnInit {
   public recentNotificationItems: Array<Notification> = [];
   sendTime: string;
   sendDate: string;
-  constructor(public language: LanguageService, private serverService: ServerService, private userService: UserService) { }
+  compLanguage;
+  constructor(public language: LanguageService, private serverService: ServerService, public userService: UserService) { }
 
   ngOnInit() {
     this.userService.isLoginChange.asObservable().subscribe(() => {
@@ -35,6 +36,8 @@ export class NotificationComponent implements OnInit {
         });
       }
     });
+    this.compLanguage = this.language.currentLanguage.compNotification;
+    this.language.hasChangeLanguage.subscribe(() => this.compLanguage = this.language.currentLanguage.compNotification);
   }
 
   handleShowContent(divContent: HTMLDivElement, divShortContent: HTMLDivElement) {

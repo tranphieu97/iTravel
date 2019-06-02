@@ -39,11 +39,17 @@ export class UserPostManagementComponent implements OnInit {
 
   searchKeyword: String = '';
 
+  compLanguage;
+
   constructor(public language: LanguageService, public constant: ConstantService, private server: ServerService,
     private user: UserService, private modalService: NgbModal, private router: Router) { }
 
   ngOnInit() {
     this.refreshListPost();
+    this.compLanguage = {...this.language.currentLanguage.compUserPostManagement};
+    this.language.hasChangeLanguage.subscribe(() => {
+      this.compLanguage = {...this.language.currentLanguage.compUserPostManagement};
+    });
   }
 
   /**
@@ -74,7 +80,7 @@ export class UserPostManagementComponent implements OnInit {
         this.resetError();
       } else {
         this.hasError = true;
-        this.errorMessage = this.language.currentLanguage.userPostManagementListPostEmpty;
+        this.errorMessage = this.compLanguage.userPostManagementListPostEmpty;
       }
     });
   }

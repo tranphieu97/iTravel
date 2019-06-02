@@ -3,7 +3,6 @@ import { MasterPageService } from '../../core/services/master-page.service';
 import { SharedModule } from '../../shared/shared.module';
 import { ServerService } from '../../core/services/server.service';
 import { SearchHistory } from 'src/app/model/searchHistory.model';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { UserService } from '../../core/services/user.service';
 import { LanguageService } from '../../core/services/language.service';
@@ -28,11 +27,14 @@ export class HeaderComponent implements OnInit {
     isShowVisiterTool: false
   };
 
+  compLanguage;
+
   constructor(public masterPage: MasterPageService, private server: ServerService, public language: LanguageService,
     public user: UserService, private router: Router) { }
 
   ngOnInit() {
-
+    this.compLanguage = this.language.currentLanguage.compHeader;
+    this.language.hasChangeLanguage.subscribe(() => this.compLanguage = this.language.currentLanguage.compHeader);
   }
 
   searchByText() {

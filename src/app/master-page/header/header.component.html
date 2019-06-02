@@ -11,69 +11,65 @@
 </div>
 <!--toolbar-->
 <div class="toolbar">
-    <div class="toolbar-icon dropdown">
-        <span (click)="changeHeaderFlagByFlagName('isShowSearchBox')">
-            <i class="fas fa-search"></i>
-        </span>
-        <div [ngClass]="{'dropdown-menu': true, 'dropdown-show-column':headerFlags.isShowSearchBox}"
-            id="search-dropdown">
-            <form class="form-inline" (submit)="searchByText()">
-                <input type="text" [(ngModel)]="searchBoxText" name="search" class="form-control"
-                    placeholder="Enter word to search">
-                <button type="submit" (click)="searchByText()" class="btn btn-default">Search</button>
-            </form>
+    <div class="search-bar">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-search"></i></span>
+            </div>
+            <input type="text" [(ngModel)]="searchBoxText" name="search" class="form-control"
+                [placeholder]="compLanguage.headerSearch">
+            <div class="input-group-append">
+                <span class="input-group-text"><i class="la la-close kt-quick-search__close"
+                        style="display: none;"></i></span>
+            </div>
         </div>
     </div>
+
     <div ngbDropdown class="toolbar-icon" placement="bottom-right">
         <span ngbDropdownToggle id="notification-action"><i class="far fa-bell"></i></span>
         <div ngbDropdownMenu aria-labelledby="post-management-action" class="p-0 my-top" id="notification-action">
             <app-notification></app-notification>
         </div>
     </div>
-    <div class="toolbar-icon dropdown" *ngIf="false">
-        <span (click)="changeHeaderFlagByFlagName('isShowNotification')">
-            <i class="far fa-bell"></i>
-        </span>
-        <div [ngClass]="{'dropdown-menu': true, 'dropdown-show':headerFlags.isShowNotification}"
-            id="notification-dropdown">
 
+    <div ngbDropdown class="toolbar-icon" placement="bottom-right">
+        <span ngbDropdownToggle><i class="fas fa-globe-asia"></i></span>
+        <div ngbDropdownMenu>
+            <a class="dropdown-item" (click)="this.language.setVietnamese();">{{compLanguage.headerVietnamese}}</a>
+            <a class="dropdown-item" (click)="this.language.setEnglish();">{{compLanguage.headerEnglish}}</a>
         </div>
     </div>
-    <div class="toolbar-icon dropdown">
-        <span (click)="changeHeaderFlagByFlagName('isShowLanguage')">
-            <i class="fas fa-globe-asia"></i>
-        </span>
-        <div [ngClass]="{'dropdown-menu': true, 'dropdown-show':headerFlags.isShowLanguage}" id="language-dropdown">
-            <a class="dropdown-item"
-                (click)="this.language.setVietnamese(); headerFlags.isShowLanguage = !headerFlags.isShowLanguage">{{language.currentLanguage.headerVietnamese}}</a>
-            <a class="dropdown-item"
-                (click)="this.language.setEnglish(); headerFlags.isShowLanguage = !headerFlags.isShowLanguage">{{language.currentLanguage.headerEnglish}}</a>
-        </div>
-    </div>
+
     <div class="toolbar-icon" *ngIf="false">
         <span><i class="fas fa-cog"></i></span>
     </div>
-    <div *ngIf="user.isLogin" class="toolbar-icon-wide dropdown">
-        <span (click)="changeHeaderFlagByFlagName('isShowUserTool')">
-            {{language.currentLanguage.headerHi}} <strong>{{this.user.currentUser.fullName}}</strong>
+
+    <div ngbDropdown *ngIf="user.isLogin" class="toolbar-icon-wide dropdown">
+        <span ngbDropdownToggle>
+            {{compLanguage.headerHi}} <strong>{{this.user.currentUser.fullName}}</strong>
         </span>
-        <img [src]="this.user.currentUser.avatar" (click)="changeHeaderFlagByFlagName('isShowUserTool')"
-            id="user-avatar">
-        <div [ngClass]="{'dropdown-menu': true, 'dropdown-show':headerFlags.isShowUserTool}" id="user-dropdown">
+        <img ngbDropdownToggle [src]="this.user.currentUser.avatar" id="user-avatar">
+        <div ngbDropdownMenu id="user-dropdown">
             <a *ngIf="false" class="dropdown-item" [routerLink]="['/user/profile']"
-                routerLinkActive="router-link-active">{{language.currentLanguage.headerPersonalInfo}}</a>
+                routerLinkActive="router-link-active">{{compLanguage.headerPersonalInfo}}</a>
+            <a class="dropdown-item" [routerLink]="['/user/update-profile']"
+                routerLinkActive="router-link-active">{{compLanguage.headerUpdateProfile}}</a>
             <a class="dropdown-item" [routerLink]="['/user/posts']"
-                routerLinkActive="router-link-active">{{language.currentLanguage.headerUserContribution}}</a>
-            <a class="dropdown-item" (click)="this.user.logOut()">{{language.currentLanguage.headerLogOut}}</a>
+                routerLinkActive="router-link-active">{{compLanguage.headerUserContribution}}</a>
+            <a class="dropdown-item" [routerLink]="['/user/tours']"
+                routerLinkActive="router-link-active">{{compLanguage.headerUserTour}}</a>
+            <a class="dropdown-item" (click)="this.user.logOut()">{{compLanguage.headerLogOut}}</a>
         </div>
     </div>
-    <div *ngIf="!user.isLogin" class="toolbar-icon-wide dropdown">
-        <span (click)="changeHeaderFlagByFlagName('isShowVisiterTool')" id="login-span">
-            {{language.currentLanguage.headerHi}} <strong>{{language.currentLanguage.headerQuestionToLogin}}</strong>
+
+    <div ngbDropdown *ngIf="!user.isLogin" class="toolbar-icon-wide dropdown">
+        <span ngbDropdownToggle id="login-span">
+            {{compLanguage.headerHi}}
+            <strong>{{compLanguage.headerQuestionToLogin}}</strong>
         </span>
-        <div [ngClass]="{'dropdown-menu': true, 'dropdown-show':headerFlags.isShowVisiterTool}" id="visiter-dropdown">
-            <a class="dropdown-item" [routerLink]="['/auth/login']">{{language.currentLanguage.headerLogin}}</a>
-            <a class="dropdown-item" [routerLink]="['/auth/register']">{{language.currentLanguage.headerRegister}}</a>
+        <div ngbDropdownMenu id="visiter-dropdown">
+            <a class="dropdown-item" [routerLink]="['/auth/login']">{{compLanguage.headerLogin}}</a>
+            <a class="dropdown-item" [routerLink]="['/auth/register']">{{compLanguage.headerRegister}}</a>
         </div>
     </div>
 </div>

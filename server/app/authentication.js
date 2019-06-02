@@ -249,8 +249,9 @@ exports.isSpecifiedPermissionRequest = async (req, permission) => {
                     });
             }
         }
-        catch
+        catch (err)
         {
+            console.log(err);
             deferred.resolve(false);
         }
     }

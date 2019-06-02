@@ -1,0 +1,105 @@
+@import 'src/styles.scss';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 52px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-y: scroll;
+
+  .cover {
+    height: 250px;
+    min-height: 250px;
+    padding: 20px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    background-size: cover;
+    background-position: center;
+    background-color: teal;
+    h5 {
+      font-size: 34px;
+      font-weight: 700;
+      margin: 0;
+      color: white;
+      // make stroke
+      text-shadow: 4px 4px 0 #001111, 4px -4px 0 #001111, -4px 4px 0 #001111,
+        -4px -4px 0 #001111, 4px 4px 0 #001111, 4px 0px 0 #001111,
+        0px 4px 0 #001111, -4px 0px 0 #001111, 0px -4px 0 #222222;
+    }
+  }
+
+  .content {
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+
+    .left-desc {
+      width: 66%;
+      p {
+        font-size: 17px;
+        text-align: justify;
+        margin: 0;
+        font-style: italic;
+      }
+    }
+    .right {
+      display: flex;
+      flex-direction: column;
+      width: 33%;
+      padding-left: 15px;
+      align-items: flex-end;
+      .inline {
+        display: inline;
+        span {
+          font-size: 17px;
+          display: inline;
+        }
+        .bold {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  .locations {
+    display: flex;
+    flex-wrap: wrap;
+    .location-item {
+      width: 250px;
+      display: flex;
+      flex-direction: column;
+      border-radius: 0.25rem;
+      box-shadow: 2px 2px 2px 1px rgb(196, 196, 110);
+      .title {
+        padding: 5px 10px;
+        font-weight: 500;
+        cursor: pointer;
+        border-radius: 0.25rem;
+        background-color: rgb(255, 255, 150);
+        display: flex;
+        justify-content: space-between;
+      }
+      .location-content {
+        border: 1px solid rgb(250, 250, 150);
+        border-top: none;
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .footer {
+    color: transparent;
+    font-size: 10px;
+    line-height: 10px;
+    cursor: default;
+  }
+}

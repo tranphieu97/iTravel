@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   loginMessage: String = '';
 
   isLoading: Boolean = false;
+  compLanguage;
 
   private usernameRegex: RegExp = new RegExp('^(?=.*[a-z])[a-z0-9._@-]{1,30}$');
   private passwordRegex: RegExp = new RegExp('(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{1,30}$');
@@ -32,6 +33,8 @@ export class LoginComponent implements OnInit {
         [Validators.required, Validators.minLength(6), Validators.maxLength(30), Validators.pattern('^(?=.*[a-z])[a-z0-9._@-]{1,30}$')]],
       password: [null, [Validators.required, Validators.minLength(8)]]
     });
+    this.compLanguage = this.language.currentLanguage.compLogin;
+    this.language.hasChangeLanguage.subscribe(() => this.compLanguage = this.language.currentLanguage.compLogin);
   }
 
   /**
@@ -60,6 +63,7 @@ export class LoginComponent implements OnInit {
           this.user.currentUser.setUserRequiredInfo(res.data._id, res.data.username,
             res.data.firstName, res.data.lastName, res.data.avatar);
           this.user.currentUser.isAdmin = res.data.isAdmin;
+          this.user.currentUser.isTourguide = res.data.isTourguide;
           this.user.isLogin = true;
           this.isLoading = false;
           this.router.navigate(['home']);

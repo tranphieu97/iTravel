@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import "@fortawesome/fontawesome-free/css/all.css";
-@import "bootstrap/dist/css/bootstrap.css";
+@import '@fortawesome/fontawesome-free/css/all.css';
+@import 'bootstrap/dist/css/bootstrap.css';
 
 $HEADER_HEIGHT: 60px;
 $NAVBAR_MARGIN_RIGHT: 10px;
@@ -8,12 +8,11 @@ $NAVBAR_MIN_WIDTH: 50px;
 $NAVBAR_ICON_MARGIN: 10px;
 $NAVBAR_ICON_SIZE: 25px;
 
-
 /* CONST COLOR */
 $BLUE: #007bff;
 $INDIGO: #6610f2;
 $PURPLE: #6f42c1;
-$PINK:  #e83e8c;
+$PINK: #e83e8c;
 $RED: #dc3545;
 $ORANGE: #fd7e14;
 $YELLOW: #ffc107;
@@ -25,9 +24,9 @@ $GRAY: #6c757d;
 $GRAY-DARK: #343a40;
 $PRIMARY: #5867dd;
 $SECONDARY: #e1e1ef;
-$SUCCESS: #1dc9b7;
+$SUCCESS: #31ca55;
 $INFO: #5578eb;
-$WARNING: #ffb822;
+$WARNING: #ffc107;
 $DANGER: #fd3995;
 $LIGHT: #f8f9fa;
 $DARK: #343a40;
@@ -39,85 +38,143 @@ $CONTENT_BACKGROUND_COLOR: #e1e1ef;
 $NAVBAR_WIDTH_SHOW: 250px;
 $NAVBAR_WIDTH_HIDE: 70px;
 
-
-html, body  {
-    height: 100%;
-    width: 100%;
-    margin: 0;
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
 }
 * {
-    -webkit-touch-callout: none; /* iOS Safari */
-      -webkit-user-select: none; /* Safari */
-       -khtml-user-select: none; /* Konqueror HTML */
-         -moz-user-select: none; /* Firefox */
-          -ms-user-select: none; /* Internet Explorer/Edge */
-              user-select: none; /* Non-prefixed version, currently
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
                                     supported by Chrome and Opera */
-    font-size: 12px;
-    font-family:  Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 12px;
+  font-family: Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
 .content-box {
-    flex: 1 1 auto;
-    border-radius: 5px;
-    box-shadow: 1px 0px 13px 0px rgba(82, 63, 105, 0.05);
-    background-color: $WHITE;
-    height: 95%;
-    margin: 10px;
+  flex: 1 1 auto;
+  border-radius: 5px;
+  box-shadow: 1px 0px 13px 0px rgba(82, 63, 105, 0.05);
+  background-color: $WHITE;
+  height: 95%;
+  margin: 10px;
 }
 
 .border-box {
-    border-radius: 5px;
-    box-shadow: 1px 0px 13px 0px rgba(82, 63, 105, 0.05);
-    background-color: $WHITE;
-    margin: 10px;
-    padding: 10px;
+  border-radius: 5px;
+  box-shadow: 1px 0px 13px 0px rgba(82, 63, 105, 0.05);
+  background-color: $WHITE;
+  margin: 10px;
+  padding: 10px;
 }
 
 :host::-webkit-scrollbar {
-    display: none;
-    width: 0px;  
-    background: transparent; 
+  display: none;
+  width: 0px;
+  background: transparent;
 }
 /* optional: show position indicator in red */
 :host::-webkit-scrollbar-thumb {
-    background: #FF0000;
+  background: #ff0000;
 }
-:host { -ms-overflow-style: none; }
-:host { -ms-overflow-style: none; }
+:host {
+  -ms-overflow-style: none;
+}
+:host {
+  -ms-overflow-style: none;
+}
 
-div { -ms-overflow-style: none; }
+div {
+  -ms-overflow-style: none;
+}
 
-div { -ms-overflow-style: none; }
+div {
+  -ms-overflow-style: none;
+}
 
 // Modified bootstrap
 .alert {
-    font-size: 14px !important;
-    font-weight: 700;
+  font-size: 14px !important;
+  font-weight: 700;
 }
 
 .flex-row {
-    display: flex;
-    flex-direction: row;
-    justify-content: stretch;
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  flex-wrap: wrap;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
 }
 
 .flex-items-center {
-    align-items: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-content-space-evenly {
+  justify-content: space-evenly;
+}
+
+.flex-justify-end {
+  justify-content: flex-end;
+}
+
+.flex-justify-space-between {
+  justify-content: space-between;
+}
+
+.flex-align-center {
+  align-items: center;
 }
 
 .flex-1 {
-    flex: 1;
+  flex: 1;
 }
 
 .flex-2 {
-    flex: 2;
+  flex: 2;
 }
 
 .flex-3 {
-    flex: 3;
+  flex: 3;
 }
 
 .flex-4 {
-    flex: 4;
+  flex: 4;
+}
+
+.flex-6 {
+  flex: 6;
+}
+
+.row-label {
+  flex: 3;
+  font-weight: 700;
+  min-width: 150px;
+}
+
+.row-input {
+  flex: 9;
+  min-width: 300px;
+  flex-wrap: wrap;
+
+  .row-first-input {
+    min-width: 150px;
+  }
+
+  .row-second-input {
+    min-width: 150px;
+    margin-left: 5px;
+  }
 }

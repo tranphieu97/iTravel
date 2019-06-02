@@ -4,6 +4,7 @@
     background-color: $WHITE;
     height: $HEADER_HEIGHT;
     display: flex;
+    box-shadow: inset 5px -4px 5px 3px rgba(189,189,189,0.5);
 
     .header {
         display: flex;
@@ -58,10 +59,21 @@
     .toolbar {
         display: flex;
         flex-direction: row;
-        align-items: stretch;
+        align-items: center;
         justify-content: flex-end;
         flex: 1;
         padding-right: 15px;
+
+        .search-bar {
+            background-color: $SECONDARY;
+            border-radius: 40px;
+            margin: 0 5px;
+
+            span, input {
+                background-color: transparent;
+                border: 0;
+            }
+        }
 
         .toolbar-icon {
             display: flex;
@@ -71,7 +83,7 @@
             cursor: pointer;
 
             .my-top {
-                top: 60px !important;
+                top: 17px !important;
             }
 
             span {
