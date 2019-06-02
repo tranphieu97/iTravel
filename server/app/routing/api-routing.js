@@ -876,6 +876,21 @@ app.get('/api/get-tour', async (req, res) => {
     }
 });
 
+app.get('/api/tours', async (req, res) => {
+    try {
+        const tours = await Tour.find({'isActive': true}, 'tourName registerCost locationIds beginTime endTime cover status', () => {});
+        res.status(200).json({
+            data: tours,
+            statusCode: 200
+        });
+    } catch (err) {
+        res.status(200).json({
+            data: [],
+            statusCode: 404
+        });
+    }
+});
+
 function newFunction() {
     return '../../model/user.model';
 }

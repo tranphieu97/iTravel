@@ -1,30 +1,42 @@
 <div class="flex-row flex-1">
-<div class="index-part">
-    <div class="content-box">
-        <app-viet-nam-map></app-viet-nam-map>
-    </div>
-</div>
-<div class="index-part">
-    <div class="content-box list-post">
-        <div class="list-post-title">
-            <h4>
-                {{language.currentLanguage.pageHome.homeIndexPostIn}}
-                {{masterPage.selectedProvince}}
-            </h4>
-            <span (click)="refreshListPost()"><i class="fas fa-sync-alt"></i></span>
-        </div>
-        <app-loading *ngIf="isLoading"></app-loading>
-        <div class="list-post-content" *ngIf="!isLoading">
-            <app-card-view-post *ngFor="let post of listShowCardViewPosts" [inputPost]="post"></app-card-view-post>
+    <div class="index-part">
+        <div class="content-box">
+            <app-viet-nam-map></app-viet-nam-map>
         </div>
     </div>
-</div>
+    <div class="index-part">
+        <div class="content-box list-post">
+            <div class="list-post-title">
+                <h4>
+                    {{compLanguage.homeIndexPostIn}}
+                    {{masterPage.selectedProvince}}
+                </h4>
+                <span (click)="refreshListPost()"><i class="fas fa-sync-alt"></i></span>
+            </div>
+            <app-loading *ngIf="isLoadingPost"></app-loading>
+            <div class="list-post-content" *ngIf="!isLoadingPost">
+                <app-card-view-post *ngFor="let post of listShowCardViewPosts" [inputPost]="post"></app-card-view-post>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="flex-row flex-1">
-    <div class="border-box flex-3" style="margin-right: 5px; margin-top: 0px;">
+    <div class="border-box flex-3 flex-col" style="margin-right: 5px; margin-top: 0px;">
+        <div class="border-box-title">
+            <h4>{{compLanguage.homeTourAvailable}}</h4>
+        </div>
+        <app-loading *ngIf="isLoadingTour"></app-loading>
+        <div class="flex-1" *ngIf="!isLoadingTour">
 
+        </div>
     </div>
-    <div class="border-box flex-1" style="margin-left: 5px; margin-top: 0px;">
+    <div class="border-box flex-1 flex-col" style="margin-left: 5px; margin-top: 0px;">
+        <div class="border-box-title">
+            <h4>{{compLanguage.homeTourBuilding}}</h4>
+        </div>
+        <app-loading *ngIf="isLoadingTour"></app-loading>
+        <div class="flex-1" *ngIf="!isLoadingTour">
 
+        </div>
     </div>
 </div>

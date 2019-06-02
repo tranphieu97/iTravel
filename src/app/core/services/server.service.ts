@@ -374,6 +374,10 @@ export class ServerService {
     return this.http.patch<{ message: string }>(this.HOST + 'user/send-notification', listNotifications);
   }
 
+  getToursCardInfo() {
+    return this.http.get<{ data: any, statusCode: number }>(this.HOST + 'api/tours');
+  }
+
   getTours() {
     return this.http.get<{ data: any, message: string }>(this.HOST + 'user/get-tours');
   }

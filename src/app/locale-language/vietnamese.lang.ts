@@ -183,7 +183,11 @@ export const LangVietnamese: Language = {
   compPolicies: { policiesTitle: 'Chính sách sử dụng' },
 
   // For Home Page
-  pageHome: { homeIndexPostIn: 'Bài viết tại ' },
+  pageHome: {
+    homeIndexPostIn: 'Bài viết tại ',
+    homeTourAvailable: 'Chuyến đi sẵn sàng',
+    homeTourBuilding: 'Xây dựng chuyến đi'
+  },
 
   // For Create Post
   compCreatePost: {

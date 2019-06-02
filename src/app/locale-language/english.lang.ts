@@ -189,7 +189,11 @@ export const LangEnglish: Language = {
   compPolicies: { policiesTitle: 'Using Policies' },
 
   // For Home Page
-  pageHome: { homeIndexPostIn: 'Posts in ' },
+  pageHome: {
+    homeIndexPostIn: 'Post in ',
+    homeTourAvailable: 'Available Tours',
+    homeTourBuilding: 'Tour Building'
+  },
 
   // For Create Post
   compCreatePost: {

@@ -187,7 +187,11 @@ export class Language {
   compPolicies: { policiesTitle: string };
 
   // For HomePage
-  pageHome: { homeIndexPostIn: string };
+  pageHome: {
+    homeIndexPostIn: string,
+    homeTourAvailable: string;
+    homeTourBuilding: string;
+  };
 
   // For Create Post
   compCreatePost: {

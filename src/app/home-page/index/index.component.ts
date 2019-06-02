@@ -15,13 +15,25 @@ export class IndexComponent implements OnInit {
   listShowCardViewPosts: CardViewPost[];
   listAllCardViewPost: CardViewPost[];
 
-  isLoading: Boolean = true;
+  isLoadingPost: Boolean = true;
+  isLoadingTour: Boolean = true;
+
+  compLanguage;
+  commonLanguage;
 
   constructor(private server: ServerService, public masterPage: MasterPageService, public language: LanguageService,
     private constant: ConstantService) { }
 
   ngOnInit() {
+    this.compLanguage = this.language.currentLanguage.pageHome;
+    this.commonLanguage = this.language.currentLanguage.common;
+    this.language.hasChangeLanguage.subscribe(() => {
+      this.compLanguage = this.language.currentLanguage.pageHome;
+      this.commonLanguage = this.language.currentLanguage.common;
+    });
+
     this.refreshListPost();
+    this.getTours();
 
     this.masterPage.hasChangeSelectedProvince.subscribe(() => {
       this.filterListShowPostByProvince(this.masterPage.selectedProvince);
@@ -39,13 +51,13 @@ export class IndexComponent implements OnInit {
    * @param provinceName
    */
   filterListShowPostByProvince(provinceName: string) {
-    this.isLoading = true;
+    this.isLoadingPost = true;
     if (provinceName !== undefined && provinceName !== this.constant.ALL_PROVINCE) {
       this.listShowCardViewPosts = this.listAllCardViewPost.filter(post => post.location.provinceCity.indexOf(provinceName) !== -1);
     } else {
       this.listShowCardViewPosts = this.listAllCardViewPost;
     }
-    this.isLoading = false;
+    this.isLoadingPost = false;
   }
 
   /**
@@ -54,7 +66,7 @@ export class IndexComponent implements OnInit {
    * @author phieu-th
    */
   refreshListPost() {
-    this.isLoading = true;
+    this.isLoadingPost = true;
     this.server.getCardViewPost().subscribe((result) => {
       this.listAllCardViewPost = result.sort((post1, post2) => {
         return (new Date(post2.createdTime).valueOf() - new Date(post1.createdTime).valueOf());
@@ -65,8 +77,17 @@ export class IndexComponent implements OnInit {
       this.masterPage.selectedProvince = this.constant.ALL_PROVINCE;
 
       this.masterPage.setCountAmountOfProvincePost(this.listAllCardViewPost);
-      this.isLoading = false;
+      this.isLoadingPost = false;
     });
   }
 
+  getTours() {
+    this.isLoadingTour = true;
+    this.server.getToursCardInfo().subscribe(res => {
+      if (res.statusCode === 200) {
+        console.log(res.data);
+      }
+      this.isLoadingTour = false;
+    });
+  }
 }
