@@ -14,6 +14,7 @@ import { TourFeedbackComponent } from './tour-management/detail-modal/tour-feedb
 import { TourPreparationComponent } from './tour-management/detail-modal/tour-preparation/tour-preparation.component';
 import { TourFeedbackItemComponent } from './tour-management/detail-modal/tour-feedback/tour-feedback-item/tour-feedback-item.component';
 import { PerformItemComponent } from './tour-management/detail-modal/tour-preparation/perform-item/perform-item.component';
+import { TourBuildingComponent } from './tour-building/tour-building.component';
 
 @NgModule({
   imports: [CommonModule, SharedModule, ToursRoutingModule],
@@ -29,7 +30,8 @@ import { PerformItemComponent } from './tour-management/detail-modal/tour-prepar
     TourFeedbackComponent,
     TourPreparationComponent,
     TourFeedbackItemComponent,
-    PerformItemComponent
+    PerformItemComponent,
+    TourBuildingComponent
   ],
   exports: [DetailModalComponent],
   entryComponents: [DetailModalComponent]

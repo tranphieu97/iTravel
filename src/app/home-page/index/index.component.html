@@ -35,12 +35,20 @@
             <h4>{{compLanguage.homeTourBuilding}}</h4>
         </div>
         <app-loading *ngIf="isLoadingTour"></app-loading>
-        <div class="flex-1 flex-col" *ngIf="!isLoadingTour">
-            <div class="flex-row pending-tour" *ngFor="let tour of arrPendingTour">
+        <div class="flex-1 flex-col arr-pending" *ngIf="!isLoadingTour">
+            <div class="flex-row pending-tour" *ngFor="let tour of arrPendingTour" (click)="redirectToBuilding(tour._id)">
                 <div class="flex-4 flex-col">
                     <h4>
-                        <u> #{{tour.tourName}}</u>
+                        <u># {{tour.tourName}}</u>
                     </h4>
+                    <div class="flex-row">
+                        <span>
+                            {{compLanguage.homeTourCloseFeedback}}
+                        </span>
+                        <span class="bold" style="margin-left: 5px">
+                            {{tour.closeFeedbackTime | date:'dd/MM/yyyy'}}
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>

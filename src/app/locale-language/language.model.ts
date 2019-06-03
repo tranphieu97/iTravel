@@ -191,6 +191,7 @@ export class Language {
     homeIndexPostIn: string,
     homeTourAvailable: string;
     homeTourBuilding: string;
+    homeTourCloseFeedback: string;
   };
 
   // For Create Post

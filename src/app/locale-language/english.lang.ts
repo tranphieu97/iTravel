@@ -192,7 +192,8 @@ export const LangEnglish: Language = {
   pageHome: {
     homeIndexPostIn: 'Post in ',
     homeTourAvailable: 'Available Tours',
-    homeTourBuilding: 'Tour Building'
+    homeTourBuilding: 'Tour Building',
+    homeTourCloseFeedback: 'Close feedback in: '
   },
 
   // For Create Post

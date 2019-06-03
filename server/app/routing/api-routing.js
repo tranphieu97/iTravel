@@ -878,7 +878,8 @@ app.get('/api/get-tour', async (req, res) => {
 
 app.get('/api/tours', async (req, res) => {
     try {
-        const tours = await Tour.find({'isActive': true}, 'tourName registerCost locationIds beginTime endTime cover status', () => {});
+        const tours = await Tour.find({'isActive': true}, 
+        '_id tourName registerCost locationIds beginTime endTime cover status closeFeedbackTime', () => {});
         res.status(200).json({
             data: tours,
             statusCode: 200

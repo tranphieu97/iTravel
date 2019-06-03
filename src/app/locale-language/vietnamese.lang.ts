@@ -186,7 +186,8 @@ export const LangVietnamese: Language = {
   pageHome: {
     homeIndexPostIn: 'Bài viết tại ',
     homeTourAvailable: 'Chuyến đi sẵn sàng',
-    homeTourBuilding: 'Xây dựng chuyến đi'
+    homeTourBuilding: 'Xây dựng chuyến đi',
+    homeTourCloseFeedback: 'Đóng góp ý vào: '
   },
 
   // For Create Post
