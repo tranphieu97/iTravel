@@ -40,14 +40,12 @@ exports.getCollection = async function (collectionName) {
             try {
                 var db = client.db(config.DB_NAME);
 
-                var collection = db.collection(collectionName);
-
+                db.collection(collectionName);
+                client.close();
                 deferred.resolve(collection);
             } catch (err) {
                 console.error(err);
                 deferred.reject(new Error(err));
-            } finally {
-                client.close();
             }
         }
     });
@@ -73,18 +71,21 @@ exports.getCollectionData = async (collectionName) => {
             try {
                 var db = client.db(config.DB_NAME);
 
-                var collection = db.collection(collectionName, (err, collection) => {
+                db.collection(collectionName, (err, collection) => {
                     if (err) {
                         console.log('Error load ' + collectionName);
+                        client.close();
                         deferred.reject(new Error(err));
                     }
 
-                    var collectionData = collection.find().toArray((err, result) => {
+                    collection.find().toArray((err, result) => {
                         if (err) {
                             console.log('Error find data from collection ' + collectionName);
+                            client.close();
                             deferred.reject(new Error(err));
                         } else {
                             data = result;
+                            client.close();
                             deferred.resolve(data);
                         }
                     });
@@ -118,18 +119,21 @@ exports.getCollectionFilterData = async (collectionName, filter) => {
             try {
                 var db = client.db(config.DB_NAME);
 
-                var collection = db.collection(collectionName, (err, collection) => {
+                db.collection(collectionName, (err, collection) => {
                     if (err) {
                         console.log('Error load ' + collectionName);
+                        client.close();
                         deferred.reject(new Error(err));
                     }
 
-                    var collectionData = collection.find(filter).toArray((err, result) => {
+                    collection.find(filter).toArray((err, result) => {
                         if (err) {
                             console.log('Error find filter data from collection ' + collectionName);
+                            client.close();
                             deferred.reject(new Error(err));
                         } else {
                             data = result;
+                            client.close();
                             deferred.resolve(data);
                         }
                     });
@@ -164,25 +168,28 @@ exports.insertOneToColection = async (collectionName, document) => {
             try {
                 var db = client.db(config.DB_NAME);
 
-                var collection = db.collection(collectionName, (err, collection) => {
+                db.collection(collectionName, (err, collection) => {
                     if (err) {
                         console.log('Error load ' + collectionName);
+                        client.close();
                         deferred.reject(new Error(err));
                     }
 
                     try {
-                        var insertOne = collection.insertOne(document, (err) => {
+                        collection.insertOne(document, (err) => {
                             if (err) {
                                 console.log('Error insert data to ' + collectionName);
                                 deferred.reject(new Error(err));
                             }
                             return 1;
                         });
+                        client.close();
                         deferred.resolve(insertOne);
                     }
                     catch (e) {
                         console.log('Error insert data to ' + collectionName);
                         console.log(e.message);
+                        client.close();
                         deferred.reject(new Error(e));
                     }
                 });
@@ -217,18 +224,21 @@ exports.getOneFromCollection = async (collectionName, filter) => {
             try {
                 var db = client.db(config.DB_NAME);
 
-                var collection = db.collection(collectionName, (err, collection) => {
+                db.collection(collectionName, (err, collection) => {
                     if (err) {
                         console.log('Error load ' + collectionName);
+                        client.close();
                         return null;
                     }
 
-                    var collectionData = collection.findOne(filter, (err, result) => {
+                    collection.findOne(filter, (err, result) => {
                         if (err) {
                             console.log('Error find filter data from collection ' + collectionName);
+                            client.close();
                             return null;
                         } else {
                             data = result;
+                            client.close();
                             deferred.resolve(data);
                         }
                     });
@@ -265,21 +275,24 @@ exports.updateDocumentByFilter = async (collectionName, documentFiler, changePro
             try {
                 var db = client.db(config.DB_NAME);
 
-                var collection = db.collection(collectionName, (err, collection) => {
+                db.collection(collectionName, (err, collection) => {
                     if (err) {
                         console.log('Error load ' + collectionName);
+                        client.close();
                         return deferred.reject(new Error(err));;
                     }
 
                     try {
                         collection.updateOne(documentFiler, { $set: changeProperties })
                             .then((result) => {
+                                client.close();
                                 deferred.resolve(result);
                             })
                     }
                     catch (e) {
                         console.log('Error update ' + documentFiler + 'data to ' + collectionName);
                         console.log(e.message);
+                        client.close();
                         deferred.reject(new Error(e));
                     }
                 });
@@ -314,21 +327,24 @@ exports.replaceDocumentById = async (collectionName, documentFiler, changeDocume
             try {
                 var db = client.db(config.DB_NAME);
 
-                var collection = db.collection(collectionName, (err, collection) => {
+                db.collection(collectionName, (err, collection) => {
                     if (err) {
                         console.log('Error load ' + collectionName);
+                        client.close();
                         return deferred.reject(new Error(err));;
                     }
 
                     try {
                         collection.replaceOne(documentFiler, changeDocument)
                             .then((result) => {
+                                client.close();
                                 deferred.resolve(result);
-                            })
+                            });
                     }
                     catch (e) {
                         console.log('Error replay ' + 'data to ' + collectionName);
                         console.log(e.message);
+                        client.close();
                         deferred.reject(new Error(e));
                     }
                 });
@@ -365,18 +381,21 @@ exports.getOneWithProjection = async (collectionName, filter, projectionObj) => 
             try {
                 var db = client.db(config.DB_NAME);
 
-                var collection = db.collection(collectionName, (err, collection) => {
+                db.collection(collectionName, (err, collection) => {
                     if (err) {
                         console.log('Error load ' + collectionName);
+                        client.close();
                         return null;
                     }
 
-                    var collectionData = collection.findOne(filter, projectionObj, (err, result) => {
+                    collection.findOne(filter, projectionObj, (err, result) => {
                         if (err) {
                             console.log('Error find filter data from collection ' + collectionName);
+                            client.close();
                             return null;
                         } else {
                             data = result;
+                            client.close();
                             deferred.resolve(data);
                         }
                     });
@@ -411,9 +430,10 @@ exports.countDocumentByFilter = async (collectionName, filter) => {
             try {
                 var db = client.db(config.DB_NAME);
 
-                var collection = db.collection(collectionName, (err, collection) => {
+                db.collection(collectionName, (err, collection) => {
                     if (err) {
                         console.log('Error load ' + collectionName);
+                        client.close();
                         return null;
                     }
 
@@ -421,8 +441,10 @@ exports.countDocumentByFilter = async (collectionName, filter) => {
                         collection.countDocuments(filter, (err, result) => {
                             if (err) {
                                 console.log('Error find count document from collection ' + collectionName);
+                                client.close();
                                 deferred.reject(new Error(err));
                             } else {
+                                client.close();
                                 deferred.resolve(result);
                             }
                         });
@@ -430,8 +452,10 @@ exports.countDocumentByFilter = async (collectionName, filter) => {
                         collection.countDocuments((err, result) => {
                             if (err) {
                                 console.log('Error find count document from collection ' + collectionName);
+                                client.close();
                                 deferred.reject(new Error(err));
                             } else {
+                                client.close();
                                 deferred.resolve(result);
                             }
                         });
@@ -461,18 +485,21 @@ exports.getCollectionDataByProjection = async (collectionName, filter, project) 
             try {
                 var db = client.db(config.DB_NAME);
 
-                var collection = db.collection(collectionName, (err, collection) => {
+                db.collection(collectionName, (err, collection) => {
                     if (err) {
                         console.log('Error load ' + collectionName);
+                        client.close();
                         deferred.reject(new Error(err));
                     }
 
-                    var collectionData = collection.find(filter).project(project).toArray((err, result) => {
+                    collection.find(filter).project(project).toArray((err, result) => {
                         if (err) {
                             console.log('Error find filter data from collection ' + collectionName);
+                            client.close();
                             deferred.reject(new Error(err));
                         } else {
                             data = result;
+                            client.close();
                             deferred.resolve(data);
                         }
                     });

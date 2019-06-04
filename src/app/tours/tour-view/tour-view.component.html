@@ -1,0 +1,43 @@
+<app-loading *ngIf="isLoading"></app-loading>
+
+<div class="flex-col flex-1 tour-view" *ngIf="!isLoading">
+    <div class="flex-row tour-cover">
+        <div class="img-layout">
+            <img [src]="tourModel.cover" style="width: 100%; height: auto;">
+        </div>
+        <div class="picture-caption">
+            <h1 class="tour-title">
+                {{tourModel.tourName}}
+            </h1>
+            <p class="tour-des">
+                {{tourModel.description}}
+            </p>
+        </div>
+    </div>
+    <div class="flex-row flex-items-center">
+        <div class="tour-location" *ngFor="let locationId of tourModel.locationIds">
+            <span><i class="fas fa-map-marker-alt"></i></span> {{tourService.getLocationName(locationId)}}
+        </div>
+    </div>
+    <div class="flex-row flex-items-center bold" style="font-size: 17px; color: red;">
+        {{tourModel.durationTime}} {{compLanguage.days}}
+    </div>
+    <div class="flex-row flex-items-center tour-time">
+        ({{commonLanguage.from}}
+        <span>
+            {{tourModel.beginTime | date:'hh:mm - dd/MM/yyyy'}}
+        </span>
+        {{commonLanguage.to}}
+        <span>
+            {{tourModel.endTime | date:'hh:mm - dd/MM/yyyy'}}
+        </span>)
+    </div>
+    <div class="flex-row flex-items-center tour-time" *ngIf="tourModel.status === TOUR_STATUS.PENDING">
+        {{compLanguage.feedbackWillCloseOn}} {{tourModel.closeFeedbackTime | date:'hh:mm - dd/MM/yyyy'}}
+    </div>
+    <div class="flex-row tour-schedule">
+        <h3>
+            {{compLanguage.schedule}}
+        </h3>
+    </div>
+</div>

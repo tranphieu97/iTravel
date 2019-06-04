@@ -98,8 +98,12 @@ export class AddTourComponent implements OnInit {
 
     if (this.provinceService.allProvinceCity.length === 0) {
       this.provinceService.getAllProvinceCity().subscribe((res) => {
-        this.provinceService.allProvinceCity = res.data;
-        this.arrProvince = res.data;
+        this.provinceService.allProvinceCity = res.data.sort((provinceA, provinceB) => {
+          if (provinceA.provinceName > provinceB.provinceName) {
+            return 1;
+          } else { return -1; }
+        });
+        this.arrProvince = Object.assign(this.provinceService.allProvinceCity);
       });
     } else {
       this.arrProvince = this.provinceService.allProvinceCity;
