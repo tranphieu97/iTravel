@@ -14,12 +14,15 @@
             </p>
         </div>
     </div>
+    <div class="flex-row" style="color: grey; font-size: 13px; font-weight: 600;">
+        {{tourModel.creationTime | date:'MMM dd, yyyy, HH:mm'}}
+    </div>
     <div class="flex-row flex-items-center">
         <div class="tour-location" *ngFor="let locationId of tourModel.locationIds">
             <span><i class="fas fa-map-marker-alt"></i></span> {{tourService.getLocationName(locationId)}}
         </div>
     </div>
-    <div class="flex-row flex-items-center bold" style="font-size: 17px; color: red;">
+    <div class="flex-row flex-items-center bold" style="font-size: 19px; color: red;">
         {{tourModel.durationTime}} {{compLanguage.days}}
     </div>
     <div class="flex-row flex-items-center tour-time">
@@ -35,9 +38,94 @@
     <div class="flex-row flex-items-center tour-time" *ngIf="tourModel.status === TOUR_STATUS.PENDING">
         {{compLanguage.feedbackWillCloseOn}} {{tourModel.closeFeedbackTime | date:'hh:mm - dd/MM/yyyy'}}
     </div>
-    <div class="flex-row tour-schedule">
-        <h3>
-            {{compLanguage.schedule}}
-        </h3>
+    <div class="flex-col tour-data" *ngIf="tourModel.status === TOUR_STATUS.PENDING">
+        <app-heading [title]="compLanguage.timeline"></app-heading>
+        <div class="flex-row flex-1">
+            <label class="row-label">{{compLanguage.feedbackTime}}</label>
+            <div class="row-input flex-row flex-content-space-evenly">
+                {{commonLanguage.from}}
+                <span>
+                    {{compLanguage.now}}
+                </span>
+                {{commonLanguage.to}}
+                <span>
+                    {{tourModel.closeFeedbackTime | date:'hh:mm - dd/MM/yyyy'}}
+                </span>
+            </div>
+        </div>
+        <div class="flex-row flex-1">
+            <label class="row-label">{{compLanguage.registerTime}}</label>
+            <div class="row-input flex-row flex-content-space-evenly">
+                {{commonLanguage.from}}
+                <span>
+                    {{tourModel.closeFeedbackTime | date:'hh:mm - dd/MM/yyyy'}}
+                </span>
+                {{commonLanguage.to}}
+                <span>
+                    {{tourModel.closeRegisterTime | date:'hh:mm - dd/MM/yyyy'}}
+                </span>
+            </div>
+        </div>
+        <div class="flex-row flex-1">
+            <label class="row-label">{{compLanguage.travelingTime}}</label>
+            <div class="row-input flex-row flex-content-space-evenly">
+                {{commonLanguage.from}}
+                <span>
+                    {{tourModel.beginTime | date:'hh:mm - dd/MM/yyyy'}}
+                </span>
+                {{commonLanguage.to}}
+                <span>
+                    {{tourModel.endTime | date:'hh:mm - dd/MM/yyyy'}}
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="flex-col tour-data" *ngIf="tourModel.status === TOUR_STATUS.PENDING">
+        <app-heading [title]="compLanguage.register"></app-heading>
+        <div class="flex-row flex-1">
+            <label class="row-label">{{compLanguage.limitMembers}}</label>
+            <div class="row-input flex-row flex-items-center">
+                <span>
+                    {{tourModel.memberLimit}}
+                </span>
+                {{compLanguage.member}}
+            </div>
+        </div>
+        <div class="flex-row flex-1">
+            <label class="row-label">{{compLanguage.registerCost}}</label>
+            <div class="row-input flex-row flex-items-center">
+                <span>
+                    {{tourModel.registerCost | currency:'VND'}}
+                </span>
+                {{compLanguage.VNDPerPerson}}
+            </div>
+        </div>
+    </div>
+    <div class="flex-col tour-schedule">
+        <app-heading [title]="compLanguage.schedule"></app-heading>
+        <app-tour-schedule [tourData]="tourModel"></app-tour-schedule>
+    </div>
+    <div class="flex-col">
+        <app-heading [title]="compLanguage.preparation"></app-heading>
+        <div class="flex-row flex-1">
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">{{compLanguage.itemName}}</th>
+                        <th scope="col">{{compLanguage.amount}}</th>
+                        <th scope="col">{{compLanguage.perform}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

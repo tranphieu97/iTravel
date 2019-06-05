@@ -18,7 +18,6 @@
                 <span [routerLink]="['/manager/posts']" *ngIf="user.currentUser.isAdmin" placement="left"
                     [ngbTooltip]="tipPostManagement" container-id="master-page">
                     <i class="fas fa-clipboard-check"></i></span>
-
             </div>
             <div class="toolbar-part toolbar-admin">
                 <span [routerLink]="['/manager/permissions']" *ngIf="user.currentUser.isAdmin"

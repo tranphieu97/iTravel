@@ -18,6 +18,8 @@ export class TourViewComponent implements OnInit {
   public isLoading: Boolean = false;
   public TOUR_STATUS: ConstTourStatus = new ConstTourStatus();
 
+  public arrDays: Array<Date> = [];
+
   constructor(private server: ServerService, public language: LanguageService, public tourService: TourService) { }
 
   compLanguage;

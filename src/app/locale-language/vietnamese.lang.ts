@@ -483,6 +483,21 @@ export const LangVietnamese: Language = {
     tourNotPending: 'Tour hiện tại không có trạng thái đóng góp',
     days: 'ngày',
     feedbackWillCloseOn: 'Phản hồi sẽ đóng vào: ',
-    schedule: 'Lịch trình'
+    schedule: 'Lịch trình',
+    timeline: 'Mốc thời gian',
+    registerTime: 'Thời gian đăng ký',
+    feedbackTime: 'Thời gian đóng góp',
+    travelingTime: 'Thời gian du lịch',
+    now: 'Hiện tại',
+    register: 'Đăng ký',
+    limitMembers: 'Thành viên tối đa',
+    member: ' thành viên',
+    registerCost: 'Chi phí đăng ký',
+    VNDPerPerson: 'VND/người',
+    preparation: 'Chuẩn bị',
+    itemName: 'Tên vật dụng',
+    amount: 'Số lượng',
+    perform: 'Phụ trách',
+    allMembers: 'Tất cả chuẩn bị'
   }
 };

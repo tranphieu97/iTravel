@@ -485,6 +485,21 @@ export class Language {
     days: string;
     feedbackWillCloseOn: string;
     schedule: string;
+    timeline: string;
+    registerTime: string;
+    feedbackTime: string;
+    travelingTime: string;
+    now: string;
+    register: string;
+    limitMembers: string;
+    member: string;
+    registerCost: string;
+    VNDPerPerson: string;
+    preparation: string;
+    itemName: string;
+    amount: string;
+    allMembers: string;
+    perform: string;
   };
 
   constructor() { }
