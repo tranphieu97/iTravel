@@ -491,6 +491,26 @@ export const LangEnglish: Language = {
     tourNotPending: 'This tour is not in building state',
     days: 'days',
     feedbackWillCloseOn: 'Feedback will close on: ',
-    schedule: 'Schedule'
+    schedule: 'Schedule',
+    timeline: 'Timeline',
+    registerTime: 'Register Time',
+    feedbackTime: 'Feedback Time',
+    travelingTime: 'Traveling Time',
+    now: 'Now',
+    register: 'Registering',
+    limitMembers: 'Limit of Members',
+    member: ' members',
+    registerCost: 'Register Cost',
+    VNDPerPerson: 'VND/person',
+    preparation: 'Preparation',
+    itemName: 'Item Name',
+    allMembers: 'All Member',
+    amount: 'Amount',
+    perform: 'Perform',
+    specifiedPerformer: 'Specified Performer',
+    contact: 'Contact',
+    tourguide: 'Tourguide',
+    tourguideContact: 'Contact',
+    relatedPost: 'Related Posts'
   }
 };

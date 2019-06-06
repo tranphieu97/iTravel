@@ -561,4 +561,12 @@ export class ServerService {
 
     return this.http.patch(this.HOST + 'user/update-profile', updateBody);
   }
+
+  getPostRelatedLocation(locationIds: string[]): Observable<{ statusCode: number, data: any[] }> {
+    const params = {
+      locationIds: locationIds
+    };
+
+    return this.http.get<{ statusCode: number, data: any[] }>(this.HOST + 'api/post-related-location', { params: params });
+  }
 }

@@ -12,6 +12,10 @@
   .tour-view {
     flex-wrap: nowrap;
 
+    app-heading {
+      width: 50%;
+    }
+
     .tour-cover {
       display: block;
       position: relative;
@@ -72,7 +76,7 @@
 
     .tour-time {
       font-size: 15px;
-      color: orangered;
+      color: green;
 
       span {
         font-size: 15px;
@@ -81,21 +85,58 @@
       }
     }
 
-    .tour-schedule {
-      h3 {
-        width: 70%;
-        min-width: fit-content;
+    .tour-data {
+      margin-top: 10px;
+      border-top: 1px solid $SECONDARY;
 
-        padding: 10px 5px;
-        font-weight: 700;
-        background-image: radial-gradient(
-          circle at 10% 20%,
-          rgb(238, 204, 39) 0%,
-          rgb(252, 173, 3) 44.7%,
-          rgb(252, 132, 3) 90%
-        );
-        border-radius: 5px;
-        border: 2px solid rgb(226, 118, 3);
+      .content {
+        margin-left: 45px;
+      }
+
+      .row-label,
+      .row-input {
+        font-size: 16px;
+      }
+
+      .row-input span {
+        font-size: 16px;
+        font-weight: 600;
+        margin: 0 3px;
+      }
+    }
+
+    .tour-schedule {
+      margin-top: 10px;
+
+      app-tour-schedule {
+        position: unset;
+        width: 100% !important;
+        opacity: 0.85;
+      }
+    }
+
+    .preparation-table {
+      th, td {
+        text-align: center;
+        vertical-align: middle;
+        font-size: 15px;
+
+        .perform {
+          font-size: 15px;
+
+          i {
+            font-size: 16px;
+            margin: 0 5px;
+          }
+        }
+      }
+    }
+
+    .related-post {
+      app-card-view-post {
+        flex: 1;
+        min-width: 250px;
+        max-width: 50%;
       }
     }
   }

@@ -11,6 +11,8 @@ import { NgbModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { HorizontalCardViewPostComponent } from '../card-view-style/horizontal-card-view-post/horizontal-card-view-post.component';
 import { CardViewPostComponent } from '../card-view-style/card-view-post/card-view-post.component';
 import { LoadingComponent } from '../web-layout/loading/loading.component';
+import { HeadingComponent } from '../web-layout/heading/heading.component';
+import { ShowHideToggleComponent } from '../web-layout/show-hide-toggle/show-hide-toggle.component';
 
 @NgModule({
   imports: [
@@ -38,12 +40,16 @@ import { LoadingComponent } from '../web-layout/loading/loading.component';
     NgbAlertModule,
     HorizontalCardViewPostComponent,
     CardViewPostComponent,
-    LoadingComponent
+    LoadingComponent,
+    HeadingComponent,
+    ShowHideToggleComponent
   ],
   declarations: [
     HorizontalCardViewPostComponent,
     CardViewPostComponent,
-    LoadingComponent
+    LoadingComponent,
+    HeadingComponent,
+    ShowHideToggleComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JWTInterceptor, multi: true }

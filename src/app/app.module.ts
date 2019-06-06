@@ -14,8 +14,8 @@ import { AmChartsModule } from '@amcharts/amcharts3-angular';
 import { UserModule } from './user/user.module';
 import { SharedModule } from './shared/shared.module';
 import { AuthLayoutComponent } from './web-layout/auth-layout/auth-layout.component';
-import { HorizontalCardViewPostComponent } from './card-view-style/horizontal-card-view-post/horizontal-card-view-post.component';
 import { NotificationComponent } from './master-page/notification/notification.component';
+import { OneTimeBindingDirective } from './core/directives/one-time-binding.directive';
 
 @NgModule({
   declarations: [
@@ -30,6 +30,7 @@ import { NotificationComponent } from './master-page/notification/notification.c
     HeaderComponent,
     AuthLayoutComponent,
     NotificationComponent,
+    OneTimeBindingDirective,
   ],
   imports: [
     BrowserModule,

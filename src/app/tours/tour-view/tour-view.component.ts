@@ -4,6 +4,8 @@ import { ServerService } from 'src/app/core/services/server.service';
 import { LanguageService } from 'src/app/core/services/language.service';
 import { ConstTourStatus } from 'src/app/constants';
 import { TourService } from 'src/app/core/services/tour.service';
+import { CardViewPost } from 'src/app/model/cardViewPost.model';
+import { MembersService } from 'src/app/core/services/members.service';
 
 @Component({
   selector: 'app-tour-view',
@@ -18,7 +20,20 @@ export class TourViewComponent implements OnInit {
   public isLoading: Boolean = false;
   public TOUR_STATUS: ConstTourStatus = new ConstTourStatus();
 
-  constructor(private server: ServerService, public language: LanguageService, public tourService: TourService) { }
+  public arrDays: Array<Date> = [];
+  public arrRelatedPost: Array<CardViewPost> = [];
+
+  public toggle = {
+    timeline: true,
+    register: true,
+    schedule: true,
+    preparation: true,
+    contact: true,
+    post: true
+  };
+
+  constructor(private server: ServerService, public language: LanguageService, public tourService: TourService,
+    public membersService: MembersService) { }
 
   compLanguage;
   commonLanguage;
@@ -39,8 +54,24 @@ export class TourViewComponent implements OnInit {
     this.server.getTour(this.tourId).subscribe(res => {
       if (res.data) {
         this.tourModel = res.data;
+
+        this.tourModel.preparations.sort((pre1, pre2) => {
+          return pre1.isRequired && !pre2.isRequired ? 1 : -1;
+        });
+
+        this.getRelatedPost();
       }
       this.isLoading = false;
     });
+  }
+
+  getRelatedPost() {
+    if (this.tourModel) {
+      this.server.getPostRelatedLocation(this.tourModel.locationIds).subscribe(res => {
+          if (res.statusCode === 200) {
+            this.arrRelatedPost = res.data;
+          }
+      });
+    }
   }
 }
