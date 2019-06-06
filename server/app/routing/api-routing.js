@@ -876,6 +876,27 @@ app.get('/api/get-tour', async (req, res) => {
     }
 });
 
+/**
+ * @name getTourFeedbacks
+ * @param {tourId}
+ * @author Thong
+ */
+app.get('/api/get-tour-feedbacks', async (req, res) => {
+    try {
+        const tourId = req.query.tourId;
+        const tour = await Tour.findById(tourId, 'feedbacks', () => {})
+        res.status(200).json({
+            data: tour.feedbacks,
+            message: 'Success!'
+        });
+    } catch (error) {
+        res.status(200).json({
+            message: 'Fail!',
+            statusCode: 500
+        });
+    }
+});
+
 app.get('/api/tours', async (req, res) => {
     try {
         const tours = await Tour.find({'isActive': true}, 

@@ -27,7 +27,7 @@
       <ng-template ngbTabTitle><b class="title">{{compLanguage.feedbackTab}}</b>
       </ng-template>
       <ng-template ngbTabContent>
-        <app-tour-feedback class="p-3" [tourData]="tourData">
+        <app-tour-feedback class="p-3" [feedbacks]="tourData.feedbacks">
         </app-tour-feedback>
       </ng-template>
     </ngb-tab>

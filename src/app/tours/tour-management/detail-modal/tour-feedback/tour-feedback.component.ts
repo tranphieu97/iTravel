@@ -8,7 +8,7 @@ import { LanguageService } from 'src/app/core/services/language.service';
   styleUrls: ['./tour-feedback.component.scss']
 })
 export class TourFeedbackComponent implements OnInit {
-  @Input() tourData: Tour;
+  @Input() feedbacks: Tour;
 
   constructor() {}
 

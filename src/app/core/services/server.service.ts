@@ -20,6 +20,7 @@ import { environment } from '../../../environments/environment';
 import { Notification } from 'src/app/model/notification.model';
 import { NotificationItem } from 'src/app/model/notification-item.model';
 import { Tour } from 'src/app/model/tour.model';
+import { TourFeedback } from 'src/app/model/tour-feedback.model';
 
 @Injectable({
   providedIn: 'root'
@@ -392,6 +393,21 @@ export class ServerService {
     const listParams = new HttpParams().set('tourId', tourId);
     return this.http.get<{ data: any, message: string }>(this.HOST + 'api/get-tour',
       { headers: this.httpOptions.headers, params: listParams });
+  }
+
+  getTourFeedbacks(tourId: string) {
+    const listParams = new HttpParams().set('tourId', tourId);
+    return this.http.get<{ data: any, message: string }>(this.HOST + 'api/get-tour-feedbacks',
+      { headers: this.httpOptions.headers, params: listParams });
+  }
+
+  sendTourFeedback(tourId: string, newFeedback: TourFeedback) {
+    const listParams = new HttpParams().set('tourId', tourId);
+    return this.http.patch<{ data: any, message: string }>(
+      this.HOST + 'user/send-tour-feedback',
+      newFeedback,
+      { headers: this.httpOptions.headers, params: listParams }
+    );
   }
 
   createTour(tour: Tour) {

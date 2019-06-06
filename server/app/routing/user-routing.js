@@ -697,4 +697,29 @@ app.patch('/user/update-tour-preparation', async (req, res) => {
         });
     }
 });
+
+/**
+ * @name sendTourFeedbacks
+ * @param {tourId}
+ * @param {newFeedback}
+ * @author Thong
+ */
+app.patch('/user/send-tour-feedback', async (req, res) => {
+    try {
+        const id = req.query.tourId;
+        const newFeedback = Object.assign(req.body, { time: new Date() });
+        await Tour.updateOne({ _id: id }, { $push: { 'feedbacks': newFeedback } })
+        console.log('Send tour feedback successful')
+        res.json({
+            message: 'Success',
+            statusCode: 200
+        });
+    } catch (error) {
+        console.log('Send tour feedback failed')
+        res.json({
+            message: error.message,
+            statusCode: 500
+        });
+    }
+});
 // Routing - END
