@@ -5,25 +5,25 @@ import { ServerService } from './server.service';
 @Injectable({
   providedIn: 'root'
 })
-export class TourguideService {
+export class MembersService {
 
-  dicTourguide: Dictionary = new Dictionary();
-  dicTourguideAvatar: Dictionary = new Dictionary();
+  dicMemberName: Dictionary = new Dictionary();
+  dicMemberAvatar: Dictionary = new Dictionary();
 
   constructor(private server: ServerService) {
-    this.dicTourguide = new Dictionary();
-    this.dicTourguideAvatar = new Dictionary();
+    this.dicMemberName = new Dictionary();
+    this.dicMemberAvatar = new Dictionary();
   }
 
-  getTourguideName(tourguideId: string) {
-    let tourguideName = this.dicTourguide.getValue(tourguideId);
+  getMemberName(tourguideId: string) {
+    let tourguideName = this.dicMemberName.getValue(tourguideId);
     if (tourguideName !== null) {
       return tourguideName;
     } else {
       this.server.getUserBasicInfo(tourguideId).subscribe(res => {
         if (res.data) {
           tourguideName = res.data.lastName !== '' ? res.data.firstName + ' ' + res.data.lastName : res.data.firstName;
-          this.dicTourguide.add(tourguideId, tourguideName);
+          this.dicMemberName.add(tourguideId, tourguideName);
           return tourguideName;
         }
       });
@@ -33,15 +33,15 @@ export class TourguideService {
     }
   }
 
-  getTourguideAvatar(tourguideId: string) {
-    let tourguideAvatar = this.dicTourguideAvatar.getValue(tourguideId);
+  getMemberAvatar(tourguideId: string) {
+    let tourguideAvatar = this.dicMemberAvatar.getValue(tourguideId);
     if (tourguideAvatar !== null) {
       return tourguideAvatar;
     } else {
       this.server.getUserBasicInfo(tourguideId).subscribe(res => {
         if (res.data) {
           tourguideAvatar = res.data.avatar;
-          this.dicTourguideAvatar.add(tourguideId, tourguideAvatar);
+          this.dicMemberAvatar.add(tourguideId, tourguideAvatar);
           return tourguideAvatar;
         }
       });

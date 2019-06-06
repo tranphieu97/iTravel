@@ -16,7 +16,7 @@
     </div>
     <div class="flex-row" style="color: grey; font-size: 13px; font-weight: 600;" appOneTimeBinding>
         {{tourModel.creationTime | date:'MMM dd, yyyy, HH:mm'}} -
-        {{tourguideService.getTourguideName(tourModel.createdBy) | titlecase}}
+        {{membersService.getMemberName(tourModel.createdBy) | titlecase}}
     </div>
     <div class="flex-row flex-items-center">
         <div class="tour-location" *ngFor="let locationId of tourModel.locationIds">
@@ -171,11 +171,11 @@
                     {{compLanguage.tourguide}}
                 </label>
                 <div class="row-input">
-                    <img appOneTimeBinding [src]="tourguideService.getTourguideAvatar(tourModel.tourGuideId)"
+                    <img appOneTimeBinding [src]="membersService.getMemberAvatar(tourModel.tourGuideId)"
                         class="default-avatar" style="margin: 0 5px;"
-                        *ngIf="tourguideService.getTourguideAvatar(tourModel.tourGuideId)">
+                        *ngIf="membersService.getMemberAvatar(tourModel.tourGuideId)">
                     <span class="bold" appOneTimeBinding>
-                        {{tourguideService.getTourguideName(tourModel.tourGuideId) | titlecase}}
+                        {{membersService.getMemberName(tourModel.tourGuideId) | titlecase}}
                     </span>
                 </div>
             </div>

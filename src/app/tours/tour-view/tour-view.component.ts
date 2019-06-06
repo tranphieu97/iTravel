@@ -4,8 +4,8 @@ import { ServerService } from 'src/app/core/services/server.service';
 import { LanguageService } from 'src/app/core/services/language.service';
 import { ConstTourStatus } from 'src/app/constants';
 import { TourService } from 'src/app/core/services/tour.service';
-import { TourguideService } from 'src/app/core/services/tourguide.service';
 import { CardViewPost } from 'src/app/model/cardViewPost.model';
+import { MembersService } from 'src/app/core/services/members.service';
 
 @Component({
   selector: 'app-tour-view',
@@ -33,7 +33,7 @@ export class TourViewComponent implements OnInit {
   };
 
   constructor(private server: ServerService, public language: LanguageService, public tourService: TourService,
-    public tourguideService: TourguideService) { }
+    public membersService: MembersService) { }
 
   compLanguage;
   commonLanguage;
