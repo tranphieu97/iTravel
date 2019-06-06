@@ -159,8 +159,8 @@ app.patch('/tourguide/update-tour', async (req, res) => {
  */
 app.patch('/tourguide/remove-tour', async (req, res) => {
     try {
-        const id = req.param('tourId')
-        await Tour.updateOne({ _id: id }, { $set: { isActive: false } })
+        const id = req.query.tourId;
+        await Tour.updateOne({ _id: id }, { $set: { isActive: false } });
         res.status(200).json({
             message: 'Success!'
         });

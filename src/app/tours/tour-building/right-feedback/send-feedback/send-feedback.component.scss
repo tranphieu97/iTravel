@@ -1,0 +1,21 @@
+:host {
+  textarea {
+      width: 100%;
+      border: none;
+      padding-left: 10px;
+      border-right: 3px solid black;
+      font-size: 17px;
+      border-radius: 0.25rem;
+      background-color: lightgray;
+  }
+  .avatar {
+      height: 54px;
+      width: 54px;
+      background-size: cover;
+  }
+  button {
+      margin-top: 10px;
+      font-size: 17px;
+      font-weight: bold;
+  }
+}

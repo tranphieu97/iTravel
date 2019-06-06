@@ -1,0 +1,6 @@
+<div class="top-feedback-list">
+  <app-tour-feedback *ngIf="feedbacks.length" [feedbacks]="feedbacks">
+  </app-tour-feedback>
+  <div class="placeholder-text" *ngIf="!feedbacks.length">{{'Non feedback yet'}}</div>
+</div>
+<app-send-feedback [tourId]="tourId" [refetchTourFeedbacks]="refetchTourFeedbacks"></app-send-feedback>

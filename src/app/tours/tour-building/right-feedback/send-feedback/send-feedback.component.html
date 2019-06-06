@@ -1,0 +1,22 @@
+<div *ngIf="isLogin" class="row">
+  <div class="col-12">
+    <!-- avatar and textarea -->
+    <div class="row m-0">
+      <div class="rounded-circle avatar"
+        [ngStyle]="{'background-image': 'url(' + authorAvatar + ')'}">
+      </div>
+      <div class="col pr-0">
+        <textarea #feedbackContent rows="4" maxlength="500"></textarea>
+      </div>
+    </div>
+    <!-- send button -->
+    <div class="row">
+      <div class="col-12">
+        <div class="text-right">
+          <button class="btn btn-success"
+            (click)="onSendTourFeedback(feedbackContent)">Send feedback</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
