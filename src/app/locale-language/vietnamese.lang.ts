@@ -477,5 +477,12 @@ export const LangVietnamese: Language = {
     updateProfile: 'Cập nhật thông tin',
     updateSuccess: 'Cập nhật thành công!',
     uploadAvatar: 'Tải lên ảnh đại diện'
+  },
+
+  compTourView: {
+    tourNotPending: 'Tour hiện tại không có trạng thái đóng góp',
+    days: 'ngày',
+    feedbackWillCloseOn: 'Phản hồi sẽ đóng vào: ',
+    schedule: 'Lịch trình'
   }
 };

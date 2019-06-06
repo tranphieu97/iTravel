@@ -485,5 +485,12 @@ export const LangEnglish: Language = {
     updateProfile: 'Update Profile',
     updateSuccess: 'Update Success!',
     uploadAvatar: 'Upload Avatar'
+  },
+
+  compTourView: {
+    tourNotPending: 'This tour is not in building state',
+    days: 'days',
+    feedbackWillCloseOn: 'Feedback will close on: ',
+    schedule: 'Schedule'
   }
 };

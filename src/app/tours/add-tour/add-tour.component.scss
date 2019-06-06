@@ -137,15 +137,15 @@
         font-weight: 700;
         color: $RED;
         font-size: 25px;
-        text-align: center;
+        text-align: left;
         width: 100%;
       }
 
       .picture-caption {
         position: absolute;
-        top: 40%;
+        bottom: 0px;
         background-color: rgba(255, 255, 255, 0.5);
-        padding: 10px 0;
+        padding: 10px;
       }
     }
 
