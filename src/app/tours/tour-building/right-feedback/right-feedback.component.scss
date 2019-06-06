@@ -1,20 +1,18 @@
 :host {
   display: flex;
   flex-direction: column;
-  height: 100%;
 
-  .top-feedback-list {
-    display: flex;
-    flex: 1 0 auto;
-    margin: 0 -10px;
-    overflow-y: scroll;
-    .placeholder-text {
-      text-align: center;
-      width: 100%;
-      font-size: 24px;
-      color: gray;
-      font-style: italic;
-      font-weight: 600;
-    }
+  .max-space {
+    position: unset;
+    margin-bottom: 10px;
+  }
+
+  .placeholder-text {
+    text-align: center;
+    width: 100%;
+    font-size: 24px;
+    color: gray;
+    font-style: italic;
+    font-weight: 600;
   }
 }

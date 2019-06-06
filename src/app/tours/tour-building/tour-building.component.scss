@@ -8,4 +8,8 @@
     flex-direction: row;
     justify-content: stretch;
     flex-wrap: wrap;
+
+    .right{
+        display: flex;
+    }
 }
