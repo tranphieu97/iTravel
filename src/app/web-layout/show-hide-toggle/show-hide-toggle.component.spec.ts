@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TourViewComponent } from './tour-view.component';
+import { ShowHideToggleComponent } from './show-hide-toggle.component';
 
-describe('TourViewComponent', () => {
-  let component: TourViewComponent;
-  let fixture: ComponentFixture<TourViewComponent>;
+describe('ShowHideToggleComponent', () => {
+  let component: ShowHideToggleComponent;
+  let fixture: ComponentFixture<ShowHideToggleComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TourViewComponent ]
+      declarations: [ ShowHideToggleComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TourViewComponent);
+    fixture = TestBed.createComponent(ShowHideToggleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

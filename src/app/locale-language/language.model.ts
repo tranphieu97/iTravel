@@ -500,6 +500,11 @@ export class Language {
     amount: string;
     allMembers: string;
     perform: string;
+    specifiedPerformer: string;
+    contact: string;
+    tourguide: string;
+    tourguideContact: string;
+    relatedPost: string;
   };
 
   constructor() { }

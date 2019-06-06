@@ -498,6 +498,11 @@ export const LangVietnamese: Language = {
     itemName: 'Tên vật dụng',
     amount: 'Số lượng',
     perform: 'Phụ trách',
-    allMembers: 'Tất cả chuẩn bị'
+    allMembers: 'Tất cả chuẩn bị',
+    specifiedPerformer: 'Được chuẩn bị',
+    contact: 'Liên hệ',
+    tourguide: 'Dẫn đoàn',
+    tourguideContact: 'Liên hệ',
+    relatedPost: 'Những bài viết liên quan'
   }
 };

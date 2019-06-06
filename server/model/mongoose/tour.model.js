@@ -46,6 +46,7 @@ const tourSchema = new Schema({
         deadline: Date,
         note: String,
         isActive: Boolean,
+        isRequired: Boolean,
     }],
     feedbacks: [{
         from: String,

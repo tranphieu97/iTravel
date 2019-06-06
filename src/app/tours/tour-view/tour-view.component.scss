@@ -87,9 +87,10 @@
 
     .tour-data {
       margin-top: 10px;
+      border-top: 1px solid $SECONDARY;
 
-      .flex-row {
-        margin-left: 40px;
+      .content {
+        margin-left: 45px;
       }
 
       .row-label,
@@ -111,6 +112,31 @@
         position: unset;
         width: 100% !important;
         opacity: 0.85;
+      }
+    }
+
+    .preparation-table {
+      th, td {
+        text-align: center;
+        vertical-align: middle;
+        font-size: 15px;
+
+        .perform {
+          font-size: 15px;
+
+          i {
+            font-size: 16px;
+            margin: 0 5px;
+          }
+        }
+      }
+    }
+
+    .related-post {
+      app-card-view-post {
+        flex: 1;
+        min-width: 250px;
+        max-width: 50%;
       }
     }
   }

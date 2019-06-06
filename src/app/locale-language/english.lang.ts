@@ -506,6 +506,11 @@ export const LangEnglish: Language = {
     itemName: 'Item Name',
     allMembers: 'All Member',
     amount: 'Amount',
-    perform: 'Perform'
+    perform: 'Perform',
+    specifiedPerformer: 'Specified Performer',
+    contact: 'Contact',
+    tourguide: 'Tourguide',
+    tourguideContact: 'Contact',
+    relatedPost: 'Related Posts'
   }
 };

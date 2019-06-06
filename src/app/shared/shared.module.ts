@@ -12,6 +12,7 @@ import { HorizontalCardViewPostComponent } from '../card-view-style/horizontal-c
 import { CardViewPostComponent } from '../card-view-style/card-view-post/card-view-post.component';
 import { LoadingComponent } from '../web-layout/loading/loading.component';
 import { HeadingComponent } from '../web-layout/heading/heading.component';
+import { ShowHideToggleComponent } from '../web-layout/show-hide-toggle/show-hide-toggle.component';
 
 @NgModule({
   imports: [
@@ -40,13 +41,15 @@ import { HeadingComponent } from '../web-layout/heading/heading.component';
     HorizontalCardViewPostComponent,
     CardViewPostComponent,
     LoadingComponent,
-    HeadingComponent
+    HeadingComponent,
+    ShowHideToggleComponent
   ],
   declarations: [
     HorizontalCardViewPostComponent,
     CardViewPostComponent,
     LoadingComponent,
-    HeadingComponent
+    HeadingComponent,
+    ShowHideToggleComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JWTInterceptor, multi: true }

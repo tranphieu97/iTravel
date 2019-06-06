@@ -15,6 +15,7 @@ import { UserModule } from './user/user.module';
 import { SharedModule } from './shared/shared.module';
 import { AuthLayoutComponent } from './web-layout/auth-layout/auth-layout.component';
 import { NotificationComponent } from './master-page/notification/notification.component';
+import { OneTimeBindingDirective } from './core/directives/one-time-binding.directive';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { NotificationComponent } from './master-page/notification/notification.c
     NavbarMenuComponent,
     HeaderComponent,
     AuthLayoutComponent,
-    NotificationComponent
+    NotificationComponent,
+    OneTimeBindingDirective,
   ],
   imports: [
     BrowserModule,
