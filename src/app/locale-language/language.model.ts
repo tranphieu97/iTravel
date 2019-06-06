@@ -480,5 +480,12 @@ export class Language {
     updateFail: string;
   };
 
-  constructor() {}
+  compTourView: {
+    tourNotPending: string;
+    days: string;
+    feedbackWillCloseOn: string;
+    schedule: string;
+  };
+
+  constructor() { }
 }
