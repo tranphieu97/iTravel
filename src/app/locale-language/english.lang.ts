@@ -512,5 +512,14 @@ export const LangEnglish: Language = {
     tourguide: 'Tourguide',
     tourguideContact: 'Contact',
     relatedPost: 'Related Posts'
+  },
+
+  compReviewerFeedback: {
+    review: 'Review',
+    approved: 'Approve',
+    denied: 'Deny',
+    pending: 'Pending',
+    requestChange: 'Request Change',
+    submitReview: 'Submit Review'
   }
 };

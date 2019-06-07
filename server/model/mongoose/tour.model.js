@@ -58,6 +58,11 @@ const tourSchema = new Schema({
         memberId: String,
         cost: Number,
         contactNumber: String,
+    }],
+    reviewers: [{
+        reviewerId: String,
+        state: String,
+        feedback: String
     }]
 })
 

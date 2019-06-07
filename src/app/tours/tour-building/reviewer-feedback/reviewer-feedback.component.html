@@ -1,0 +1,18 @@
+<form>
+  <div class="form-group">
+    <label class="form-">
+      {{compLanguage.review}}
+    </label>
+    <textarea name="feedback" [(ngModel)]="currentReview.feedback" class="form-control" rows="2" style="resize: none"
+      [placeholder]="commonLanguage.enter + compLanguage.review"></textarea>
+  </div>
+  <div class="flex-row">
+    <select class="form-control flex-1" name="state" [(ngModel)]="currentReview.state">
+      <option [value]="REVIEW_STATUS.PENDING">{{compLanguage.pending}}</option>
+      <option [value]="REVIEW_STATUS.APPROVED">{{compLanguage.approved}}</option>
+      <option [value]="REVIEW_STATUS.REQUESTED_CHANGE">{{compLanguage.requestChange}}</option>
+      <option [value]="REVIEW_STATUS.DENIED">{{compLanguage.denied}}</option>
+    </select>
+    <input type="submit" class="form-control btn-success" [value]="compLanguage.submitReview">
+  </div>
+</form>

@@ -1,8 +1,13 @@
 <div class="flex-3 border-box">
   <app-tour-view [tourId]="tourId"></app-tour-view>
 </div>
-<div class="flex-2 right border-box">
-  <!-- Add Comment component here -->
-  <!-- Input ['inputName']="tourId" -->
-  <app-right-feedback [tourId]="tourId"></app-right-feedback>
+<div class="flex-2 flex-col no-border-box">
+  <div class="border-box" style="margin-bottom: 5px">
+    <app-reviewer-feedback></app-reviewer-feedback>
+  </div>
+  <div class="flex-1 right border-box">
+    <!-- Add Comment component here -->
+    <!-- Input ['inputName']="tourId" -->
+    <app-right-feedback [tourId]="tourId"></app-right-feedback>
+  </div>
 </div>

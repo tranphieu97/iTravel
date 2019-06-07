@@ -507,5 +507,14 @@ export class Language {
     relatedPost: string;
   };
 
+  compReviewerFeedback: {
+    review: string;
+    pending: string;
+    approved: string;
+    requestChange: string;
+    denied: string;
+    submitReview: string;
+  };
+
   constructor() { }
 }

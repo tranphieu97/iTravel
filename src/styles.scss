@@ -90,6 +90,16 @@ body {
   }
 }
 
+.no-border-box {
+  margin: 10px;
+  max-height: calc(100vh - 90px);
+  background-color: transparent;
+
+  .border-box {
+    margin: 0px;
+  }
+}
+
 :host::-webkit-scrollbar {
   display: none;
   width: 0px;

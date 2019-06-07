@@ -1,0 +1,25 @@
+@import 'src/styles.scss';
+
+:host {
+    width: 100%;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+
+    label {
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    textarea, input, option, select {
+        font-size: 15px;
+    } 
+
+    input {
+        width: fit-content;
+        padding: 5px 10px;
+        margin-left: 5px;
+    }
+}

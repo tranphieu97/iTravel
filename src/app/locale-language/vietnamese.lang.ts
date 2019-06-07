@@ -504,5 +504,14 @@ export const LangVietnamese: Language = {
     tourguide: 'Dẫn đoàn',
     tourguideContact: 'Liên hệ',
     relatedPost: 'Những bài viết liên quan'
+  },
+
+  compReviewerFeedback: {
+    review: 'Đánh giá',
+    approved: 'Đã duyệt',
+    denied: 'Từ chối',
+    pending: 'Chờ đánh giá',
+    requestChange: 'Yêu cầu thay đổi',
+    submitReview: 'Gửi đánh giá'
   }
 };
