@@ -185,6 +185,10 @@ export const LangEnglish: Language = {
     postManagementErrorPostDenied: 'Post was denied before'
   },
 
+  pagePostView: { sendBtn: 'Send Comment' },
+
+  compTourBuilding: { sendBtn: 'Send Feedback' },
+
   // For Policies
   compPolicies: { policiesTitle: 'Using Policies' },
 

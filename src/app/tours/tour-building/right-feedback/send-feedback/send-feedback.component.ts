@@ -2,6 +2,7 @@ import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { UserService } from 'src/app/core/services/user.service';
 import { ServerService } from 'src/app/core/services/server.service';
 import { TourFeedback } from 'src/app/model/tour-feedback.model';
+import { LanguageService } from 'src/app/core/services/language.service';
 
 @Component({
   selector: 'app-send-feedback',
@@ -13,13 +14,20 @@ export class SendFeedbackComponent implements OnInit, AfterViewInit {
   @Input() refetchTourFeedbacks;
   authorAvatar = '';
   isLogin;
+  compLanguage;
 
   constructor(
     private userService: UserService,
-    private serverService: ServerService
+    private serverService: ServerService,
+    private languageService: LanguageService
   ) {}
 
   ngOnInit() {
+    this.compLanguage = this.languageService.currentLanguage.compTourBuilding;
+    this.languageService.hasChangeLanguage.subscribe(
+      () =>
+        (this.compLanguage = this.languageService.currentLanguage.compTourBuilding)
+    );
     this.getAuthorAvatar();
     this.isLogin = this.userService.isLogin;
   }

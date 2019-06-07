@@ -194,6 +194,14 @@ export class Language {
     homeTourCloseFeedback: string;
   };
 
+  pagePostView: {
+    sendBtn: string
+  };
+
+  compTourBuilding: {
+    sendBtn: string
+  };
+
   // For Create Post
   compCreatePost: {
     createPostTitle: string;
