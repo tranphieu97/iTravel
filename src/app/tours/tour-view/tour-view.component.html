@@ -43,7 +43,7 @@
     </div>
     <div class="flex-col tour-data" *ngIf="tourModel.status === TOUR_STATUS.PENDING">
         <div class="flex-row flex-justify-space-between flex-align-center">
-            <app-heading [title]="compLanguage.timeline"></app-heading>
+            <app-heading [title]="compLanguage.expected + ' ' + compLanguage.timeline"></app-heading>
             <app-show-hide-toggle [showFlag]="toggle.timeline" (click)="toggle.timeline = !toggle.timeline">
             </app-show-hide-toggle>
         </div>

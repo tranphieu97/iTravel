@@ -507,7 +507,8 @@ export const LangVietnamese: Language = {
     contact: 'Liên hệ',
     tourguide: 'Dẫn đoàn',
     tourguideContact: 'Liên hệ',
-    relatedPost: 'Những bài viết liên quan'
+    relatedPost: 'Những bài viết liên quan',
+    expected: 'Dự kiến'
   },
 
   compReviewerFeedback: {

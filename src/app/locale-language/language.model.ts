@@ -513,6 +513,7 @@ export class Language {
     tourguide: string;
     tourguideContact: string;
     relatedPost: string;
+    expected: string;
   };
 
   compReviewerFeedback: {

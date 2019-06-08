@@ -515,7 +515,8 @@ export const LangEnglish: Language = {
     contact: 'Contact',
     tourguide: 'Tourguide',
     tourguideContact: 'Contact',
-    relatedPost: 'Related Posts'
+    relatedPost: 'Related Posts',
+    expected: 'Expected'
   },
 
   compReviewerFeedback: {
