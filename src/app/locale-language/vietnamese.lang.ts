@@ -190,6 +190,10 @@ export const LangVietnamese: Language = {
     homeTourCloseFeedback: 'Đóng góp ý vào: '
   },
 
+  pagePostView: { sendBtn: 'Gửi bình luận' },
+
+  compTourBuilding: { sendBtn: 'Gửi góp ý' },
+
   // For Create Post
   compCreatePost: {
     createPostTitle: 'Tiêu đề:',
