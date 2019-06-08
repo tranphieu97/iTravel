@@ -30,6 +30,8 @@ export class Tour {
     public reviewers: TourReviewer[];
     public cover: string;
     public createdBy: string;
+    public registerFor: number;
+    public registerNote: string;
 
     constructor() {
         const constTour = new ConstTourStatus();
@@ -50,5 +52,7 @@ export class Tour {
         this.members = [];
         this.reviewers = [];
         this.createdBy = '';
+        this.registerFor = 0;
+        this.registerNote = '';
     }
 }

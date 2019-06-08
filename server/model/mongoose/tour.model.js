@@ -63,7 +63,9 @@ const tourSchema = new Schema({
         reviewerId: String,
         state: String,
         feedback: String
-    }]
+    }],
+    registerFor: Number,
+    registerNote: String
 })
 
 const Tour = model('Tour', tourSchema, 'Tours');
