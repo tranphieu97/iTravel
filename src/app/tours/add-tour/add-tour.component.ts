@@ -204,21 +204,20 @@ export class AddTourComponent implements OnInit {
             this.serverService.postLocation(formData.locationName, formData.provinceCity,
               formData.gps, formData.address, uploadRes.imageUrls[0])
               .subscribe((res) => {
-                this.isLoading = false;
-
                 if (res.statusCode === 201) {
                   this.addLocationMessage = this.compLanguage.addTourAddSuccess;
                   this.hasError = false;
 
-                  setTimeout(() => {
-                    try {
-                      this.modal.dismissAll();
-                    } catch { }
-                  }, 10000);
+                  try {
+                    this.modal.dismissAll();
+                  } catch { }
+                  this.getLocationsInSelectedProvinces();
                 } else {
                   this.addLocationMessage = this.compLanguage.addTourAddFail;
                   this.hasError = true;
                 }
+
+                this.isLoading = false;
               });
           } else {
             this.addLocationMessage = this.compLanguage.addTourAddFail;
@@ -311,8 +310,8 @@ export class AddTourComponent implements OnInit {
     reader.readAsDataURL(file);
     this.coverFile = file;
 
-    // reset the <input> file for the next time
-    (event.target as HTMLInputElement).value = '';
+    // // reset the <input> file for the next time
+    // (event.target as HTMLInputElement).value = '';
   }
 
   removeCover() {

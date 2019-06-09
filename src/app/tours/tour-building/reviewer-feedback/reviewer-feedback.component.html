@@ -3,16 +3,18 @@
     <label class="form-">
       {{compLanguage.review}}
     </label>
-    <textarea name="feedback" [(ngModel)]="currentReview.feedback" class="form-control" rows="2" style="resize: none"
-      [placeholder]="commonLanguage.enter + compLanguage.review"></textarea>
+    <app-loading *ngIf="isLoading"></app-loading>
+    <textarea *ngIf="!isLoading" name="feedback" [(ngModel)]="currentReview.feedback" class="form-control" rows="2"
+      style="resize: none" [placeholder]="commonLanguage.enter + compLanguage.review" [disabled]="isLoading"></textarea>
   </div>
   <div class="flex-row">
-    <select class="form-control flex-1" name="state" [(ngModel)]="currentReview.state">
+    <select class="form-control flex-1" name="state" [(ngModel)]="currentReview.state" [disabled]="isLoading">
       <option [value]="REVIEW_STATUS.PENDING">{{compLanguage.pending}}</option>
       <option [value]="REVIEW_STATUS.APPROVED">{{compLanguage.approved}}</option>
       <option [value]="REVIEW_STATUS.REQUESTED_CHANGE">{{compLanguage.requestChange}}</option>
       <option [value]="REVIEW_STATUS.DENIED">{{compLanguage.denied}}</option>
     </select>
-    <input type="submit" class="form-control btn-success" [value]="compLanguage.submitReview">
+    <input type="submit" class="form-control btn btn-success" [value]="compLanguage.submitReview" [disabled]="isLoading"
+      (click)="submitReview()">
   </div>
 </form>

@@ -1,11 +1,19 @@
 <div class="flex-3 border-box">
-  <app-tour-view [tourId]="tourId"></app-tour-view>
+  <div class="alert alert-danger" *ngIf="tourModel && tourModel.status !== TOUR_STATUS.PENDING">
+    {{compLanguage.notInFeedback}}
+  </div>
+  <app-tour-view [tourId]="tourId" *ngIf="tourModel && tourModel.status === TOUR_STATUS.PENDING"></app-tour-view>
 </div>
 <div class="flex-2 flex-col no-border-box">
-  <div class="border-box" style="margin-bottom: 5px">
-    <app-reviewer-feedback></app-reviewer-feedback>
+  <div class="border-box" style="margin-bottom: 5px"
+    *ngIf="tourModel && tourModel.createdBy === userId && tourModel.status === TOUR_STATUS.PENDING">
+    <app-tour-owner-control [tourId]="tourId" [reviewers]="tourModel.reviewers"></app-tour-owner-control>
   </div>
-  <div class="flex-1 right border-box">
+  <div class="border-box" style="margin-bottom: 5px"
+    *ngIf="tourModel && tourModel.status === TOUR_STATUS.PENDING && tourReviewerModel">
+    <app-reviewer-feedback [tourId]="tourId" [currentReview]="tourReviewerModel"></app-reviewer-feedback>
+  </div>
+  <div class="flex-1 right border-box" *ngIf="tourModel && tourModel.status === TOUR_STATUS.PENDING">
     <!-- Add Comment component here -->
     <!-- Input ['inputName']="tourId" -->
     <app-right-feedback [tourId]="tourId"></app-right-feedback>
