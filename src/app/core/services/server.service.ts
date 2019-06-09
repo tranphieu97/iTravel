@@ -426,6 +426,14 @@ export class ServerService {
       { headers: this.httpOptions.headers, params: listParams });
   }
 
+  updateTourMemberCost(tourId, memberItemId) {
+    const listParams = new HttpParams()
+      .set('tourId', tourId)
+      .set('memberItemId', memberItemId);
+    return this.http.patch<{ message: string }>(this.HOST + 'tourguide/update-member-cost', {},
+      { headers: this.httpOptions.headers, params: listParams });
+  }
+
   /**
    * Get user post by UserId
    * @name getPostByAuthorUser

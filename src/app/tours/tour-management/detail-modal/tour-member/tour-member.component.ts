@@ -3,6 +3,7 @@ import { Tour } from 'src/app/model/tour.model';
 import { ServerService } from 'src/app/core/services/server.service';
 import { TourMember } from 'src/app/model/tour-member.model';
 import { LanguageService } from 'src/app/core/services/language.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tour-member',
@@ -17,13 +18,18 @@ export class TourMemberComponent implements OnInit, AfterViewInit {
   }[];
   available = 0;
   compLanguage;
+  allowSeeUserPrivateInfo = ['/tours/manager'];
+  currentPath: string;
 
   constructor(
     private serverService: ServerService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private router: Router
   ) {}
 
   ngOnInit() {
+    this.currentPath = this.router.url;
+    // this.allowSeeFeedback.includes(this.currentPath);
     this.compLanguage = this.languageService.currentLanguage.compTourManagement;
     this.languageService.hasChangeLanguage.subscribe(
       () =>
@@ -46,5 +52,18 @@ export class TourMemberComponent implements OnInit, AfterViewInit {
           }
         });
     });
+  }
+
+  onCollectedMoney(memberItemId: string, index: number) {
+    if (!this.tourMemberInfo[index].tourInfo.cost) {
+      return;
+    }
+    this.serverService
+      .updateTourMemberCost(this.tourData._id, memberItemId)
+      .subscribe(res => {
+        if (res.message === 'Success') {
+          this.tourMemberInfo[index].tourInfo.cost = 0;
+        }
+      });
   }
 }

@@ -16,15 +16,23 @@
         <span class="name">
           <b>{{tourMemberInfo[i].basicInfo.firstName+' '+tourMemberInfo[i].basicInfo.lastName}}</b>
         </span>
-        <span><b>{{compLanguage.contact}}:</b>
+        <span
+          *ngIf="allowSeeUserPrivateInfo.includes(currentPath)">
+          <b>{{compLanguage.contact}}:</b>
           {{tourMemberInfo[i].tourInfo.contactNumber}}</span>
         <span
-          *ngIf="tourMemberInfo[i].tourInfo.memberId !== tourData.tourGuideId"><b>{{compLanguage.needToPay}}:</b>
+          *ngIf="allowSeeUserPrivateInfo.includes(currentPath) && tourMemberInfo[i].tourInfo.memberId !== tourData.tourGuideId"><b>{{compLanguage.needToPay}}:</b>
           {{tourMemberInfo[i].tourInfo.cost | currency:'VND'}}
         </span>
         <span class="tour-guide"
           *ngIf="tourMemberInfo[i].tourInfo.memberId === tourData.tourGuideId"><b>{{compLanguage.tourguide}}</b>
         </span>
+        <div
+          *ngIf="allowSeeUserPrivateInfo.includes(currentPath) && tourMemberInfo[i].tourInfo.memberId !== tourData.tourGuideId">
+          <span class="collect-status fas fa-hand-holding-usd"
+            [ngClass]="{collected: tourMemberInfo[i].tourInfo.cost===0}"
+            (click)="onCollectedMoney(tourMemberInfo[i].tourInfo._id, i)"></span>
+        </div>
       </div>
     </div>
   </div>

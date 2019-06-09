@@ -24,7 +24,6 @@ export class DetailModalComponent implements OnInit {
 
   ngOnInit() {
     this.currentPath = this.router.url;
-    this.allowSeeFeedback.includes(this.currentPath);
     this.compLanguage = this.languageService.currentLanguage.compTourManagement;
     this.languageService.hasChangeLanguage.subscribe(
       () =>
