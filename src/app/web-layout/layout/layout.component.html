@@ -23,10 +23,10 @@
                 <span [routerLink]="['/manager/permissions']" *ngIf="user.currentUser.isAdmin"
                     [ngbTooltip]="tipUserManagement" placement="left"><i class="fab fa-black-tie"></i></span>
             </div>
-            <div class="toolbar-part toolbar-tour">
-                <span [routerLink]="['/tours/add-tour']" *ngIf="user.currentUser.isTourguide" [ngbTooltip]="tipNewTour"
+            <div class="toolbar-part toolbar-tour" *ngIf="user.currentUser.isTourguide">
+                <span [routerLink]="['/tours/add-tour']" [ngbTooltip]="tipNewTour"
                     placement="left"><i class="fas fa-journal-whills"></i></span>
-                <span [routerLink]="['/tours/manager']" *ngIf="user.currentUser.isTourguide"
+                <span [routerLink]="['/tours/manager']"
                     [ngbTooltip]="tipTourManagement" placement="left"><i class="fas fa-route"></i></span>
             </div>
         </div>
