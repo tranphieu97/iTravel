@@ -199,7 +199,8 @@ export class Language {
   };
 
   compTourBuilding: {
-    sendBtn: string
+    sendBtn: string,
+    notInFeedback: string
   };
 
   // For Create Post
@@ -523,6 +524,18 @@ export class Language {
     requestChange: string;
     denied: string;
     submitReview: string;
+  };
+
+  compTourOwnerControl: {
+    complete: string;
+    delete: string;
+    edit: string;
+    pending: string;
+    approved: string;
+    requestChange: string;
+    denied: string;
+    deleteQuestion: string;
+    completeQuestion: string;
   };
 
   constructor() { }

@@ -6,7 +6,7 @@ const tourSchema = new Schema({
     locationIds: [String],
     registerCost: Number,
     description: String,
-    tourGuideId: Schema.Types.ObjectId,
+    tourGuideId: String,
     contactNumber: String,
     creationTime: Date,
     createdBy: String,
@@ -58,14 +58,14 @@ const tourSchema = new Schema({
         memberId: String,
         cost: Number,
         contactNumber: String,
+        registerFor: Number,
+        registerNote: String
     }],
     reviewers: [{
         reviewerId: String,
         state: String,
         feedback: String
     }],
-    registerFor: Number,
-    registerNote: String
 })
 
 const Tour = model('Tour', tourSchema, 'Tours');

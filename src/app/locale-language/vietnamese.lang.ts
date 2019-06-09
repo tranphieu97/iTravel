@@ -192,7 +192,10 @@ export const LangVietnamese: Language = {
 
   pagePostView: { sendBtn: 'Gửi bình luận' },
 
-  compTourBuilding: { sendBtn: 'Gửi góp ý' },
+  compTourBuilding: {
+    sendBtn: 'Gửi góp ý',
+    notInFeedback: 'Tour hiện không trong thời gian góp ý'
+  },
 
   // For Create Post
   compCreatePost: {
@@ -518,5 +521,17 @@ export const LangVietnamese: Language = {
     pending: 'Chờ đánh giá',
     requestChange: 'Yêu cầu thay đổi',
     submitReview: 'Gửi đánh giá'
+  },
+
+  compTourOwnerControl: {
+    complete: 'Hoàn thành',
+    delete: 'Xoá',
+    edit: 'Chỉnh sửa',
+    pending: 'Đang chờ',
+    approved: 'Đã duyệt',
+    requestChange: 'Đã yêu cầu thay đổi',
+    denied: 'Đã từ chối',
+    deleteQuestion: 'Bạn chắc chắn chứ? Hành động này không thể được khôi phục',
+    completeQuestion: 'Bạn chắc chắn chứ? Tour này sẽ không thể nhận thêm phản hồi'
   }
 };
