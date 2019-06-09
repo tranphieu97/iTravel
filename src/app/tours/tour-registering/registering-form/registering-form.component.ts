@@ -22,6 +22,8 @@ export class RegisteringFormComponent implements OnInit {
   public amountRegisterPeople: Number = 1;
   public registerNote: String = '';
 
+  public isLoading: Boolean = true;
+
   compLanguage;
   commonLanguage;
 
@@ -41,10 +43,12 @@ export class RegisteringFormComponent implements OnInit {
   }
 
   getRegisteredInfo() {
+    this.isLoading = true;
     this.server.getTourRegisteredInfo(this.tourId, this.userId).subscribe(res => {
       if (res.statusCode === 200) {
         this.registeredData = res.data;
         this.createRegisterForOption();
+        this.isLoading = false;
       }
     });
   }
