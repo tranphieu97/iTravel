@@ -1,3 +1,4 @@
+@import 'src/styles.scss';
 :host {
   display: flex;
   flex-direction: column;
@@ -41,6 +42,14 @@
           }
           .tour-guide {
             color: rgb(179, 0, 179);
+          }
+          .collect-status {
+            color: $DANGER;
+            cursor: pointer;
+          }
+          .collected {
+            color: $SUCCESS;
+            cursor: default;
           }
         }
       }

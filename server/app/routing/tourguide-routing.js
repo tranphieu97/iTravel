@@ -153,6 +153,33 @@ app.patch('/tourguide/update-tour', async (req, res) => {
 });
 
 /**
+ * @name updateTourMemberCost
+ * @param {tourId}
+ * @param {memberItemId}
+ * @author Thong
+ */
+app.patch('/tourguide/update-member-cost', async (req, res) => {
+    try {
+        const tourId = req.query.tourId;
+        const memberItemId = req.query.memberItemId;
+        await Tour.updateOne({
+            '_id': tourId,
+            'members._id': memberItemId
+        }, { $set: { 'members.$.cost': 0 } });
+        console.log('update-member-cost successful');
+        res.status(200).json({
+            message: 'Success'
+        });
+    } catch (error) {
+        console.log('update-member-cost failed');
+        console.log(error.message);
+        res.status(200).json({
+            message: 'Fail'
+        });
+    }
+});
+
+/**
  * @name removeTour
  * @param {Tour}
  * @author Thong
