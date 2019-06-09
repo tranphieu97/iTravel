@@ -1,7 +1,9 @@
-<div class="cover">
-  <img [src]="tourCardViewModel.cover">
+<div class="flex-col flex-items-center flex-2">
+  <div class="cover">
+    <img [src]="tourCardViewModel.cover">
+  </div>
 </div>
-<div class="flex-1 flex-col summary">
+<div class="flex-1 flex-col summary flex-6">
   <h1>{{tourCardViewModel.tourName}}</h1>
   <div class="flex-row">
     <i class="far fa-calendar-alt" style="font-size: 16px; color: gray; margin: auto 3px"></i>
@@ -23,9 +25,15 @@
       {{tourService.getLocationName(locationId) | titlecase}}
     </div>
   </div>
+  <div class="flex-row">
+    <p class="description">{{tourCardViewModel.description}}</p>
+  </div>
 </div>
 <div class="sub-info flex-col flex-items-center">
   <span class="cost">
     {{tourCardViewModel.registerCost | currency:'VND'}}
+  </span>
+  <span class="cost" style="font-size: 14px">
+    {{compLanguage.VNDPerPerson}}
   </span>
 </div>

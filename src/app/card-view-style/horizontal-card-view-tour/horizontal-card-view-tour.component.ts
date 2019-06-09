@@ -19,7 +19,7 @@ export class HorizontalCardViewTourComponent implements OnInit {
   constructor(private router: Router, public tourService: TourService, private language: LanguageService) { }
 
   @HostListener('click') onclick() {
-    // router here
+    this.router.navigate(['/tours/registering/', this.tourCardViewModel._id]);
   }
 
   ngOnInit() {

@@ -35,7 +35,7 @@
     }
 
     .tour-location {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 600;
       margin: 5px;
 
@@ -43,7 +43,7 @@
         color: red;
 
         i {
-          font-size: 15px;
+          font-size: 14px;
         }
       }
     }
@@ -53,6 +53,13 @@
         font-weight: 600;
         margin-right: 5px;
         color: orangered;
+    }
+
+    .description {
+      text-align: justify;
+      max-height: 40px;
+      overflow: hidden;
+      margin: 0;
     }
   }
 
@@ -74,6 +81,8 @@
 :host:hover {
   background-color: $SECONDARY;
   border-bottom: 1px solid $GRAY;
+  border-top: 1px solid $GRAY;
+
 
   .summary {
 
