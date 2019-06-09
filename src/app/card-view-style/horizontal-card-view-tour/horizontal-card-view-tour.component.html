@@ -1,0 +1,31 @@
+<div class="cover">
+  <img [src]="tourCardViewModel.cover">
+</div>
+<div class="flex-1 flex-col summary">
+  <h1>{{tourCardViewModel.tourName}}</h1>
+  <div class="flex-row">
+    <i class="far fa-calendar-alt" style="font-size: 16px; color: gray; margin: auto 3px"></i>
+    <span class="time">
+      {{tourCardViewModel.beginTime | date:'dd/MM/yyyy'}}
+    </span>
+    <span class="time">-</span>
+    <span class="time">
+      {{tourCardViewModel.endTime | date:'dd/MM/yyyy'}}
+    </span>
+  </div>
+  <div class="flex-row">
+    <i class="fas fa-atom" style="font-size: 16px; color: gray; margin: auto 3px"></i>
+    <span class="time">{{tourCardViewModel.durationTime}} {{compLanguage.days}}</span>
+  </div>
+  <div class="flex-row">
+    <div class="tour-location" *ngFor="let locationId of tourCardViewModel.locationIds">
+      <span appOneTimeBinding><i class="fas fa-map-marker-alt"></i></span>
+      {{tourService.getLocationName(locationId) | titlecase}}
+    </div>
+  </div>
+</div>
+<div class="sub-info flex-col flex-items-center">
+  <span class="cost">
+    {{tourCardViewModel.registerCost | currency:'VND'}}
+  </span>
+</div>

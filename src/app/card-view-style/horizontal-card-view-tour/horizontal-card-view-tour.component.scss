@@ -1,0 +1,88 @@
+@import "src/styles.scss";
+
+:host {
+  width: 100%;
+  height: fit-content;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+
+  border-bottom: 1px solid $SECONDARY;
+
+  cursor: pointer;
+
+  .cover {
+    max-width: 200px;
+    height: fit-content;
+    display: block;
+    padding: 3px;
+    border: 1px solid $SECONDARY;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .summary {
+      padding: 5px;
+
+    h1 {
+        font-size: 18px;
+        font-weight: 700;
+        margin: 3px 0;
+    }
+
+    .tour-location {
+      font-size: 15px;
+      font-weight: 600;
+      margin: 5px;
+
+      span {
+        color: red;
+
+        i {
+          font-size: 15px;
+        }
+      }
+    }
+
+    .time {
+        font-size: 15px;
+        font-weight: 600;
+        margin-right: 5px;
+        color: orangered;
+    }
+  }
+
+  .sub-info {
+    width: 120px;
+    border-left: 1px solid $SECONDARY;
+    border-right: 1px solid $SECONDARY;
+    padding: 5px;
+
+    .cost {
+        font-size: 16px;
+        color: green;
+        font-weight: 600;
+        text-align: center;
+    }
+  }
+}
+
+:host:hover {
+  background-color: $SECONDARY;
+  border-bottom: 1px solid $GRAY;
+
+  .summary {
+
+    h1 {
+        color: blue;
+    }
+  }
+  .sub-info {
+    border-left: 1px solid $GRAY;
+    border-right: 1px solid $GRAY;
+  }
+}

@@ -887,7 +887,7 @@ app.get('/api/get-tour', async (req, res) => {
 app.get('/api/get-tour-feedbacks', async (req, res) => {
     try {
         const tourId = req.query.tourId;
-        const tour = await Tour.findById(tourId, 'feedbacks', () => {})
+        const tour = await Tour.findById(tourId, 'feedbacks', () => { })
         res.status(200).json({
             data: tour.feedbacks,
             message: 'Success!'
@@ -903,7 +903,7 @@ app.get('/api/get-tour-feedbacks', async (req, res) => {
 app.get('/api/tours', async (req, res) => {
     try {
         const tours = await Tour.find({ 'isActive': true },
-            '_id tourName registerCost locationIds beginTime endTime cover status closeFeedbackTime', () => { });
+            '_id tourName registerCost locationIds beginTime endTime cover status closeFeedbackTime closeRegisterTime durationTime', () => { });
         res.status(200).json({
             data: tours,
             statusCode: 200
@@ -951,6 +951,9 @@ app.get('/api/post-related-location', async (req, res) => {
                         $elemMatch: {
                             $in: provinces
                         }
+                    },
+                    'status': {
+                        $eq: config.POST_STATUS.APPROVED
                     }
                 };
                 const postProjection = {

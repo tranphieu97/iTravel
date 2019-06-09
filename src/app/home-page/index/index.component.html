@@ -26,8 +26,8 @@
             <h4>{{compLanguage.homeTourAvailable}}</h4>
         </div>
         <app-loading *ngIf="isLoadingTour"></app-loading>
-        <div class="flex-1" *ngIf="!isLoadingTour">
-
+        <div class="flex-1" *ngIf="!isLoadingTour" >
+            <app-horizontal-card-view-tour *ngFor="let tour of arrPendingTour" [tourCardViewModel]="tour"></app-horizontal-card-view-tour>
         </div>
     </div>
     <div class="border-box flex-1 flex-col" style="margin-left: 5px; margin-top: 0px;">

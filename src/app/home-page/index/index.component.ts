@@ -6,6 +6,8 @@ import { LanguageService } from '../../core/services/language.service';
 import { ConstantService } from '../../core/services/constant.service';
 import { ConstTourStatus } from 'src/app/constants';
 import { Router } from '@angular/router';
+import { Tour } from 'src/app/model/tour.model';
+import { CardViewTour } from 'src/app/model/card-view-tour.model';
 
 @Component({
   selector: 'app-index',
@@ -20,8 +22,8 @@ export class IndexComponent implements OnInit {
   isLoadingPost: Boolean = true;
   isLoadingTour: Boolean = true;
 
-  arrPendingTour: Array<any> = [];
-  arrRegisteringTour: Array<any> = [];
+  arrPendingTour: Array<CardViewTour> = [];
+  arrRegisteringTour: Array<CardViewTour> = [];
 
   compLanguage;
   commonLanguage;
@@ -91,8 +93,10 @@ export class IndexComponent implements OnInit {
     this.isLoadingTour = true;
     this.server.getToursCardInfo().subscribe(res => {
       if (res.statusCode === 200) {
-        this.arrPendingTour = res.data.filter(tour => tour.status === this.TOUR_STATUS.PENDING);
-        this.arrRegisteringTour = res.data.filter(tour => tour.status === this.TOUR_STATUS.REGISTERING);
+        this.arrPendingTour = res.data
+          .filter(tour => tour.status === this.TOUR_STATUS.PENDING && new Date(tour.closeFeedbackTime) >= new Date());
+        this.arrRegisteringTour = res.data
+          .filter(tour => tour.status === this.TOUR_STATUS.REGISTERING && new Date(tour.closeRegisterTime) >= new Date());
 
         this.arrPendingTour.sort((tour1, tour2) => {
           return new Date(tour1.closeFeedbackTime).valueOf() - new Date(tour2.closeFeedbackTime).valueOf();

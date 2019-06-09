@@ -21,6 +21,7 @@ import { Notification } from 'src/app/model/notification.model';
 import { NotificationItem } from 'src/app/model/notification-item.model';
 import { Tour } from 'src/app/model/tour.model';
 import { TourFeedback } from 'src/app/model/tour-feedback.model';
+import { TourReviewer } from 'src/app/model/tour-reviewer.model';
 
 @Injectable({
   providedIn: 'root'
@@ -568,5 +569,36 @@ export class ServerService {
     };
 
     return this.http.get<{ statusCode: number, data: any[] }>(this.HOST + 'api/post-related-location', { params: params });
+  }
+
+  submitReviewerFeedback(tourId: string, reviewerFeedback: TourReviewer, submiterId: string):
+    Observable<{ statusCode: number, message: string }> {
+    const updateBody = {
+      tourId: tourId,
+      _id: reviewerFeedback._id,
+      state: reviewerFeedback.state,
+      feedback: reviewerFeedback.feedback,
+      reviewerId: reviewerFeedback.reviewerId,
+      submiterId: submiterId
+    };
+
+    return this.http.patch<{ statusCode: number, message: string }>(this.HOST + 'user/reviewer-feedback', updateBody);
+  }
+
+  deleteOwnTour(tourId: string, userDeleteId: string): Observable<{ statusCode: number }> {
+    const updateBody = {
+      '_id': tourId,
+      'deleteBy': userDeleteId
+    };
+    return this.http.patch<{ statusCode: number }>(this.HOST + 'tourguide/delete-own-tour', updateBody);
+  }
+
+  updateTourStatus(tourId: string, status: string): Observable<{ statusCode: number }> {
+    const updateBody = {
+      _id: tourId,
+      status: status
+    };
+
+    return this.http.patch<{ statusCode: number }>(this.HOST + 'tourguide/update-tour-status', updateBody);
   }
 }
