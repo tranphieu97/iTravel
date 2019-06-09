@@ -1,0 +1,9 @@
+<div class="flex-3 border-box">
+  <!-- <div class="alert alert-danger" *ngIf="tourModel && tourModel.status !== TOUR_STATUS.PENDING">
+    {{compLanguage.notInFeedback}}
+  </div> -->
+  <app-tour-view [tourId]="tourId"></app-tour-view>
+</div>
+<div class="flex-1 border-box">
+  <app-registering-form [tourId]="tourId"></app-registering-form>
+</div>

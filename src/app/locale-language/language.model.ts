@@ -538,5 +538,17 @@ export class Language {
     completeQuestion: string;
   };
 
+  compTourRegistering: {
+    perPerson: string;
+    register: string;
+    registerFor: string;
+    person: string;
+    relativesNote: string;
+    total: string;
+    slotAvailable: string;
+    fullSlot: string;
+    requiredRelativesInfo: string;
+  };
+
   constructor() { }
 }

@@ -587,8 +587,8 @@ export class ServerService {
 
   deleteOwnTour(tourId: string, userDeleteId: string): Observable<{ statusCode: number }> {
     const updateBody = {
-      '_id': tourId,
-      'deleteBy': userDeleteId
+      _id: tourId,
+      deleteBy: userDeleteId
     };
     return this.http.patch<{ statusCode: number }>(this.HOST + 'tourguide/delete-own-tour', updateBody);
   }
@@ -600,5 +600,14 @@ export class ServerService {
     };
 
     return this.http.patch<{ statusCode: number }>(this.HOST + 'tourguide/update-tour-status', updateBody);
+  }
+
+  getTourRegisteredInfo(tourId: string, userId: string): Observable<{statusCode: number, data: any}> {
+    const params = {
+      _id: tourId,
+      userId: userId
+    };
+
+    return this.http.get<{statusCode: number, data: any}>(this.HOST + 'api/tour-registerd-info', {params: params});
   }
 }

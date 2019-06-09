@@ -541,5 +541,17 @@ export const LangEnglish: Language = {
     denied: 'Denied',
     deleteQuestion: 'Are you sure? This action can not been restore',
     completeQuestion: 'Are you sure? This tour can not reviced feedback after'
+  },
+
+  compTourRegistering: {
+    perPerson: 'VND/person',
+    register: 'Register',
+    registerFor: 'Register for',
+    person: 'person',
+    relativesNote: 'Relatives Note',
+    total: 'Total',
+    slotAvailable: 'slots available',
+    fullSlot: 'Full slot, See you in the next tour!',
+    requiredRelativesInfo: 'How many children, teenager, old person in your register?'
   }
 };

@@ -6,7 +6,7 @@
 </div>
 <div class="flex-2 flex-col no-border-box">
   <div class="border-box" style="margin-bottom: 5px"
-    *ngIf="tourModel && tourModel.createdBy === userId && tourModel.status === TOUR_STATUS.PENDING">
+    *ngIf="tourModel && userId && tourModel.createdBy === userId && tourModel.status === TOUR_STATUS.PENDING">
     <app-tour-owner-control [tourId]="tourId" [reviewers]="tourModel.reviewers"></app-tour-owner-control>
   </div>
   <div class="border-box" style="margin-bottom: 5px"

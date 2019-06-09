@@ -533,5 +533,17 @@ export const LangVietnamese: Language = {
     denied: 'Đã từ chối',
     deleteQuestion: 'Bạn chắc chắn chứ? Hành động này không thể được khôi phục',
     completeQuestion: 'Bạn chắc chắn chứ? Tour này sẽ không thể nhận thêm phản hồi'
+  },
+
+  compTourRegistering: {
+    perPerson: 'VND/người',
+    register: 'Đăng ký',
+    registerFor: 'Đăng ký cho',
+    person: 'người',
+    relativesNote: 'Thông tin người thân',
+    total: 'Tổng cộng',
+    fullSlot: 'Tour đã hết chổ, hẹn gặp bạn trong tour tiếp theo!',
+    slotAvailable: 'chổ còn trống',
+    requiredRelativesInfo: 'Số lượng trẻ em, thanh niên và người già trong mẫu đăng ký?'
   }
 };

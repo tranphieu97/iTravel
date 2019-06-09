@@ -903,7 +903,7 @@ app.get('/api/get-tour-feedbacks', async (req, res) => {
 app.get('/api/tours', async (req, res) => {
     try {
         const tours = await Tour.find({ 'isActive': true },
-            '_id tourName registerCost locationIds beginTime endTime cover status closeFeedbackTime closeRegisterTime durationTime', () => { });
+            '_id tourName description registerCost locationIds beginTime endTime cover status closeFeedbackTime closeRegisterTime durationTime', () => { });
         res.status(200).json({
             data: tours,
             statusCode: 200
@@ -999,6 +999,55 @@ app.get('/api/post-related-location', async (req, res) => {
         res.status(200).json({
             statusCode: 404,
             data: []
+        });
+    }
+});
+
+app.get('/api/tour-registerd-info/', async (req, res) => {
+    const tourId = req.query._id;
+    const userId = req.query.userId;
+    try {
+        if (tourId) {
+            await Tour.findById(new ObjectId(tourId), "_id members registerCost memberLimit closeRegisterTime", (err, data) => {
+                if (err) {
+                    res.status(200).json({
+                        statusCode: 404,
+                        data: null
+                    });
+                } else {
+                    let isRegisterd = false;
+                    if (userId) {
+                        const existData = data.members.findIndex(x => x.memberId === userId);
+                        if (existData && (existData.length > 0 || existData > -1)) {
+                            isRegisterd = true;
+                        }
+                    }
+                    
+                    const returnData = {
+                        registerCost: data.registerCost,
+                        memberLimit: data.memberLimit,
+                        closeRegisterTime: data.closeRegisterTime,
+                        isRegisterd: isRegisterd,
+                        isFullslot: data.members.length === data.memberLimit ? true : false,
+                        currentMember: data.members.length
+                    };
+
+                    res.status(200).json({
+                        statusCode: 200,
+                        data: returnData
+                    });
+                }
+            });
+        } else {
+            res.status(200).json({
+                statusCode: 404,
+                data: null
+            });
+        }
+    } catch {
+        res.status(200).json({
+            statusCode: 404,
+            data: null
         });
     }
 });
