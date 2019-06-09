@@ -24,9 +24,9 @@
                     [ngbTooltip]="tipUserManagement" placement="left"><i class="fab fa-black-tie"></i></span>
             </div>
             <div class="toolbar-part toolbar-tour">
-                <span [routerLink]="['/tours/add-tour']" *ngIf="user.currentUser.isAdmin" [ngbTooltip]="tipNewTour"
+                <span [routerLink]="['/tours/add-tour']" *ngIf="user.currentUser.isTourguide" [ngbTooltip]="tipNewTour"
                     placement="left"><i class="fas fa-journal-whills"></i></span>
-                <span [routerLink]="['/tours/manager']" *ngIf="user.currentUser.isAdmin"
+                <span [routerLink]="['/tours/manager']" *ngIf="user.currentUser.isTourguide"
                     [ngbTooltip]="tipTourManagement" placement="left"><i class="fas fa-route"></i></span>
             </div>
         </div>
