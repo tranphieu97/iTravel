@@ -864,7 +864,6 @@ app.get('/api/get-tour', async (req, res) => {
     try {
         const tourId = req.query.tourId;
         // Phieu - MOD Start
-        // const tour = await Tour.findById(tourId, '-preparations -members', () => {})
         const tour = await Tour.findById(tourId, ' -members', () => { });
         // Phieu - MOD End
         res.status(200).json({
