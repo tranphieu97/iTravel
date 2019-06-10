@@ -19,7 +19,8 @@ const iTravelDB = {
     SignInHistory: 'SignInHistory',
     Policies: 'Policies',
     Notifications: 'Notifications',
-    Log_PermissionManagement: 'Log_PermissionManagement'
+    Log_PermissionManagement: 'Log_PermissionManagement',
+    Tours: 'Tours'
 }
 
 exports.iTravelDB = iTravelDB;

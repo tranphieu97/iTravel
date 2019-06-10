@@ -19,6 +19,9 @@ import { RightFeedbackComponent } from './tour-building/right-feedback/right-fee
 import { SendFeedbackComponent } from './tour-building/right-feedback/send-feedback/send-feedback.component';
 import { TourViewComponent } from './tour-view/tour-view.component';
 import { ReviewerFeedbackComponent } from './tour-building/reviewer-feedback/reviewer-feedback.component';
+import { TourOwnerControlComponent } from './tour-building/tour-owner-control/tour-owner-control.component';
+import { TourRegisteringComponent } from './tour-registering/tour-registering.component';
+import { RegisteringFormComponent } from './tour-registering/registering-form/registering-form.component';
 
 @NgModule({
   imports: [CommonModule, SharedModule, ToursRoutingModule],
@@ -39,7 +42,10 @@ import { ReviewerFeedbackComponent } from './tour-building/reviewer-feedback/rev
     TourViewComponent,
     RightFeedbackComponent,
     SendFeedbackComponent,
-    ReviewerFeedbackComponent
+    ReviewerFeedbackComponent,
+    TourOwnerControlComponent,
+    TourRegisteringComponent,
+    RegisteringFormComponent
   ],
   exports: [DetailModalComponent],
   entryComponents: [DetailModalComponent]

@@ -665,7 +665,7 @@ app.patch('/user/update-tour-preparation', async (req, res) => {
         const tourId = req.query.tourId;
         const preparationId = req.query.preparationId;
         let queryObj;
-        if(tourId && preparationId){
+        if (tourId && preparationId) {
             queryObj = {
                 _id: tourId,
                 'preparations._id': preparationId
@@ -682,13 +682,13 @@ app.patch('/user/update-tour-preparation', async (req, res) => {
             performer._id = new ObjectId(performer._id);
             return performer;
         });
-        await Tour.updateOne( queryObj,
-        { 
-            $set: { 
-                'preparations.$.performers': needUpdateObj.performers,
-                'preparations.$.status': needUpdateObj.status
-            } 
-        });
+        await Tour.updateOne(queryObj,
+            {
+                $set: {
+                    'preparations.$.performers': needUpdateObj.performers,
+                    'preparations.$.status': needUpdateObj.status
+                }
+            });
         console.log('Update preparation successful');
         res.status(200).json({
             message: 'Success'
@@ -722,6 +722,50 @@ app.patch('/user/send-tour-feedback', async (req, res) => {
         res.json({
             message: error.message,
             statusCode: 500
+        });
+    }
+});
+
+app.patch('/user/reviewer-feedback', async (req, res) => {
+    const revieverFeedback = req.body;
+    try {
+        if (revieverFeedback && revieverFeedback._id) {
+            await Tour.updateOne(
+                {
+                    '_id': revieverFeedback.tourId,
+                    'reviewers._id': new ObjectId(revieverFeedback._id),
+                    'reviewers.reviewerId': revieverFeedback.submiterId
+                },
+                {
+                    $set: {
+                        'reviewers.$.state': revieverFeedback.state,
+                        'reviewers.$.feedback': revieverFeedback.feedback
+                    }
+                },
+                (err, raw) => {
+                    if (err) {
+                        res.status(200).json({
+                            statusCode: 403,
+                            message: err
+                        });
+                    } else if (raw.n === 1) {
+                        res.status(201).json({
+                            statusCode: 201,
+                            message: 'Success'
+                        });
+                    } else {
+                        res.status(200).json({
+                            statusCode: 403,
+                            message: 'Not found reviewer'
+                        });
+                    }
+                }
+            );
+        }
+    } catch {
+        res.status(200).json({
+            statusCode: 403,
+            message: 'Not found reviewer'
         });
     }
 });

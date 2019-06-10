@@ -35,8 +35,11 @@ export class UserService {
           this.currentUser.isTourguide = userData.isTourguide;
           this.isLogin = true;
           this.isLoginChange.next();
+          return;
         }
       });
+
+      setTimeout(() => {}, 1500);
     }
 
     this.hasChangeUserInfo.subscribe(() => {

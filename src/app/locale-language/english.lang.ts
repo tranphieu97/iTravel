@@ -187,7 +187,10 @@ export const LangEnglish: Language = {
 
   pagePostView: { sendBtn: 'Send Comment' },
 
-  compTourBuilding: { sendBtn: 'Send Feedback' },
+  compTourBuilding: {
+    sendBtn: 'Send Feedback',
+    notInFeedback: 'This Tour is not in feedback state'
+  },
 
   // For Policies
   compPolicies: { policiesTitle: 'Using Policies' },
@@ -526,5 +529,29 @@ export const LangEnglish: Language = {
     pending: 'Pending',
     requestChange: 'Request Change',
     submitReview: 'Submit Review'
+  },
+
+  compTourOwnerControl: {
+    complete: 'Complete',
+    delete: 'Delete',
+    edit: 'Go to Edit',
+    pending: 'Pending',
+    approved: 'Approved',
+    requestChange: 'Requested Change',
+    denied: 'Denied',
+    deleteQuestion: 'Are you sure? This action can not been restore',
+    completeQuestion: 'Are you sure? This tour can not reviced feedback after'
+  },
+
+  compTourRegistering: {
+    perPerson: 'VND/person',
+    register: 'Register',
+    registerFor: 'Register for',
+    person: 'person',
+    relativesNote: 'Relatives Note',
+    total: 'Total',
+    slotAvailable: 'slots available',
+    fullSlot: 'Full slot, See you in the next tour!',
+    requiredRelativesInfo: 'How many children, teenager, old person in your register?'
   }
 };

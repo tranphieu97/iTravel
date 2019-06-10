@@ -15,38 +15,38 @@ export class MembersService {
     this.dicMemberAvatar = new Dictionary();
   }
 
-  getMemberName(tourguideId: string) {
-    let tourguideName = this.dicMemberName.getValue(tourguideId);
-    if (tourguideName !== null) {
-      return tourguideName;
+  getMemberName(memberId: string) {
+    let memberName = this.dicMemberName.getValue(memberId);
+    if (memberName !== null) {
+      return memberName;
     } else {
-      this.server.getUserBasicInfo(tourguideId).subscribe(res => {
+      this.server.getUserBasicInfo(memberId).subscribe(res => {
         if (res.data) {
-          tourguideName = res.data.lastName !== '' ? res.data.firstName + ' ' + res.data.lastName : res.data.firstName;
-          this.dicMemberName.add(tourguideId, tourguideName);
-          return tourguideName;
+          memberName = res.data.lastName !== '' ? res.data.firstName + ' ' + res.data.lastName : res.data.firstName;
+          this.dicMemberName.add(memberId, memberName);
+          return memberName;
         }
       });
       setTimeout(() => {
-        return tourguideName;
+        return memberName;
       }, 2000);
     }
   }
 
-  getMemberAvatar(tourguideId: string) {
-    let tourguideAvatar = this.dicMemberAvatar.getValue(tourguideId);
-    if (tourguideAvatar !== null) {
-      return tourguideAvatar;
+  getMemberAvatar(memberId: string) {
+    let memberAvatar = this.dicMemberAvatar.getValue(memberId);
+    if (memberAvatar !== null) {
+      return memberAvatar;
     } else {
-      this.server.getUserBasicInfo(tourguideId).subscribe(res => {
+      this.server.getUserBasicInfo(memberId).subscribe(res => {
         if (res.data) {
-          tourguideAvatar = res.data.avatar;
-          this.dicMemberAvatar.add(tourguideId, tourguideAvatar);
-          return tourguideAvatar;
+          memberAvatar = res.data.avatar;
+          this.dicMemberAvatar.add(memberId, memberAvatar);
+          return memberAvatar;
         }
       });
       setTimeout(() => {
-        return tourguideAvatar;
+        return memberAvatar;
       }, 2000);
     }
   }

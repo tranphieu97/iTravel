@@ -197,4 +197,66 @@ app.patch('/tourguide/remove-tour', async (req, res) => {
         });
     }
 });
+
+app.patch('/tourguide/delete-own-tour', async (req, res) => {
+    const deleteInfo = req.body;
+    try {
+        if (deleteInfo._id && deleteInfo.deleteBy)
+            await Tour.updateOne({
+                '_id': new ObjectId(deleteInfo._id),
+                'createdBy': deleteInfo.deleteBy
+            }, {
+                    $set: {
+                        'isActive': false
+                    }
+                }, (err, raw) => {
+                    if (err || raw.n !== 1) {
+                        res.status(200).json({
+                            statusCode: 400
+                        });
+                    } else {
+                        res.status(200).json({
+                            statusCode: 201
+                        });
+                    }
+                });
+    } catch {
+        res.status(200).json({
+            statusCode: 500
+        });
+    }
+});
+
+app.patch('/tourguide/update-tour-status', async (req, res) => {
+    const updateInfo = req.body;
+    try {
+        if (updateInfo._id && updateInfo.status) {
+            await Tour.updateOne({
+                '_id': new ObjectId(updateInfo._id)
+            }, {
+                    $set: {
+                        'status': updateInfo.status
+                    }
+                }, (err, raw) => {
+                    if (err || raw.n !== 1) {
+                        res.status(200).json({
+                            statusCode: 400
+                        });
+                    } else {
+                        res.status(200).json({
+                            statusCode: 201
+                        });
+                    }
+                });
+        } else {
+            res.status(200).json({
+                statusCode: 404
+            });
+        }
+    } catch {
+        res.status(200).json({
+            statusCode: 500
+        });
+    }
+})
 // Routing - END
