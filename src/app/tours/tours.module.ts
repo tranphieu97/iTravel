@@ -48,7 +48,8 @@ import { ReopenModalComponent } from './tour-management/reopen-modal/reopen-moda
     TourOwnerControlComponent,
     TourRegisteringComponent,
     RegisteringFormComponent,
-    ReopenModalComponent
+    ReopenModalComponent,
+    TourEditingComponent
   ],
   exports: [DetailModalComponent],
   entryComponents: [DetailModalComponent, ReopenModalComponent, TourEditingComponent]

@@ -202,7 +202,7 @@ export class TourManagementComponent implements OnInit {
   }
 
   openEdit(tour: Tour) {
-    const modalRef = this.modalService.open(ReopenModalComponent, {
+    const modalRef = this.modalService.open(TourEditingComponent, {
       centered: true,
       size: 'lg'
     });
