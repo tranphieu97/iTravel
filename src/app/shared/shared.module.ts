@@ -16,6 +16,7 @@ import { ShowHideToggleComponent } from '../web-layout/show-hide-toggle/show-hid
 import { HorizontalCardViewTourComponent } from '../card-view-style/horizontal-card-view-tour/horizontal-card-view-tour.component';
 import { LoginComponent } from '../auth/login/login.component';
 import { RegisterComponent } from '../auth/register/register.component';
+import { AddLocationComponent } from '../location/add-location/add-location.component';
 
 @NgModule({
   imports: [
@@ -28,7 +29,7 @@ import { RegisterComponent } from '../auth/register/register.component';
     ModalModule.forRoot(),
     ReactiveFormsModule,
     NgbModule,
-    NgbAlertModule
+    NgbAlertModule,
   ],
   exports: [
     CommonModule,
@@ -48,7 +49,8 @@ import { RegisterComponent } from '../auth/register/register.component';
     ShowHideToggleComponent,
     HorizontalCardViewTourComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AddLocationComponent
   ],
   declarations: [
     HorizontalCardViewPostComponent,
@@ -58,7 +60,8 @@ import { RegisterComponent } from '../auth/register/register.component';
     ShowHideToggleComponent,
     HorizontalCardViewTourComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AddLocationComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JWTInterceptor, multi: true }

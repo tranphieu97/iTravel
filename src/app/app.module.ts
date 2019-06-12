@@ -30,7 +30,7 @@ import { OneTimeBindingDirective } from './core/directives/one-time-binding.dire
     HeaderComponent,
     AuthLayoutComponent,
     NotificationComponent,
-    OneTimeBindingDirective,
+    OneTimeBindingDirective
   ],
   imports: [
     BrowserModule,
