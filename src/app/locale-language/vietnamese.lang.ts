@@ -455,7 +455,8 @@ export const LangVietnamese: Language = {
     scheduleCost: 'Chi phí',
     editBtn: 'Sửa',
     saveBtn: 'Lưu',
-    tourguide: 'Hướng dẫn viên'
+    tourguide: 'Hướng dẫn viên',
+    edit: 'Chỉnh sửa'
   },
 
   compUserTour: {
@@ -544,6 +545,26 @@ export const LangVietnamese: Language = {
     total: 'Tổng cộng',
     fullSlot: 'Tour đã hết chổ, hẹn gặp bạn trong tour tiếp theo!',
     slotAvailable: 'chổ còn trống',
-    requiredRelativesInfo: 'Số lượng trẻ em, thanh niên và người già trong mẫu đăng ký?'
+    requiredRelativesInfo: 'Số lượng trẻ em, thanh niên và người già trong mẫu đăng ký?',
+    contact: 'Liên hệ',
+    phoneNumber: 'Số điện thoại',
+    registered: 'Đã đăng ký',
+    loginToRegister: 'Đăng nhập để Đăng ký'
+  },
+
+  compTourEditing: {
+    editTitle: 'Chỉnh sửa Tour',
+    summary: 'Tổng quát',
+    tourName: 'Tên Tour',
+    description: 'Mô tả',
+    closeFeedbackTime: 'Hạn chót đóng góp',
+    closeRegisterTime: 'Hạn chót đăng ký',
+    beginTime: 'Ngày bắt đầu',
+    endTime: 'Ngày kết thúc',
+    cover: 'Ảnh bìa',
+    locations: 'Địa điểm',
+    schedule: 'Kế hoạch',
+    preparation: 'Chuẩn bị',
+    performs: 'Phụ trách'
   }
 };

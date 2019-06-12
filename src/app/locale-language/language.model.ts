@@ -459,6 +459,7 @@ export class Language {
     editBtn: string;
     saveBtn: string;
     tourguide: string;
+    edit: string;
   };
 
   compUserTour: {
@@ -548,6 +549,26 @@ export class Language {
     slotAvailable: string;
     fullSlot: string;
     requiredRelativesInfo: string;
+    contact: string;
+    phoneNumber: string;
+    registered: string;
+    loginToRegister: string;
+  };
+
+  compTourEditing: {
+    editTitle: string;
+    summary: string;
+    tourName: string;
+    description: string;
+    closeFeedbackTime: string;
+    closeRegisterTime: string;
+    beginTime: string;
+    endTime: string;
+    cover: string;
+    locations: string;
+    schedule: string;
+    preparation: string;
+    performs: string;
   };
 
   constructor() { }

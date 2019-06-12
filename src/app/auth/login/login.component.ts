@@ -66,7 +66,9 @@ export class LoginComponent implements OnInit {
           this.user.currentUser.isTourguide = res.data.isTourguide;
           this.user.isLogin = true;
           this.isLoading = false;
-          this.router.navigate(['home']);
+          if (this.router.url.includes('auth/login')) {
+            this.router.navigate(['home']);
+          }
           this.user.isLoginChange.next();
         }
       });

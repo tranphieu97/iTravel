@@ -14,6 +14,8 @@ import { LoadingComponent } from '../web-layout/loading/loading.component';
 import { HeadingComponent } from '../web-layout/heading/heading.component';
 import { ShowHideToggleComponent } from '../web-layout/show-hide-toggle/show-hide-toggle.component';
 import { HorizontalCardViewTourComponent } from '../card-view-style/horizontal-card-view-tour/horizontal-card-view-tour.component';
+import { LoginComponent } from '../auth/login/login.component';
+import { RegisterComponent } from '../auth/register/register.component';
 
 @NgModule({
   imports: [
@@ -44,7 +46,9 @@ import { HorizontalCardViewTourComponent } from '../card-view-style/horizontal-c
     LoadingComponent,
     HeadingComponent,
     ShowHideToggleComponent,
-    HorizontalCardViewTourComponent
+    HorizontalCardViewTourComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   declarations: [
     HorizontalCardViewPostComponent,
@@ -52,7 +56,9 @@ import { HorizontalCardViewTourComponent } from '../card-view-style/horizontal-c
     LoadingComponent,
     HeadingComponent,
     ShowHideToggleComponent,
-    HorizontalCardViewTourComponent
+    HorizontalCardViewTourComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JWTInterceptor, multi: true }

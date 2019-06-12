@@ -1,26 +1,41 @@
 <app-loading *ngIf="isLoading"></app-loading>
-<div class="flex-1" *ngIf="!isLoading">
-  <div class="flex-row flex-items-center cost" *ngIf="registeredData">
+<div class="flex-1" *ngIf="!isLoading && registeredData">
+  <div class="flex-row flex-items-center cost">
     <span>
       {{registeredData.registerCost | currency:'VND'}}
       <span class="sub">{{ compLanguage.perPerson}}</span>
     </span>
   </div>
-  <div class="flex-row flex-items-center slot" *ngIf="registeredData && !registeredData.isFullslot">
+  <div class="flex-row flex-items-center slot" *ngIf="!registeredData.isFullslot">
     <span class="available bold"
       style="margin-right: 3px;">{{registeredData.memberLimit - registeredData.currentMember}}</span>
     <span class="available">{{' ' + compLanguage.slotAvailable}}</span>
   </div>
-  <div class="flex-row flex-items-center slot" *ngIf="registeredData && registeredData.isFullslot">
+  <div class="flex-row flex-items-center slot" *ngIf="registeredData.isFullslot">
     <span class="full-slot">
       {{compLanguage.fullSlot}}
     </span>
   </div>
-  <div class="flex-row" *ngIf="!isShowFormRegister">
+  <div class="flex-row" *ngIf="!userId">
+    <input type="button" class="btn form-control btn-success" [value]="compLanguage.loginToRegister"
+    (click)="open(login)">
+  </div>
+  <div class="flex-row" *ngIf="!registeredData.isRegistered && userId">
+    <input type="button" class="btn form-control btn-warning" [value]="compLanguage.registered" disabled>
+  </div>
+  <div class="flex-row" *ngIf="!isShowFormRegister && registeredData.isRegistered && !registeredData.isFullslot">
     <input type="button" class="btn form-control btn-warning" [value]="compLanguage.register"
       (click)="isShowFormRegister = true">
   </div>
   <div class="flex-col register-form" *ngIf="isShowFormRegister">
+    <div class="form-group">
+      <div class="flex-2 flex-col flex-justify-center">
+        <label class="bold">{{compLanguage.contact}}</label>
+      </div>
+      <div class="flex-3">
+        <input class="form-control" name="contact" [(ngModel)]="contact" [placeholder]="commonLanguage.enter + compLanguage.phoneNumber">
+      </div>
+    </div>
     <div class="flex-row form-group">
       <div class="flex-2 flex-col flex-justify-center">
         <label class="bold">{{compLanguage.registerFor}}</label>
@@ -37,7 +52,7 @@
       <div class="flex-2 flex-col flex-justify-center">
         <label class="bold">{{compLanguage.relativesNote}}<span style="color: red; font-size: 18px;">*</span></label>
       </div>
-      <textarea class="form-control" rows="4" style="resize: none" [placeholder]="compLanguage.requiredRelativesInfo"
+      <textarea class="form-control" rows="3" style="resize: none" [placeholder]="compLanguage.requiredRelativesInfo"
         name="note" [(ngModel)]="registerNote"></textarea>
     </div>
     <div class="flex-col form-group cost-total">
@@ -55,8 +70,19 @@
       </div>
     </div>
     <div class="flex-row form-group">
-      <input type="button" class="btn form-control btn-warning" [value]="compLanguage.register"
-        [disabled]="amountRegisterPeople > 1 && registerNote.trim() === ''">
+      <input type="button" class="btn form-control btn-warning" [value]="compLanguage.register" (click)="registerTour()"
+        [disabled]="(amountRegisterPeople > 1 && registerNote.trim() === '') || contact.trim() === ''">
     </div>
   </div>
 </div>
+
+<ng-template #login let-modal>
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-login></app-login>
+  </div>
+</ng-template>
