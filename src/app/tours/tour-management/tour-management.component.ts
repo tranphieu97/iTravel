@@ -6,6 +6,7 @@ import { Tour } from 'src/app/model/tour.model';
 import { ConstTourStatus } from '../../constants';
 import { DetailModalComponent } from './detail-modal/detail-modal.component';
 import { TourEditingComponent } from './tour-editing/tour-editing.component';
+import { ReopenModalComponent } from './reopen-modal/reopen-modal.component';
 
 @Component({
   selector: 'app-tour-management',
@@ -22,17 +23,7 @@ export class TourManagementComponent implements OnInit {
     public languageService: LanguageService,
     private server: ServerService,
     private modalService: NgbModal
-  ) {}
-
-  getTourGuide() {
-    this.tours.forEach((tour, index) => {
-      this.server.getUserBasicInfo(tour.tourGuideId).subscribe(resData => {
-        if (resData.data) {
-          this.tourGuides[index] = resData.data;
-        }
-      });
-    });
-  }
+  ) { }
 
   ngOnInit() {
     this.compLanguage = this.languageService.currentLanguage.compTourManagement;
@@ -43,14 +34,15 @@ export class TourManagementComponent implements OnInit {
     // test get tour
     // this.server.getTour('5cb4744b393d6515e4757a0a').subscribe(res => console.log(res))
 
-    this.server.getTours().subscribe(res => {
-      this.tours = res.data ? res.data : [];
-      this.tourGuides = this.tours.map(tour => ({
-        firstName: '',
-        lastName: ''
-      }));
-      this.getTourGuide();
-    });
+    this.refreshListTour();
+    // this.server.getTours().subscribe(res => {
+    //   this.tours = res.data ? res.data : [];
+    //   this.tourGuides = this.tours.map(tour => ({
+    //     firstName: '',
+    //     lastName: ''
+    //   }));
+    //   this.getTourGuide();
+    // });
 
     // this.server.createTour({
     //   tourName: 'Nha Trang',
@@ -180,6 +172,27 @@ export class TourManagementComponent implements OnInit {
     // }).subscribe(res => console.log(res))
   }
 
+  getTourGuide() {
+    this.tours.forEach((tour, index) => {
+      this.server.getUserBasicInfo(tour.tourGuideId).subscribe(resData => {
+        if (resData.data) {
+          this.tourGuides[index] = resData.data;
+        }
+      });
+    });
+  }
+
+  refreshListTour = () => {
+    this.server.getTours().subscribe(res => {
+      this.tours = res.data ? res.data : [];
+      this.tourGuides = this.tours.map(tour => ({
+        firstName: '',
+        lastName: ''
+      }));
+      this.getTourGuide();
+    });
+  }
+
   openDetail(tour: Tour) {
     const modalRef = this.modalService.open(DetailModalComponent, {
       centered: true,
@@ -189,10 +202,19 @@ export class TourManagementComponent implements OnInit {
   }
 
   openEdit(tour: Tour) {
-    const modalRef = this.modalService.open(TourEditingComponent, {
+    const modalRef = this.modalService.open(ReopenModalComponent, {
       centered: true,
       size: 'lg'
     });
+
     modalRef.componentInstance.tourData = tour;
+  }
+
+  openReopen(tour: Tour) {
+    const modalRef = this.modalService.open(ReopenModalComponent, {
+      centered: true,
+      size: 'lg'
+    });
+    modalRef.componentInstance.refresh = this.refreshListTour;
   }
 }

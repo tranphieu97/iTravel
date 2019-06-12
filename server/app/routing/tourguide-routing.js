@@ -125,7 +125,7 @@ app.post('/tourguide/create-tour', async (req, res) => {
         });
     } catch (error) {
         res.status(200).json({
-            message: 'Fail!',
+            message: error.message,
             statusCode: 500
         });
     }

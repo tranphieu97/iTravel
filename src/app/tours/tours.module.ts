@@ -23,6 +23,7 @@ import { TourOwnerControlComponent } from './tour-building/tour-owner-control/to
 import { TourRegisteringComponent } from './tour-registering/tour-registering.component';
 import { RegisteringFormComponent } from './tour-registering/registering-form/registering-form.component';
 import { TourEditingComponent } from './tour-management/tour-editing/tour-editing.component';
+import { ReopenModalComponent } from './tour-management/reopen-modal/reopen-modal.component';
 
 @NgModule({
   imports: [CommonModule, SharedModule, ToursRoutingModule],
@@ -47,9 +48,9 @@ import { TourEditingComponent } from './tour-management/tour-editing/tour-editin
     TourOwnerControlComponent,
     TourRegisteringComponent,
     RegisteringFormComponent,
-    TourEditingComponent
+    ReopenModalComponent
   ],
   exports: [DetailModalComponent],
-  entryComponents: [DetailModalComponent, TourEditingComponent]
+  entryComponents: [DetailModalComponent, ReopenModalComponent, TourEditingComponent]
 })
 export class ToursModule {}

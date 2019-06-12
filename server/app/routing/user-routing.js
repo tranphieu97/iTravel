@@ -634,10 +634,13 @@ app.patch('/user/update-profile', async (req, res) => {
  */
 app.get('/user/get-tours', async (req, res) => {
     try {
-        let queryObj = {}
+        let queryObj = { isActive: true }
         if (req.param('userId')) {
             const userId = authentication.getTokenUserId(req.headers.authorization);
-            queryObj = { 'members.memberId': userId }
+            queryObj = {
+                isActive: true,
+                'members.memberId': userId
+            }
         }
         const tours = await Tour.find(queryObj)
         res.status(200).json({
