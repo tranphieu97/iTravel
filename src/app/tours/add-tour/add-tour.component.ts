@@ -277,8 +277,6 @@ export class AddTourComponent implements OnInit {
     } catch (ex) {
       console.log(ex);
     }
-
-    console.log(this.addTourService.tourModel);
   }
 
   addPreparation() {
