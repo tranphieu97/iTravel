@@ -5,6 +5,7 @@ import { ServerService } from 'src/app/core/services/server.service';
 import { Tour } from 'src/app/model/tour.model';
 import { ConstTourStatus } from '../../constants';
 import { DetailModalComponent } from './detail-modal/detail-modal.component';
+import { TourEditingComponent } from './tour-editing/tour-editing.component';
 
 @Component({
   selector: 'app-tour-management',
@@ -181,6 +182,14 @@ export class TourManagementComponent implements OnInit {
 
   openDetail(tour: Tour) {
     const modalRef = this.modalService.open(DetailModalComponent, {
+      centered: true,
+      size: 'lg'
+    });
+    modalRef.componentInstance.tourData = tour;
+  }
+
+  openEdit(tour: Tour) {
+    const modalRef = this.modalService.open(TourEditingComponent, {
       centered: true,
       size: 'lg'
     });
