@@ -13,9 +13,7 @@
     *ngIf="tourModel && tourModel.status === TOUR_STATUS.PENDING && tourReviewerModel">
     <app-reviewer-feedback [tourId]="tourId" [currentReview]="tourReviewerModel"></app-reviewer-feedback>
   </div>
-  <div class="flex-1 right border-box" *ngIf="tourModel && tourModel.status === TOUR_STATUS.PENDING" style="overflow-y: auto; padding: 5px 15px;">
-    <!-- Add Comment component here -->
-    <!-- Input ['inputName']="tourId" -->
+  <div class="flex-1 right border-box" *ngIf="tourModel && tourModel.status === TOUR_STATUS.PENDING" style="overflow-y: auto; overflow-x: hidden">
     <app-right-feedback [tourId]="tourId"></app-right-feedback>
   </div>
 </div>
