@@ -82,7 +82,6 @@ export class AddLocationComponent implements OnInit {
                   this.addLocationMessage = this.compLanguage.addTourAddFail;
                   this.hasError = true;
                 }
-
                 this.isLoading = false;
               });
           } else {
