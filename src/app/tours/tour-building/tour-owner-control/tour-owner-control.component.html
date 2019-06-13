@@ -1,0 +1,72 @@
+<div class="reviewers flex-1">
+  <table class="table table-striped">
+    <tbody>
+      <tr *ngFor="let reviewer of reviewers">
+        <td style="text-align: center">
+          <span class="state-ic">
+            <i [ngbTooltip]="tipPending" placement="bottom" *ngIf="reviewer.state === REVIEW_STATE.PENDING"
+              class="fas fa-spinner" style="color: purple"></i>
+            <i [ngbTooltip]="tipApproved" placement="bottom" *ngIf="reviewer.state === REVIEW_STATE.APPROVED"
+              class="fas fa-check" style="color: green"></i>
+            <i [ngbTooltip]="tipRequested" placement="bottom" *ngIf="reviewer.state === REVIEW_STATE.REQUESTED_CHANGE"
+              class="fas fa-question" style="color: orangered"></i>
+            <i [ngbTooltip]="tipDenied" placement="bottom" *ngIf="reviewer.state === REVIEW_STATE.DENIED"
+              class="fas fa-times" style="color: red"></i>
+          </span>
+        </td>
+        <th appOneTimeBinding>
+          {{memberService.getMemberName(reviewer.reviewerId) | titlecase}}
+        </th>
+        <td style="text-align: justify">
+          {{reviewer.feedback}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="flex-row flex-justify-end">
+  <span class="ic-btn" [ngbTooltip]="tipEdit" placement="bottom"><i class="fas fa-edit"></i></span>
+  <span class="ic-btn" [ngbTooltip]="tipDelete" placement="bottom" (click)="open(deletetour)"><i
+      class="fas fa-trash-alt"></i></span>
+  <input type="button" class="btn form-control btn-success" [value]="compLanguage.complete" [disabled]="!canComplete"
+    (click)="open(completetour)">
+</div>
+
+<ng-template #tipDelete>{{compLanguage.delete}}</ng-template>
+<ng-template #tipEdit>{{compLanguage.edit}}</ng-template>
+<ng-template #tipPending>{{compLanguage.pending}}</ng-template>
+<ng-template #tipApproved>{{compLanguage.approved}}</ng-template>
+<ng-template #tipRequested>{{compLanguage.requestChange}}</ng-template>
+<ng-template #tipDenied>{{compLanguage.denied}}</ng-template>
+
+<ng-template #deletetour let-modal>
+  <div class=" modal-header">
+  <h4 class="modal-title" id="modal-basic-title">{{compLanguage.delete}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  {{compLanguage.deleteQuestion}}
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-success" (click)="modal.close();">{{commonLanguage.cancel}}</button>
+  <button type="button" class="btn btn-outline-danger" (click)="deleteTour(); modal.close()">{{commonLanguage.ok}}</button>
+</div>
+</ng-template>
+
+<ng-template #completetour let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{compLanguage.delete}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    {{compLanguage.completeQuestion}}
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" (click)="modal.close()">{{commonLanguage.cancel}}</button>
+    <button type="button" class="btn btn-outline-success" (click)="completeFeedbackTime(); modal.close()">{{commonLanguage.ok}}</button>
+  </div>
+</ng-template>

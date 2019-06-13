@@ -1,0 +1,26 @@
+:host {
+  .modal-title {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .modal-body-custom {
+    display: flex;
+    flex-direction: column;
+    label{
+      font-size: 17px;
+      font-weight: bold;
+      margin: 0;
+    }
+    .rename {
+      display: flex;
+      input {
+        flex: 1 0 auto;
+        margin-left: 10px;
+        border: none;
+        border-bottom: solid #222222 1px;
+        font-size: 17px
+      }
+    }
+  }
+}

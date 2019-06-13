@@ -164,35 +164,35 @@ app.get('/api/cardview-post', (req, res) => {
             $eq: config.POST_STATUS.APPROVED
         }
     };
-    
+
     database.getCollectionFilterData(database.iTravelDB.Posts, approvedPostFilter)
         .then((collectionData) => {
-        if (collectionData != null) {
-            postSimpleData = [];
+            if (collectionData != null) {
+                postSimpleData = [];
 
-            collectionData.forEach((post) => {
-                postSimpleData.push({
-                    _id: post._id,
-                    title: post.title,
-                    cover: post.cover,
-                    categories: post.categories,
-                    createdTime: post.createdTime,
-                    description: post.description,
-                    location: post.location,
-                    viewAmount: post.viewAmount
+                collectionData.forEach((post) => {
+                    postSimpleData.push({
+                        _id: post._id,
+                        title: post.title,
+                        cover: post.cover,
+                        categories: post.categories,
+                        createdTime: post.createdTime,
+                        description: post.description,
+                        location: post.location,
+                        viewAmount: post.viewAmount
+                    });
                 });
-            });
 
-            res.status(200).json({
-                message: 'Load ' + database.iTravelDB.Posts + ' success!',
-                data: postSimpleData
-            });
-        } else {
-            res.status(500).json({
-                message: 'Load' + database.iTravelDB.Posts + 'fail!'
-            });
-        }
-    });
+                res.status(200).json({
+                    message: 'Load ' + database.iTravelDB.Posts + ' success!',
+                    data: postSimpleData
+                });
+            } else {
+                res.status(500).json({
+                    message: 'Load' + database.iTravelDB.Posts + 'fail!'
+                });
+            }
+        });
 });
 
 /**
@@ -587,15 +587,15 @@ app.get('/api/locations', (req, res, next) => {
  * then query the post has that Id
  */
 app.get('/api/location', (req, res) => {
-    if (!req.param('id') || req.param('id').length !== 24) {
+    if (!req.query.id || req.query.id.length !== 24) {
         res.status(200).json({
             message: 'Invalid location Id'
         })
     } else {
         // in request has post Id, create query object from that
-        const queryObj = { _id: new ObjectId(req.param('id')) }
+        const queryObj = { _id: new ObjectId(req.query.id) }
 
-        const projectionObj = { }
+        const projectionObj = {}
 
         database.getOneWithProjection(database.iTravelDB.Locations, queryObj, projectionObj)
             .then((receiveData) => {
@@ -606,7 +606,7 @@ app.get('/api/location', (req, res) => {
                     })
                 } else {
                     res.status(200).json({
-                        message: `Failed! Can not find location ${req.param('id')}`
+                        message: `Failed! Can not find location ${req.query.id}`
                     })
                 }
             })
@@ -643,14 +643,14 @@ app.get('/api/post-categories', (req, res, next) => {
  * 
  */
 app.get('/api/user-info', (req, res) => {
-    if (req.param('userId') === null || req.param('userId') === undefined || req.param('userId').length !== 24) {
+    if (req.query.userId === null || req.query.userId === undefined || req.query.userId.length !== 24) {
         res.status(200).json({
             message: 'Invalid user Id'
         })
     }
     else {
         // in request has post Id, create query object from that
-        const queryObj = { _id: new ObjectId(req.param('userId')) }
+        const queryObj = { _id: new ObjectId(req.query.userId) }
         // console.log(queryObj);
 
         // create projection object to return only id, username, avatar
@@ -681,16 +681,16 @@ app.get('/api/user-info', (req, res) => {
  * then query the post has that Id
  */
 app.get('/api/post', (req, res) => {
-    if (!req.param('postId') || req.param('postId').length !== 24) {
+    if (!req.query.postId || req.query.postId.length !== 24) {
         res.status(200).json({
             message: 'Invalid post Id'
         })
     } else {
         // in request has post Id, create query object from that
-        const queryObj = { _id: new ObjectId(req.param('postId')) }
+        const queryObj = { _id: new ObjectId(req.query.postId) }
 
         //
-        postService.countViewPost(req.param('postId'));
+        postService.countViewPost(req.query.postId);
         //
         database.getCollectionFilterData(database.iTravelDB.Posts, queryObj)
             .then(([post]) => {
@@ -813,7 +813,7 @@ app.post('/user/post', (req, res, next) => {
 });
 
 app.get('/api/province-locations', (req, res) => {
-    const arrProvincesName = req.param('arrProvincesName');
+    const arrProvincesName = req.query.arrProvincesName;
 
     if (arrProvincesName !== undefined && arrProvincesName.length > 0) {
         let filterProvince = {
@@ -835,7 +835,7 @@ app.get('/api/province-locations', (req, res) => {
                 }
             };
         }
-        
+
 
         database.getCollectionFilterData(database.iTravelDB.Locations, filterProvince)
             .then((collectionData) => {
@@ -862,15 +862,191 @@ app.get('/api/province-locations', (req, res) => {
  */
 app.get('/api/get-tour', async (req, res) => {
     try {
-        const tourId = req.param('tourId')
-        const tour = await Tour.findById(tourId)
+        const tourId = req.query.tourId;
+        // Phieu - MOD Start
+        const tour = await Tour.findById(tourId, ' -members', () => { });
+        // Phieu - MOD End
         res.status(200).json({
             data: tour,
             message: 'Success!'
         });
     } catch (error) {
-        res.status(500).json({
-            message: 'Fail!'
+        res.status(200).json({
+            message: 'Fail!',
+            statusCode: 500
+        });
+    }
+});
+
+/**
+ * @name getTourFeedbacks
+ * @param {tourId}
+ * @author Thong
+ */
+app.get('/api/get-tour-feedbacks', async (req, res) => {
+    try {
+        const tourId = req.query.tourId;
+        const tour = await Tour.findById(tourId, 'feedbacks', () => { })
+        res.status(200).json({
+            data: tour.feedbacks,
+            message: 'Success!'
+        });
+    } catch (error) {
+        res.status(200).json({
+            message: 'Fail!',
+            statusCode: 500
+        });
+    }
+});
+
+app.get('/api/tours', async (req, res) => {
+    try {
+        const tours = await Tour.find({ 'isActive': true },
+            '_id tourName description registerCost locationIds beginTime endTime cover status closeFeedbackTime closeRegisterTime durationTime', () => { });
+        res.status(200).json({
+            data: tours,
+            statusCode: 200
+        });
+    } catch (err) {
+        res.status(200).json({
+            data: [],
+            statusCode: 404
+        });
+    }
+});
+
+app.get('/api/post-related-location', async (req, res) => {
+    let locationIds = req.query.locationIds;
+
+    if (locationIds && typeof locationIds === 'string') {
+        locationIds = [locationIds];
+    }
+
+    if (locationIds && locationIds !== []) {
+        locationIds = locationIds.map(locationId => new ObjectId(locationId));
+
+        const locationFilter = {
+            '_id': {
+                $in: locationIds
+            }
+        };
+        const pronvinceProjection = {
+            'provinceCity': 1
+        };
+
+        database.getCollectionDataByProjection(database.iTravelDB.Locations, locationFilter, pronvinceProjection)
+            .then(data => {
+                const provinces = [];
+                data.forEach(location => {
+                    location.provinceCity.forEach(provinceName => {
+                        if (!provinces.includes(provinceName)) {
+                            provinces.push(provinceName);
+                        }
+                    });
+                });
+
+                const postFilter = {
+                    'location.provinceCity': {
+                        $elemMatch: {
+                            $in: provinces
+                        }
+                    },
+                    'status': {
+                        $eq: config.POST_STATUS.APPROVED
+                    }
+                };
+                const postProjection = {
+                    '_id': 1,
+                    'title': 1,
+                    'cover': 1,
+                    'categories': 1,
+                    'createdTime': 1,
+                    'description': 1,
+                    'location': 1,
+                    'viewAmount': 1
+                }
+
+                database.getCollectionDataByProjection(database.iTravelDB.Posts, postFilter, postProjection)
+                    .then(data => {
+                        data.sort((post1, post2) => {
+                            return post1.viewAmount - post2.viewAmount;
+                        });
+
+                        if (data.length > 4) {
+                            data.splice(4);
+                        }
+
+                        res.status(200).json({
+                            statusCode: 200,
+                            data: data
+                        });
+                    })
+                    .catch(() => {
+                        res.status(200).json({
+                            statusCode: 404,
+                            data: []
+                        });
+                    });
+            })
+            .catch(() => {
+                res.status(200).json({
+                    statusCode: 404,
+                    data: []
+                });
+            });
+    } else {
+        res.status(200).json({
+            statusCode: 404,
+            data: []
+        });
+    }
+});
+
+app.get('/api/tour-registerd-info/', async (req, res) => {
+    const tourId = req.query._id;
+    const userId = req.query.userId;
+    try {
+        if (tourId) {
+            await Tour.findById(new ObjectId(tourId), "_id members registerCost memberLimit closeRegisterTime", (err, data) => {
+                if (err) {
+                    res.status(200).json({
+                        statusCode: 404,
+                        data: null
+                    });
+                } else {
+                    let isRegisterd = false;
+                    if (userId) {
+                        const existData = data.members.findIndex(x => x.memberId === userId);
+                        if (existData && (existData.length > 0 || existData > -1)) {
+                            isRegisterd = true;
+                        }
+                    }
+                    
+                    const returnData = {
+                        registerCost: data.registerCost,
+                        memberLimit: data.memberLimit,
+                        closeRegisterTime: data.closeRegisterTime,
+                        isRegisterd: isRegisterd,
+                        isFullslot: data.members.length === data.memberLimit ? true : false,
+                        currentMember: data.members.length
+                    };
+
+                    res.status(200).json({
+                        statusCode: 200,
+                        data: returnData
+                    });
+                }
+            });
+        } else {
+            res.status(200).json({
+                statusCode: 404,
+                data: null
+            });
+        }
+    } catch {
+        res.status(200).json({
+            statusCode: 404,
+            data: null
         });
     }
 });

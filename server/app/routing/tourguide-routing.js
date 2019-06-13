@@ -110,24 +110,6 @@ app.get('/tourguide/all-reviewer', (req, res) => {
 });
 
 /**
- * @name getTours
- * @author Thong
- */
-app.get('/tourguide/get-tours', async (req, res) => {
-    try {
-        const tours = await Tour.find({})
-        res.status(200).json({
-            data: tours,
-            message: 'Success!'
-        });
-    } catch (error) {
-        res.status(500).json({
-            message: 'Fail!'
-        });
-    }
-});
-
-/**
  * @name createTour
  * @param {Tour}
  * @author Thong
@@ -143,7 +125,7 @@ app.post('/tourguide/create-tour', async (req, res) => {
         });
     } catch (error) {
         res.status(200).json({
-            message: 'Fail!',
+            message: error.message,
             statusCode: 500
         });
     }
@@ -154,7 +136,7 @@ app.post('/tourguide/create-tour', async (req, res) => {
  * @param {Tour}
  * @author Thong
  */
-app.post('/tourguide/update-tour', async (req, res) => {
+app.patch('/tourguide/update-tour', async (req, res) => {
     try {
         const updatedTour = new Tour(req.body)
         const id = updatedTour._id
@@ -171,14 +153,41 @@ app.post('/tourguide/update-tour', async (req, res) => {
 });
 
 /**
+ * @name updateTourMemberCost
+ * @param {tourId}
+ * @param {memberItemId}
+ * @author Thong
+ */
+app.patch('/tourguide/update-member-cost', async (req, res) => {
+    try {
+        const tourId = req.query.tourId;
+        const memberItemId = req.query.memberItemId;
+        await Tour.updateOne({
+            '_id': tourId,
+            'members._id': memberItemId
+        }, { $set: { 'members.$.cost': 0 } });
+        console.log('update-member-cost successful');
+        res.status(200).json({
+            message: 'Success'
+        });
+    } catch (error) {
+        console.log('update-member-cost failed');
+        console.log(error.message);
+        res.status(200).json({
+            message: 'Fail'
+        });
+    }
+});
+
+/**
  * @name removeTour
  * @param {Tour}
  * @author Thong
  */
-app.post('/tourguide/remove-tour', async (req, res) => {
+app.patch('/tourguide/remove-tour', async (req, res) => {
     try {
-        const id = req.param('tourId')
-        await Tour.updateOne({ _id: id }, { $set: { isActive: false } })
+        const id = req.query.tourId;
+        await Tour.updateOne({ _id: id }, { $set: { isActive: false } });
         res.status(200).json({
             message: 'Success!'
         });
@@ -188,4 +197,66 @@ app.post('/tourguide/remove-tour', async (req, res) => {
         });
     }
 });
+
+app.patch('/tourguide/delete-own-tour', async (req, res) => {
+    const deleteInfo = req.body;
+    try {
+        if (deleteInfo._id && deleteInfo.deleteBy)
+            await Tour.updateOne({
+                '_id': new ObjectId(deleteInfo._id),
+                'createdBy': deleteInfo.deleteBy
+            }, {
+                    $set: {
+                        'isActive': false
+                    }
+                }, (err, raw) => {
+                    if (err || raw.n !== 1) {
+                        res.status(200).json({
+                            statusCode: 400
+                        });
+                    } else {
+                        res.status(200).json({
+                            statusCode: 201
+                        });
+                    }
+                });
+    } catch {
+        res.status(200).json({
+            statusCode: 500
+        });
+    }
+});
+
+app.patch('/tourguide/update-tour-status', async (req, res) => {
+    const updateInfo = req.body;
+    try {
+        if (updateInfo._id && updateInfo.status) {
+            await Tour.updateOne({
+                '_id': new ObjectId(updateInfo._id)
+            }, {
+                    $set: {
+                        'status': updateInfo.status
+                    }
+                }, (err, raw) => {
+                    if (err || raw.n !== 1) {
+                        res.status(200).json({
+                            statusCode: 400
+                        });
+                    } else {
+                        res.status(200).json({
+                            statusCode: 201
+                        });
+                    }
+                });
+        } else {
+            res.status(200).json({
+                statusCode: 404
+            });
+        }
+    } catch {
+        res.status(200).json({
+            statusCode: 500
+        });
+    }
+})
 // Routing - END

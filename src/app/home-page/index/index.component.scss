@@ -1,80 +1,108 @@
-@import 'src/styles.scss';
+@import "src/styles.scss";
 
 :host {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  height: calc(200% - 60px);
+  background-color: $CONTENT_BACKGROUND_COLOR;
+
+  .index-part {
     height: 100%;
-    background-color: $CONTENT_BACKGROUND_COLOR;
+    flex: 0.5;
+    display: flex;
 
-    .index-part {
-        height: 100%;
-        flex: 0.5;
-        display: flex;
+    app-viet-nam-map {
+      height: 100%;
+    }
+  }
 
-        app-viet-nam-map {
-            height: 100%;
+  // Class 'content-box' was defined in styles.scss
+  .list-post {
+    display: flex;
+    flex-direction: column;
+
+    .list-post-title {
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-top: 10px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid $GRAY;
+
+      width: 100%;
+      min-height: 40px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      span {
+        padding: 5px;
+        margin-right: 3px;
+        cursor: pointer;
+
+        i {
+          color: $GRAY;
+          font-size: 14px;
         }
+      }
+
+      span:hover {
+        background-color: $CYAN;
+        border-radius: 5px;
+      }
     }
 
-    // Class 'content-box' was defined in styles.scss
-    .list-post {
-        display: flex;
-        flex-direction: column;
+    .list-post-content {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      overflow: scroll;
 
-        .list-post-title {
-            padding-left: 10px;
-            padding-right: 10px;
-            padding-top: 10px;
-            padding-bottom: 5px;
-            border-bottom: 1px solid $GRAY;
-
-            width: 100%;
-            min-height: 40px;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-
-            span {
-                padding: 5px;
-                margin-right: 3px;
-                cursor: pointer;
-
-                i {
-                    color: $GRAY;
-                    font-size: 14px;
-                }
-            }
-
-            span:hover {
-                background-color: $CYAN;
-                border-radius: 5px;
-            }
-        }
-
-        .list-post-content {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            overflow: scroll;
-
-            app-card-view-post {
-                flex: 1;
-                min-width: 40%;
-                max-width: 50%;
-            }
-
-        }
-
-        .list-post-content::-webkit-scrollbar {
-            width: 1px;  /* remove scrollbar space */
-            height: 1px;
-            background: transparent;  /* optional: just make scrollbar invisible */
-        }
-
-        .list-post-content::-webkit-scrollbar-thumb {
-            background: $WHITE;
-        }
+      app-card-view-post {
+        flex: 1;
+        min-width: 40%;
+        max-width: 50%;
+      }
     }
+
+    .list-post-content::-webkit-scrollbar {
+      width: 1px; /* remove scrollbar space */
+      height: 1px;
+      background: transparent; /* optional: just make scrollbar invisible */
+    }
+
+    .list-post-content::-webkit-scrollbar-thumb {
+      background: $WHITE;
+    }
+  }
+
+  .arr-pending {
+    overflow-y: auto;
+
+    .pending-tour {
+      padding: 5px 10px;
+      border: 1px solid $SECONDARY;
+
+      h4, u {
+        color: $BLUE;
+        font-size: 17px;
+        font-weight: 600;
+      }
+
+      span {
+          font-size: 14px;
+          color: orangered;
+      }
+    }
+
+    .pending-tour:hover {
+      background-color: $SECONDARY;
+      cursor: pointer;
+
+      h4, u {
+        font-weight: 700;
+      }
+    }
+  }
 }

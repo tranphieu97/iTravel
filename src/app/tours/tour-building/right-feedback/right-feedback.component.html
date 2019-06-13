@@ -1,0 +1,14 @@
+<app-tour-feedback
+  class="max-space"
+  *ngIf="feedbacks.length"
+  [feedbacks]="feedbacks">
+</app-tour-feedback>
+<div
+  class="placeholder-text max-space"
+  *ngIf="!feedbacks.length">
+  {{'Non feedback yet'}}
+</div>
+<app-send-feedback
+  [tourId]="tourId"
+  [refetchTourFeedbacks]="refetchTourFeedbacks">
+</app-send-feedback>

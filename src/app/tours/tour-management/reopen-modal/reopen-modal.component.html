@@ -1,0 +1,119 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{'Reopen Tour'}}</h4>
+  <button type="button" class="close"
+    (click)="activeModal.dismiss('Cross click')">
+    <span>&times;</span>
+  </button>
+</div>
+
+<div class="modal-body modal-body-custom">
+  <div class="form-group rename">
+    <label>{{'Tour name:'}}</label>
+    <input [(ngModel)]="tourName" type="text" minlength="0" maxlength="100"
+      placeholder="rename">
+  </div>
+
+  <div class="form-group flex-row">
+    <label class="row-label">{{'Begin time'}}</label>
+    <div class="row-input flex-row">
+      <div class="flex-1 flex-items-center">
+        <div class="input-group">
+          <input class="form-control" placeholder="yyyy-mm-dd"
+            [(ngModel)]="startDate"
+            [minDate]="today"
+            ngbDatepicker #startdate="ngbDatepicker"
+            #modalstartdate="ngModel" readonly>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar"
+              (click)="startdate.toggle()" type="button">
+              <span><i class="fas fa-calendar-alt"></i></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="flex-1 flex-row flex-items-center">
+        <ngb-timepicker [(ngModel)]="startTime">
+        </ngb-timepicker>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group flex-row">
+    <label class="row-label">{{'End time'}}</label>
+    <div class="row-input flex-row">
+      <div class="flex-1 flex-items-center">
+        <div class="input-group">
+          <input class="form-control" placeholder="yyyy-mm-dd"
+            [(ngModel)]="endDate" ngbDatepicker
+            [minDate]="startDate" #enddate="ngbDatepicker"
+            #modalenddate="ngModel" readonly>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar"
+              (click)="enddate.toggle()" type="button">
+              <span><i class="fas fa-calendar-alt"></i></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="flex-1 flex-row flex-items-center">
+        <ngb-timepicker [(ngModel)]="endTime"></ngb-timepicker>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group flex-row">
+    <label class="row-label">{{'Close feedback time'}}</label>
+    <div class="row-input flex-row">
+      <div class="flex-1 flex-items-center">
+        <div class="input-group">
+          <input class="form-control" placeholder="yyyy-mm-dd"
+            [(ngModel)]="feedbackDeadline"
+            readonly ngbDatepicker [maxDate]="startDate"
+            #feedbackdeadline="ngbDatepicker"
+            #modalfeedbackDeadline="ngModel">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar"
+              (click)="feedbackdeadline.toggle()" type="button">
+              <span><i class="fas fa-calendar-alt"></i></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="flex-1 flex-row flex-items-center">
+        <ngb-timepicker name="feedbackTime" [(ngModel)]="feedbackDeadlineTime">
+        </ngb-timepicker>
+      </div>
+    </div>
+  </div>
+  <div class="form-group flex-row">
+    <label class="row-label">{{'Close registering time'}}</label>
+    <div class="row-input flex-row">
+      <div class="flex-1 flex-items-center">
+        <div class="input-group">
+          <input class="form-control" placeholder="yyyy-mm-dd"
+            [(ngModel)]="registerDeadline"
+            readonly ngbDatepicker [maxDate]="startDate"
+            #registerdeadline="ngbDatepicker"
+            #modalregisterDeadline="ngModel">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar"
+              (click)="registerdeadline.toggle()" type="button">
+              <span><i class="fas fa-calendar-alt"></i></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="flex-1 flex-row flex-items-center">
+        <ngb-timepicker name="registerTime" [(ngModel)]="registerDeadlineTime">
+        </ngb-timepicker>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark"
+    (click)="activeModal.close()">{{'Close'}}</button>
+  <button type="button" class="btn btn-success"
+    (click)="onReopenHandle()">{{'Reopen'}}</button>
+</div>

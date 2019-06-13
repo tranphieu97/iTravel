@@ -20,6 +20,9 @@ import { environment } from '../../../environments/environment';
 import { Notification } from 'src/app/model/notification.model';
 import { NotificationItem } from 'src/app/model/notification-item.model';
 import { Tour } from 'src/app/model/tour.model';
+import { TourFeedback } from 'src/app/model/tour-feedback.model';
+import { TourReviewer } from 'src/app/model/tour-reviewer.model';
+import { TourMember } from 'src/app/model/tour-member.model';
 
 @Injectable({
   providedIn: 'root'
@@ -374,8 +377,18 @@ export class ServerService {
     return this.http.patch<{ message: string }>(this.HOST + 'user/send-notification', listNotifications);
   }
 
+  getToursCardInfo() {
+    return this.http.get<{ data: any, statusCode: number }>(this.HOST + 'api/tours');
+  }
+
   getTours() {
-    return this.http.get<{ data: any, message: string }>(this.HOST + 'tourguide/get-tours');
+    return this.http.get<{ data: any, message: string }>(this.HOST + 'user/get-tours');
+  }
+
+  getToursByUser(userIdFilter: boolean) { // filter by userId or not
+    const listParams = new HttpParams().set('userId', String(userIdFilter));
+    return this.http.get<{ data: any, message: string }>(this.HOST + 'user/get-tours',
+      { headers: this.httpOptions.headers, params: listParams });
   }
 
   getTour(tourId: string) {
@@ -384,14 +397,44 @@ export class ServerService {
       { headers: this.httpOptions.headers, params: listParams });
   }
 
+  getTourFeedbacks(tourId: string) {
+    const listParams = new HttpParams().set('tourId', tourId);
+    return this.http.get<{ data: any, message: string }>(this.HOST + 'api/get-tour-feedbacks',
+      { headers: this.httpOptions.headers, params: listParams });
+  }
+
+  sendTourFeedback(tourId: string, newFeedback: TourFeedback) {
+    const listParams = new HttpParams().set('tourId', tourId);
+    return this.http.patch<{ data: any, message: string }>(
+      this.HOST + 'user/send-tour-feedback',
+      newFeedback,
+      { headers: this.httpOptions.headers, params: listParams }
+    );
+  }
+
   createTour(tour: Tour) {
     return this.http.post<{ message: string, statusCode: number }>(this.HOST + 'tourguide/create-tour', tour);
   }
 
   updateTour(tour: Tour) {
-    return this.http.post<{ message: string }>(this.HOST + 'tourguide/update-tour', tour);
+    return this.http.patch<{ message: string }>(this.HOST + 'tourguide/update-tour', tour);
   }
 
+  updateTourPreparation(queryObj, updateObj) {
+    const listParams = new HttpParams()
+      .set('tourId', queryObj.tourId)
+      .set('preparationId', queryObj.preparationId);
+    return this.http.patch<{ message: string }>(this.HOST + 'user/update-tour-preparation', updateObj,
+      { headers: this.httpOptions.headers, params: listParams });
+  }
+
+  updateTourMemberCost(tourId, memberItemId) {
+    const listParams = new HttpParams()
+      .set('tourId', tourId)
+      .set('memberItemId', memberItemId);
+    return this.http.patch<{ message: string }>(this.HOST + 'tourguide/update-member-cost', {},
+      { headers: this.httpOptions.headers, params: listParams });
+  }
 
   /**
    * Get user post by UserId
@@ -497,5 +540,92 @@ export class ServerService {
 
   getReviewer(): Observable<any> {
     return this.http.get(this.HOST + 'tourguide/all-reviewer');
+  }
+
+  getUserInfomation(userId: string): Observable<any> {
+    const params = {
+      userId: userId
+    };
+
+    return this.http.get(this.HOST + 'user/information', { params: params });
+  }
+
+  updateAvatar(userId: string, imgLink: string): Observable<any> {
+    const updateBody = {
+      userId: userId,
+      imgLink: imgLink
+    };
+
+    return this.http.patch(this.HOST + 'user/upload-avatar', updateBody);
+  }
+
+  updateProfile(userId: string, userProfileModel: any): Observable<any> {
+    const updateBody = {
+      _id: userId,
+      firstName: userProfileModel.firstName,
+      lastName: userProfileModel.lastName,
+      email: userProfileModel.email,
+      birthDay: userProfileModel.birthDay,
+      hometown: userProfileModel.hometown
+    };
+
+    return this.http.patch(this.HOST + 'user/update-profile', updateBody);
+  }
+
+  getPostRelatedLocation(locationIds: string[]): Observable<{ statusCode: number, data: any[] }> {
+    const params = {
+      locationIds: locationIds
+    };
+
+    return this.http.get<{ statusCode: number, data: any[] }>(this.HOST + 'api/post-related-location', { params: params });
+  }
+
+  submitReviewerFeedback(tourId: string, reviewerFeedback: TourReviewer, submiterId: string):
+    Observable<{ statusCode: number, message: string }> {
+    const updateBody = {
+      tourId: tourId,
+      _id: reviewerFeedback._id,
+      state: reviewerFeedback.state,
+      feedback: reviewerFeedback.feedback,
+      reviewerId: reviewerFeedback.reviewerId,
+      submiterId: submiterId
+    };
+
+    return this.http.patch<{ statusCode: number, message: string }>(this.HOST + 'user/reviewer-feedback', updateBody);
+  }
+
+  deleteOwnTour(tourId: string, userDeleteId: string): Observable<{ statusCode: number }> {
+    const updateBody = {
+      _id: tourId,
+      deleteBy: userDeleteId
+    };
+    return this.http.patch<{ statusCode: number }>(this.HOST + 'tourguide/delete-own-tour', updateBody);
+  }
+
+  updateTourStatus(tourId: string, status: string): Observable<{ statusCode: number }> {
+    const updateBody = {
+      _id: tourId,
+      status: status
+    };
+
+    return this.http.patch<{ statusCode: number }>(this.HOST + 'tourguide/update-tour-status', updateBody);
+  }
+
+  getTourRegisteredInfo(tourId: string, userId: string): Observable<{statusCode: number, data: any}> {
+    const params = {
+      _id: tourId,
+      userId: userId
+    };
+
+    return this.http.get<{statusCode: number, data: any}>(this.HOST + 'api/tour-registerd-info', {params: params});
+  }
+
+  registerTour(tourId: string, registerObject: TourMember): Observable<{statusCode: number, result: any}> {
+    const registerBody = {
+      _id: tourId,
+      registerObj: registerObject
+    };
+
+    return this.http.patch<{statusCode: number, result: any}>(this.HOST + 'user/register-tour', registerBody);
   }
 }

@@ -1,0 +1,202 @@
+<app-loading *ngIf="isLoading"></app-loading>
+
+<div class="flex-col flex-1 tour-view" *ngIf="!isLoading">
+    <div class="flex-row tour-cover">
+        <div class="img-layout">
+            <img [src]="tourModel.cover" style="width: 100%; height: auto;">
+        </div>
+        <div class="picture-caption">
+            <h1 class="tour-title">
+                {{tourModel.tourName}}
+            </h1>
+            <p class="tour-des">
+                {{tourModel.description}}
+            </p>
+        </div>
+    </div>
+    <div class="flex-row" style="color: grey; font-size: 13px; font-weight: 600;" appOneTimeBinding>
+        {{tourModel.creationTime | date:'MMM dd, yyyy, HH:mm'}} -
+        {{membersService.getMemberName(tourModel.createdBy) | titlecase}}
+    </div>
+    <div class="flex-row flex-items-center">
+        <div class="tour-location" *ngFor="let locationId of tourModel.locationIds">
+            <span appOneTimeBinding><i class="fas fa-map-marker-alt"></i></span>
+            {{tourService.getLocationName(locationId) | titlecase}}
+        </div>
+    </div>
+    <div class="flex-row flex-items-center bold" style="font-size: 19px; color: red;">
+        {{tourModel.durationTime}} {{compLanguage.days}}
+    </div>
+    <div class="flex-row flex-items-center tour-time">
+        ({{commonLanguage.from}}
+        <span>
+            {{tourModel.beginTime | date:'hh:mm - dd/MM/yyyy'}}
+        </span>
+        {{commonLanguage.to}}
+        <span>
+            {{tourModel.endTime | date:'hh:mm - dd/MM/yyyy'}}
+        </span>)
+    </div>
+    <div class="flex-row flex-items-center tour-time" style="color: orangered"
+        *ngIf="tourModel.status === TOUR_STATUS.PENDING">
+        {{compLanguage.feedbackWillCloseOn}} {{tourModel.closeFeedbackTime | date:'hh:mm - dd/MM/yyyy'}}
+    </div>
+    <div class="flex-col tour-data" *ngIf="tourModel.status === TOUR_STATUS.PENDING">
+        <div class="flex-row flex-justify-space-between flex-align-center">
+            <app-heading [title]="compLanguage.expected + ' ' + compLanguage.timeline"></app-heading>
+            <app-show-hide-toggle [showFlag]="toggle.timeline" (click)="toggle.timeline = !toggle.timeline">
+            </app-show-hide-toggle>
+        </div>
+        <div class="flex-col flex-1" *ngIf="toggle.timeline">
+            <div class="flex-row flex-1 content">
+                <label class="row-label">{{compLanguage.feedbackTime}}</label>
+                <div class="row-input flex-row flex-content-space-evenly">
+                    {{commonLanguage.from}}
+                    <span class="flex-1 text-center">
+                        {{compLanguage.now}}
+                    </span>
+                    {{commonLanguage.to}}
+                    <span class="flex-1 text-center">
+                        {{tourModel.closeFeedbackTime | date:'hh:mm - dd/MM/yyyy'}}
+                    </span>
+                </div>
+            </div>
+            <div class="flex-row flex-1 content">
+                <label class="row-label">{{compLanguage.registerTime}}</label>
+                <div class="row-input flex-row flex-content-space-evenly">
+                    {{commonLanguage.from}}
+                    <span class="flex-1 text-center">
+                        {{tourModel.closeFeedbackTime | date:'hh:mm - dd/MM/yyyy'}}
+                    </span>
+                    {{commonLanguage.to}}
+                    <span class="flex-1 text-center">
+                        {{tourModel.closeRegisterTime | date:'hh:mm - dd/MM/yyyy'}}
+                    </span>
+                </div>
+            </div>
+            <div class="flex-row flex-1 content">
+                <label class="row-label">{{compLanguage.travelingTime}}</label>
+                <div class="row-input flex-row flex-content-space-evenly">
+                    {{commonLanguage.from}}
+                    <span class="flex-1 text-center">
+                        {{tourModel.beginTime | date:'hh:mm - dd/MM/yyyy'}}
+                    </span>
+                    {{commonLanguage.to}}
+                    <span class="flex-1 text-center">
+                        {{tourModel.endTime | date:'hh:mm - dd/MM/yyyy'}}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex-col tour-data" *ngIf="tourModel.status === TOUR_STATUS.PENDING">
+        <div class="flex-row flex-justify-space-between flex-align-center">
+            <app-heading [title]="compLanguage.register"></app-heading>
+            <app-show-hide-toggle [showFlag]="toggle.register" (click)="toggle.register = !toggle.register">
+            </app-show-hide-toggle>
+        </div>
+        <div class="flex-col flex-1" *ngIf="toggle.register">
+            <div class="flex-row flex-1 content">
+                <label class="row-label">{{compLanguage.limitMembers}}</label>
+                <div class="row-input flex-row flex-items-center">
+                    <span>
+                        {{tourModel.memberLimit}}
+                    </span>
+                    {{compLanguage.member}}
+                </div>
+            </div>
+            <div class="flex-row flex-1 content">
+                <label class="row-label">{{compLanguage.registerCost}}</label>
+                <div class="row-input flex-row flex-items-center">
+                    <span>
+                        {{tourModel.registerCost | currency:'VND'}}
+                    </span>
+                    {{compLanguage.VNDPerPerson}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex-col tour-schedule tour-data">
+        <div class="flex-row flex-justify-space-between flex-align-center">
+            <app-heading [title]="compLanguage.schedule"></app-heading>
+            <app-show-hide-toggle [showFlag]="toggle.schedule" (click)="toggle.schedule = !toggle.schedule">
+            </app-show-hide-toggle>
+        </div>
+        <app-tour-schedule *ngIf="toggle.schedule" [tourData]="tourModel"></app-tour-schedule>
+    </div>
+    <div class="flex-col tour-data">
+        <div class="flex-row flex-justify-space-between flex-align-center">
+            <app-heading [title]="compLanguage.preparation"></app-heading>
+            <app-show-hide-toggle [showFlag]="toggle.preparation" (click)="toggle.preparation = !toggle.preparation">
+            </app-show-hide-toggle>
+        </div>
+        <div class="flex-row flex-1 content" *ngIf="toggle.preparation">
+            <table class="table table-hover table-bordered preparation-table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">{{compLanguage.itemName}}</th>
+                        <th scope="col">{{compLanguage.amount}}</th>
+                        <th scope="col">{{compLanguage.perform}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of tourModel.preparations; let i = index">
+                        <td scope="row">{{i+1}}</td>
+                        <td>{{item.itemName | titlecase}}</td>
+                        <td>{{item.amount}}</td>
+                        <td>
+                            <span *ngIf="item.isRequired" class="perform" style="color: red">
+                                <i class="fas fa-users" style="color: red"></i>{{compLanguage.allMembers}}
+                            </span>
+                            <span *ngIf="!item.isRequired" class="perform" style="color: green">
+                                <i class="fas fa-user-check"
+                                    style="color: green"></i>{{compLanguage.specifiedPerformer}}
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="flex-col tour-data">
+        <div class="flex-row flex-justify-space-between flex-align-center">
+            <app-heading [title]="compLanguage.contact"></app-heading>
+            <app-show-hide-toggle [showFlag]="toggle.contact" (click)="toggle.contact = !toggle.contact">
+            </app-show-hide-toggle>
+        </div>
+        <div class="flex-col flex-1 content" *ngIf="toggle.contact">
+            <div class="flex-row">
+                <label class="row-label flex-row" style="align-content: center;">
+                    {{compLanguage.tourguide}}
+                </label>
+                <div class="row-input">
+                    <img appOneTimeBinding [src]="membersService.getMemberAvatar(tourModel.tourGuideId)"
+                        class="default-avatar" style="margin: 0 5px;"
+                        *ngIf="membersService.getMemberAvatar(tourModel.tourGuideId)">
+                    <span class="bold" appOneTimeBinding>
+                        {{membersService.getMemberName(tourModel.tourGuideId) | titlecase}}
+                    </span>
+                </div>
+            </div>
+            <div class="flex-row">
+                <label class="row-label">
+                    {{compLanguage.tourguideContact}}
+                </label>
+                <div class="row-input">
+                    {{tourModel.contactNumber}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex-col tour-data">
+        <div class="flex-row flex-justify-space-between flex-align-center">
+            <app-heading [title]="compLanguage.relatedPost"></app-heading>
+            <app-show-hide-toggle [showFlag]="toggle.post" (click)="toggle.post = !toggle.post">
+            </app-show-hide-toggle>
+        </div>
+        <div class="flex-row related-post" *ngIf="toggle.post">
+            <app-card-view-post *ngFor="let post of arrRelatedPost" [inputPost]="post"></app-card-view-post>
+        </div>
+    </div>
+</div>

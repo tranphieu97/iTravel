@@ -35,7 +35,9 @@ export const LangEnglish: Language = {
     headerSearch: 'Search',
     headerPersonalInfo: 'Personal Information',
     headerLogOut: 'Sign Out',
-    headerUserContribution: 'Contribution'
+    headerUserContribution: 'Contribution',
+    headerUserTour: 'Your tours',
+    headerUpdateProfile: 'Update Profile'
   },
 
   // For Login
@@ -183,11 +185,23 @@ export const LangEnglish: Language = {
     postManagementErrorPostDenied: 'Post was denied before'
   },
 
+  pagePostView: { sendBtn: 'Send Comment' },
+
+  compTourBuilding: {
+    sendBtn: 'Send Feedback',
+    notInFeedback: 'This Tour is not in feedback state'
+  },
+
   // For Policies
   compPolicies: { policiesTitle: 'Using Policies' },
 
   // For Home Page
-  pageHome: { homeIndexPostIn: 'Posts in ' },
+  pageHome: {
+    homeIndexPostIn: 'Post in ',
+    homeTourAvailable: 'Available Tours',
+    homeTourBuilding: 'Tour Building',
+    homeTourCloseFeedback: 'Close feedback in: '
+  },
 
   // For Create Post
   compCreatePost: {
@@ -446,6 +460,119 @@ export const LangEnglish: Language = {
     location: 'Location',
     task: 'Task',
     joiningMember: 'Joining',
-    scheduleCost: 'Cost'
+    scheduleCost: 'Cost',
+    editBtn: 'Edit',
+    saveBtn: 'Save',
+    tourguide: 'Tourguide',
+    edit: 'Edit'
+  },
+
+  compUserTour: {
+    screenTitle: 'Your tours',
+    tourName: 'Tourname',
+    departureTime: 'Departure time',
+    status: 'Status',
+    statusPending: 'PENDING',
+    statusRegistering: 'REGISTERING',
+    statusRunning: 'RUNNING',
+    statusFinished: 'FINISHED',
+    statusPreparing: 'PREPARING',
+    statusPrepared: 'FINISHED',
+    detailBtn: 'Detail',
+    tripDuration: 'Trip duration',
+    tripDurationUnit: 'day(s)'
+  },
+
+  compUpdateProfile: {
+    birthday: 'Birthday',
+    email: 'Email',
+    firstName: 'First name',
+    lastName: 'Last name',
+    hometown: 'Hometown',
+    updateFail: 'Update Fail, try again!',
+    updateProfile: 'Update Profile',
+    updateSuccess: 'Update Success!',
+    uploadAvatar: 'Upload Avatar'
+  },
+
+  compTourView: {
+    tourNotPending: 'This tour is not in building state',
+    days: 'days',
+    feedbackWillCloseOn: 'Feedback will close on: ',
+    schedule: 'Schedule',
+    timeline: 'Timeline',
+    registerTime: 'Register Time',
+    feedbackTime: 'Feedback Time',
+    travelingTime: 'Traveling Time',
+    now: 'Now',
+    register: 'Registering',
+    limitMembers: 'Limit of Members',
+    member: ' members',
+    registerCost: 'Register Cost',
+    VNDPerPerson: 'VND/person',
+    preparation: 'Preparation',
+    itemName: 'Item Name',
+    allMembers: 'All Member',
+    amount: 'Amount',
+    perform: 'Perform',
+    specifiedPerformer: 'Specified Performer',
+    contact: 'Contact',
+    tourguide: 'Tourguide',
+    tourguideContact: 'Contact',
+    relatedPost: 'Related Posts',
+    expected: 'Expected'
+  },
+
+  compReviewerFeedback: {
+    review: 'Review',
+    approved: 'Approve',
+    denied: 'Deny',
+    pending: 'Pending',
+    requestChange: 'Request Change',
+    submitReview: 'Submit Review'
+  },
+
+  compTourOwnerControl: {
+    complete: 'Complete',
+    delete: 'Delete',
+    edit: 'Go to Edit',
+    pending: 'Pending',
+    approved: 'Approved',
+    requestChange: 'Requested Change',
+    denied: 'Denied',
+    deleteQuestion: 'Are you sure? This action can not been restore',
+    completeQuestion: 'Are you sure? This tour can not reviced feedback after'
+  },
+
+  compTourRegistering: {
+    perPerson: 'VND/person',
+    register: 'Register',
+    registerFor: 'Register for',
+    person: 'person',
+    relativesNote: 'Relatives Note',
+    total: 'Total',
+    slotAvailable: 'slots available',
+    fullSlot: 'Full slot, See you in the next tour!',
+    requiredRelativesInfo: 'How many children, teenager, old person in your register?',
+    contact: 'Contact',
+    phoneNumber: 'Phone number',
+    registered: 'Registered',
+    loginToRegister: 'Login to Register'
+  },
+
+  compTourEditing: {
+    editTitle: 'Edit Tour',
+    summary: 'Summary',
+    tourName: 'Tour Name',
+    description: 'Description',
+    closeFeedbackTime: 'Close Feedback Time',
+    closeRegisterTime: 'Close Register Time',
+    beginTime: 'Begin Time',
+    endTime: 'End Time',
+    cover: 'Cover',
+    locations: 'Locations',
+    schedule: 'Schedule',
+    preparation: 'Preparation',
+    performs: 'Performs'
   }
 };

@@ -1,0 +1,91 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{compLanguage.editTitle}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body modal-body-custom">
+  <ngb-tabset>
+    <ngb-tab>
+      <ng-template ngbTabTitle>
+        <b class="title">{{compLanguage.summary}}</b>
+      </ng-template>
+      <ng-template ngbTabContent>
+        <div class="flex-col tab-content">
+          <div class="flex-row form-group">
+            <label class="row-label">{{compLanguage.tourName}}</label>
+            <div class="row-input">
+              <input class="form-control" [(ngModel)]="tourData.tourName">
+            </div>
+          </div>
+          <div class="flex-row form-group">
+            <label class="row-label">{{compLanguage.description}}</label>
+            <div class="row-input">
+              <textarea class="form-control" [(ngModel)]="tourData.description" style="resize: none"
+                rows="3"></textarea>
+            </div>
+          </div>
+          <div class="flex-row form-group">
+            <label class="row-label">{{compLanguage.cover}}</label>
+            <div class="row-input" style="display: block">
+              <img [src]="tourData.cover" style="width: 100%; height: auto;">
+            </div>
+          </div>
+          <div class="flex-row form-group flex-justify-end">
+            <input type="file" style="visibility: hidden" id="input-cover">
+            <input type="button" class="btn form-control btn-warning"
+              [value]="commonLanguage.enter + compLanguage.cover" (click)="input-cover.click()">
+          </div>
+        </div>
+      </ng-template>
+    </ngb-tab>
+    <!-- End Tab 1 -->
+    <ngb-tab>
+      <ng-template ngbTabTitle>
+        <b class="title">{{compLanguage.locations}}</b>
+      </ng-template>
+      <ng-template ngbTabContent>
+        <div class="flex-col tab-content">
+
+        </div>
+      </ng-template>
+    </ngb-tab>
+    <!-- End Tab 2 -->
+
+    <ngb-tab>
+      <ng-template ngbTabTitle>
+        <b class="title">{{compLanguage.schedule}}</b>
+      </ng-template>
+      <ng-template ngbTabContent>
+        <div class="flex-col tab-content">
+          <app-add-schedule *ngFor="let schedule of tourData.schedules; let i = index" [scheduleModel]="schedule"
+            [index]="i"></app-add-schedule>
+        </div>
+      </ng-template>
+    </ngb-tab>
+    <!-- End Tab 3 -->
+
+    <ngb-tab>
+      <ng-template ngbTabTitle>
+        <b class="title">{{compLanguage.preparation}}</b>
+      </ng-template>
+      <ng-template ngbTabContent>
+
+      </ng-template>
+    </ngb-tab>
+    <!-- End Tab 4 -->
+
+    <ngb-tab>
+      <ng-template ngbTabTitle>
+        <b class="title">{{compLanguage.summary}}</b>
+      </ng-template>
+      <ng-template ngbTabContent>
+      </ng-template>
+    </ngb-tab>
+    <!-- End Tab 5 -->
+  </ngb-tabset>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-danger" (click)="activeModal.close()">{{commonLanguage.cancel}}</button>
+  <button type="button" class="btn btn-outline-success" (click)="activeModal.close()">{{commonLanguage.ok}}</button>
+</div>

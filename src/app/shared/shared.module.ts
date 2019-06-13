@@ -11,6 +11,12 @@ import { NgbModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { HorizontalCardViewPostComponent } from '../card-view-style/horizontal-card-view-post/horizontal-card-view-post.component';
 import { CardViewPostComponent } from '../card-view-style/card-view-post/card-view-post.component';
 import { LoadingComponent } from '../web-layout/loading/loading.component';
+import { HeadingComponent } from '../web-layout/heading/heading.component';
+import { ShowHideToggleComponent } from '../web-layout/show-hide-toggle/show-hide-toggle.component';
+import { HorizontalCardViewTourComponent } from '../card-view-style/horizontal-card-view-tour/horizontal-card-view-tour.component';
+import { LoginComponent } from '../auth/login/login.component';
+import { RegisterComponent } from '../auth/register/register.component';
+import { AddLocationComponent } from '../location/add-location/add-location.component';
 
 @NgModule({
   imports: [
@@ -23,7 +29,7 @@ import { LoadingComponent } from '../web-layout/loading/loading.component';
     ModalModule.forRoot(),
     ReactiveFormsModule,
     NgbModule,
-    NgbAlertModule
+    NgbAlertModule,
   ],
   exports: [
     CommonModule,
@@ -38,12 +44,24 @@ import { LoadingComponent } from '../web-layout/loading/loading.component';
     NgbAlertModule,
     HorizontalCardViewPostComponent,
     CardViewPostComponent,
-    LoadingComponent
+    LoadingComponent,
+    HeadingComponent,
+    ShowHideToggleComponent,
+    HorizontalCardViewTourComponent,
+    LoginComponent,
+    RegisterComponent,
+    AddLocationComponent
   ],
   declarations: [
     HorizontalCardViewPostComponent,
     CardViewPostComponent,
-    LoadingComponent
+    LoadingComponent,
+    HeadingComponent,
+    ShowHideToggleComponent,
+    HorizontalCardViewTourComponent,
+    LoginComponent,
+    RegisterComponent,
+    AddLocationComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JWTInterceptor, multi: true }

@@ -1,0 +1,40 @@
+@import 'src/styles.scss';
+
+:host {
+  $BACKGROUND_COLOR: rgb(35, 94, 30);
+  min-width: fit-content;
+  width: 100%;
+  min-height: 40px;
+  box-shadow: -5px -5px 3px 1px rgba(250, 229, 0, 1);
+  margin: 20px 5px 10px 5px;
+
+  display: flex;
+  flex-direction: row;
+
+  .heading-title {
+    background-color: $BACKGROUND_COLOR;
+    width: 80%;
+    padding: 10px 15px;
+
+    h3 {
+      margin: 0;
+      color: white;
+      font-weight: 700;
+    }
+  }
+
+  .heading-decoration {
+    position: relative;
+    display: block;
+
+    svg {
+      position: absolute;
+      height: 100%;
+
+      polygon {
+        fill: $BACKGROUND_COLOR;
+        stroke: $BACKGROUND_COLOR;
+      }
+    }
+  }
+}

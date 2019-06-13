@@ -1,0 +1,32 @@
+<div *ngIf="basicInfo" class="wrapper"
+  [ngClass]="{finished: performer.status === 'FINISHED',preparing: performer.status === 'PREPARING'}">
+  <div class="left-avatar"
+    [ngStyle]="{'background-image': 'url('+basicInfo.avatar+')'}"></div>
+  <div class="right">
+    <span class="name">{{basicInfo.firstName+' '+basicInfo.lastName}}</span>
+    <div class="num-prepared">
+      <button
+        *ngIf="allowSeeEdit.includes(currentPath) && userHasEditPermission && !isEditing"
+        class="perform-item-btn edit"
+        type="button"
+        (click)="onClickEdit()">
+        {{compLanguage.editBtn}}
+      </button>
+      <button
+        *ngIf="allowSeeEdit.includes(currentPath) && userHasEditPermission && isEditing"
+        class="perform-item-btn submit"
+        type="button"
+        (click)="onClickSave()">
+        {{compLanguage.saveBtn}}
+      </button>
+      <span *ngIf="!isEditing">
+        {{performer.prepared}}/{{performer.needPrepare}}
+      </span>
+      <input
+        *ngIf="allowSeeEdit.includes(currentPath) && userHasEditPermission && isEditing"
+        type="text" maxlength="4" #inputEle
+        [placeholder]="performer.prepared"
+        (input)="onInputPrepared(inputEle)">
+    </div>
+  </div>
+</div>

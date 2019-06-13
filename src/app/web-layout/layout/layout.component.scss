@@ -1,101 +1,147 @@
-@import 'src/styles.scss';
+@import "src/styles.scss";
 
 :host {
+  width: 100%;
+  height: 100%;
+  display: block;
+
+  .header-position {
+    position: fixed;
+    height: 60px;
     width: 100%;
-    height: 100%;
-    display: block;
 
-    .master-page-main {
-        width: 100%;
-        flex: 1;
-        max-height: 100vh;
-        
-        app-navigation-bar {
-            height: 100%;
-        }
+    z-index: 20;
+  }
 
-        .navbar-show {
-            width: $NAVBAR_WIDTH_SHOW;
-        }
+  .master-page-main {
+    justify-content: flex-end;
+    width: 100%;
+    flex: 1;
+    max-height: 100vh;
 
-        .navbar-hide {
-            width: $NAVBAR_WIDTH_HIDE;
-        }
+    .navbar-position {
+      position: fixed;
+      height: calc(100vh - 60px);
+      top: 60px;
+      left: 0px;
 
-        .master-page-content {
-            flex: 1;
-            background-color: $CONTENT_BACKGROUND_COLOR;
-            max-height: 91vh;
-        }
-
-        .user-toolbar {
-            height: 100%;
-            width: 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: start;
-            border-top: 1px solid $GRAY;
-            padding-top: 2px;
-            overflow: hidden;
-            
-            span {
-                width: 100%;
-                height: 40px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                cursor: pointer;
-                
-                i {
-                    font-size: 16px;
-                    // color: $GREEN;
-                }
-            }
-
-            span:hover {
-                background-color: $SECONDARY;
-            }
-
-            .toolbar-part {
-                border-bottom: 2px solid $SECONDARY;
-            }
-
-            .toolbar-post {
-                color: $ORANGE;
-            }
-
-            .toolbar-admin {
-                color: $RED;
-            }
-
-            .toolbar-tour {
-                color: $GREEN;
-            }
-        }
+      z-index: 10;
     }
 
-    app-header {
-        width: 100%;
+    .toolbar-position {
+      padding-top: 60px;
+      z-index: 15;
     }
 
-    // To clear bootstrap default margin and padding properties
-    .master-page {
-        margin:  0;
-        padding: 0;
+    .router-outlet-position {
+        position: absolute;
+        top: 60px;
+        right: 0px;
         height: 100%;
+    }
+
+    .router-outlet-navbar-show {
+        left: $NAVBAR_WIDTH_SHOW;
+    }
+
+    .router-outlet-navbar-hide {
+        left: $NAVBAR_WIDTH_HIDE;
+    }
+
+    .router-outlet-login {
+        right: 50px !important;
+    }
+
+    app-navigation-bar {
+      height: 100%;
+    }
+
+    .navbar-show {
+      width: $NAVBAR_WIDTH_SHOW;
+    }
+
+    .navbar-hide {
+      width: $NAVBAR_WIDTH_HIDE;
+    }
+
+    .master-page-content {
+      flex: 1;
+      background-color: $CONTENT_BACKGROUND_COLOR;
+      max-height: 91vh;
+
+      z-index: 5;
+    }
+
+    .user-toolbar {
+      height: 100%;
+      width: 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      border-top: 1px solid $GRAY;
+      overflow: hidden;
+      background-color: $WHITE;
+
+      span {
         width: 100%;
-
+        height: 40px;
         display: flex;
-        flex-direction: column;
-    }
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
 
-    .no-gutter > [class*='col-'] {
-        padding-right:0;
-        padding-left:0;
-    }
+        i {
+          font-size: 16px;
+          // color: $GREEN;
+        }
+      }
 
-    .row {
-        margin-left: 0;
-        margin-right: 0;
+      span:hover {
+        background-color: $SECONDARY;
+      }
+
+      .toolbar-part {
+        border-bottom: 2px solid $SECONDARY;
+      }
+
+      .toolbar-post {
+        color: $ORANGE;
+      }
+
+      .toolbar-admin {
+        color: $RED;
+      }
+
+      .toolbar-tour {
+        color: $GREEN;
+      }
     }
+  }
+
+  app-header {
+    width: 100%;
+  }
+
+  // To clear bootstrap default margin and padding properties
+  .master-page {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+  }
+
+  .no-gutter > [class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
 }

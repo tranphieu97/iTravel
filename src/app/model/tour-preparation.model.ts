@@ -37,5 +37,6 @@ export class TourPreparation {
     this.status = 'PREPARING';
     this.isActive = true;
     this.isRequired = true;
+    this.note = '';
   }
 }

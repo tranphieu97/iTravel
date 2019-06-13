@@ -11,6 +11,6 @@ import { LoginComponent } from './login/login.component';
     SharedModule,
     AuthRoutingModule
   ],
-  declarations: [RegisterComponent, LoginComponent]
+  declarations: []
 })
 export class AuthModule { }

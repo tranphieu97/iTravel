@@ -1,0 +1,73 @@
+<div class="flex-1 border-box flex-col">
+  <div class="avatar-box">
+    <app-loading *ngIf="isUploading"></app-loading>
+    <img *ngIf="!isUploading && userInforModel && userInforModel.avatar !== ''" [src]="userInforModel.avatar">
+    <img *ngIf="!isUploading && userInforModel && userInforModel.avatar === ''" src="assets/img/icons8-male-user-96.png">
+  </div>
+  <div class="flex-row form-group flex-items-center">
+    <input type="button" class="btn btn-warning" value="Update Avatar" style="padding: 5px 10px; font-size: 16px;"
+      (click)="uploadAvatar.click()" [disabled]="isUploading">
+    <input type="file" style="display: none" #uploadAvatar (change)="onPickedAvatar($event)">
+  </div>
+</div>
+<div class="flex-1 border-box flex-col">
+  <app-loading *ngIf="isLoading"></app-loading>
+  <div class="alert alert-danger" *ngIf="isFail">
+    {{compLanguage.updateFail}}
+  </div>
+  <div class="alert alert-success" *ngIf="isSuccess">
+    {{compLanguage.updateSuccess}}
+  </div>
+  <div class="flex-col flex-1" *ngIf="userInforModel">
+    <div class="flex-col form-group">
+      <label class="flex-row">{{compLanguage.firstName}}</label>
+      <div class="flex-row">
+        <input type="text" class="form-control" name="first-name" [(ngModel)]="userInforModel.firstName"
+          [disabled]="isLoading">
+      </div>
+      <div class="flex-row" style="font-size: 12px; color: red;" *ngIf="userInforModel.firstName === ''">
+        {{commonLanguage.thisFieldIsRequired}}
+      </div>
+    </div>
+    <div class="flex-col form-group">
+      <label class="flex-row">{{compLanguage.lastName}}</label>
+      <div class="flex-row">
+        <input type="text" class="form-control" name="last-name" [(ngModel)]="userInforModel.lastName"
+          [disabled]="isLoading">
+      </div>
+    </div>
+    <div class="flex-col form-group">
+      <label class="flex-row">{{compLanguage.email}}</label>
+      <div class="flex-row">
+        <input type="text" class="form-control" name="email" [(ngModel)]="userInforModel.email" [disabled]="isLoading">
+      </div>
+    </div>
+    <div class="flex-col form-group">
+      <label class="flex-row">{{compLanguage.hometown}}</label>
+      <div class="flex-row">
+        <select name="hometown" class="form-control" [(ngModel)]="userInforModel.hometown" [disabled]="isLoading">
+          <option *ngFor="let province of arrProvince">{{province.provinceName}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="flex-col form-group">
+      <label class="flex-row">{{compLanguage.birthday}}</label>
+      <div class="flex-row">
+        <div class="input-group">
+          <input class="form-control" placeholder="yyyy-mm-dd" name="birthday" [(ngModel)]="birthday" ngbDatepicker
+            #birthDay="ngbDatepicker" #modalbirthday="ngModel" readonly (click)="birthDay.toggle()"
+            [disabled]="isLoading" (ngModelChange)="onChangeBirthday()">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="birthDay.toggle()" type="button">
+              <span><i class="fas fa-calendar-alt"></i></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex-row flex-items-center form-group" *ngIf="userInforModel">
+    <input type="submit" class="btn btn-success" [disabled]="isLoading || userInforModel.firstName === ''"
+      [value]="compLanguage.updateProfile" (click)="updateProfile()">
+  </div>
+</div>

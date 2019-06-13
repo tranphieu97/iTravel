@@ -42,6 +42,8 @@ export class Language {
     headerPersonalInfo: string;
     headerLogOut: string;
     headerUserContribution: string;
+    headerUserTour: string;
+    headerUpdateProfile: string;
   };
 
   // For Login Component
@@ -185,7 +187,21 @@ export class Language {
   compPolicies: { policiesTitle: string };
 
   // For HomePage
-  pageHome: { homeIndexPostIn: string };
+  pageHome: {
+    homeIndexPostIn: string,
+    homeTourAvailable: string;
+    homeTourBuilding: string;
+    homeTourCloseFeedback: string;
+  };
+
+  pagePostView: {
+    sendBtn: string
+  };
+
+  compTourBuilding: {
+    sendBtn: string,
+    notInFeedback: string
+  };
 
   // For Create Post
   compCreatePost: {
@@ -440,7 +456,120 @@ export class Language {
     task: string;
     joiningMember: string;
     scheduleCost: string;
+    editBtn: string;
+    saveBtn: string;
+    tourguide: string;
+    edit: string;
   };
 
-  constructor() {}
+  compUserTour: {
+    screenTitle: string;
+    tourName: string;
+    departureTime: string;
+    status: string;
+    statusPending: string;
+    statusRegistering: string;
+    statusRunning: string;
+    statusFinished: string;
+    statusPreparing: string;
+    statusPrepared: string;
+    detailBtn: string;
+    tripDuration: string;
+    tripDurationUnit: string;
+  };
+
+  compUpdateProfile: {
+    firstName: string;
+    lastName: string;
+    hometown: string;
+    birthday: string;
+    email: string;
+    uploadAvatar: string;
+    updateProfile: string;
+    updateSuccess: string;
+    updateFail: string;
+  };
+
+  compTourView: {
+    tourNotPending: string;
+    days: string;
+    feedbackWillCloseOn: string;
+    schedule: string;
+    timeline: string;
+    registerTime: string;
+    feedbackTime: string;
+    travelingTime: string;
+    now: string;
+    register: string;
+    limitMembers: string;
+    member: string;
+    registerCost: string;
+    VNDPerPerson: string;
+    preparation: string;
+    itemName: string;
+    amount: string;
+    allMembers: string;
+    perform: string;
+    specifiedPerformer: string;
+    contact: string;
+    tourguide: string;
+    tourguideContact: string;
+    relatedPost: string;
+    expected: string;
+  };
+
+  compReviewerFeedback: {
+    review: string;
+    pending: string;
+    approved: string;
+    requestChange: string;
+    denied: string;
+    submitReview: string;
+  };
+
+  compTourOwnerControl: {
+    complete: string;
+    delete: string;
+    edit: string;
+    pending: string;
+    approved: string;
+    requestChange: string;
+    denied: string;
+    deleteQuestion: string;
+    completeQuestion: string;
+  };
+
+  compTourRegistering: {
+    perPerson: string;
+    register: string;
+    registerFor: string;
+    person: string;
+    relativesNote: string;
+    total: string;
+    slotAvailable: string;
+    fullSlot: string;
+    requiredRelativesInfo: string;
+    contact: string;
+    phoneNumber: string;
+    registered: string;
+    loginToRegister: string;
+  };
+
+  compTourEditing: {
+    editTitle: string;
+    summary: string;
+    tourName: string;
+    description: string;
+    closeFeedbackTime: string;
+    closeRegisterTime: string;
+    beginTime: string;
+    endTime: string;
+    cover: string;
+    locations: string;
+    schedule: string;
+    preparation: string;
+    performs: string;
+  };
+
+  constructor() { }
 }

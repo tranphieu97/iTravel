@@ -1,0 +1,44 @@
+@import "src/styles.scss";
+
+:host {
+  .modal-title {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .modal-body-custom {
+    height: 500px;
+    display: flex;
+
+    ngb-tabset {
+      width: 100%;
+      .title {
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      .tab-content {
+        position: absolute;
+        top: 52px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        overflow: auto;
+        padding: 20px;
+
+        * {
+          font-size: 15px;
+        }
+
+        input[type=button] {
+          width: fit-content;
+          padding: 5px 10px;
+        }
+      }
+    }
+
+    ng-template {
+      height: 90%;
+    }
+  }
+}

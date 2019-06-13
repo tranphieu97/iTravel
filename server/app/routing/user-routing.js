@@ -101,6 +101,51 @@ app.get('/user/profile', async (req, res) => {
 });
 
 /**
+ * @name USER - GET User's profile
+ * @author phieu-th
+ * @description
+ * @returns 
+ */
+app.get('/user/information', async (req, res) => {
+    const userId = req.param('userId');
+
+    const userFilter = {
+        '_id': new ObjectId(userId)
+    };
+
+    const inforProjection = {
+        projection: {
+            avatar: 1,
+            hometown: 1,
+            birthDay: 1,
+            firstName: 1,
+            lastName: 1,
+            email: 1
+        }
+    };
+
+    database.getOneWithProjection(database.iTravelDB.Users, userFilter, inforProjection)
+        .then((userInfo) => {
+            if (userInfo) {
+                res.status(200).json({
+                    data: userInfo,
+                    statusCode: 200
+                });
+            } else {
+                res.status(200).json({
+                    statusCode: 404
+                });
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(200).json({
+                statusCode: 404
+            });
+        });
+});
+
+/**
  * @name USER - POST Token Login
  * @author phieu-th
  * @description re-login by token stored in localstorage
@@ -139,15 +184,21 @@ app.post('/user/token-login', async (req, res) => {
                         });
                     } else {
                         let isAdmin = false;
+                        let isTourguide = false;
 
                         if (userInfo.permission.includes(config.USER_PERMISSION.ADMIN)) {
                             isAdmin = true;
                         }
 
+                        if (userInfo.permission.includes(config.USER_PERMISSION.TOURGUIDE)) {
+                            isTourguide = true;
+                        }
+
                         const userData = {
                             _id: userInfo._id,
                             username: userInfo.username,
-                            isAdmin: isAdmin
+                            isAdmin: isAdmin,
+                            isTourguide: isTourguide
                         }
 
                         const data = {
@@ -156,7 +207,8 @@ app.post('/user/token-login', async (req, res) => {
                             firstName: userInfo.firstName,
                             lastName: userInfo.lastName,
                             avatar: userInfo.avatar,
-                            isAdmin: isAdmin
+                            isAdmin: isAdmin,
+                            isTourguide: isTourguide
                         }
                         authentication.insertUserSignInLog(userInfo.username);
                         jwt.sign(userData, config.SECRET_KEY, { expiresIn: '23h' }, (err, jwtToken) => {
@@ -476,7 +528,7 @@ app.patch('/user/send-notification', async (req, res) => {
             "notificationItems": req.body
         };
         newListNotifications.notificationItems = newListNotifications.notificationItems.map((notiItem) => {
-            !notiItem._id 
+            !notiItem._id
                 ? notiItem._id = new ObjectId()
                 : notiItem._id = new ObjectId(notiItem._id);
             return notiItem;
@@ -501,6 +553,280 @@ app.patch('/user/send-notification', async (req, res) => {
             .catch((err) => {
                 console.log('Notify Has Error');
             })
+    }
+});
+
+app.patch('/user/upload-avatar', (req, res) => {
+    if (req.body) {
+        const userFilter = {
+            '_id': new ObjectId(req.body.userId)
+        };
+
+        const changedField = {
+            'avatar': req.body.imgLink
+        };
+
+        database.updateDocumentByFilter(database.iTravelDB.Users, userFilter, changedField)
+            .then((updateResult) => {
+                if (updateResult.matchedCount === 1) {
+                    res.status(200).json({
+                        statusCode: 201
+                    });
+                } else {
+                    res.status(200).json({
+                        statusCode: 404
+                    });
+                }
+            })
+            .catch(() => {
+                res.status(200).json({
+                    statusCode: 404
+                });
+            });
+    } else {
+        res.status(200).json({
+            statusCode: 404
+        });
+    }
+});
+
+app.patch('/user/update-profile', async (req, res) => {
+    if (req.body) {
+        const userFilter = {
+            '_id': new ObjectId(req.body._id)
+        };
+
+        const changedField = {
+            'firstName': req.body.firstName,
+            'lastName': req.body.lastName,
+            'email': req.body.email,
+            'birthDay': req.body.birthDay,
+            'hometown': req.body.hometown
+        };
+
+        database.updateDocumentByFilter(database.iTravelDB.Users, userFilter, changedField)
+            .then((updateResult) => {
+                if (updateResult.matchedCount === 1) {
+                    res.status(200).json({
+                        statusCode: 201
+                    });
+                } else {
+                    res.status(200).json({
+                        statusCode: 404
+                    });
+                }
+            })
+            .catch(() => {
+                res.status(200).json({
+                    statusCode: 404
+                });
+            });
+    } else {
+        res.status(200).json({
+            statusCode: 404
+        });
+    }
+});
+
+/**
+ * @name getTours
+ * @author Thong
+ */
+app.get('/user/get-tours', async (req, res) => {
+    try {
+        let queryObj = { isActive: true }
+        if (req.param('userId')) {
+            const userId = authentication.getTokenUserId(req.headers.authorization);
+            queryObj = {
+                isActive: true,
+                'members.memberId': userId
+            }
+        }
+        const tours = await Tour.find(queryObj)
+        res.status(200).json({
+            data: tours,
+            message: 'Success!'
+        });
+    } catch (error) {
+        res.status(200).json({
+            message: error.message,
+            statusCode: 500
+        });
+    }
+});
+
+/**
+ * @name updateTour for user
+ * @param {Tour}
+ * @author Thong
+ */
+app.patch('/user/update-tour-preparation', async (req, res) => {
+    try {
+        const tourId = req.query.tourId;
+        const preparationId = req.query.preparationId;
+        let queryObj;
+        if (tourId && preparationId) {
+            queryObj = {
+                _id: tourId,
+                'preparations._id': preparationId
+            };
+        } else {
+            console.log('Update preparation error: Invalid param');
+            res.status(200).json({
+                message: 'Invalid param'
+            });
+        }
+        const needUpdateObj = req.body;
+        // fix _id from string to ObjectId
+        needUpdateObj.performers = needUpdateObj.performers.map(performer => {
+            performer._id = new ObjectId(performer._id);
+            return performer;
+        });
+        await Tour.updateOne(queryObj,
+            {
+                $set: {
+                    'preparations.$.performers': needUpdateObj.performers,
+                    'preparations.$.status': needUpdateObj.status
+                }
+            });
+        console.log('Update preparation successful');
+        res.status(200).json({
+            message: 'Success'
+        });
+    } catch (error) {
+        console.log('Update preparation failed:', error.message);
+        res.status(200).json({
+            message: error.message
+        });
+    }
+});
+
+/**
+ * @name sendTourFeedbacks
+ * @param {tourId}
+ * @param {newFeedback}
+ * @author Thong
+ */
+app.patch('/user/send-tour-feedback', async (req, res) => {
+    try {
+        const id = req.query.tourId;
+        const newFeedback = Object.assign(req.body, { time: new Date() });
+        await Tour.updateOne({ _id: id }, { $push: { 'feedbacks': newFeedback } })
+        console.log('Send tour feedback successful')
+        res.json({
+            message: 'Success',
+            statusCode: 200
+        });
+    } catch (error) {
+        console.log('Send tour feedback failed')
+        res.json({
+            message: error.message,
+            statusCode: 500
+        });
+    }
+});
+
+app.patch('/user/reviewer-feedback', async (req, res) => {
+    const revieverFeedback = req.body;
+    try {
+        if (revieverFeedback && revieverFeedback._id) {
+            await Tour.updateOne(
+                {
+                    '_id': revieverFeedback.tourId,
+                    'reviewers._id': new ObjectId(revieverFeedback._id),
+                    'reviewers.reviewerId': revieverFeedback.submiterId
+                },
+                {
+                    $set: {
+                        'reviewers.$.state': revieverFeedback.state,
+                        'reviewers.$.feedback': revieverFeedback.feedback
+                    }
+                },
+                (err, raw) => {
+                    if (err) {
+                        res.status(200).json({
+                            statusCode: 403,
+                            message: err
+                        });
+                    } else if (raw.n === 1) {
+                        res.status(201).json({
+                            statusCode: 201,
+                            message: 'Success'
+                        });
+                    } else {
+                        res.status(200).json({
+                            statusCode: 403,
+                            message: 'Not found reviewer'
+                        });
+                    }
+                }
+            );
+        }
+    } catch {
+        res.status(200).json({
+            statusCode: 500,
+            message: 'Server error'
+        });
+    }
+});
+
+app.patch('/user/register-tour', async (req, res) => {
+    const registerBody = req.body;
+    try {
+        if (registerBody._id && registerBody.registerObj) {
+            const tourRegisterd = await Tour.findById(new ObjectId(registerBody._id), '_id memberLimit members');
+
+            let currentMembers = 0;
+            tourRegisterd.members.forEach(member => {
+                currentMembers = currentMembers + member.registerFor;
+            });
+            if (currentMembers + registerBody.registerObj.registerFor > tourRegisterd.memberLimit) {
+                res.status(200).json({
+                    statusCode: 200,
+                    result: {
+                        overLimit: true,
+                        success: false
+                    }
+                });
+            } else {
+                await Tour.updateOne(new ObjectId(registerBody._id), {
+                    $push: {
+                        'members': registerBody.registerObj
+                    }
+                }, (err, raw) => {
+                    if (err) {
+                        res.status(200).json({
+                            statusCode: 200,
+                            result: {
+                                overLimit: false,
+                                success: false
+                            }
+                        });
+                    } else {
+                        res.status(200).json({
+                            statusCode: 200,
+                            result: {
+                                overLimit: true,
+                                success: true
+                            }
+                        });
+                    }
+                });
+            }
+
+        } else {
+            res.status(200).json({
+                statusCode: 404
+            });
+        }
+    } catch {
+        res.status(200).json({
+            statusCode: 500,
+            result: {
+                overLimit: false,
+                success: false
+            }
+        });
     }
 });
 // Routing - END

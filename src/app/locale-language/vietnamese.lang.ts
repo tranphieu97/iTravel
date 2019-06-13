@@ -35,7 +35,9 @@ export const LangVietnamese: Language = {
     headerSearch: 'Tìm kiếm',
     headerPersonalInfo: 'Thông tin cá nhân',
     headerLogOut: 'Đăng xuất',
-    headerUserContribution: 'Đóng góp'
+    headerUserContribution: 'Đóng góp',
+    headerUserTour: 'Tour của bạn',
+    headerUpdateProfile: 'Cập nhật thông tin'
   },
 
   // For Login
@@ -181,7 +183,19 @@ export const LangVietnamese: Language = {
   compPolicies: { policiesTitle: 'Chính sách sử dụng' },
 
   // For Home Page
-  pageHome: { homeIndexPostIn: 'Bài viết tại ' },
+  pageHome: {
+    homeIndexPostIn: 'Bài viết tại ',
+    homeTourAvailable: 'Chuyến đi sẵn sàng',
+    homeTourBuilding: 'Xây dựng chuyến đi',
+    homeTourCloseFeedback: 'Đóng góp ý vào: '
+  },
+
+  pagePostView: { sendBtn: 'Gửi bình luận' },
+
+  compTourBuilding: {
+    sendBtn: 'Gửi góp ý',
+    notInFeedback: 'Tour hiện không trong thời gian góp ý'
+  },
 
   // For Create Post
   compCreatePost: {
@@ -438,6 +452,119 @@ export const LangVietnamese: Language = {
     location: 'Địa điểm',
     task: 'Nhiệm vụ',
     joiningMember: 'Tham gia',
-    scheduleCost: 'Chi phí'
+    scheduleCost: 'Chi phí',
+    editBtn: 'Sửa',
+    saveBtn: 'Lưu',
+    tourguide: 'Hướng dẫn viên',
+    edit: 'Chỉnh sửa'
+  },
+
+  compUserTour: {
+    screenTitle: 'Tour của bạn',
+    tourName: 'Tour',
+    departureTime: 'Khời hành',
+    status: 'Trạng thái',
+    statusPending: 'Chờ Góp Ý',
+    statusRegistering: 'Cho Đăng Ký',
+    statusRunning: 'Đang Diên Ra',
+    statusFinished: 'Đã Kết Thúc',
+    statusPreparing: 'Đang Chuẩn Bị',
+    statusPrepared: 'Đã Xong',
+    detailBtn: 'Chi Tiết',
+    tripDuration: 'Thời gian hành trình',
+    tripDurationUnit: 'ngày'
+  },
+
+  compUpdateProfile: {
+    birthday: 'Sinh nhật',
+    email: 'Email',
+    firstName: 'Tên',
+    lastName: 'Họ',
+    hometown: 'Quê quán',
+    updateFail: 'Cập nhật thất bại, vui lòng thử lại',
+    updateProfile: 'Cập nhật thông tin',
+    updateSuccess: 'Cập nhật thành công!',
+    uploadAvatar: 'Tải lên ảnh đại diện'
+  },
+
+  compTourView: {
+    tourNotPending: 'Tour hiện tại không có trạng thái đóng góp',
+    days: 'ngày',
+    feedbackWillCloseOn: 'Phản hồi sẽ đóng vào: ',
+    schedule: 'Lịch trình',
+    timeline: 'Mốc thời gian',
+    registerTime: 'Thời gian đăng ký',
+    feedbackTime: 'Thời gian đóng góp',
+    travelingTime: 'Thời gian du lịch',
+    now: 'Hiện tại',
+    register: 'Đăng ký',
+    limitMembers: 'Thành viên tối đa',
+    member: ' thành viên',
+    registerCost: 'Chi phí đăng ký',
+    VNDPerPerson: 'VND/người',
+    preparation: 'Chuẩn bị',
+    itemName: 'Tên vật dụng',
+    amount: 'Số lượng',
+    perform: 'Phụ trách',
+    allMembers: 'Tất cả chuẩn bị',
+    specifiedPerformer: 'Được chuẩn bị',
+    contact: 'Liên hệ',
+    tourguide: 'Dẫn đoàn',
+    tourguideContact: 'Liên hệ',
+    relatedPost: 'Những bài viết liên quan',
+    expected: 'Dự kiến'
+  },
+
+  compReviewerFeedback: {
+    review: 'Đánh giá',
+    approved: 'Đã duyệt',
+    denied: 'Từ chối',
+    pending: 'Chờ đánh giá',
+    requestChange: 'Yêu cầu thay đổi',
+    submitReview: 'Gửi đánh giá'
+  },
+
+  compTourOwnerControl: {
+    complete: 'Hoàn thành',
+    delete: 'Xoá',
+    edit: 'Chỉnh sửa',
+    pending: 'Đang chờ',
+    approved: 'Đã duyệt',
+    requestChange: 'Đã yêu cầu thay đổi',
+    denied: 'Đã từ chối',
+    deleteQuestion: 'Bạn chắc chắn chứ? Hành động này không thể được khôi phục',
+    completeQuestion: 'Bạn chắc chắn chứ? Tour này sẽ không thể nhận thêm phản hồi'
+  },
+
+  compTourRegistering: {
+    perPerson: 'VND/người',
+    register: 'Đăng ký',
+    registerFor: 'Đăng ký cho',
+    person: 'người',
+    relativesNote: 'Thông tin người thân',
+    total: 'Tổng cộng',
+    fullSlot: 'Tour đã hết chổ, hẹn gặp bạn trong tour tiếp theo!',
+    slotAvailable: 'chổ còn trống',
+    requiredRelativesInfo: 'Số lượng trẻ em, thanh niên và người già trong mẫu đăng ký?',
+    contact: 'Liên hệ',
+    phoneNumber: 'Số điện thoại',
+    registered: 'Đã đăng ký',
+    loginToRegister: 'Đăng nhập để Đăng ký'
+  },
+
+  compTourEditing: {
+    editTitle: 'Chỉnh sửa Tour',
+    summary: 'Tổng quát',
+    tourName: 'Tên Tour',
+    description: 'Mô tả',
+    closeFeedbackTime: 'Hạn chót đóng góp',
+    closeRegisterTime: 'Hạn chót đăng ký',
+    beginTime: 'Ngày bắt đầu',
+    endTime: 'Ngày kết thúc',
+    cover: 'Ảnh bìa',
+    locations: 'Địa điểm',
+    schedule: 'Kế hoạch',
+    preparation: 'Chuẩn bị',
+    performs: 'Phụ trách'
   }
 };
