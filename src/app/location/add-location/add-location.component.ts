@@ -78,6 +78,7 @@ export class AddLocationComponent implements OnInit {
                 if (res.statusCode === 201) {
                   this.addLocationMessage = this.compLanguage.addTourAddSuccess;
                   this.hasError = false;
+                  this.buildAddLocationForm();
                 } else {
                   this.addLocationMessage = this.compLanguage.addTourAddFail;
                   this.hasError = true;
