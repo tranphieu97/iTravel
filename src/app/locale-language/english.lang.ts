@@ -437,7 +437,7 @@ export const LangEnglish: Language = {
     statusPreparing: 'PREPARING',
     statusPrepared: 'FINISHED',
     detailBtn: 'Detail',
-    modalTitle: 'Tour Detail',
+    tourDetailModal: 'Tour Detail',
     generalTab: 'General',
     scheduleTab: 'Schedule',
     feedbackTab: 'Feedback',
@@ -464,6 +464,13 @@ export const LangEnglish: Language = {
     editBtn: 'Edit',
     saveBtn: 'Save',
     tourguide: 'Tourguide',
+    tourReopenModal: 'Reopen Tour',
+    beginTime: 'Start at',
+    endTime: 'Finish at',
+    closeFeedbackTime: 'Receive feedback until',
+    closeRegisterTime: 'Register until',
+    rename: 'rename',
+    reopenBtn: 'Reopen',
     edit: 'Edit'
   },
 

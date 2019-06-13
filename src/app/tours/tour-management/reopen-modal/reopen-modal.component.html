@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title">{{'Reopen Tour'}}</h4>
+  <h4 class="modal-title">{{compLanguage.tourReopenModal}}</h4>
   <button type="button" class="close"
     (click)="activeModal.dismiss('Cross click')">
     <span>&times;</span>
@@ -8,13 +8,13 @@
 
 <div class="modal-body modal-body-custom">
   <div class="form-group rename">
-    <label>{{'Tour name:'}}</label>
+    <label>{{compLanguage.tourName}}:</label>
     <input [(ngModel)]="tourName" type="text" minlength="0" maxlength="100"
-      placeholder="rename">
+      [placeholder]="compLanguage.rename">
   </div>
 
   <div class="form-group flex-row">
-    <label class="row-label">{{'Begin time'}}</label>
+    <label class="row-label">{{compLanguage.beginTime}}</label>
     <div class="row-input flex-row">
       <div class="flex-1 flex-items-center">
         <div class="input-group">
@@ -39,7 +39,7 @@
   </div>
 
   <div class="form-group flex-row">
-    <label class="row-label">{{'End time'}}</label>
+    <label class="row-label">{{compLanguage.endTime}}</label>
     <div class="row-input flex-row">
       <div class="flex-1 flex-items-center">
         <div class="input-group">
@@ -62,7 +62,7 @@
   </div>
 
   <div class="form-group flex-row">
-    <label class="row-label">{{'Close feedback time'}}</label>
+    <label class="row-label">{{compLanguage.closeFeedbackTime}}</label>
     <div class="row-input flex-row">
       <div class="flex-1 flex-items-center">
         <div class="input-group">
@@ -86,7 +86,7 @@
     </div>
   </div>
   <div class="form-group flex-row">
-    <label class="row-label">{{'Close registering time'}}</label>
+    <label class="row-label">{{compLanguage.closeRegisterTime}}</label>
     <div class="row-input flex-row">
       <div class="flex-1 flex-items-center">
         <div class="input-group">
@@ -113,7 +113,7 @@
 
 <div class="modal-footer">
   <button type="button" class="btn btn-outline-dark"
-    (click)="activeModal.close()">{{'Close'}}</button>
+    (click)="activeModal.close()">{{compLanguage.closeBtn}}</button>
   <button type="button" class="btn btn-success"
-    (click)="onReopenHandle()">{{'Reopen'}}</button>
+    (click)="onReopenHandle()">{{compLanguage.reopenBtn}}</button>
 </div>

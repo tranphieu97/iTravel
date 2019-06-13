@@ -429,7 +429,7 @@ export const LangVietnamese: Language = {
     statusPreparing: 'Đang Chuẩn Bị',
     statusPrepared: 'Đã Xong',
     detailBtn: 'Chi Tiết',
-    modalTitle: 'Thông tin chi tiết về tour',
+    tourDetailModal: 'Thông tin chi tiết về tour',
     generalTab: 'Sơ lược',
     scheduleTab: 'Lịch trình',
     feedbackTab: 'Góp ý',
@@ -456,6 +456,13 @@ export const LangVietnamese: Language = {
     editBtn: 'Sửa',
     saveBtn: 'Lưu',
     tourguide: 'Hướng dẫn viên',
+    tourReopenModal: 'Mở lại tour',
+    beginTime: 'Thời gian bắt đầu',
+    endTime: 'Thời gian kết thúc',
+    closeFeedbackTime: 'Thời hạn nhận góp ý',
+    closeRegisterTime: 'Thời hạn đăng ký',
+    rename: 'tên tour mới',
+    reopenBtn: 'Mở lại',
     edit: 'Chỉnh sửa'
   },
 

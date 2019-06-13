@@ -432,7 +432,7 @@ export class Language {
     statusPreparing: string;
     statusPrepared: string;
     detailBtn: string;
-    modalTitle: string;
+    tourDetailModal: string;
     generalTab: string;
     scheduleTab: string;
     feedbackTab: string;
@@ -459,6 +459,13 @@ export class Language {
     editBtn: string;
     saveBtn: string;
     tourguide: string;
+    tourReopenModal: string;
+    rename: string;
+    beginTime: string;
+    endTime: string;
+    closeFeedbackTime: string;
+    closeRegisterTime: string;
+    reopenBtn: string;
     edit: string;
   };
 
