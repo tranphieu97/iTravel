@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit {
       || !this.usernameRegex.test(username) || !this.passwordRegex.test(password)) {
       this.loginMessage = 'Invalid Account';
       this.isFailLogin = true;
+      this.isLoading = false;
     } else {
       this.authentication.loginByBasicInput(this.loginForm).subscribe((res) => {
         if (!res.data) {

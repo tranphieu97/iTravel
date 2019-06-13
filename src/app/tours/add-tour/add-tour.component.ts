@@ -174,6 +174,7 @@ export class AddTourComponent implements OnInit {
         });
     } else {
       this.arrLocations = [];
+      this.arrFilterLocations = [];
     }
   }
 
