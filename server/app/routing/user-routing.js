@@ -762,7 +762,7 @@ app.patch('/user/reviewer-feedback', async (req, res) => {
                 }
             );
         }
-    } catch {
+    } catch (err) {
         res.status(200).json({
             statusCode: 500,
             message: 'Server error'
@@ -819,7 +819,7 @@ app.patch('/user/register-tour', async (req, res) => {
                 statusCode: 404
             });
         }
-    } catch {
+    } catch (err) {
         res.status(200).json({
             statusCode: 500,
             result: {
