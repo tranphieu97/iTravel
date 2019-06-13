@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { AddTourComponent } from './add-tour/add-tour.component';
 import { SharedModule } from '../shared/shared.module';
 import { ToursRoutingModule } from './tours.routing';
-import { AddScheduleComponent } from './add-schedule/add-schedule.component';
-import { AddPreparationComponent } from './add-preparation/add-preparation.component';
+import { AddScheduleComponent } from './add-tour/add-schedule/add-schedule.component';
+import { AddPreparationComponent } from './add-tour/add-preparation/add-preparation.component';
 import { TourManagementComponent } from './tour-management/tour-management.component';
 import { DetailModalComponent } from './tour-management/detail-modal/detail-modal.component';
 import { TourGeneralInfoComponent } from './tour-management/detail-modal/tour-general-info/tour-general-info.component';
@@ -22,6 +22,7 @@ import { ReviewerFeedbackComponent } from './tour-building/reviewer-feedback/rev
 import { TourOwnerControlComponent } from './tour-building/tour-owner-control/tour-owner-control.component';
 import { TourRegisteringComponent } from './tour-registering/tour-registering.component';
 import { RegisteringFormComponent } from './tour-registering/registering-form/registering-form.component';
+import { TourEditingComponent } from './tour-management/tour-editing/tour-editing.component';
 import { ReopenModalComponent } from './tour-management/reopen-modal/reopen-modal.component';
 
 @NgModule({
@@ -47,9 +48,10 @@ import { ReopenModalComponent } from './tour-management/reopen-modal/reopen-moda
     TourOwnerControlComponent,
     TourRegisteringComponent,
     RegisteringFormComponent,
-    ReopenModalComponent
+    ReopenModalComponent,
+    TourEditingComponent
   ],
   exports: [DetailModalComponent],
-  entryComponents: [DetailModalComponent, ReopenModalComponent]
+  entryComponents: [DetailModalComponent, ReopenModalComponent, TourEditingComponent]
 })
 export class ToursModule {}

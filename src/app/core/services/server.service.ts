@@ -22,6 +22,7 @@ import { NotificationItem } from 'src/app/model/notification-item.model';
 import { Tour } from 'src/app/model/tour.model';
 import { TourFeedback } from 'src/app/model/tour-feedback.model';
 import { TourReviewer } from 'src/app/model/tour-reviewer.model';
+import { TourMember } from 'src/app/model/tour-member.model';
 
 @Injectable({
   providedIn: 'root'
@@ -617,5 +618,14 @@ export class ServerService {
     };
 
     return this.http.get<{statusCode: number, data: any}>(this.HOST + 'api/tour-registerd-info', {params: params});
+  }
+
+  registerTour(tourId: string, registerObject: TourMember): Observable<{statusCode: number, result: any}> {
+    const registerBody = {
+      _id: tourId,
+      registerObj: registerObject
+    };
+
+    return this.http.patch<{statusCode: number, result: any}>(this.HOST + 'user/register-tour', registerBody);
   }
 }

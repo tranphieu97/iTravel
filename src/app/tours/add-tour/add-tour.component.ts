@@ -25,8 +25,6 @@ import { Router } from '@angular/router';
 })
 export class AddTourComponent implements OnInit {
 
-  public addLocationForm: FormGroup;
-
   public startDate: NgbDate;
   public endDate: NgbDate;
   public feedbackDeadline: NgbDate;
@@ -54,22 +52,18 @@ export class AddTourComponent implements OnInit {
   public isCreating: Boolean = false;
   public isLoading: Boolean = false;
 
-  public addLocationMessage: String = '';
-  public hasError: Boolean = false;
-
   public errorMess: String = '';
 
   public tourModel: Tour;
 
   public coverFile: File = null;
-  public locationImage: File = null;
   public scheduleCost: number;
 
   compLanguage;
   commonLanguage;
 
   constructor(public language: LanguageService, private timepickerConfig: NgbTimepickerConfig,
-    private provinceService: ProvinceCityService, private serverService: ServerService, private modal: NgbModal,
+    private provinceService: ProvinceCityService, private server: ServerService, private modal: NgbModal,
     private formBuilder: FormBuilder, public stepperService: StepperService, private dateStructService: DateStructService,
     public addTourService: AddTourService, private userService: UserService, private router: Router) {
     timepickerConfig.spinners = false;
@@ -109,7 +103,7 @@ export class AddTourComponent implements OnInit {
       this.arrProvince = this.provinceService.allProvinceCity;
     }
 
-    this.serverService.getTourguides().subscribe((res) => {
+    this.server.getTourguides().subscribe((res) => {
       this.arrTourguides = res.data.map((item: any) => {
         return {
           _id: item._id,
@@ -119,7 +113,7 @@ export class AddTourComponent implements OnInit {
       });
     });
 
-    this.serverService.getReviewer().subscribe(res => {
+    this.server.getReviewer().subscribe(res => {
       this.arrReviewer = res.data.map((item: any) => {
         return {
           _id: item._id,
@@ -150,16 +144,6 @@ export class AddTourComponent implements OnInit {
     });
   }
 
-  buildAddLocationForm() {
-    this.addLocationForm = this.formBuilder.group({
-      locationName: [null, [Validators.required]],
-      provinceCity: [null, [Validators.required]],
-      gps: [null],
-      address: [null, [Validators.required]],
-      image: ['']
-    });
-  }
-
   selectProvince(province: ProvinceCity) {
     if (this.arrSelectedProvince.indexOf(province) === -1) {
       this.arrSelectedProvince.push(province);
@@ -176,7 +160,7 @@ export class AddTourComponent implements OnInit {
 
   getLocationsInSelectedProvinces() {
     if (this.arrSelectedProvince.length > 0) {
-      this.serverService.getLocationsInProvinces(this.arrSelectedProvince.map(province => province.provinceName))
+      this.server.getLocationsInProvinces(this.arrSelectedProvince.map(province => province.provinceName))
         .subscribe((res) => {
           if (res.data) {
             this.arrLocations = res.data.map(location => {
@@ -190,46 +174,8 @@ export class AddTourComponent implements OnInit {
         });
     } else {
       this.arrLocations = [];
+      this.arrFilterLocations = [];
     }
-  }
-
-  addLocation() {
-    if (this.addLocationForm.valid) {
-      this.isLoading = true;
-      const formData = this.addLocationForm.value;
-
-      this.serverService.uploadImage([{ imgFile: this.locationImage, contentId: 'locationImg' }])
-        .subscribe(uploadRes => {
-          if (uploadRes) {
-            this.serverService.postLocation(formData.locationName, formData.provinceCity,
-              formData.gps, formData.address, uploadRes.imageUrls[0])
-              .subscribe((res) => {
-                if (res.statusCode === 201) {
-                  this.addLocationMessage = this.compLanguage.addTourAddSuccess;
-                  this.hasError = false;
-
-                  try {
-                    this.modal.dismissAll();
-                  } catch { }
-                  this.getLocationsInSelectedProvinces();
-                } else {
-                  this.addLocationMessage = this.compLanguage.addTourAddFail;
-                  this.hasError = true;
-                }
-
-                this.isLoading = false;
-              });
-          } else {
-            this.addLocationMessage = this.compLanguage.addTourAddFail;
-            this.hasError = true;
-            this.isLoading = false;
-          }
-        });
-    }
-  }
-
-  onLocationImagePicked(event: any) {
-    this.locationImage = (event.target as HTMLInputElement).files[0];
   }
 
   selectItem(arr: Array<any>, item: any) {
@@ -277,8 +223,6 @@ export class AddTourComponent implements OnInit {
     } catch (ex) {
       console.log(ex);
     }
-
-    console.log(this.addTourService.tourModel);
   }
 
   addPreparation() {
@@ -294,9 +238,9 @@ export class AddTourComponent implements OnInit {
   }
 
   openNewLocationDialog(contentId) {
-    this.buildAddLocationForm();
-    this.addLocationMessage = '';
-    this.hasError = false;
+    // this.buildAddLocationForm();
+    // this.addLocationMessage = '';
+    // this.hasError = false;
     this.modal.open(contentId, { ariaLabelledBy: 'modal-basic-title' });
   }
 
@@ -420,14 +364,14 @@ export class AddTourComponent implements OnInit {
       this.isCreating = true;
       const tmpCover = this.tourModel.cover;
 
-      this.serverService.uploadImage([{ imgFile: this.coverFile, contentId: 'locationImg' }])
+      this.server.uploadImage([{ imgFile: this.coverFile, contentId: 'locationImg' }])
         .subscribe((uploadRes) => {
           if (uploadRes.imageUrls && uploadRes.imageUrls[0]) {
             this.tourModel.cover = uploadRes.imageUrls[0];
             this.tourModel.creationTime = new Date();
             this.tourModel.createdBy = this.userService.getUserId();
 
-            this.serverService.createTour(this.tourModel)
+            this.server.createTour(this.tourModel)
               .subscribe((res) => {
                 this.isCreating = false;
 

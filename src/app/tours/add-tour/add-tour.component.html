@@ -386,61 +386,6 @@
     </button>
   </div>
   <div class="modal-body">
-    <form *ngIf="!isLoading" [formGroup]="addLocationForm">
-      <div class="alert" *ngIf="addLocationMessage !== ''"
-        [ngClass]="{'alert-success': !hasError, 'alert-danger': hasError}">
-        {{addLocationMessage}}
-      </div>
-      <div class="form-group">
-        <label>{{compLanguage.addTourLocationName}}</label>
-        <input type="text" class="form-control" formControlName="locationName"
-          [placeholder]="commonLanguage.enter + compLanguage.addTourLocationName">
-        <span
-          *ngIf="!addLocationForm.get('locationName').valid && (addLocationForm.get('locationName').dirty || addLocationForm.get('locationName').touched)"
-          class="error-mess form-text text-muted">
-          {{commonLanguage.thisFieldIsRequired}}
-        </span>
-      </div>
-      <div class="form-group">
-        <label>{{compLanguage.addTourLocationProvince}}</label>
-        <select class="form-control" multiple formControlName="provinceCity">
-          <option *ngFor="let province of arrProvince">
-            {{province.provinceName}}
-          </option>
-        </select>
-        <span
-          *ngIf="!addLocationForm.get('provinceCity').valid && (addLocationForm.get('provinceCity').dirty || addLocationForm.get('provinceCity').touched)"
-          class="error-mess form-text text-muted">
-          {{commonLanguage.thisFieldIsRequired}}
-        </span>
-        <small>{{compLanguage.addTourNoteSelectMore}}</small>
-      </div>
-      <div class="form-group">
-        <label>{{compLanguage.addTourLocationGPS}}</label>
-        <input type="text" class="form-control" formControlName="gps"
-          [placeholder]="commonLanguage.enter + compLanguage.addTourLocationGPS">
-      </div>
-      <div class="form-group">
-        <label>{{compLanguage.addTourLocationAddress}}</label>
-        <input type="text" class="form-control" formControlName="address"
-          [placeholder]="commonLanguage.enter + compLanguage.addTourLocationAddress">
-        <span
-          *ngIf="!addLocationForm.get('address').valid && (addLocationForm.get('address').dirty || addLocationForm.get('address').touched)"
-          class="error-mess form-text text-muted">
-          {{commonLanguage.thisFieldIsRequired}}
-        </span>
-      </div>
-      <div class="form-group">
-        <label>{{compLanguage.addTourLocationImgage}}</label>
-        <input type="file" class="form-control-file" formControlName="image" (change)="onLocationImagePicked($event)">
-      </div>
-    </form>
-    <app-loading *ngIf="isLoading"></app-loading>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-danger" (click)="modal.close()">{{commonLanguage.cancel}}</button>
-    <button type="button" class="btn btn-success" [disabled]="!addLocationForm.valid" (click)="addLocation()">
-      {{commonLanguage.ok}}
-    </button>
+    <app-add-location></app-add-location>
   </div>
 </ng-template>

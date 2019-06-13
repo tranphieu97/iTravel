@@ -75,7 +75,7 @@ export class UserService {
     try {
       const token = this.authentication.getLocalToken();
 
-      if (token !== '') {
+      if (token) {
         const decodeToken = this.jwtHelpper.decodeToken(token);
         return decodeToken._id;
       } else {

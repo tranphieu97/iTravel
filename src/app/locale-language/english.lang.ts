@@ -470,7 +470,8 @@ export const LangEnglish: Language = {
     closeFeedbackTime: 'Receive feedback until',
     closeRegisterTime: 'Register until',
     rename: 'rename',
-    reopenBtn: 'Reopen'
+    reopenBtn: 'Reopen',
+    edit: 'Edit'
   },
 
   compUserTour: {
@@ -559,6 +560,26 @@ export const LangEnglish: Language = {
     total: 'Total',
     slotAvailable: 'slots available',
     fullSlot: 'Full slot, See you in the next tour!',
-    requiredRelativesInfo: 'How many children, teenager, old person in your register?'
+    requiredRelativesInfo: 'How many children, teenager, old person in your register?',
+    contact: 'Contact',
+    phoneNumber: 'Phone number',
+    registered: 'Registered',
+    loginToRegister: 'Login to Register'
+  },
+
+  compTourEditing: {
+    editTitle: 'Edit Tour',
+    summary: 'Summary',
+    tourName: 'Tour Name',
+    description: 'Description',
+    closeFeedbackTime: 'Close Feedback Time',
+    closeRegisterTime: 'Close Register Time',
+    beginTime: 'Begin Time',
+    endTime: 'End Time',
+    cover: 'Cover',
+    locations: 'Locations',
+    schedule: 'Schedule',
+    preparation: 'Preparation',
+    performs: 'Performs'
   }
 };

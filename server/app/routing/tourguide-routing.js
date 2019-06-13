@@ -220,7 +220,7 @@ app.patch('/tourguide/delete-own-tour', async (req, res) => {
                         });
                     }
                 });
-    } catch {
+    } catch (err) {
         res.status(200).json({
             statusCode: 500
         });
@@ -253,7 +253,7 @@ app.patch('/tourguide/update-tour-status', async (req, res) => {
                 statusCode: 404
             });
         }
-    } catch {
+    } catch (err) {
         res.status(200).json({
             statusCode: 500
         });

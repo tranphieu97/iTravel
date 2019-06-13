@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit {
       || !this.usernameRegex.test(username) || !this.passwordRegex.test(password)) {
       this.loginMessage = 'Invalid Account';
       this.isFailLogin = true;
+      this.isLoading = false;
     } else {
       this.authentication.loginByBasicInput(this.loginForm).subscribe((res) => {
         if (!res.data) {
@@ -66,7 +67,9 @@ export class LoginComponent implements OnInit {
           this.user.currentUser.isTourguide = res.data.isTourguide;
           this.user.isLogin = true;
           this.isLoading = false;
-          this.router.navigate(['home']);
+          if (this.router.url.includes('auth/login')) {
+            this.router.navigate(['home']);
+          }
           this.user.isLoginChange.next();
         }
       });

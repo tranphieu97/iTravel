@@ -762,10 +762,70 @@ app.patch('/user/reviewer-feedback', async (req, res) => {
                 }
             );
         }
-    } catch {
+    } catch (err) {
         res.status(200).json({
-            statusCode: 403,
-            message: 'Not found reviewer'
+            statusCode: 500,
+            message: 'Server error'
+        });
+    }
+});
+
+app.patch('/user/register-tour', async (req, res) => {
+    const registerBody = req.body;
+    try {
+        if (registerBody._id && registerBody.registerObj) {
+            const tourRegisterd = await Tour.findById(new ObjectId(registerBody._id), '_id memberLimit members');
+
+            let currentMembers = 0;
+            tourRegisterd.members.forEach(member => {
+                currentMembers = currentMembers + member.registerFor;
+            });
+            if (currentMembers + registerBody.registerObj.registerFor > tourRegisterd.memberLimit) {
+                res.status(200).json({
+                    statusCode: 200,
+                    result: {
+                        overLimit: true,
+                        success: false
+                    }
+                });
+            } else {
+                await Tour.updateOne(new ObjectId(registerBody._id), {
+                    $push: {
+                        'members': registerBody.registerObj
+                    }
+                }, (err, raw) => {
+                    if (err) {
+                        res.status(200).json({
+                            statusCode: 200,
+                            result: {
+                                overLimit: false,
+                                success: false
+                            }
+                        });
+                    } else {
+                        res.status(200).json({
+                            statusCode: 200,
+                            result: {
+                                overLimit: true,
+                                success: true
+                            }
+                        });
+                    }
+                });
+            }
+
+        } else {
+            res.status(200).json({
+                statusCode: 404
+            });
+        }
+    } catch (err) {
+        res.status(200).json({
+            statusCode: 500,
+            result: {
+                overLimit: false,
+                success: false
+            }
         });
     }
 });

@@ -1043,7 +1043,7 @@ app.get('/api/tour-registerd-info/', async (req, res) => {
                 data: null
             });
         }
-    } catch {
+    } catch (err) {
         res.status(200).json({
             statusCode: 404,
             data: null

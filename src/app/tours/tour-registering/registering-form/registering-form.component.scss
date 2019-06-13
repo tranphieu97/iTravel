@@ -7,6 +7,7 @@
     display: flex;
     flex-direction: column;
     justify-content: stretch;
+    overflow-y: auto;
 
     border: 1px solid $SECONDARY;
 
@@ -43,7 +44,7 @@
         }
     }
 
-    input {
+    input.btn {
         font-size: 20px;
         font-weight: 600;
         padding: 10px unset;
@@ -53,7 +54,7 @@
     .register-form {
         padding: 10px;
 
-        select, option, label, textarea {
+        select, option, label, textarea, input {
             font-size: 16px;
         }
 
