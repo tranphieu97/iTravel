@@ -48,7 +48,6 @@
     <input type="file" class="form-control-file" (change)="onLocationImagePicked($event)">
   </div>
   <div class="form-group flex-row flex-justify-end">
-    <button type="button" class="btn btn-outline-danger">{{commonLanguage.cancel}}</button>
     <button type="button" class="btn btn-outline-success" [disabled]="!addLocationForm.valid" (click)="addLocation()">
       {{commonLanguage.ok}}
     </button>
