@@ -13,8 +13,8 @@ const storage = multer.diskStorage({
         if (isValid) {
             err = null;
         }
-        // cback(err, 'images'); // DEPLOY
-        cback(err, 'server/images'); // DEVELOP
+        cback(err, 'images'); // DEPLOY
+        // cback(err, 'server/images'); // DEVELOP
     },
     filename: (req, file, cback) => {
         // remove space and replace by '-'
