@@ -66,6 +66,7 @@
             <td class="tour-status" [ngClass]="{
                 'pending-text': tour.status === tourStatus.PENDING,
                 'registering-text': tour.status === tourStatus.REGISTERING,
+                'preparing-text': tour.status === tourStatus.PREPARING,
                 'running-text': tour.status === tourStatus.RUNNING,
                 'finished-text': tour.status === tourStatus.FINISHED
               }">
@@ -73,6 +74,8 @@
                 ? compLanguage.statusPending 
                 : tour.status === tourStatus.REGISTERING 
                 ? compLanguage.statusRegistering 
+                : tour.status === tourStatus.PREPARING
+                ? compLanguage.statusPreparing
                 : tour.status === tourStatus.RUNNING 
                 ? compLanguage.statusRunning 
                 : tour.status === tourStatus.FINISHED 
