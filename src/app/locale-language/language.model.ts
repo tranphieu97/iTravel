@@ -576,6 +576,19 @@ export class Language {
     schedule: string;
     preparation: string;
     performs: string;
+    province: string;
+    selectedLocation: string;
+    newLocation: string;
+    provinceLocation: string;
+    addSchedule: string;
+    scheduleCost: string;
+    memberLimit: string;
+    registerCost: string;
+    perPerson: string;
+    timeline: string;
+    register: string;
+    tourguide: string;
+    tourguideContact: string;
   };
 
   constructor() { }

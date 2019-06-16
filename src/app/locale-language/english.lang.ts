@@ -580,6 +580,19 @@ export const LangEnglish: Language = {
     locations: 'Locations',
     schedule: 'Schedule',
     preparation: 'Preparation',
-    performs: 'Performs'
+    performs: 'Performs',
+    province: 'Province/City',
+    selectedLocation: 'Selected Location',
+    newLocation: 'New Location',
+    provinceLocation: 'Province\'s Locations',
+    addSchedule: 'Add Schedule',
+    scheduleCost: 'Schedule Cost: ',
+    memberLimit: 'Member limit',
+    registerCost: 'Register cost',
+    perPerson: 'VND/Person',
+    timeline: 'Timeline',
+    register: 'Register',
+    tourguide: 'Tourguide',
+    tourguideContact: 'Tourguide \'s Contact'
   }
 };

@@ -107,6 +107,6 @@ export class AddTourService {
   }
 
   sortTourSchedule() {
-    this.tourModel.schedules.sort((schedule1, schedule2) => (schedule2.beginTime.valueOf() - schedule1.beginTime.valueOf()));
+    this.tourModel.schedules.sort((schedule1, schedule2) => (schedule1.beginTime.valueOf() - schedule2.beginTime.valueOf()));
   }
 }

@@ -1,16 +1,17 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { LanguageService } from 'src/app/core/services/language.service';
-import { NgbDateStruct, NgbTimeStruct, NgbTimepickerConfig, NgbModal, NgbDate } from '@ng-bootstrap/ng-bootstrap';
-import { TourSchedule } from 'src/app/model/tour-schedule.model';
-import { AddTourService } from 'src/app/core/services/add-tour.service';
+import { NgbTimepickerConfig, NgbModal, NgbDate, NgbTimeStruct } from '@ng-bootstrap/ng-bootstrap';
 import { DateStructService } from 'src/app/core/services/date-struct.service';
+import { TourSchedule } from 'src/app/model/tour-schedule.model';
+import { EditTourService } from 'src/app/core/services/edit-tour.service';
+import { MembersService } from 'src/app/core/services/members.service';
 
 @Component({
-  selector: 'app-add-schedule',
-  templateUrl: './add-schedule.component.html',
-  styleUrls: ['./add-schedule.component.scss']
+  selector: 'app-schedule-editing',
+  templateUrl: './schedule-editing.component.html',
+  styleUrls: ['./schedule-editing.component.scss']
 })
-export class AddScheduleComponent implements OnInit {
+export class ScheduleEditingComponent implements OnInit {
 
   private readonly DEFAULT_OPTION = '';
 
@@ -25,21 +26,18 @@ export class AddScheduleComponent implements OnInit {
   public minDate: NgbDate;
   public maxDate: NgbDate;
 
-  public isFinishedInput: Boolean = false;
+  public isFinishedInput: Boolean = true;
   public isPickedCurrentTask: Boolean = true;
   public isValidDate: Boolean = true;
 
-  // public finishedStartDate: Date;
-  // public finishedEndDate: Date;
-
-  compLanguage;
-  commonLanguage;
-
   constructor(public language: LanguageService, private timepickerConfig: NgbTimepickerConfig, private modal: NgbModal,
-    private addTourService: AddTourService, private dateStructService: DateStructService) {
+    private dateStructService: DateStructService, private editTourService: EditTourService) {
     timepickerConfig.seconds = false;
     timepickerConfig.spinners = false;
   }
+
+  compLanguage;
+  commonLanguage;
 
   ngOnInit() {
     this.compLanguage = this.language.currentLanguage.compAddSchedule;
@@ -48,6 +46,7 @@ export class AddScheduleComponent implements OnInit {
       this.compLanguage = this.language.currentLanguage.compAddSchedule;
       this.commonLanguage = this.language.currentLanguage.common;
     });
+
     this.setupDefaultView();
   }
 
@@ -65,30 +64,28 @@ export class AddScheduleComponent implements OnInit {
   }
 
   setupDefaultView() {
-    if (this.scheduleModel.tasks.length === 0) {
-      this.scheduleModel.tasks.push('');
+    try {
+      this.arrPerforms = this.editTourService.getArrPerforms();
+      this.maxDate = this.dateStructService.getDateStructFromDate(this.editTourService.getMaxDateCanChosen());
+      this.minDate = this.dateStructService.getDateStructFromDate(this.editTourService.getMinDateCanChosen());
+
+      if (this.scheduleModel.beginTime) {
+        this.startDate = this.dateStructService.getDateStructFromDate(new Date(this.scheduleModel.beginTime));
+        this.beginTime = this.dateStructService.getTimeStructFormDate(new Date(this.scheduleModel.beginTime));
+      }
+
+      if (this.scheduleModel.endTime) {
+        this.endTime = this.dateStructService.getTimeStructFormDate(new Date(this.scheduleModel.endTime));
+      }
+
+      // After click add schedule
+      if (this.scheduleModel.tasks.length === 0) {
+        this.scheduleModel.tasks.push('');
+        this.isFinishedInput = false;
+      }
+    } catch (err) {
+      console.log(err);
     }
-
-    if (this.scheduleModel.performerIds.length === 0) {
-      this.scheduleModel.performerIds.push('');
-    }
-
-    this.startDate = this.dateStructService.getDateStructFromDate(this.addTourService.getBeginTime());
-    this.maxDate = this.dateStructService.getDateStructFromDate(this.addTourService.getEndTime());
-    this.minDate = this.dateStructService.getDateStructFromDate(this.addTourService.getCloseRegisterTime());
-
-    if (this.scheduleModel.beginTime) {
-      this.startDate = this.dateStructService.getDateStructFromDate(this.scheduleModel.beginTime);
-      this.beginTime = this.dateStructService.getTimeStructFormDate(this.scheduleModel.beginTime);
-    }
-
-    if (this.scheduleModel.endTime) {
-      this.endTime = this.dateStructService.getTimeStructFormDate(this.scheduleModel.endTime);
-    }
-
-    this.onChangeTime();
-
-    this.arrPerforms = this.addTourService.getArrPerform();
   }
 
   removeItem(arr: Array<any>, index: number) {
@@ -102,7 +99,7 @@ export class AddScheduleComponent implements OnInit {
   }
 
   removeSchedule() {
-    this.addTourService.hasRemoveSchedule.next(this.index);
+    this.editTourService.hasRemoveSchedule.next(this.index);
   }
 
   onChangeTime() {
@@ -120,7 +117,7 @@ export class AddScheduleComponent implements OnInit {
   }
 
   onChangeCost() {
-    this.addTourService.hasChangeCost.next();
+    this.editTourService.hasChangeCost.next();
   }
 
   finishSchedule() {

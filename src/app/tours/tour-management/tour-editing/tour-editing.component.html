@@ -15,20 +15,20 @@
           <div class="flex-row form-group">
             <label class="row-label">{{compLanguage.tourName}}</label>
             <div class="row-input">
-              <input class="form-control" [(ngModel)]="tourData.tourName">
+              <input class="form-control" [(ngModel)]="tourModel.tourName">
             </div>
           </div>
           <div class="flex-row form-group">
             <label class="row-label">{{compLanguage.description}}</label>
             <div class="row-input">
-              <textarea class="form-control" [(ngModel)]="tourData.description" style="resize: none"
+              <textarea class="form-control" [(ngModel)]="tourModel.description" style="resize: none"
                 rows="3"></textarea>
             </div>
           </div>
           <div class="flex-row form-group">
             <label class="row-label">{{compLanguage.cover}}</label>
             <div class="row-input" style="display: block">
-              <img [src]="tourData.cover" style="width: 100%; height: auto;">
+              <img [src]="tourModel.cover" style="width: 100%; height: auto;">
             </div>
           </div>
           <div class="flex-row form-group flex-justify-end">
@@ -46,20 +46,68 @@
       </ng-template>
       <ng-template ngbTabContent>
         <div class="flex-col tab-content">
-
+          <app-location-editing [locationIds]="tourModel.locationIds"></app-location-editing>
         </div>
       </ng-template>
     </ngb-tab>
     <!-- End Tab 2 -->
-
+    <ngb-tab>
+      <ng-template ngbTabTitle>
+        <b class="title">{{compLanguage.register}}</b>
+      </ng-template>
+      <ng-template ngbTabContent>
+        <div class="flex-col tab-content flex-1">
+          <app-timeline-editing [tourData]="tourData"></app-timeline-editing>
+          <br />
+          <div class="flex-row form-group">
+            <label class="row-label">{{compLanguage.memberLimit}}</label>
+            <div class="row-input">
+              <input type="number" class="form-control" name="member-limit" [(ngModel)]="tourData.memberLimit">
+            </div>
+          </div>
+          <div class="flex-row form-group">
+            <label class="row-label">{{compLanguage.registerCost}}</label>
+            <div class="row-input flex-row">
+              <input type="number" class="form-control" name="member-limit" [(ngModel)]="tourData.registerCost">
+            </div>
+          </div>
+          <br />
+          <div class="flex-row form-group">
+            <label class="row-label">{{compLanguage.tourguide}}</label>
+            <div class="row-input flex-row">
+              <select class="form-control" [(ngModel)]="tourData.tourGuideId">
+                <option [value]="tourguide._id" *ngFor="let tourguide of arrTourguide">
+                  {{tourguide.displayName}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="flex-row form-group">
+            <label class="row-label">{{compLanguage.tourguideContact}}</label>
+            <div class="row-input flex-row">
+              <input type="text" class="form-control" name="member-limit" [(ngModel)]="tourData.contactNumber">
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-tab>
+    <!-- End Tab 5 -->
     <ngb-tab>
       <ng-template ngbTabTitle>
         <b class="title">{{compLanguage.schedule}}</b>
       </ng-template>
       <ng-template ngbTabContent>
         <div class="flex-col tab-content">
-          <app-add-schedule *ngFor="let schedule of tourData.schedules; let i = index" [scheduleModel]="schedule"
-            [index]="i"></app-add-schedule>
+          <app-schedule-editing *ngFor="let schedule of tourModel.schedules; let i = index" [scheduleModel]="schedule"
+            [index]="i">
+          </app-schedule-editing>
+          <div class="flex-row flex-justify-space-between" style="margin-top: 5px;">
+            <h4 style="color: red; font-weight: 600;">
+              {{compLanguage.scheduleCost}} {{scheduleCost | currency:'VND'}}
+            </h4>
+            <input type="button" class="form-control btn btn-warning" [value]="compLanguage.addSchedule"
+              (click)="addShedule()">
+          </div>
         </div>
       </ng-template>
     </ngb-tab>
@@ -74,15 +122,6 @@
       </ng-template>
     </ngb-tab>
     <!-- End Tab 4 -->
-
-    <ngb-tab>
-      <ng-template ngbTabTitle>
-        <b class="title">{{compLanguage.summary}}</b>
-      </ng-template>
-      <ng-template ngbTabContent>
-      </ng-template>
-    </ngb-tab>
-    <!-- End Tab 5 -->
   </ngb-tabset>
 </div>
 <div class="modal-footer">

@@ -572,6 +572,19 @@ export const LangVietnamese: Language = {
     locations: 'Địa điểm',
     schedule: 'Kế hoạch',
     preparation: 'Chuẩn bị',
-    performs: 'Phụ trách'
+    performs: 'Phụ trách',
+    province: 'Tỉnh/Thành phố',
+    selectedLocation: 'Địa điểm đã chọn',
+    newLocation: 'Địa điểm mới',
+    provinceLocation: 'Địa điểm trong tỉnh/thành phố',
+    addSchedule: 'Thêm kế hoạch',
+    scheduleCost: 'Chi phí theo kế hoạch',
+    memberLimit: 'Số lượng tham gia',
+    registerCost: 'Chi phí đăng ký',
+    perPerson: 'VND/người',
+    timeline: 'Mốc thời gian',
+    register: 'Đăng ký',
+    tourguide: 'Dẫn đoàn',
+    tourguideContact: 'Thông tin Liên hệ dẫn đoàn'
   }
 };

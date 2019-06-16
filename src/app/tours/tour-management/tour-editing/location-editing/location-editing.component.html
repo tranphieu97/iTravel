@@ -1,0 +1,51 @@
+<div class="flex-row form-group">
+  <label class="row-label">
+    {{compLanguage.selectedLocation}}
+  </label>
+  <div class="row-input group-tag">
+    <div class="tag" *ngFor="let locationId of locationIds" appOneTimeBinding
+      (click)="removeItem(locationIds, locationId)">
+      {{tourService.getLocationName(locationId)}}
+      <span _ngcontent-c11="" class="fas fa-times-circle esc-btn"></span>
+    </div>
+  </div>
+</div>
+<div class="flex-row form-group">
+  <label class="row-label">
+    {{compLanguage.province}}
+  </label>
+  <div class="row-input flex-row">
+    <select class="form-control flex-1" style="margin-right: 3px" name="province" [(ngModel)]="selectedProvince"
+      (ngModelChange)="getLocationsInSelectedProvinces()">
+      <option [value]="province.provinceName" *ngFor="let province of arrProvince">
+        {{province.provinceName}}
+      </option>
+    </select>
+    <input type="button" class="form-control btn btn-warning" [value]="compLanguage.newLocation" (click)="openNewLocationDialog(addlocation)">
+  </div>
+</div>
+<div class="flex-row form-group">
+  <label class="row-label">
+    {{compLanguage.provinceLocation}}
+  </label>
+  <div class="row-input">
+    <app-loading *ngIf="isLoadingLocation"></app-loading>
+    <select multiple class="form-control" *ngIf="!isLoadingLocation" style="height: 150px">
+      <option *ngFor="let location of arrLocations" (click)="selectItem(locationIds, location._id)">
+        {{location.locationName}}
+      </option>
+    </select>
+  </div>
+</div>
+
+<ng-template #addlocation let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{compLanguage.addTourNewLocation}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-add-location></app-add-location>
+  </div>
+</ng-template>

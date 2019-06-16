@@ -76,8 +76,7 @@
     </div>
     <div class="row-input flex-row">
       <input type="text" class="form-control flex-1 flex-items-center row-first-input" name="location"
-        [(ngModel)]="scheduleModel.location"
-        [placeholder]="commonLanguage.enter + compLanguage.addScheduleLocation">
+        [(ngModel)]="scheduleModel.location" [placeholder]="commonLanguage.enter + compLanguage.addScheduleLocation">
       <input type="number" class="form-control flex-1 flex-items-center row-second-input" name="cost"
         [(ngModel)]="scheduleModel.cost" (change)="onChangeCost()"
         [placeholder]="commonLanguage.enter + compLanguage.addScheduleCost">
@@ -93,8 +92,8 @@
     </div>
   </div>
   <div class="flex-row flex-justify-end">
-    <input type="button" class="form-control btn btn-outline-secondary" [value]="commonLanguage.ok"
-      style="width: 75px;" (click)="finishSchedule()">
+    <input type="button" class="form-control btn btn-outline-secondary" [value]="commonLanguage.ok" style="width: 75px;"
+      (click)="finishSchedule()">
   </div>
 </div>
 <div class="flex-col schedule-review" *ngIf="isFinishedInput" (click)="isFinishedInput = false">
@@ -105,7 +104,7 @@
     <div class="flex-1 schedule-title">
       {{scheduleModel.beginTime | date:'HH:mm'}} - {{scheduleModel.endTime | date:'HH:mm'}}
     </div>
-    <div class="flex-1 schedule-title">
+    <div class="flex-2 schedule-title">
       {{scheduleModel.tasks.join(', ')}}
     </div>
   </div>

@@ -1,0 +1,78 @@
+<div class="flex-row form-group">
+  <label class="row-label">{{compLanguage.closeFeedbackTime}}</label>
+  <div class="row-input flex-row">
+    <div class="flex-1 flex-items-center">
+      <div class="input-group">
+        <input class="form-control" placeholder="yyyy-mm-dd" name="deadline" [(ngModel)]="feedbackDeadline" readonly
+          ngbDatepicker [maxDate]="startDate" #feedbackdeadline="ngbDatepicker" #modalfeedbackDeadline="ngModel">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="feedbackdeadline.toggle()" type="button">
+            <span><i class="fas fa-calendar-alt"></i></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="flex-1 flex-row flex-items-center">
+      <ngb-timepicker name="feedbackTime" [(ngModel)]="feedbackTime"></ngb-timepicker>
+    </div>
+  </div>
+</div>
+<div class="flex-row form-group">
+  <label class="row-label">{{compLanguage.closeRegisterTime}}</label>
+  <div class="row-input flex-row">
+    <div class="flex-1 flex-items-center">
+      <div class="input-group">
+        <input class="form-control" placeholder="yyyy-mm-dd" name="register-deadline" readonly
+          [(ngModel)]="registerDeadline" ngbDatepicker [maxDate]="startDate" #registerdeadline="ngbDatepicker"
+          #modalregisterdeadline="ngModel" (ngModelChange)="validateStartEndDate()">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="registerdeadline.toggle()" type="button">
+            <span><i class="fas fa-calendar-alt"></i></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="flex-1 flex-row flex-items-center">
+      <ngb-timepicker name="registerTime" [(ngModel)]="registerTime"></ngb-timepicker>
+    </div>
+  </div>
+</div>
+<div class="flex-row form-group">
+  <label class="row-label">{{compLanguage.beginTime}}</label>
+  <div class="row-input flex-row">
+    <div class="flex-1 flex-items-center">
+      <div class="input-group">
+        <input class="form-control" placeholder="yyyy-mm-dd" name="startDate" [(ngModel)]="startDate" [minDate]="today"
+          (ngModelChange)="validateStartEndDate()" ngbDatepicker #startdate="ngbDatepicker" #modalstartdate="ngModel"
+          readonly>
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="startdate.toggle()" type="button">
+            <span><i class="fas fa-calendar-alt"></i></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="flex-1 flex-row flex-items-center">
+      <ngb-timepicker name="startTime" [(ngModel)]="startTime"></ngb-timepicker>
+    </div>
+  </div>
+</div>
+<div class="flex-row form-group">
+  <label class="row-label">{{compLanguage.endTime}}</label>
+  <div class="row-input flex-row">
+    <div class="flex-1 flex-items-center">
+      <div class="input-group">
+        <input class="form-control" placeholder="yyyy-mm-dd" name="endDate" [(ngModel)]="endDate" ngbDatepicker
+          [minDate]="startDate" #enddate="ngbDatepicker" #modalenddate="ngModel" readonly>
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="enddate.toggle()" type="button">
+            <span><i class="fas fa-calendar-alt"></i></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="flex-1 flex-row flex-items-center">
+      <ngb-timepicker name="endTime" [(ngModel)]="endTime"></ngb-timepicker>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import '@fortawesome/fontawesome-free/css/all.css';
-@import 'bootstrap/dist/css/bootstrap.css';
+@import "@fortawesome/fontawesome-free/css/all.css";
+@import "bootstrap/dist/css/bootstrap.css";
 
 $HEADER_HEIGHT: 60px;
 $NAVBAR_MARGIN_RIGHT: 10px;
@@ -53,8 +53,8 @@ body {
   user-select: none; /* Non-prefixed version, currently
                                     supported by Chrome and Opera */
   font-size: 12px;
-  font-family: Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji',
-    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  font-family: Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji";
 }
 
 .content-box {
@@ -221,4 +221,27 @@ div {
   width: 50px;
   height: 50px;
   border-radius: 50%;
+}
+
+.tag {
+  height: fit-content;
+  width: fit-content;
+
+  display: flex;
+  justify-content: center;
+
+  padding: 5px 5px;
+  margin: 2px;
+
+  background-color: lightgray;
+  font-size: 15px;
+  border-radius: 5px;
+
+  position: relative;
+
+  .esc-btn {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+  }
 }
