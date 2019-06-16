@@ -645,8 +645,7 @@ app.get('/user/get-tours', async (req, res) => {
         }
 
         let tours = await Tour.find(queryObj);
-        const needRefetch = await tourService.checkTourStatusOk(tours);
-        if(!needRefetch) tours = await Tour.find(queryObj);
+        tours = tourService.updateTourStatus(tours);
 
         res.status(200).json({
             data: tours,

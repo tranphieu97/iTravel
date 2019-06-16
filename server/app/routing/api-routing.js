@@ -904,9 +904,7 @@ app.get('/api/tours', async (req, res) => {
     try {
         let tours = await Tour.find({ 'isActive': true },
             '_id tourName description registerCost locationIds beginTime endTime cover status closeFeedbackTime closeRegisterTime durationTime', () => { });
-        const needRefetch = await tourService.checkTourStatusOk(tours);
-        if(!needRefetch) tours = await Tour.find({ 'isActive': true },
-            '_id tourName description registerCost locationIds beginTime endTime cover status closeFeedbackTime closeRegisterTime durationTime', () => { });
+        tours = tourService.updateTourStatus(tours);
         res.status(200).json({
             data: tours,
             statusCode: 200
