@@ -12,6 +12,7 @@ const { Tour } = require('../../model/mongoose/models')
 
 // Get app instance from index
 const app = require('../../index');
+const tourService = require('../services/tour-service');
 
 // Routing - START
 /**
@@ -634,20 +635,24 @@ app.patch('/user/update-profile', async (req, res) => {
  */
 app.get('/user/get-tours', async (req, res) => {
     try {
-        let queryObj = { isActive: true }
+        let queryObj = { isActive: true };
         if (req.param('userId')) {
             const userId = authentication.getTokenUserId(req.headers.authorization);
             queryObj = {
                 isActive: true,
                 'members.memberId': userId
-            }
+            };
         }
-        const tours = await Tour.find(queryObj)
+
+        let tours = await Tour.find(queryObj);
+        tours = tourService.updateTourStatus(tours);
+
         res.status(200).json({
             data: tours,
             message: 'Success!'
         });
     } catch (error) {
+        console.log('error', error.message)
         res.status(200).json({
             message: error.message,
             statusCode: 500

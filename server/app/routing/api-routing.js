@@ -11,6 +11,7 @@ const app = require('../../index');
 var ObjectId = require('mongodb').ObjectId;
 const postService = require('../services/post-service.js');
 const User = require('../../model/user.model').User;
+const tourService = require('../services/tour-service');
 
 // Routing - START
 /**
@@ -901,8 +902,9 @@ app.get('/api/get-tour-feedbacks', async (req, res) => {
 
 app.get('/api/tours', async (req, res) => {
     try {
-        const tours = await Tour.find({ 'isActive': true },
+        let tours = await Tour.find({ 'isActive': true },
             '_id tourName description registerCost locationIds beginTime endTime cover status closeFeedbackTime closeRegisterTime durationTime', () => { });
+        tours = tourService.updateTourStatus(tours);
         res.status(200).json({
             data: tours,
             statusCode: 200
