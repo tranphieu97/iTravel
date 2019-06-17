@@ -1,0 +1,37 @@
+@import "src/styles.scss";
+
+:host {
+  display: flex;
+  height: fit-content;
+  flex-direction: column;
+  justify-content: stretch;
+  margin: 0 10px;
+  padding: 5px 10px;
+  border-bottom: 1px solid $SECONDARY;
+  border-top: 1px solid $SECONDARY;
+
+  .form-group {
+    margin-bottom: 5px;
+  }
+
+  .esc-btn {
+    margin: 5px 5px 10px 0;
+    cursor: pointer;
+    opacity: 0.7;
+  }
+
+  .preparation-review {
+    cursor: pointer;
+
+    .preparation-title {
+      font-size: 16px;
+      font-weight: 600;
+      opacity: 0.7;
+      margin-top: 5px;
+    }
+  }
+}
+
+:host:hover {
+  background-color: $SECONDARY;
+}

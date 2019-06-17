@@ -70,12 +70,12 @@ export class ScheduleEditingComponent implements OnInit {
       this.minDate = this.dateStructService.getDateStructFromDate(this.editTourService.getMinDateCanChosen());
 
       if (this.scheduleModel.beginTime) {
-        this.startDate = this.dateStructService.getDateStructFromDate(new Date(this.scheduleModel.beginTime));
-        this.beginTime = this.dateStructService.getTimeStructFormDate(new Date(this.scheduleModel.beginTime));
+        this.startDate = this.dateStructService.getDateStructFromDate(this.scheduleModel.beginTime);
+        this.beginTime = this.dateStructService.getTimeStructFormDate(this.scheduleModel.beginTime);
       }
 
       if (this.scheduleModel.endTime) {
-        this.endTime = this.dateStructService.getTimeStructFormDate(new Date(this.scheduleModel.endTime));
+        this.endTime = this.dateStructService.getTimeStructFormDate(this.scheduleModel.endTime);
       }
 
       // After click add schedule

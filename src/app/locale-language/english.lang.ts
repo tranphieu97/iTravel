@@ -593,6 +593,7 @@ export const LangEnglish: Language = {
     timeline: 'Timeline',
     register: 'Register',
     tourguide: 'Tourguide',
-    tourguideContact: 'Tourguide \'s Contact'
+    tourguideContact: 'Tourguide \'s Contact',
+    addPreparation: 'Add preparation'
   }
 };

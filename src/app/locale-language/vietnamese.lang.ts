@@ -585,6 +585,7 @@ export const LangVietnamese: Language = {
     timeline: 'Mốc thời gian',
     register: 'Đăng ký',
     tourguide: 'Dẫn đoàn',
-    tourguideContact: 'Thông tin Liên hệ dẫn đoàn'
+    tourguideContact: 'Thông tin Liên hệ dẫn đoàn',
+    addPreparation: 'Thêm nội dung chuẩn bị'
   }
 };

@@ -9,10 +9,10 @@ import { ServerService } from './server.service';
 export class EditTourService {
 
   private tour: Tour;
-  private arrPerformers: Array<any> = [];
+  private arrTourguides: Array<any> = [];
   public hasRemoveSchedule: Subject<number>;
   public hasRemovePreparation: Subject<number>;
-  public hasChangeCost:  Subject<any>;
+  public hasChangeCost: Subject<any>;
 
   constructor(private server: ServerService) {
     this.hasChangeCost = new Subject();
@@ -26,23 +26,52 @@ export class EditTourService {
   }
 
   autoSetArrPerforms() {
-    this.arrPerformers = [];
+    const arrTourPerformers = this.getTourPerformers(this.tour);
+
+    this.arrTourguides = [];
     this.server.getTourguides().subscribe((res) => {
-      this.arrPerformers = res.data.map((item: any) => {
+      this.arrTourguides = res.data.map((item: any) => {
         return {
           _id: item._id,
           displayName: item.lastName === '' ? item.firstName : item.lastName + ' ' + item.firstName,
           username: item.username
         };
       });
-      this.arrPerformers.sort((userA, userB) => {
+      this.arrTourguides.sort((userA, userB) => {
         if (userA.displayName[0] < userB.displayName[0]) {
           return -1;
         } else {
           return 1;
         }
       });
+
+      this.arrTourguides = this.arrTourguides.filter(x => arrTourPerformers.includes(x._id));
     });
+  }
+
+  getTourPerformers(tour: Tour) {
+    const arrPerformers = [];
+    if (tour && tour.schedules) {
+      tour.schedules.forEach(schedule => {
+        schedule.performerIds.forEach(performerId => {
+          if (!arrPerformers.includes(performerId) && performerId !== '') {
+            arrPerformers.push(performerId);
+          }
+        });
+      });
+    }
+    if (tour && tour.preparations) {
+      tour.preparations.forEach(preparation => {
+        if (!preparation.isRequired) {
+          preparation.performers.forEach(performer => {
+            if (performer.needPrepare > 0 && !arrPerformers.includes(performer.performerId) && performer.performerId !== '') {
+              arrPerformers.push(performer.performerId);
+            }
+          });
+        }
+      });
+    }
+    return arrPerformers;
   }
 
   getMinDateCanChosen(): Date {
@@ -63,8 +92,17 @@ export class EditTourService {
     }
   }
 
+  getBeginTime(): Date {
+    try {
+      return this.tour.beginTime;
+    } catch (err) {
+      console.log(err);
+      return new Date(2030, 1, 1);
+    }
+  }
+
   getArrPerforms(): Array<string> {
-    return this.arrPerformers;
+    return this.arrTourguides;
   }
 
   getSheduleCost(): Number {
@@ -75,6 +113,63 @@ export class EditTourService {
       });
     }
     return cost;
+  }
+
+  validateSchedule(tour: Tour): Boolean {
+    try {
+      let isValid = true;
+      if (this.tour.schedules && this.tour.schedules.length > 0) {
+        this.tour.schedules.forEach(schedule => {
+          if (schedule.beginTime > schedule.endTime) {
+            isValid = false;
+          }
+
+          if (schedule.tasks.length === 0) {
+            isValid = false;
+          } else if (schedule.tasks.length === 1) {
+            if (schedule.tasks[0] === '' || schedule.tasks[0].trim() === '') {
+              isValid = false;
+            }
+          } else {
+            // Pop if user click add more but not write anything in the last input
+            if (schedule.tasks[schedule.tasks.length - 1].trim() === '') {
+              schedule.tasks.pop();
+            }
+
+            schedule.tasks.forEach(task => {
+              if (task === '' || task.trim() === '') {
+                isValid = false;
+              }
+            });
+          }
+        });
+      } else {
+        isValid = false;
+      }
+
+      return isValid;
+    } catch (ex) {
+      console.log(ex);
+      return false;
+    }
+  }
+
+  validatePreparations(tour: Tour): Boolean {
+    try {
+      let isValid = true;
+      if (this.tour.preparations && this.tour.preparations.length > 0) {
+        this.tour.preparations.forEach(preparation => {
+          if (preparation.itemName.trim() === '' || preparation.amount === null || preparation.amount < 1) {
+            isValid = false;
+          }
+        });
+      }
+
+      return isValid;
+    } catch (er) {
+      console.log(er);
+      return false;
+    }
   }
 
   sortTourSchedule(tour: Tour) {

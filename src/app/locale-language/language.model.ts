@@ -589,6 +589,7 @@ export class Language {
     register: string;
     tourguide: string;
     tourguideContact: string;
+    addPreparation: string;
   };
 
   constructor() { }

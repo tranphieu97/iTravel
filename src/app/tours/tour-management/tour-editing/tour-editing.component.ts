@@ -19,6 +19,8 @@ export class TourEditingComponent implements OnInit {
 
   public tourModel: Tour;
   public isLoading: Boolean = true;
+  public isUploadingImg: Boolean = false;
+  public isUpdating: Boolean = false;
   public scheduleCost: Number = 0;
 
   public arrTourguide: Array<any>;
@@ -27,7 +29,7 @@ export class TourEditingComponent implements OnInit {
   commonLanguage;
 
   constructor(public activeModal: NgbActiveModal, private language: LanguageService, private router: Router,
-    private editTourService: EditTourService) { }
+    private editTourService: EditTourService, private server: ServerService) { }
 
   ngOnInit() {
     this.compLanguage = this.language.currentLanguage.compTourEditing;
@@ -64,7 +66,6 @@ export class TourEditingComponent implements OnInit {
         this.arrTourguide = this.editTourService.getArrPerforms();
       }, 3000);
     }
-    console.log(this.arrTourguide);
   }
 
   addShedule() {
@@ -81,5 +82,17 @@ export class TourEditingComponent implements OnInit {
     } catch (ex) {
       console.log(ex);
     }
+  }
+
+  onCoverPicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+
+    this.isUploadingImg = true;
+    this.server.uploadImage([{imgFile: file, contentId: 'cover'}]).subscribe(res => {
+      if (res.imageUrls && res.imageUrls[0]) {
+        this.tourModel.cover = res.imageUrls[0];
+      }
+      this.isUploadingImg = false;
+    });
   }
 }

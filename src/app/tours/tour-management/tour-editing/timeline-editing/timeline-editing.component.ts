@@ -41,17 +41,17 @@ export class TimelineEditingComponent implements OnInit {
 
     this.today = this.dateStructService.getDateStructFromDate(new Date());
 
-    this.startDate = this.dateStructService.getDateStructFromDate(new Date(this.tourData.beginTime));
-    this.startTime = this.dateStructService.getTimeStructFormDate(new Date(this.tourData.beginTime));
+    this.startDate = this.dateStructService.getDateStructFromDate(this.tourData.beginTime);
+    this.startTime = this.dateStructService.getTimeStructFormDate(this.tourData.beginTime);
 
-    this.endDate = this.dateStructService.getDateStructFromDate(new Date(this.tourData.endTime));
-    this.endTime = this.dateStructService.getTimeStructFormDate(new Date(this.tourData.endTime));
+    this.endDate = this.dateStructService.getDateStructFromDate(this.tourData.endTime);
+    this.endTime = this.dateStructService.getTimeStructFormDate(this.tourData.endTime);
 
-    this.feedbackDeadline = this.dateStructService.getDateStructFromDate(new Date(this.tourData.closeFeedbackTime));
-    this.feedbackTime = this.dateStructService.getTimeStructFormDate(new Date(this.tourData.closeFeedbackTime));
+    this.feedbackDeadline = this.dateStructService.getDateStructFromDate(this.tourData.closeFeedbackTime);
+    this.feedbackTime = this.dateStructService.getTimeStructFormDate(this.tourData.closeFeedbackTime);
 
-    this.registerDeadline = this.dateStructService.getDateStructFromDate(new Date(this.tourData.closeRegisterTime));
-    this.registerTime = this.dateStructService.getTimeStructFormDate(new Date(this.tourData.closeRegisterTime));
+    this.registerDeadline = this.dateStructService.getDateStructFromDate(this.tourData.closeRegisterTime);
+    this.registerTime = this.dateStructService.getTimeStructFormDate(this.tourData.closeRegisterTime);
   }
 
   validateStartEndDate() {
@@ -62,6 +62,17 @@ export class TimelineEditingComponent implements OnInit {
       }
     } catch (ex) {
       console.log(ex);
+    }
+  }
+
+  onChangeDateTimePicker() {
+    try {
+      this.tourData.beginTime = this.dateStructService.getDateFromDateTimeStruct(this.startDate, this.startTime);
+      this.tourData.endTime = this.dateStructService.getDateFromDateTimeStruct(this.endDate, this.endTime);
+      this.tourData.closeFeedbackTime = this.dateStructService.getDateFromDateTimeStruct(this.feedbackDeadline, this.feedbackTime);
+      this.tourData.closeRegisterTime = this.dateStructService.getDateFromDateTimeStruct(this.registerDeadline, this.registerTime);
+    } catch (err) {
+      console.log(err);
     }
   }
 }

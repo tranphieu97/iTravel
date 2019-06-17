@@ -10,6 +10,9 @@ export class DateStructService {
 
   getDateStructFromDate(date: Date): NgbDate {
     try {
+      // Sometime function had input value type string
+      date = new Date(date);
+
       return new NgbDate(date.getFullYear(), date.getMonth() + 1, date.getDate());
     } catch (er) {
       console.log(er);
@@ -19,6 +22,9 @@ export class DateStructService {
 
   getTimeStructFormDate(date: Date): NgbTimeStruct {
     try {
+      // Sometime function had input value type string
+      date = new Date(date);
+
       return { hour: date.getHours(), minute: date.getMinutes(), second: 0 };
     } catch {
       return { hour: 0, minute: 0, second: 0 };
