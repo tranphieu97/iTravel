@@ -38,7 +38,7 @@ export class PreparationEditingComponent implements OnInit {
       this.commonLanguage = this.language.currentLanguage.common;
     });
 
-    this.arrPerforms = this.editTourService.getArrPerforms().map((performer: any) => {
+    this.arrPerforms = this.editTourService.getArrPerformsInfo().map((performer: any) => {
       return {
         displayName: performer.displayName,
         _id: performer._id,

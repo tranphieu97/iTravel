@@ -36,7 +36,8 @@
           <div class="flex-row form-group flex-justify-end">
             <input type="file" style="visibility: hidden" id="input-cover" #inputFile (change)="onCoverPicked($event)">
             <input type="button" class="btn form-control btn-warning"
-              [value]="commonLanguage.enter + compLanguage.cover" (click)="inputFile.click()" [disabled]="isUploadingImg">
+              [value]="commonLanguage.enter + compLanguage.cover" (click)="inputFile.click()"
+              [disabled]="isUploadingImg">
           </div>
         </div>
       </ng-template>
@@ -125,7 +126,7 @@
             [preparationModel]="preparation" [index]="i"></app-preparation-editing>
           <div class="flex-row flex-justify-space-between" style="margin-top: 5px;">
             <h4 style="color: red; font-weight: 600;">
-              
+
             </h4>
             <input type="button" class="form-control btn btn-warning" [value]="compLanguage.addPreparation"
               (click)="addPreparation()">
@@ -134,6 +135,17 @@
       </ng-template>
     </ngb-tab>
     <!-- End Tab 4 -->
+
+    <ngb-tab>
+      <ng-template ngbTabTitle>
+        <b class="title">{{compLanguage.addPreformer}}</b>
+      </ng-template>
+      <ng-template ngbTabContent>
+        <div class="flex-col tab-content">
+          <app-add-preformer [tourMembers]="tourData.members"></app-add-preformer>
+        </div>
+      </ng-template>
+    </ngb-tab>
   </ngb-tabset>
 </div>
 <div class="modal-footer">

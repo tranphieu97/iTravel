@@ -28,6 +28,7 @@ import { LocationEditingComponent } from './tour-management/tour-editing/locatio
 import { ScheduleEditingComponent } from './tour-management/tour-editing/schedule-editing/schedule-editing.component';
 import { TimelineEditingComponent } from './tour-management/tour-editing/timeline-editing/timeline-editing.component';
 import { PreparationEditingComponent } from './tour-management/tour-editing/preparation-editing/preparation-editing.component';
+import { AddPreformerComponent } from './tour-management/tour-editing/add-preformer/add-preformer.component';
 
 @NgModule({
   imports: [CommonModule, SharedModule, ToursRoutingModule],
@@ -57,7 +58,8 @@ import { PreparationEditingComponent } from './tour-management/tour-editing/prep
     LocationEditingComponent,
     ScheduleEditingComponent,
     TimelineEditingComponent,
-    PreparationEditingComponent
+    PreparationEditingComponent,
+    AddPreformerComponent
   ],
   exports: [DetailModalComponent],
   entryComponents: [DetailModalComponent, ReopenModalComponent, TourEditingComponent]

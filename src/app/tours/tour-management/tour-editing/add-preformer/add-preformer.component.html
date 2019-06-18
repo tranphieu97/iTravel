@@ -1,0 +1,35 @@
+<div class="flex-row form-group">
+  <label class="row-label">
+    {{compLanguage.currentPerformer}}
+  </label>
+  <div class="row-input group-tag">
+    <div class="tag" *ngFor="let performer of arrPerformers" (click)="removePerformer(performer)">
+      {{performer.displayName}}
+      <span class="fas fa-times-circle esc-btn"></span>
+    </div>
+  </div>
+</div>
+<div class="flex-row form-group">
+  <label class="row-label">
+    {{compLanguage.tourguides}}
+  </label>
+  <div class="row-input">
+    <select class="form-control" multiple>
+      <option [value]="tourguide._id" *ngFor="let tourguide of arrTourguides" (click)="addToPerformers(tourguide)">
+        {{tourguide.displayName + ' (' + tourguide.username + ')'}}
+      </option>
+    </select>
+  </div>
+</div>
+<div class="flex-row form-group">
+  <label class="row-label">
+    {{compLanguage.members}}
+  </label>
+  <div class="row-input">
+    <select class="form-control" multiple>
+      <option [value]="member._id" *ngFor="let member of arrMembers" (click)="addToPerformers(member)">
+        {{member.displayName + ' (' + member.username + ')'}}
+      </option>
+    </select>
+  </div>
+</div>

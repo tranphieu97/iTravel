@@ -65,7 +65,7 @@ export class ScheduleEditingComponent implements OnInit {
 
   setupDefaultView() {
     try {
-      this.arrPerforms = this.editTourService.getArrPerforms();
+      this.arrPerforms = this.editTourService.getArrPerformsInfo();
       this.maxDate = this.dateStructService.getDateStructFromDate(this.editTourService.getMaxDateCanChosen());
       this.minDate = this.dateStructService.getDateStructFromDate(this.editTourService.getMinDateCanChosen());
 

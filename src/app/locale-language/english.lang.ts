@@ -594,6 +594,10 @@ export const LangEnglish: Language = {
     register: 'Register',
     tourguide: 'Tourguide',
     tourguideContact: 'Tourguide \'s Contact',
-    addPreparation: 'Add preparation'
+    addPreparation: 'Add preparation',
+    addPreformer: 'Add Performers',
+    currentPerformer: 'Current Performers',
+    members: 'Tour\'s members',
+    tourguides: 'Tourguides'
   }
 };

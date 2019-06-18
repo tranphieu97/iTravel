@@ -590,6 +590,10 @@ export class Language {
     tourguide: string;
     tourguideContact: string;
     addPreparation: string;
+    addPreformer: string;
+    currentPerformer: string;
+    tourguides: string;
+    members: string;
   };
 
   constructor() { }

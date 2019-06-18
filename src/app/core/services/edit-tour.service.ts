@@ -9,7 +9,9 @@ import { ServerService } from './server.service';
 export class EditTourService {
 
   private tour: Tour;
-  private arrTourguides: Array<any> = [];
+
+  private arrTourPerforms: Array<any> = [];
+  private arrTourMembers: Array<any> = [];
   public hasRemoveSchedule: Subject<number>;
   public hasRemovePreparation: Subject<number>;
   public hasChangeCost: Subject<any>;
@@ -22,34 +24,57 @@ export class EditTourService {
 
   setEditingTour(tour: Tour) {
     this.tour = tour;
-    this.autoSetArrPerforms();
+    this.autoGetTourMemberInfo();
+    this.autoGetArrPerformsInfo();
   }
 
-  autoSetArrPerforms() {
-    const arrTourPerformers = this.getTourPerformers(this.tour);
+  autoGetArrPerformsInfo() {
+    const arrTourPerformers = this.getTourPerformerIds(this.tour);
 
-    this.arrTourguides = [];
-    this.server.getTourguides().subscribe((res) => {
-      this.arrTourguides = res.data.map((item: any) => {
-        return {
-          _id: item._id,
-          displayName: item.lastName === '' ? item.firstName : item.lastName + ' ' + item.firstName,
-          username: item.username
-        };
-      });
-      this.arrTourguides.sort((userA, userB) => {
-        if (userA.displayName[0] < userB.displayName[0]) {
-          return -1;
-        } else {
-          return 1;
-        }
-      });
+    // this.arrTourPerforms = [];
+    // this.server.getTourguides().subscribe((res) => {
+    //   this.arrTourPerforms = res.data.map((item: any) => {
+    //     return {
+    //       _id: item._id,
+    //       displayName: item.lastName === '' ? item.firstName : item.lastName + ' ' + item.firstName,
+    //       username: item.username
+    //     };
+    //   });
+    //   this.arrTourPerforms.sort((userA, userB) => {
+    //     if (userA.displayName[0] < userB.displayName[0]) {
+    //       return -1;
+    //     } else {
+    //       return 1;
+    //     }
+    //   });
 
-      this.arrTourguides = this.arrTourguides.filter(x => arrTourPerformers.includes(x._id));
+    //   this.arrTourPerforms = this.arrTourPerforms.filter(x => arrTourPerformers.includes(x._id));
+    // });
+    this.arrTourPerforms = arrTourPerformers.map(performerId => {
+      return {
+        _id: performerId,
+        displayName: '',
+        username: ''
+      };
+    });
+
+    this.arrTourPerforms.forEach(performer => {
+      this.server.getUserBasicInfo(performer._id).subscribe(res => {
+        performer.displayName = res.data.lastName === '' ? res.data.firstName : res.data.lastName + ' ' + res.data.firstName;
+        performer.username = res.data.username;
+
+        this.arrTourPerforms.sort((userA, userB) => {
+          if (userA.displayName[0] < userB.displayName[0]) {
+            return -1;
+          } else {
+            return 1;
+          }
+        });
+      });
     });
   }
 
-  getTourPerformers(tour: Tour) {
+  getTourPerformerIds(tour: Tour): Array<string> {
     const arrPerformers = [];
     if (tour && tour.schedules) {
       tour.schedules.forEach(schedule => {
@@ -72,6 +97,45 @@ export class EditTourService {
       });
     }
     return arrPerformers;
+  }
+
+  getTourMemberIds(tour: Tour): Array<string> {
+    const arrTourMemberIds = [];
+    if (tour && tour.members) {
+      tour.members.forEach(member => {
+        if (!arrTourMemberIds.includes(member.memberId)) {
+          arrTourMemberIds.push(member.memberId);
+        }
+      });
+    }
+    return arrTourMemberIds;
+  }
+
+  autoGetTourMemberInfo() {
+    const arrTourMemberIds = this.getTourMemberIds(this.tour);
+
+    this.arrTourMembers = arrTourMemberIds.map(memberId => {
+      return {
+        _id: memberId,
+        displayName: '',
+        username: ''
+      };
+    });
+
+    this.arrTourMembers.forEach(member => {
+      this.server.getUserBasicInfo(member._id).subscribe(res => {
+        member.displayName = res.data.lastName === '' ? res.data.firstName : res.data.lastName + ' ' + res.data.firstName;
+        member.username = res.data.username;
+
+        this.arrTourMembers.sort((userA, userB) => {
+          if (userA.displayName[0] < userB.displayName[0]) {
+            return -1;
+          } else {
+            return 1;
+          }
+        });
+      });
+    });
   }
 
   getMinDateCanChosen(): Date {
@@ -101,8 +165,12 @@ export class EditTourService {
     }
   }
 
-  getArrPerforms(): Array<string> {
-    return this.arrTourguides;
+  getArrPerformsInfo(): Array<any> {
+    return this.arrTourPerforms;
+  }
+
+  getArrMemberInfo(): Array<any> {
+    return this.arrTourMembers;
   }
 
   getSheduleCost(): Number {

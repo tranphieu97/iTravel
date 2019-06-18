@@ -586,6 +586,10 @@ export const LangVietnamese: Language = {
     register: 'Đăng ký',
     tourguide: 'Dẫn đoàn',
     tourguideContact: 'Thông tin Liên hệ dẫn đoàn',
-    addPreparation: 'Thêm nội dung chuẩn bị'
+    addPreparation: 'Thêm nội dung chuẩn bị',
+    addPreformer: 'Bổ sung phụ trách',
+    currentPerformer: 'Phụ trách hiện tại',
+    members: 'Thành viên tham gia tour',
+    tourguides: 'Dẫn đoàn'
   }
 };

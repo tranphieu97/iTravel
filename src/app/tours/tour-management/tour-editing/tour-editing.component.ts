@@ -60,10 +60,10 @@ export class TourEditingComponent implements OnInit {
       this.scheduleCost = this.editTourService.getSheduleCost();
     });
 
-    this.arrTourguide = this.editTourService.getArrPerforms();
+    this.arrTourguide = this.editTourService.getArrPerformsInfo();
     if (this.arrTourguide.length === 0) {
       setTimeout(() => {
-        this.arrTourguide = this.editTourService.getArrPerforms();
+        this.arrTourguide = this.editTourService.getArrPerformsInfo();
       }, 3000);
     }
   }
