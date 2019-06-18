@@ -779,13 +779,13 @@ app.patch('/user/register-tour', async (req, res) => {
     const registerBody = req.body;
     try {
         if (registerBody._id && registerBody.registerObj) {
-            const tourRegisterd = await Tour.findById(new ObjectId(registerBody._id), '_id memberLimit members');
+            const tourRegistered = await Tour.findById(new ObjectId(registerBody._id), '_id memberLimit members');
 
             let currentMembers = 0;
-            tourRegisterd.members.forEach(member => {
+            tourRegistered.members.forEach(member => {
                 currentMembers = currentMembers + member.registerFor;
             });
-            if (currentMembers + registerBody.registerObj.registerFor > tourRegisterd.memberLimit) {
+            if (currentMembers + registerBody.registerObj.registerFor > tourRegistered.memberLimit) {
                 res.status(200).json({
                     statusCode: 200,
                     result: {
@@ -794,7 +794,7 @@ app.patch('/user/register-tour', async (req, res) => {
                     }
                 });
             } else {
-                await Tour.updateOne(new ObjectId(registerBody._id), {
+                await Tour.updateOne({ _id: registerBody._id }, {
                     $push: {
                         'members': registerBody.registerObj
                     }
@@ -808,8 +808,8 @@ app.patch('/user/register-tour', async (req, res) => {
                             }
                         });
                     } else {
-                        res.status(200).json({
-                            statusCode: 200,
+                        res.status(201).json({
+                            statusCode: 201,
                             result: {
                                 overLimit: true,
                                 success: true

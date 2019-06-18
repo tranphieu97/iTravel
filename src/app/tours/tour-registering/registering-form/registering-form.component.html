@@ -23,7 +23,7 @@
   <div class="flex-row" *ngIf="registeredData.isRegistered && userId">
     <input type="button" class="btn form-control btn-warning" [value]="compLanguage.registered" disabled>
   </div>
-  <div class="flex-row" *ngIf="!isShowFormRegister && !registeredData.isRegistered && !registeredData.isFullslot">
+  <div class="flex-row" *ngIf="userId && !isShowFormRegister && !registeredData.isRegistered && !registeredData.isFullslot">
     <input type="button" class="btn form-control btn-warning" [value]="compLanguage.register"
       (click)="isShowFormRegister = true">
   </div>

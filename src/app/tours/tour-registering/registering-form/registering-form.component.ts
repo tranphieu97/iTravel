@@ -61,7 +61,9 @@ export class RegisteringFormComponent implements OnInit {
     this.isLoading = true;
     this.server.getTourRegisteredInfo(this.tourId, this.userId).subscribe(res => {
       if (res.statusCode === 200) {
+        console.log(res.data);
         this.registeredData = res.data;
+        console.log(this.registeredData);
         this.createRegisterForOption();
         this.isLoading = false;
       }
@@ -94,8 +96,10 @@ export class RegisteringFormComponent implements OnInit {
       registerObj.registerFor = this.amountRegisterPeople;
       registerObj.registerNote = this.registerNote;
 
-      this.server.registerTour(this.tourId, this.registeredData).subscribe(res => {
+      this.server.registerTour(this.tourId, registerObj).subscribe(res => {
         this.isLoading = false;
+        this.getRegisteredInfo();
+        this.isShowFormRegister = false;
       });
     }
   }

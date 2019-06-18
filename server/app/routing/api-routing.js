@@ -654,8 +654,8 @@ app.get('/api/user-info', (req, res) => {
         const queryObj = { _id: new ObjectId(req.query.userId) }
         // console.log(queryObj);
 
-        // create projection object to return only id, username, avatar
-        const projectionObj = { projection: { _id: 1, firstName: 1, lastName: 1, avatar: 1 } }
+        // create projection object to return only id, username, avatar // Phieu add username
+        const projectionObj = { projection: { _id: 1, firstName: 1, lastName: 1, avatar: 1 , username: 1} }
         // console.log(projectionObj);
 
         database.getOneWithProjection(database.iTravelDB.Users, queryObj, projectionObj)
@@ -1016,11 +1016,11 @@ app.get('/api/tour-registerd-info/', async (req, res) => {
                         data: null
                     });
                 } else {
-                    let isRegisterd = false;
+                    let isRegistered = false;
                     if (userId) {
                         const existData = data.members.findIndex(x => x.memberId === userId);
-                        if (existData && (existData.length > 0 || existData > -1)) {
-                            isRegisterd = true;
+                        if (existData > -1) {
+                            isRegistered = true;
                         }
                     }
                     
@@ -1028,7 +1028,7 @@ app.get('/api/tour-registerd-info/', async (req, res) => {
                         registerCost: data.registerCost,
                         memberLimit: data.memberLimit,
                         closeRegisterTime: data.closeRegisterTime,
-                        isRegisterd: isRegisterd,
+                        isRegistered: isRegistered,
                         isFullslot: data.members.length === data.memberLimit ? true : false,
                         currentMember: data.members.length
                     };
