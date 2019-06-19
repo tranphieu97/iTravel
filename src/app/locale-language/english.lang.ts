@@ -471,7 +471,9 @@ export const LangEnglish: Language = {
     closeRegisterTime: 'Register until',
     rename: 'rename',
     reopenBtn: 'Reopen',
-    edit: 'Edit'
+    edit: 'Edit',
+    collectedMoney: 'Paid',
+    verifyCollectedMoney: 'Verify paid'
   },
 
   compUserTour: {
@@ -487,7 +489,8 @@ export const LangEnglish: Language = {
     statusPrepared: 'FINISHED',
     detailBtn: 'Detail',
     tripDuration: 'Trip duration',
-    tripDurationUnit: 'day(s)'
+    tripDurationUnit: 'day(s)',
+    cancelTourBtn: 'Cancel tour'
   },
 
   compUpdateProfile: {

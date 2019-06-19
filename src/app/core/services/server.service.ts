@@ -428,6 +428,13 @@ export class ServerService {
       { headers: this.httpOptions.headers, params: listParams });
   }
 
+  updateCancelTour(tourId, updateObj) {
+    const listParams = new HttpParams()
+      .set('tourId', tourId);
+    return this.http.patch<{ message: string }>(this.HOST + 'user/update-cancel-tour', updateObj,
+      { headers: this.httpOptions.headers, params: listParams });
+  }
+
   updateTourMemberCost(tourId, memberItemId) {
     const listParams = new HttpParams()
       .set('tourId', tourId)

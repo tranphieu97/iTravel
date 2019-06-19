@@ -59,7 +59,8 @@ const tourSchema = new Schema({
         cost: Number,
         contactNumber: String,
         registerFor: Number,
-        registerNote: String
+        registerNote: String,
+        cancelTime: Date
     }],
     reviewers: [{
         reviewerId: String,

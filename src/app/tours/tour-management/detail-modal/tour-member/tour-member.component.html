@@ -8,6 +8,7 @@
   </div>
   <div class="member-list">
     <div *ngFor="let member of tourData.members; let i=index"
+      [ngClass]="{canceled: member.cancelTime}"
       class="member-item p-3">
       <div class="avatar"
         [ngStyle]="{'background-image': 'url('+tourMemberInfo[i].basicInfo.avatar+')'}">
@@ -21,7 +22,8 @@
           <b>{{compLanguage.contact}}:</b>
           {{tourMemberInfo[i].tourInfo.contactNumber}}</span>
         <span
-          *ngIf="allowSeeUserPrivateInfo.includes(currentPath) && tourMemberInfo[i].tourInfo.memberId !== tourData.tourGuideId"><b>{{compLanguage.needToPay}}:</b>
+          *ngIf="allowSeeUserPrivateInfo.includes(currentPath) && tourMemberInfo[i].tourInfo.memberId !== tourData.tourGuideId && tourMemberInfo[i].tourInfo.cost>0">
+          <b>{{compLanguage.needToPay}}:</b>
           {{tourMemberInfo[i].tourInfo.cost | currency:'VND'}}
         </span>
         <span class="tour-guide"
@@ -29,9 +31,16 @@
         </span>
         <div
           *ngIf="allowSeeUserPrivateInfo.includes(currentPath) && tourMemberInfo[i].tourInfo.memberId !== tourData.tourGuideId">
-          <span class="collect-status fas fa-hand-holding-usd"
-            [ngClass]="{collected: tourMemberInfo[i].tourInfo.cost===0}"
-            (click)="onCollectedMoney(tourMemberInfo[i].tourInfo._id, i)"></span>
+          <span class="collected fas fa-hand-holding-usd"
+            *ngIf="tourMemberInfo[i].tourInfo.cost===0">
+            {{compLanguage.collectedMoney}}
+          </span>
+          <button class="btn btn-warning"
+            *ngIf="tourMemberInfo[i].tourInfo.cost>0"
+            [disabled]="member.cancelTime"
+            (click)="onCollectedMoney(tourMemberInfo[i].tourInfo._id, i)">
+            {{compLanguage.verifyCollectedMoney}}
+          </button>
         </div>
       </div>
     </div>

@@ -103,6 +103,7 @@ export class ReopenModalComponent implements OnInit {
       return feedback;
     });
     delete newTour._id;
+    console.log('newTour', newTour);
     this.serverService.createTour(newTour).subscribe(res => {
       if (res.statusCode === 201) {
         this.refresh();

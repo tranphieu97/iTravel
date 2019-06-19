@@ -467,6 +467,8 @@ export class Language {
     closeRegisterTime: string;
     reopenBtn: string;
     edit: string;
+    collectedMoney: string;
+    verifyCollectedMoney: string;
   };
 
   compUserTour: {
@@ -483,6 +485,7 @@ export class Language {
     detailBtn: string;
     tripDuration: string;
     tripDurationUnit: string;
+    cancelTourBtn: string;
   };
 
   compUpdateProfile: {

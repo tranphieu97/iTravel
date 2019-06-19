@@ -463,7 +463,9 @@ export const LangVietnamese: Language = {
     closeRegisterTime: 'Thời hạn đăng ký',
     rename: 'tên tour mới',
     reopenBtn: 'Mở lại',
-    edit: 'Chỉnh sửa'
+    edit: 'Chỉnh sửa',
+    collectedMoney: 'Đã thu phí',
+    verifyCollectedMoney: 'Xác nhận thu phí'
   },
 
   compUserTour: {
@@ -479,7 +481,8 @@ export const LangVietnamese: Language = {
     statusPrepared: 'Đã Xong',
     detailBtn: 'Chi Tiết',
     tripDuration: 'Thời gian hành trình',
-    tripDurationUnit: 'ngày'
+    tripDurationUnit: 'ngày',
+    cancelTourBtn: 'Hủy'
   },
 
   compUpdateProfile: {
