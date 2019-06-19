@@ -640,7 +640,8 @@ app.get('/user/get-tours', async (req, res) => {
             const userId = authentication.getTokenUserId(req.headers.authorization);
             queryObj = {
                 isActive: true,
-                'members.memberId': userId
+                'members.memberId': userId,
+                'members.cancelTime': null
             };
         }
 
@@ -661,7 +662,7 @@ app.get('/user/get-tours', async (req, res) => {
 });
 
 /**
- * @name updateTour for user
+ * @name updateTourPreparation  for user
  * @param {Tour}
  * @author Thong
  */
@@ -702,6 +703,32 @@ app.patch('/user/update-tour-preparation', async (req, res) => {
         console.log('Update preparation failed:', error.message);
         res.status(200).json({
             message: error.message
+        });
+    }
+});
+
+/**
+ * @name updateCancelTour - cancel tour
+ * @param {Tour}
+ * @author Thong
+ */
+app.patch('/user/update-cancel-tour', async (req, res) => {
+    try {
+        // const updatedTour = new Tour(req.body)
+        const { schedules, preparations, members } = req.body
+        const tourId = req.query.tourId
+        await Tour.updateOne({ _id: tourId }, { $set: {
+            schedules, preparations, members
+        }})
+        console.log('update-cancel-tour sucessful');
+        res.status(200).json({
+            message: 'Success'
+        });
+    } catch (error) {
+        console.log('update-cancel-tour failed');
+        res.status(200).json({
+            message: error.message,
+            statusCode: 500
         });
     }
 });

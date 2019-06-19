@@ -77,6 +77,7 @@ export class TourManagementComponent implements OnInit {
       centered: true,
       size: 'lg'
     });
+    modalRef.componentInstance.tourData = tour;
     modalRef.componentInstance.refresh = this.refreshListTour;
   }
 }

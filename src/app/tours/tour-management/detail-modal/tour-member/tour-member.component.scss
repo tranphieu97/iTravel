@@ -43,15 +43,15 @@
           .tour-guide {
             color: rgb(179, 0, 179);
           }
-          .collect-status {
-            color: $DANGER;
-            cursor: pointer;
-          }
           .collected {
             color: $SUCCESS;
             cursor: default;
           }
         }
+      }
+      .canceled {
+        background-color: #a06e6e;
+        border-radius: 0.25rem;
       }
     }
   }
