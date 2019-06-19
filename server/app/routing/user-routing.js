@@ -795,7 +795,7 @@ app.patch('/user/register-tour', async (req, res) => {
                 });
             } else {
                 await Tour.updateOne({ _id: registerBody._id }, {
-                    $push: {
+                    $addToSet: {
                         'members': registerBody.registerObj
                     }
                 }, (err, raw) => {
