@@ -469,6 +469,7 @@ export class Language {
     edit: string;
     collectedMoney: string;
     verifyCollectedMoney: string;
+    registerFor: string;
   };
 
   compUserTour: {

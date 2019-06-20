@@ -465,7 +465,8 @@ export const LangVietnamese: Language = {
     reopenBtn: 'Mở lại',
     edit: 'Chỉnh sửa',
     collectedMoney: 'Đã thu phí',
-    verifyCollectedMoney: 'Xác nhận thu phí'
+    verifyCollectedMoney: 'Xác nhận thu phí',
+    registerFor: 'Đăng ký cho (người)'
   },
 
   compUserTour: {

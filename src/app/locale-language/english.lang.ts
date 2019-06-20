@@ -473,7 +473,8 @@ export const LangEnglish: Language = {
     reopenBtn: 'Reopen',
     edit: 'Edit',
     collectedMoney: 'Paid',
-    verifyCollectedMoney: 'Verify paid'
+    verifyCollectedMoney: 'Verify paid',
+    registerFor: 'Register for (people)'
   },
 
   compUserTour: {

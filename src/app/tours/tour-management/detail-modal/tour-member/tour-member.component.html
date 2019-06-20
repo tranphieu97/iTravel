@@ -26,6 +26,11 @@
           <b>{{compLanguage.needToPay}}:</b>
           {{tourMemberInfo[i].tourInfo.cost | currency:'VND'}}
         </span>
+        <span
+          *ngIf="allowSeeUserPrivateInfo.includes(currentPath)">
+          <b>{{compLanguage.registerFor}}:</b>
+          {{tourMemberInfo[i].tourInfo.registerFor}}
+        </span>
         <span class="tour-guide"
           *ngIf="tourMemberInfo[i].tourInfo.memberId === tourData.tourGuideId"><b>{{compLanguage.tourguide}}</b>
         </span>
