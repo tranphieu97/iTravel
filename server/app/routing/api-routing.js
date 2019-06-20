@@ -1016,9 +1016,12 @@ app.get('/api/tour-registerd-info/', async (req, res) => {
                         data: null
                     });
                 } else {
+                    // if record exist cancelTime, it was canceled register before
+                    const currentMember = data.members.filter(x => !x.cancelTime);
+
                     let isRegistered = false;
                     if (userId) {
-                        const existData = data.members.findIndex(x => x.memberId === userId);
+                        const existData = currentMember.findIndex(x => x.memberId === userId);
                         if (existData > -1) {
                             isRegistered = true;
                         }
@@ -1029,8 +1032,8 @@ app.get('/api/tour-registerd-info/', async (req, res) => {
                         memberLimit: data.memberLimit,
                         closeRegisterTime: data.closeRegisterTime,
                         isRegistered: isRegistered,
-                        isFullslot: data.members.length === data.memberLimit ? true : false,
-                        currentMember: data.members.length
+                        isFullslot: currentMember.length >= data.memberLimit ? true : false,
+                        currentMember: currentMember.length
                     };
 
                     res.status(200).json({
