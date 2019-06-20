@@ -26,6 +26,8 @@ export class RegisteringFormComponent implements OnInit {
   public contact: string;
 
   public isLoading: Boolean = true;
+  public isErrorOverLimit: Boolean = false;
+  public isErrorServer: Boolean = false;
 
   compLanguage;
   commonLanguage;
@@ -90,19 +92,34 @@ export class RegisteringFormComponent implements OnInit {
   registerTour() {
     if (this.amountRegisterPeople === 1 || (this.amountRegisterPeople > 1 && this.registerNote)) {
       this.isLoading = true;
+      this.isErrorOverLimit = false;
+      this.isErrorServer = false;
+
       const registerObj: TourMember = new TourMember(this.userId, this.registeredData.registerCost, this.contact);
       registerObj.registerFor = this.amountRegisterPeople;
       registerObj.registerNote = this.registerNote;
 
       this.server.registerTour(this.tourId, registerObj).subscribe(res => {
         this.isLoading = false;
+        if (res.result.success) {
+          this.isShowFormRegister = false;
+        } else if (res.result.overLimit) {
+          this.isErrorOverLimit = true;
+        } else {
+          this.isErrorServer = true;
+          this.isShowFormRegister = false;
+        }
         this.getRegisteredInfo();
-        this.isShowFormRegister = false;
+
+        setTimeout(() => {
+          this.isErrorOverLimit = false;
+          this.isErrorServer = false;
+        }, 10000);
       });
     }
   }
 
   open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title' });
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
 }

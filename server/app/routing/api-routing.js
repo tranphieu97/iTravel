@@ -1017,23 +1017,28 @@ app.get('/api/tour-registerd-info/', async (req, res) => {
                     });
                 } else {
                     // if record exist cancelTime, it was canceled register before
-                    const currentMember = data.members.filter(x => !x.cancelTime);
+                    const registeredRecord = data.members.filter(x => !x.cancelTime);
 
                     let isRegistered = false;
                     if (userId) {
-                        const existData = currentMember.findIndex(x => x.memberId === userId);
+                        const existData = registeredRecord.findIndex(x => x.memberId === userId);
                         if (existData > -1) {
                             isRegistered = true;
                         }
                     }
+
+                    let currentMember = 0;
+                    registeredRecord.forEach(record => {
+                        currentMember = currentMember + record.registerFor;
+                    });
                     
                     const returnData = {
                         registerCost: data.registerCost,
                         memberLimit: data.memberLimit,
                         closeRegisterTime: data.closeRegisterTime,
                         isRegistered: isRegistered,
-                        isFullslot: currentMember.length >= data.memberLimit ? true : false,
-                        currentMember: currentMember.length
+                        isFullslot: currentMember >= data.memberLimit ? true : false,
+                        currentMember: currentMember
                     };
 
                     res.status(200).json({

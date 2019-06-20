@@ -1,4 +1,10 @@
 <app-loading *ngIf="isLoading"></app-loading>
+<div class="alert alert-danger" *ngIf="!isLoading && isErrorOverLimit">
+  {{compLanguage.errorRegisterMoreThanLimit}}
+</div>
+<div class="alert alert-danger" *ngIf="!isLoading && isErrorServer">
+  {{compLanguage.errorRegisterFail}}
+</div>
 <div class="flex-1" *ngIf="!isLoading && registeredData">
   <div class="flex-row flex-items-center cost">
     <span>
@@ -18,12 +24,13 @@
   </div>
   <div class="flex-row" *ngIf="!userId">
     <input type="button" class="btn form-control btn-success" [value]="compLanguage.loginToRegister"
-    (click)="open(login)">
+      (click)="open(login)">
   </div>
   <div class="flex-row" *ngIf="registeredData.isRegistered && userId">
     <input type="button" class="btn form-control btn-warning" [value]="compLanguage.registered" disabled>
   </div>
-  <div class="flex-row" *ngIf="userId && !isShowFormRegister && !registeredData.isRegistered && !registeredData.isFullslot">
+  <div class="flex-row"
+    *ngIf="userId && !isShowFormRegister && !registeredData.isRegistered && !registeredData.isFullslot">
     <input type="button" class="btn form-control btn-warning" [value]="compLanguage.register"
       (click)="isShowFormRegister = true">
   </div>
@@ -33,7 +40,8 @@
         <label class="bold">{{compLanguage.contact}}</label>
       </div>
       <div class="flex-3">
-        <input class="form-control" name="contact" [(ngModel)]="contact" [placeholder]="commonLanguage.enter + compLanguage.phoneNumber">
+        <input class="form-control" name="contact" [(ngModel)]="contact"
+          [placeholder]="commonLanguage.enter + compLanguage.phoneNumber">
       </div>
     </div>
     <div class="flex-row form-group">

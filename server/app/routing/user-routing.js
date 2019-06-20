@@ -806,13 +806,17 @@ app.patch('/user/register-tour', async (req, res) => {
     const registerBody = req.body;
     try {
         if (registerBody._id && registerBody.registerObj) {
-            const tourRegistered = await Tour.findById(new ObjectId(registerBody._id), '_id memberLimit members');
+            let tourRegistered = await Tour.findById(new ObjectId(registerBody._id), '_id memberLimit members');
+            tourRegistered.members = tourRegistered.members.filter(x => !x.cancelTime);
 
-            let currentMembers = 0;
+            let currentRegisterd = 0;
             tourRegistered.members.forEach(member => {
-                currentMembers = currentMembers + member.registerFor;
+                currentRegisterd = currentRegisterd + member.registerFor;
             });
-            if (currentMembers + registerBody.registerObj.registerFor > tourRegistered.memberLimit) {
+
+            // Request change registerFor property type to string
+            registerBody.registerObj.registerFor = parseInt(registerBody.registerObj.registerFor, 10);
+            if (currentRegisterd + registerBody.registerObj.registerFor > tourRegistered.memberLimit) {
                 res.status(200).json({
                     statusCode: 200,
                     result: {
@@ -838,7 +842,7 @@ app.patch('/user/register-tour', async (req, res) => {
                         res.status(201).json({
                             statusCode: 201,
                             result: {
-                                overLimit: true,
+                                overLimit: false,
                                 success: true
                             }
                         });
