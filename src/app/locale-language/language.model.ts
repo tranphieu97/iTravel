@@ -88,6 +88,11 @@ export class Language {
     registerEnterUsername: string;
     registerEnterPassword: string;
     registerEnterConfirmPassword: string;
+    registerSuccess: string;
+    registerUsernameExist: string;
+    registerDataInvalid: string;
+    registerFail: string;
+    registerPasswordNotMatch: string;
   };
 
   // For Menu in NavigationBar Component
@@ -563,6 +568,8 @@ export class Language {
     phoneNumber: string;
     registered: string;
     loginToRegister: string;
+    errorRegisterMoreThanLimit: string;
+    errorRegisterFail: string;
   };
 
   compTourEditing: {

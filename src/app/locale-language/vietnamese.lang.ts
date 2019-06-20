@@ -82,7 +82,12 @@ export const LangVietnamese: Language = {
     registerEnterLastname: 'Nhập họ',
     registerEnterUsername: 'Nhập Tên đăng nhập',
     registerEnterPassword: 'Nhập mật khẩu',
-    registerEnterConfirmPassword: 'Nhập lại mật khẩu'
+    registerEnterConfirmPassword: 'Nhập lại mật khẩu',
+    registerDataInvalid: 'Đăng ký thất bại, dữ liệu không hợp lệ',
+    registerFail: 'Đăng ký thất bại',
+    registerSuccess: 'Đăng ký thành công',
+    registerUsernameExist: 'Username đã tồn tại, vui lòng chọn một username khác',
+    registerPasswordNotMatch: 'Mật khẩu và xác nhận mật khẩu khác nhau'
   },
 
   // For Feedback Component
@@ -559,7 +564,9 @@ export const LangVietnamese: Language = {
     contact: 'Liên hệ',
     phoneNumber: 'Số điện thoại',
     registered: 'Đã đăng ký',
-    loginToRegister: 'Đăng nhập để Đăng ký'
+    loginToRegister: 'Đăng nhập để Đăng ký',
+    errorRegisterFail: 'Đăng ký thất bại, vui lòng thử lại',
+    errorRegisterMoreThanLimit: 'Đăng ký của bạn vượt quá số lượng chổ trống hiện tại'
   },
 
   compTourEditing: {

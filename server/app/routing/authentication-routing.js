@@ -71,31 +71,35 @@ app.post('/auth/register-user', async (req, res) => {
                                     .then((isExist) => {
                                         if (isExist) {
                                             res.status(201).json({
-                                                message: 'Register is success',
-                                                data: true
+                                                statusCode: 201,
+                                                message: 'Register is success'
                                             });
                                         } else {
-                                            res.status(500).json({
-                                                message: 'Register User is fail',
-                                                data: false
+                                            res.status(200).json({
+                                                statusCode: 500,
+                                                message: 'Register User is fail'
                                             });
                                         }
                                     })
                             });
                     }).catch((err) => {
                         console.log(err);
+                        res.status(200).json({
+                            statusCode: 500,
+                            message: 'Register User is fail'
+                        });
                     });
                 } else {
                     res.status(200).json({
-                        message: 'Register new User Fail, Username is Exist',
-                        data: false
+                        statusCode: 409,
+                        message: 'Register new User Fail, Username is Exist'
                     });
                 }
             });
     } else {
         res.status(400).json({
             message: 'Register new User Fail, Data invalid',
-            data: false
+            statusCode: 400
         });
     }
 });

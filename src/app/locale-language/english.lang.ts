@@ -85,7 +85,12 @@ export const LangEnglish: Language = {
     registerEnterLastname: 'Enter your Last name',
     registerEnterUsername: 'Enter your Username',
     registerEnterPassword: 'Enter your Password',
-    registerEnterConfirmPassword: 'Re-enter your Password'
+    registerEnterConfirmPassword: 'Re-enter your Password',
+    registerDataInvalid: 'Register Fail, Invalid Data',
+    registerFail: 'Register Fail',
+    registerSuccess: 'Register Success',
+    registerUsernameExist: 'Username is exist, choose another',
+    registerPasswordNotMatch: 'Password and re-password are not match';
   },
 
   // For Feedback Component
@@ -567,7 +572,9 @@ export const LangEnglish: Language = {
     contact: 'Contact',
     phoneNumber: 'Phone number',
     registered: 'Registered',
-    loginToRegister: 'Login to Register'
+    loginToRegister: 'Login to Register',
+    errorRegisterMoreThanLimit: 'Your register more than tour available slots now',
+    errorRegisterFail: 'Register Fail, try again!'
   },
 
   compTourEditing: {
