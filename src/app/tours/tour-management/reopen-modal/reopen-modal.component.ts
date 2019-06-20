@@ -85,7 +85,7 @@ export class ReopenModalComponent implements OnInit {
         this.registerDeadlineTime
       ),
       status: this.STATUS.PENDING,
-      reviewers: [],
+      feedbacks: [],
       members: []
     });
     newTour.schedules = newTour.schedules.map(schedule => {
