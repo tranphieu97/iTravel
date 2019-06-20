@@ -806,13 +806,17 @@ app.patch('/user/register-tour', async (req, res) => {
     const registerBody = req.body;
     try {
         if (registerBody._id && registerBody.registerObj) {
-            const tourRegisterd = await Tour.findById(new ObjectId(registerBody._id), '_id memberLimit members');
+            let tourRegistered = await Tour.findById(new ObjectId(registerBody._id), '_id memberLimit members');
+            tourRegistered.members = tourRegistered.members.filter(x => !x.cancelTime);
 
-            let currentMembers = 0;
-            tourRegisterd.members.forEach(member => {
-                currentMembers = currentMembers + member.registerFor;
+            let currentRegisterd = 0;
+            tourRegistered.members.forEach(member => {
+                currentRegisterd = currentRegisterd + member.registerFor;
             });
-            if (currentMembers + registerBody.registerObj.registerFor > tourRegisterd.memberLimit) {
+
+            // Request change registerFor property type to string
+            registerBody.registerObj.registerFor = parseInt(registerBody.registerObj.registerFor, 10);
+            if (currentRegisterd + registerBody.registerObj.registerFor > tourRegistered.memberLimit) {
                 res.status(200).json({
                     statusCode: 200,
                     result: {
@@ -821,8 +825,8 @@ app.patch('/user/register-tour', async (req, res) => {
                     }
                 });
             } else {
-                await Tour.updateOne(new ObjectId(registerBody._id), {
-                    $push: {
+                await Tour.updateOne({ _id: registerBody._id }, {
+                    $addToSet: {
                         'members': registerBody.registerObj
                     }
                 }, (err, raw) => {
@@ -835,10 +839,10 @@ app.patch('/user/register-tour', async (req, res) => {
                             }
                         });
                     } else {
-                        res.status(200).json({
-                            statusCode: 200,
+                        res.status(201).json({
+                            statusCode: 201,
                             result: {
-                                overLimit: true,
+                                overLimit: false,
                                 success: true
                             }
                         });

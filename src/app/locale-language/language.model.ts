@@ -88,6 +88,11 @@ export class Language {
     registerEnterUsername: string;
     registerEnterPassword: string;
     registerEnterConfirmPassword: string;
+    registerSuccess: string;
+    registerUsernameExist: string;
+    registerDataInvalid: string;
+    registerFail: string;
+    registerPasswordNotMatch: string;
   };
 
   // For Menu in NavigationBar Component
@@ -564,6 +569,8 @@ export class Language {
     phoneNumber: string;
     registered: string;
     loginToRegister: string;
+    errorRegisterMoreThanLimit: string;
+    errorRegisterFail: string;
   };
 
   compTourEditing: {
@@ -580,6 +587,26 @@ export class Language {
     schedule: string;
     preparation: string;
     performs: string;
+    province: string;
+    selectedLocation: string;
+    newLocation: string;
+    provinceLocation: string;
+    addSchedule: string;
+    scheduleCost: string;
+    memberLimit: string;
+    registerCost: string;
+    perPerson: string;
+    timeline: string;
+    register: string;
+    tourguide: string;
+    tourguideContact: string;
+    addPreparation: string;
+    addPreformer: string;
+    currentPerformer: string;
+    tourguides: string;
+    members: string;
+    editTourMessage: string;
+    cancelEditMessage: string;
   };
 
   constructor() { }

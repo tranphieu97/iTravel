@@ -24,6 +24,11 @@ import { TourRegisteringComponent } from './tour-registering/tour-registering.co
 import { RegisteringFormComponent } from './tour-registering/registering-form/registering-form.component';
 import { TourEditingComponent } from './tour-management/tour-editing/tour-editing.component';
 import { ReopenModalComponent } from './tour-management/reopen-modal/reopen-modal.component';
+import { LocationEditingComponent } from './tour-management/tour-editing/location-editing/location-editing.component';
+import { ScheduleEditingComponent } from './tour-management/tour-editing/schedule-editing/schedule-editing.component';
+import { TimelineEditingComponent } from './tour-management/tour-editing/timeline-editing/timeline-editing.component';
+import { PreparationEditingComponent } from './tour-management/tour-editing/preparation-editing/preparation-editing.component';
+import { AddPreformerComponent } from './tour-management/tour-editing/add-preformer/add-preformer.component';
 
 @NgModule({
   imports: [CommonModule, SharedModule, ToursRoutingModule],
@@ -49,7 +54,12 @@ import { ReopenModalComponent } from './tour-management/reopen-modal/reopen-moda
     TourRegisteringComponent,
     RegisteringFormComponent,
     ReopenModalComponent,
-    TourEditingComponent
+    TourEditingComponent,
+    LocationEditingComponent,
+    ScheduleEditingComponent,
+    TimelineEditingComponent,
+    PreparationEditingComponent,
+    AddPreformerComponent
   ],
   exports: [DetailModalComponent],
   entryComponents: [DetailModalComponent, ReopenModalComponent, TourEditingComponent]

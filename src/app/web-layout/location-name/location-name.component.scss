@@ -1,0 +1,23 @@
+:host {
+  display: flex;
+  height: fit-content;
+  width: fit-content;
+  flex-direction: row;
+
+  margin: 0 3px;
+
+  span {
+    display: block;
+    margin-right: 3px;
+
+    i {
+      color: red;
+      font-size: 15px;
+      margin: 3px auto;
+    }
+  }
+
+  div {
+    font-weight: 600;
+  }
+}

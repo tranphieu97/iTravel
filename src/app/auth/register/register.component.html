@@ -1,6 +1,8 @@
 <div id="backto-login-div">
-    <p id="backto-login" (click)="redirectToLogin()"><span><i
-                class="fas fa-arrow-left"></i></span>{{compLanguage.registerBackToLogin}}</p>
+    <p id="backto-login" (click)="redirectToLogin()">
+        <span><i class="fas fa-arrow-left"></i></span>
+        {{compLanguage.registerBackToLogin}}
+    </p>
 </div>
 <div class="register-part">
     <div class="register-title">
@@ -16,8 +18,7 @@
                 <div class="col form-group">
                     <label>{{compLanguage.registerFirstName}} <span>(*)</span>:</label>
                     <input type="text" formControlName="firstName" [attr.disabled]="isLoading ? '' : null"
-                        class="form-control" [placeholder]="compLanguage.registerEnterFirstname"
-                        name="firstname">
+                        class="form-control" [placeholder]="compLanguage.registerEnterFirstname" name="firstname">
                     <div *ngIf="!registerForm.get('firstName').valid && (registerForm.get('firstName').dirty || registerForm.get('firstName').touched)"
                         class="form-mess">
                         <div *ngIf="registerForm.get('firstName').hasError('required')" class="error-mess">
@@ -28,8 +29,7 @@
                 <div class="col form-group">
                     <label>{{compLanguage.registerLastName}}</label>
                     <input type="text" formControlName="lastName" [attr.disabled]="isLoading ? '' : null"
-                        class="form-control" [placeholder]="compLanguage.registerEnterLastname"
-                        name="lastname">
+                        class="form-control" [placeholder]="compLanguage.registerEnterLastname" name="lastname">
                 </div>
             </div>
             <div class="form-group">
