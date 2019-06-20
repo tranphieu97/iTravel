@@ -16,12 +16,11 @@
     </div>
     <div class="flex-row" style="color: grey; font-size: 13px; font-weight: 600;" appOneTimeBinding>
         {{tourModel.creationTime | date:'MMM dd, yyyy, HH:mm'}} -
-        {{membersService.getMemberName(tourModel.createdBy) | titlecase}}
+        <app-user-fullname [userId]="tourModel.createdBy" [sz]="13" [bold]="true"></app-user-fullname>
     </div>
     <div class="flex-row flex-items-center">
         <div class="tour-location" *ngFor="let locationId of tourModel.locationIds">
-            <span appOneTimeBinding><i class="fas fa-map-marker-alt"></i></span>
-            {{tourService.getLocationName(locationId) | titlecase}}
+            <app-location-name [locationId]="locationId" [sz]="16"></app-location-name>
         </div>
     </div>
     <div class="flex-row flex-items-center bold" style="font-size: 19px; color: red;">
@@ -170,13 +169,9 @@
                 <label class="row-label flex-row" style="align-content: center;">
                     {{compLanguage.tourguide}}
                 </label>
-                <div class="row-input">
-                    <img appOneTimeBinding [src]="membersService.getMemberAvatar(tourModel.tourGuideId)"
-                        class="default-avatar" style="margin: 0 5px;"
-                        *ngIf="membersService.getMemberAvatar(tourModel.tourGuideId)">
-                    <span class="bold" appOneTimeBinding>
-                        {{membersService.getMemberName(tourModel.tourGuideId) | titlecase}}
-                    </span>
+                <div class="row-input flex-row flex-align-center">
+                    <app-user-avatar [userId]="tourModel.tourGuideId" [sz]="40"></app-user-avatar>
+                    <app-user-fullname [userId]="tourModel.createdBy" [sz]="16" [bold]="true"></app-user-fullname>
                 </div>
             </div>
             <div class="flex-row">

@@ -14,8 +14,8 @@
               class="fas fa-times" style="color: red"></i>
           </span>
         </td>
-        <th appOneTimeBinding>
-          {{memberService.getMemberName(reviewer.reviewerId) | titlecase}}
+        <th>
+          <app-user-fullname [userId]="reviewer.reviewerId" [sz]="12" [bold]="true"></app-user-fullname>
         </th>
         <td style="text-align: justify">
           {{reviewer.feedback}}

@@ -17,6 +17,9 @@ import { HorizontalCardViewTourComponent } from '../card-view-style/horizontal-c
 import { LoginComponent } from '../auth/login/login.component';
 import { RegisterComponent } from '../auth/register/register.component';
 import { AddLocationComponent } from '../location/add-location/add-location.component';
+import { LocationNameComponent } from '../web-layout/location-name/location-name.component';
+import { UserFullnameComponent } from '../web-layout/user-fullname/user-fullname.component';
+import { UserAvatarComponent } from '../web-layout/user-avatar/user-avatar.component';
 
 @NgModule({
   imports: [
@@ -50,7 +53,10 @@ import { AddLocationComponent } from '../location/add-location/add-location.comp
     HorizontalCardViewTourComponent,
     LoginComponent,
     RegisterComponent,
-    AddLocationComponent
+    AddLocationComponent,
+    LocationNameComponent,
+    UserFullnameComponent,
+    UserAvatarComponent
   ],
   declarations: [
     HorizontalCardViewPostComponent,
@@ -61,7 +67,10 @@ import { AddLocationComponent } from '../location/add-location/add-location.comp
     HorizontalCardViewTourComponent,
     LoginComponent,
     RegisterComponent,
-    AddLocationComponent
+    AddLocationComponent,
+    LocationNameComponent,
+    UserFullnameComponent,
+    UserAvatarComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JWTInterceptor, multi: true }
