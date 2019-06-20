@@ -600,6 +600,8 @@ export const LangVietnamese: Language = {
     addPreformer: 'Bổ sung phụ trách',
     currentPerformer: 'Phụ trách hiện tại',
     members: 'Thành viên tham gia tour',
-    tourguides: 'Dẫn đoàn'
+    tourguides: 'Dẫn đoàn',
+    editTourMessage: 'Bạn chắc chắn chứ? Hành động này không thể khôi phục sau khi thực hiện',
+    cancelEditMessage: 'Bạn chắc chắn chứ? Các thay đổi của bạn chưa được lưu'
   }
 };

@@ -604,6 +604,8 @@ export class Language {
     currentPerformer: string;
     tourguides: string;
     members: string;
+    editTourMessage: string;
+    cancelEditMessage: string;
   };
 
   constructor() { }

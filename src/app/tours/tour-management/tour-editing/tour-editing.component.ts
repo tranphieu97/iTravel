@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Tour } from 'src/app/model/tour.model';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LanguageService } from 'src/app/core/services/language.service';
 import { Router } from '@angular/router';
 import { ServerService } from 'src/app/core/services/server.service';
@@ -29,7 +29,7 @@ export class TourEditingComponent implements OnInit {
   commonLanguage;
 
   constructor(public activeModal: NgbActiveModal, private language: LanguageService, private router: Router,
-    private editTourService: EditTourService, private server: ServerService) { }
+    private editTourService: EditTourService, private server: ServerService, private modal: NgbModal) { }
 
   ngOnInit() {
     this.compLanguage = this.language.currentLanguage.compTourEditing;
@@ -94,5 +94,9 @@ export class TourEditingComponent implements OnInit {
       }
       this.isUploadingImg = false;
     });
+  }
+
+  openModal(contentId) {
+    this.modal.open(contentId, { ariaLabelledBy: 'modal-basic-title', centered: true });
   }
 }

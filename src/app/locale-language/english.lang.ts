@@ -90,7 +90,7 @@ export const LangEnglish: Language = {
     registerFail: 'Register Fail',
     registerSuccess: 'Register Success',
     registerUsernameExist: 'Username is exist, choose another',
-    registerPasswordNotMatch: 'Password and re-password are not match';
+    registerPasswordNotMatch: 'Password and re-password are not match'
   },
 
   // For Feedback Component
@@ -608,6 +608,8 @@ export const LangEnglish: Language = {
     addPreformer: 'Add Performers',
     currentPerformer: 'Current Performers',
     members: 'Tour\'s members',
-    tourguides: 'Tourguides'
+    tourguides: 'Tourguides',
+    editTourMessage: 'Are your sure? This action cannot restore in the future.',
+    cancelEditMessage: 'Are your sure? Your change is not saved now'
   }
 };
