@@ -5,7 +5,7 @@
   <div class="row-input group-tag">
     <div class="tag" *ngFor="let locationId of locationIds" appOneTimeBinding
       (click)="removeItem(locationIds, locationId)">
-      {{tourService.getLocationName(locationId)}}
+      <app-location-name [locationId]="locationId" [sz]="16"></app-location-name>
       <span _ngcontent-c11="" class="fas fa-times-circle esc-btn"></span>
     </div>
   </div>
@@ -21,7 +21,8 @@
         {{province.provinceName}}
       </option>
     </select>
-    <input type="button" class="form-control btn btn-warning" [value]="compLanguage.newLocation" (click)="openNewLocationDialog(addlocation)">
+    <input type="button" class="form-control btn btn-warning" [value]="compLanguage.newLocation"
+      (click)="openNewLocationDialog(addlocation)">
   </div>
 </div>
 <div class="flex-row form-group">
