@@ -15,11 +15,13 @@ export class EditTourService {
   public hasRemoveSchedule: Subject<number>;
   public hasRemovePreparation: Subject<number>;
   public hasChangeCost: Subject<any>;
+  public hasEditedSuccess: Subject<any>;
 
   constructor(private server: ServerService) {
     this.hasChangeCost = new Subject();
     this.hasRemovePreparation = new Subject<number>();
     this.hasRemoveSchedule = new Subject<number>();
+    this.hasEditedSuccess = new Subject<any>();
   }
 
   setEditingTour(tour: Tour) {

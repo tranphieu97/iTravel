@@ -107,7 +107,7 @@ export class TourEditingComponent implements OnInit {
     this.server.updateTour(this.tourModel).subscribe(res => {
       this.editMessage = res.message;
       if (this.editMessage === 'Success!') {
-        this.tourData = this.tourModel;
+        this.editTourService.hasEditedSuccess.next();
       }
 
       setTimeout(() => {

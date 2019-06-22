@@ -7,6 +7,7 @@ import { ConstTourStatus } from '../../constants';
 import { DetailModalComponent } from './detail-modal/detail-modal.component';
 import { TourEditingComponent } from './tour-editing/tour-editing.component';
 import { ReopenModalComponent } from './reopen-modal/reopen-modal.component';
+import { EditTourService } from 'src/app/core/services/edit-tour.service';
 
 @Component({
   selector: 'app-tour-management',
@@ -22,7 +23,8 @@ export class TourManagementComponent implements OnInit {
   constructor(
     public languageService: LanguageService,
     private server: ServerService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private editTourService: EditTourService
   ) { }
 
   ngOnInit() {
@@ -32,6 +34,10 @@ export class TourManagementComponent implements OnInit {
         (this.compLanguage = this.languageService.currentLanguage.compTourManagement)
     );
     this.refreshListTour();
+
+    this.editTourService.hasEditedSuccess.subscribe(() => {
+      this.refreshListTour();
+    });
   }
 
   getTourGuide() {
