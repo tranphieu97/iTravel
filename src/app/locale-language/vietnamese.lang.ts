@@ -605,6 +605,8 @@ export const LangVietnamese: Language = {
     members: 'Thành viên tham gia tour',
     tourguides: 'Dẫn đoàn',
     editTourMessage: 'Bạn chắc chắn chứ? Hành động này không thể khôi phục sau khi thực hiện',
-    cancelEditMessage: 'Bạn chắc chắn chứ? Các thay đổi của bạn chưa được lưu'
+    cancelEditMessage: 'Bạn chắc chắn chứ? Các thay đổi của bạn chưa được lưu',
+    editTourSuccess: 'Chỉnh sửa thành công',
+    editTourFail: 'Chỉnh sửa thất bại, vui lòng thử lại!'
   }
 };

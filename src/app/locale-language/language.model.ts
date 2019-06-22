@@ -609,6 +609,8 @@ export class Language {
     members: string;
     editTourMessage: string;
     cancelEditMessage: string;
+    editTourSuccess: string;
+    editTourFail: string;
   };
 
   constructor() { }

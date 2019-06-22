@@ -23,6 +23,8 @@ export class TourEditingComponent implements OnInit {
   public isUpdating: Boolean = false;
   public scheduleCost: Number = 0;
 
+  public editMessage: string;
+
   public arrTourguide: Array<any>;
 
   compLanguage;
@@ -38,6 +40,7 @@ export class TourEditingComponent implements OnInit {
       this.compLanguage = this.language.currentLanguage.compTourEditing;
       this.commonLanguage = this.language.currentLanguage.common;
     });
+    this.editMessage = '';
 
     // Copy tour data to different variable
     this.tourModel = JSON.parse(JSON.stringify(this.tourData));
@@ -88,7 +91,7 @@ export class TourEditingComponent implements OnInit {
     const file = (event.target as HTMLInputElement).files[0];
 
     this.isUploadingImg = true;
-    this.server.uploadImage([{imgFile: file, contentId: 'cover'}]).subscribe(res => {
+    this.server.uploadImage([{ imgFile: file, contentId: 'cover' }]).subscribe(res => {
       if (res.imageUrls && res.imageUrls[0]) {
         this.tourModel.cover = res.imageUrls[0];
       }
@@ -101,6 +104,15 @@ export class TourEditingComponent implements OnInit {
   }
 
   editTour() {
-    console.log(this.tourModel);
+    this.server.updateTour(this.tourModel).subscribe(res => {
+      this.editMessage = res.message;
+      if (this.editMessage === 'Success!') {
+        this.tourData = this.tourModel;
+      }
+
+      setTimeout(() => {
+        this.editMessage = '';
+      }, 10000);
+    });
   }
 }

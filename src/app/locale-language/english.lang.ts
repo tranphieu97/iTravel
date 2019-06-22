@@ -613,6 +613,8 @@ export const LangEnglish: Language = {
     members: 'Tour\'s members',
     tourguides: 'Tourguides',
     editTourMessage: 'Are your sure? This action cannot restore in the future.',
-    cancelEditMessage: 'Are your sure? Your change is not saved now'
+    cancelEditMessage: 'Are your sure? Your change is not saved now',
+    editTourFail: 'Edit fail, try again!',
+    editTourSuccess: 'Edit success!'
   }
 };

@@ -6,13 +6,19 @@
 </div>
 <div class="modal-body modal-body-custom">
   <app-loading *ngIf="isUpdating"></app-loading>
+  <div class="alert alert-success" *ngIf="editMessage === 'Success!'">
+    {{compLanguage.editTourSuccess}}
+  </div>
+  <div class="alert alert-danger" *ngIf="editMessage !== 'Success!' && editMessage !== ''">
+    {{compLanguage.editTourFail}}
+  </div>
   <ngb-tabset *ngIf="!isUpdating">
     <ngb-tab>
       <ng-template ngbTabTitle>
         <b class="title">{{compLanguage.summary}}</b>
       </ng-template>
       <ng-template ngbTabContent>
-        <div class="flex-col tab-content">
+        <div class="flex-col tab-content" [ngClass]="{'tab-content-with-mess': editMessage !== ''}">
           <div class="flex-row form-group">
             <label class="row-label">{{compLanguage.tourName}}</label>
             <div class="row-input">
@@ -48,7 +54,7 @@
         <b class="title">{{compLanguage.locations}}</b>
       </ng-template>
       <ng-template ngbTabContent>
-        <div class="flex-col tab-content">
+        <div class="flex-col tab-content" [ngClass]="{'tab-content-with-mess': editMessage !== ''}">
           <app-location-editing [locationIds]="tourModel.locationIds"></app-location-editing>
         </div>
       </ng-template>
@@ -59,7 +65,7 @@
         <b class="title">{{compLanguage.register}}</b>
       </ng-template>
       <ng-template ngbTabContent>
-        <div class="flex-col tab-content flex-1">
+        <div class="flex-col tab-content flex-1" [ngClass]="{'tab-content-with-mess': editMessage !== ''}">
           <app-timeline-editing [tourData]="tourModel"></app-timeline-editing>
           <br />
           <div class="flex-row form-group">
@@ -100,7 +106,7 @@
         <b class="title">{{compLanguage.schedule}}</b>
       </ng-template>
       <ng-template ngbTabContent>
-        <div class="flex-col tab-content">
+        <div class="flex-col tab-content" [ngClass]="{'tab-content-with-mess': editMessage !== ''}">
           <app-schedule-editing *ngFor="let schedule of tourModel.schedules; let i = index" [scheduleModel]="schedule"
             [index]="i">
           </app-schedule-editing>
@@ -121,7 +127,7 @@
         <b class="title">{{compLanguage.preparation}}</b>
       </ng-template>
       <ng-template ngbTabContent>
-        <div class="flex-col tab-content">
+        <div class="flex-col tab-content" [ngClass]="{'tab-content-with-mess': editMessage !== ''}">
           <app-preparation-editing *ngFor="let preparation of tourModel.preparations; let i = index"
             [preparationModel]="preparation" [index]="i"></app-preparation-editing>
           <div class="flex-row flex-justify-space-between" style="margin-top: 5px;">
@@ -141,7 +147,7 @@
         <b class="title">{{compLanguage.addPreformer}}</b>
       </ng-template>
       <ng-template ngbTabContent>
-        <div class="flex-col tab-content">
+        <div class="flex-col tab-content" [ngClass]="{'tab-content-with-mess': editMessage !== ''}">
           <app-add-preformer [tourMembers]="tourModel.members"></app-add-preformer>
         </div>
       </ng-template>
@@ -149,7 +155,8 @@
   </ngb-tabset>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-outline-danger" (click)="openModal(canceledit)">{{commonLanguage.cancel}}</button>
+  <button type="button" class="btn btn-outline-danger"
+    (click)="openModal(canceledit)">{{commonLanguage.cancel}}</button>
   <button type="button" class="btn btn-outline-success" (click)="openModal(edittour)">{{commonLanguage.ok}}</button>
 </div>
 
@@ -165,7 +172,8 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-danger" (click)="modal.dismiss()">{{commonLanguage.cancel}}</button>
-    <button type="button" class="btn btn-outline-success" (click)="editTour(); modal.dismiss()">{{commonLanguage.ok}}</button>
+    <button type="button" class="btn btn-outline-success"
+      (click)="editTour(); modal.dismiss()">{{commonLanguage.ok}}</button>
   </div>
 </ng-template>
 
