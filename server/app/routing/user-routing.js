@@ -13,6 +13,7 @@ const { Tour } = require('../../model/mongoose/models')
 // Get app instance from index
 const app = require('../../index');
 const tourService = require('../services/tour-service');
+const notificationService = require('../services/notification-service');
 
 // Routing - START
 /**
@@ -590,36 +591,35 @@ app.patch('/user/send-notification', async (req, res) => {
             return;
         }
         // pass the validate => go to update
-        const queryObj = {
-            userId: { $in: receiverList}
-        }
-        const updateObject = {
-            $addToSet: {
-                notificationItems: newNotificationItem
-            }
-        };
-        const result = await database.updateManyDocument('NotiCopy', queryObj, updateObject);
+        const result = await notificationService.sendNotification(
+            newNotificationItem,
+            userId
+        );
+        // const result = await database.updateManyDocument(database.iTravelDB.Notifications, queryObj, updateObject);
         if(!result.matchedCount) {
             res.json({
                 message: 'receiver not found'
             });
+            return;
         } else if(!result.modifiedCount) {
             res.json({
                 message: 'failed',
                 statusCode: 500
             });
+            return;
         } else {
             res.json({
                 message: 'success',
                 detail: `success ${result.modifiedCount}/${result.matchedCount}`
             });
+            return;
         }
-        console.log('need return')
     } catch (error) {
         res.json({
             message: error.message,
             statusCode: 500
         });
+        return;
     }
 });
 

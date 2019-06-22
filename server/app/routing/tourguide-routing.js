@@ -1,6 +1,7 @@
 // Include js file
 const database = require('../database.js');
 const config = require('../../_config.js');
+const authentication = require('../authentication.js');
 var ObjectId = require('mongodb').ObjectId;
 
 // Import models file
@@ -8,6 +9,7 @@ const { Tour } = require('../../model/mongoose/models')
 
 // Get app instance from index
 const app = require('../../index');
+const notificationService = require('../services/notification-service');
 
 // Routing - START
 app.post('/tourguide/add-location', (req, res) => {
@@ -117,12 +119,20 @@ app.get('/tourguide/all-reviewer', (req, res) => {
 app.post('/tourguide/create-tour', async (req, res) => {
     try {
         const newTour = new Tour(req.body);
+        const userId = authentication.getTokenUserId(req.headers.authorization);
         newTour._id = new ObjectId();
         await newTour.save();
         res.status(201).json({
             message: 'Success!',
             statusCode: 201
         });
+        const sendNotiResult = await notificationService.sendNotification(
+            { content: `Có tour mới đang cần góp ý - ${newTour.tourName}` },
+            userId
+        );
+        if(sendNotiResult.modifiedCount) {
+            console.log('send notification successful')
+        }
     } catch (error) {
         res.status(200).json({
             message: error.message,
@@ -229,6 +239,7 @@ app.patch('/tourguide/delete-own-tour', async (req, res) => {
 
 app.patch('/tourguide/update-tour-status', async (req, res) => {
     const updateInfo = req.body;
+    const userId = authentication.getTokenUserId(req.headers.authorization);
     try {
         if (updateInfo._id && updateInfo.status) {
             await Tour.updateOne({
@@ -248,6 +259,18 @@ app.patch('/tourguide/update-tour-status', async (req, res) => {
                         });
                     }
                 });
+            const tour = await database.getOneWithProjection(
+                database.iTravelDB.Tours,
+                { _id: new ObjectId(updateInfo._id) },
+                { tourName: 1 }
+            );
+            const sendNotiResult = await notificationService.sendNotification(
+                { content: `Bạn có muốn tham gia tour mới ${tour.tourName}` },
+                userId
+            );
+            if(sendNotiResult.modifiedCount) {
+                console.log('send notification successful')
+            }
         } else {
             res.status(200).json({
                 statusCode: 404

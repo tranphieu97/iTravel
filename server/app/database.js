@@ -363,7 +363,7 @@ exports.replaceDocumentById = async (collectionName, documentFiler, changeDocume
  */
 exports.getOneWithProjection = async (collectionName, filter, projectionObj) => {
     const deferred = Q.defer();
-    var data = null;
+    let data = null;
 
     MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {
         if (err) {
