@@ -374,7 +374,19 @@ export class ServerService {
    * @description update list notification for one user
    */
   updateNotification(listNotifications: NotificationItem[]) {
-    return this.http.patch<{ message: string }>(this.HOST + 'user/send-notification', listNotifications);
+    return this.http.patch<{ message: string }>(this.HOST + 'user/update-notification', listNotifications);
+  }
+  /**
+   * @param newNotificationItem Notification
+   * @param receiverList string[]
+   * @description send noti to list user
+   */
+  sendNotification(newNotificationItem: NotificationItem, receiverList: string[]) {
+    return this.http.patch<{
+      message: string,
+      statusCode: number,
+      detail: string
+    }>(this.HOST + 'user/send-notification', {newNotificationItem, receiverList});
   }
 
   getToursCardInfo() {

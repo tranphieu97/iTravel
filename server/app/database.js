@@ -32,7 +32,7 @@ exports.iTravelDB = iTravelDB;
  * @param {string} collectionName 
  */
 exports.getCollection = async function (collectionName) {
-    var deferred = Q.defer();
+    const deferred = Q.defer();
     MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {
         if (err) {
             console.log("Get Connection has an error: " + err.message);
@@ -59,7 +59,7 @@ exports.getCollection = async function (collectionName) {
  * @param {string} collectionName 
  */
 exports.getCollectionData = async (collectionName) => {
-    var deferred = Q.defer();
+    const deferred = Q.defer();
     var data = null;
 
     MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {
@@ -102,7 +102,7 @@ exports.getCollectionData = async (collectionName) => {
  * @param {object} filter 
  */
 exports.getCollectionFilterData = async (collectionName, filter) => {
-    var deferred = Q.defer();
+    const deferred = Q.defer();
     var data = null;
 
     MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {
@@ -147,7 +147,7 @@ exports.getCollectionFilterData = async (collectionName, filter) => {
  * @param {object} document 
  */
 exports.insertOneToColection = async (collectionName, document) => {
-    var deferred = Q.defer();
+    const deferred = Q.defer();
 
     MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {
         if (err) {
@@ -190,7 +190,7 @@ exports.insertOneToColection = async (collectionName, document) => {
  * @param {object} filter 
  */
 exports.getOneFromCollection = async (collectionName, filter) => {
-    var deferred = Q.defer();
+    const deferred = Q.defer();
 
     MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {
         if (err) {
@@ -235,7 +235,7 @@ exports.getOneFromCollection = async (collectionName, filter) => {
  * @param {object} changeProperties 
  */
 exports.updateDocumentByFilter = async (collectionName, documentFiler, changeProperties) => {
-    var deferred = Q.defer();
+    const deferred = Q.defer();
 
     MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {
         if (err) {
@@ -267,6 +267,44 @@ exports.updateDocumentByFilter = async (collectionName, documentFiler, changePro
 }
 
 /**
+ * @name updateManyDocument
+ * @author Thong
+ * @param {string} collectionName 
+ * @param {object} queryObj
+ * @param {object} updateObj 
+ */
+exports.updateManyDocument = async (collectionName, queryObj, updateObj) => {
+    const deferred = Q.defer();
+
+    MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {
+        if (err) {
+            console.log("Get Connection has an error: " + err.message);
+            deferred.reject(new Error(err));
+        } else {
+            try {
+                client.db(config.DB_NAME).collection(collectionName, (err, collection) => {
+                    if (err) {
+                        console.log('Error load ' + collectionName);
+                        client.close();
+                        deferred.reject(new Error(err));;
+                    } else {
+                        collection.updateMany(queryObj, updateObj)
+                            .then(result => {
+                                client.close();
+                                deferred.resolve(result);
+                            });
+                    }
+                });
+            } catch (err) {
+                console.error(err);
+                deferred.reject(new Error(err));
+            }
+        }
+    });
+    return deferred.promise;
+}
+
+/**
  * @name replaceDocumentById
  * @author Thong
  * @description replace a document by new one, keep the same id
@@ -275,7 +313,7 @@ exports.updateDocumentByFilter = async (collectionName, documentFiler, changePro
  * @param {Post} changeDocument new document use to replace the old one
  */
 exports.replaceDocumentById = async (collectionName, documentFiler, changeDocument) => {
-    var deferred = Q.defer();
+    const deferred = Q.defer();
 
     MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {
         if (err) {
@@ -324,7 +362,7 @@ exports.replaceDocumentById = async (collectionName, documentFiler, changeDocume
  * @param {object} projectionObj use to choose collumns to return
  */
 exports.getOneWithProjection = async (collectionName, filter, projectionObj) => {
-    var deferred = Q.defer();
+    const deferred = Q.defer();
     var data = null;
 
     MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {
@@ -369,7 +407,7 @@ exports.getOneWithProjection = async (collectionName, filter, projectionObj) => 
  * @param {object} filter 
  */
 exports.countDocumentByFilter = async (collectionName, filter) => {
-    var deferred = Q.defer();
+    const deferred = Q.defer();
 
     MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {
         if (err) {
@@ -417,7 +455,7 @@ exports.countDocumentByFilter = async (collectionName, filter) => {
 }
 
 exports.getCollectionDataByProjection = async (collectionName, filter, project) => {
-    var deferred = Q.defer();
+    const deferred = Q.defer();
 
     MongoClient.connect(config.CONNECTION_STRING, { useNewUrlParser: true }, (err, client) => {
         if (err) {

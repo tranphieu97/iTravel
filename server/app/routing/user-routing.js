@@ -496,11 +496,11 @@ app.post('/user/create-notification', (req, res, next) => {
 });
 
 /**
- * @name PATCH-notification-change (has change or has new)
+ * @name PATCH-notification-change (has change)
  * @author Thong
  * @param {NotificationItem[]} listNotificationItem use for update 
  */
-app.patch('/user/send-notification', async (req, res) => {
+app.patch('/user/update-notification', async (req, res) => {
     // pass validate token
     // validate list notificationItem use to update
     if (req.body.length <= 0) {
@@ -512,7 +512,6 @@ app.patch('/user/send-notification', async (req, res) => {
         for (const eachNotify of req.body) {
             // validate some basic length
             if (eachNotify.from.length !== 24
-                || eachNotify.to.length !== 24
                 || eachNotify.content.length <= 0
                 || eachNotify.content.length > 200
                 || eachNotify.linkTo.length > 200) {
@@ -554,6 +553,73 @@ app.patch('/user/send-notification', async (req, res) => {
             .catch((err) => {
                 console.log('Notify Has Error');
             })
+    }
+});
+
+/**
+ * @name PATCH-send-notification (add new)
+ * @author Thong
+ * @param {NotificationItem} NotificationItem use for add new
+ * @param {receiverList} id List
+ */
+app.patch('/user/send-notification', async (req, res) => {
+    try {
+        const newNotificationItem = req.body.newNotificationItem;
+        const receiverList = req.body.receiverList;
+        const userId = authentication.getTokenUserId(req.headers.authorization);
+        if (!newNotificationItem) {
+            res.json({
+                message: 'Invalid notificationItem'
+            })
+            return;
+        }
+        if (!receiverList || !receiverList.length) {
+            res.json({
+                message: 'Invalid receiverList'
+            })
+            return;
+        }
+        // validate the notificationItem content
+        if (newNotificationItem.from !== userId
+            || newNotificationItem.content.length <= 0
+            || newNotificationItem.content.length > 200
+            || newNotificationItem.linkTo.length > 200) {
+            res.status(200).json({
+                message: 'Invalid notification'
+            })
+            return;
+        }
+        // pass the validate => go to update
+        const queryObj = {
+            userId: { $in: receiverList}
+        }
+        const updateObject = {
+            $addToSet: {
+                notificationItems: newNotificationItem
+            }
+        };
+        const result = await database.updateManyDocument('NotiCopy', queryObj, updateObject);
+        if(!result.matchedCount) {
+            res.json({
+                message: 'receiver not found'
+            });
+        } else if(!result.modifiedCount) {
+            res.json({
+                message: 'failed',
+                statusCode: 500
+            });
+        } else {
+            res.json({
+                message: 'success',
+                detail: `success ${result.modifiedCount}/${result.matchedCount}`
+            });
+        }
+        console.log('need return')
+    } catch (error) {
+        res.json({
+            message: error.message,
+            statusCode: 500
+        });
     }
 });
 
