@@ -20,6 +20,7 @@ import { AddLocationComponent } from '../location/add-location/add-location.comp
 import { LocationNameComponent } from '../web-layout/location-name/location-name.component';
 import { UserFullnameComponent } from '../web-layout/user-fullname/user-fullname.component';
 import { UserAvatarComponent } from '../web-layout/user-avatar/user-avatar.component';
+import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 
 @NgModule({
   imports: [
@@ -70,7 +71,8 @@ import { UserAvatarComponent } from '../web-layout/user-avatar/user-avatar.compo
     AddLocationComponent,
     LocationNameComponent,
     UserFullnameComponent,
-    UserAvatarComponent
+    UserAvatarComponent,
+    ConfirmModalComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JWTInterceptor, multi: true }

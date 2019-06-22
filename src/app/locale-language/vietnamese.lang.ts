@@ -12,7 +12,8 @@ export const LangVietnamese: Language = {
     from: 'Từ',
     to: 'Đến',
     choose: 'Chọn ',
-    invalidInputData: 'Dữ liệu nhập không đúng'
+    invalidInputData: 'Dữ liệu nhập không đúng',
+    verifyAction: 'Xác nhận'
   },
 
   // Layout
@@ -488,7 +489,8 @@ export const LangVietnamese: Language = {
     detailBtn: 'Chi Tiết',
     tripDuration: 'Thời gian hành trình',
     tripDurationUnit: 'ngày',
-    cancelTourBtn: 'Hủy'
+    cancelTourBtn: 'Hủy',
+    confirmCancelTour: 'Bạn thật sự muốn hủy tour này?'
   },
 
   compUpdateProfile: {

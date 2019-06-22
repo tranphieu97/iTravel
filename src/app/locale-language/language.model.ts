@@ -19,6 +19,7 @@ export class Language {
     to: string;
     choose: string;
     invalidInputData: string;
+    verifyAction: string;
   };
 
   // Layout
@@ -492,6 +493,7 @@ export class Language {
     tripDuration: string;
     tripDurationUnit: string;
     cancelTourBtn: string;
+    confirmCancelTour: string;
   };
 
   compUpdateProfile: {
