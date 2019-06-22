@@ -94,7 +94,8 @@ export class IndexComponent implements OnInit {
     this.server.getToursCardInfo().subscribe(res => {
       if (res.statusCode === 200) {
         this.arrPendingTour = res.data
-          .filter(tour => tour.status === this.TOUR_STATUS.PENDING && new Date(tour.closeFeedbackTime) >= new Date());
+          // .filter(tour => tour.status === this.TOUR_STATUS.PENDING && new Date(tour.closeFeedbackTime) >= new Date());
+          .filter(tour => tour.status === this.TOUR_STATUS.PENDING);
         this.arrRegisteringTour = res.data
           .filter(tour => tour.status === this.TOUR_STATUS.REGISTERING && new Date(tour.closeRegisterTime) >= new Date());
 

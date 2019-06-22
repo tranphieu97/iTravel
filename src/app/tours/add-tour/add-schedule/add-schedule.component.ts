@@ -29,8 +29,8 @@ export class AddScheduleComponent implements OnInit {
   public isPickedCurrentTask: Boolean = true;
   public isValidDate: Boolean = true;
 
-  public finishedStartDate: Date;
-  public finishedEndDate: Date;
+  // public finishedStartDate: Date;
+  // public finishedEndDate: Date;
 
   compLanguage;
   commonLanguage;

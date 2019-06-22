@@ -12,6 +12,7 @@ const { Tour } = require('../../model/mongoose/models')
 
 // Get app instance from index
 const app = require('../../index');
+const tourService = require('../services/tour-service');
 
 // Routing - START
 /**
@@ -634,20 +635,25 @@ app.patch('/user/update-profile', async (req, res) => {
  */
 app.get('/user/get-tours', async (req, res) => {
     try {
-        let queryObj = { isActive: true }
+        let queryObj = { isActive: true };
         if (req.param('userId')) {
             const userId = authentication.getTokenUserId(req.headers.authorization);
             queryObj = {
                 isActive: true,
-                'members.memberId': userId
-            }
+                'members.memberId': userId,
+                'members.cancelTime': null
+            };
         }
-        const tours = await Tour.find(queryObj)
+
+        let tours = await Tour.find(queryObj);
+        tours = tourService.updateTourStatus(tours);
+
         res.status(200).json({
             data: tours,
             message: 'Success!'
         });
     } catch (error) {
+        console.log('error', error.message)
         res.status(200).json({
             message: error.message,
             statusCode: 500
@@ -656,7 +662,7 @@ app.get('/user/get-tours', async (req, res) => {
 });
 
 /**
- * @name updateTour for user
+ * @name updateTourPreparation  for user
  * @param {Tour}
  * @author Thong
  */
@@ -697,6 +703,32 @@ app.patch('/user/update-tour-preparation', async (req, res) => {
         console.log('Update preparation failed:', error.message);
         res.status(200).json({
             message: error.message
+        });
+    }
+});
+
+/**
+ * @name updateCancelTour - cancel tour
+ * @param {Tour}
+ * @author Thong
+ */
+app.patch('/user/update-cancel-tour', async (req, res) => {
+    try {
+        // const updatedTour = new Tour(req.body)
+        const { schedules, preparations, members } = req.body
+        const tourId = req.query.tourId
+        await Tour.updateOne({ _id: tourId }, { $set: {
+            schedules, preparations, members
+        }})
+        console.log('update-cancel-tour sucessful');
+        res.status(200).json({
+            message: 'Success'
+        });
+    } catch (error) {
+        console.log('update-cancel-tour failed');
+        res.status(200).json({
+            message: error.message,
+            statusCode: 500
         });
     }
 });
@@ -774,13 +806,17 @@ app.patch('/user/register-tour', async (req, res) => {
     const registerBody = req.body;
     try {
         if (registerBody._id && registerBody.registerObj) {
-            const tourRegisterd = await Tour.findById(new ObjectId(registerBody._id), '_id memberLimit members');
+            let tourRegistered = await Tour.findById(new ObjectId(registerBody._id), '_id memberLimit members');
+            tourRegistered.members = tourRegistered.members.filter(x => !x.cancelTime);
 
-            let currentMembers = 0;
-            tourRegisterd.members.forEach(member => {
-                currentMembers = currentMembers + member.registerFor;
+            let currentRegisterd = 0;
+            tourRegistered.members.forEach(member => {
+                currentRegisterd = currentRegisterd + member.registerFor;
             });
-            if (currentMembers + registerBody.registerObj.registerFor > tourRegisterd.memberLimit) {
+
+            // Request change registerFor property type to string
+            registerBody.registerObj.registerFor = parseInt(registerBody.registerObj.registerFor, 10);
+            if (currentRegisterd + registerBody.registerObj.registerFor > tourRegistered.memberLimit) {
                 res.status(200).json({
                     statusCode: 200,
                     result: {
@@ -789,8 +825,8 @@ app.patch('/user/register-tour', async (req, res) => {
                     }
                 });
             } else {
-                await Tour.updateOne(new ObjectId(registerBody._id), {
-                    $push: {
+                await Tour.updateOne({ _id: registerBody._id }, {
+                    $addToSet: {
                         'members': registerBody.registerObj
                     }
                 }, (err, raw) => {
@@ -803,10 +839,10 @@ app.patch('/user/register-tour', async (req, res) => {
                             }
                         });
                     } else {
-                        res.status(200).json({
-                            statusCode: 200,
+                        res.status(201).json({
+                            statusCode: 201,
                             result: {
-                                overLimit: true,
+                                overLimit: false,
                                 success: true
                             }
                         });

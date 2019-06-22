@@ -1,0 +1,17 @@
+:host {
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    margin: 0 3px;
+
+    .img-box {
+        display: block;
+        height: auto;
+
+        img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+    }
+}

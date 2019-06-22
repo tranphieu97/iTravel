@@ -1,0 +1,14 @@
+@import 'src/styles.scss';
+
+:host {
+    width: 100%;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+
+    * {
+        font-size: 15px;
+    }
+}

@@ -40,6 +40,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.compLanguage = this.language.currentLanguage.compRegister;
     this.language.hasChangeLanguage.subscribe(() =>  this.compLanguage = this.language.currentLanguage.compRegister);
+
     this.registerForm = this.formBuilder.group({
       firstName: [null, [Validators.required]],
       lastName: [null, []],
@@ -59,20 +60,32 @@ export class RegisterComponent implements OnInit {
     return this.authentication.checkExistUsername(this.registerForm.get('username').value)
       .subscribe((checkExistResponse) => {
         if (checkExistResponse.data) {
-          this.registerMessage = 'Username is exist, please choose the others name';
+          this.registerMessage = this.compLanguage.registerUsernameExist;
           this.isShowRegisterMessage.error = true;
           this.isLoading = false;
           return;
         } else if (!this.isMatchPassword().valueOf()) {
-          this.registerMessage = 'Password and confirm password is not matched';
+          this.registerMessage = this.compLanguage.registerPasswordNotMatch;
           this.isShowRegisterMessage.error = true;
           this.isLoading = false;
           return;
         } else {
           this.authentication.registerUser(this.registerForm)
             .subscribe((registerResponse) => {
-              console.log(registerResponse.data);
               this.isLoading = false;
+              if (registerResponse.statusCode === 201) {
+                this.isShowRegisterMessage.success = true;
+                this.isShowRegisterMessage.error = false;
+                this.registerMessage = this.compLanguage.registerSuccess;
+              } else {
+                this.isShowRegisterMessage.success = false;
+
+                if (registerResponse.statusCode === 409) {
+                  this.registerMessage = this.compLanguage.registerUsernameExist;
+                } else {
+                  this.registerMessage = this.compLanguage.registerFail;
+                }
+              }
             });
         }
       });

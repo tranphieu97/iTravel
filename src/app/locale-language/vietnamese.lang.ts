@@ -12,7 +12,8 @@ export const LangVietnamese: Language = {
     from: 'Từ',
     to: 'Đến',
     choose: 'Chọn ',
-    invalidInputData: 'Dữ liệu nhập không đúng'
+    invalidInputData: 'Dữ liệu nhập không đúng',
+    verifyAction: 'Xác nhận'
   },
 
   // Layout
@@ -82,7 +83,12 @@ export const LangVietnamese: Language = {
     registerEnterLastname: 'Nhập họ',
     registerEnterUsername: 'Nhập Tên đăng nhập',
     registerEnterPassword: 'Nhập mật khẩu',
-    registerEnterConfirmPassword: 'Nhập lại mật khẩu'
+    registerEnterConfirmPassword: 'Nhập lại mật khẩu',
+    registerDataInvalid: 'Đăng ký thất bại, dữ liệu không hợp lệ',
+    registerFail: 'Đăng ký thất bại',
+    registerSuccess: 'Đăng ký thành công',
+    registerUsernameExist: 'Username đã tồn tại, vui lòng chọn một username khác',
+    registerPasswordNotMatch: 'Mật khẩu và xác nhận mật khẩu khác nhau'
   },
 
   // For Feedback Component
@@ -429,7 +435,7 @@ export const LangVietnamese: Language = {
     statusPreparing: 'Đang Chuẩn Bị',
     statusPrepared: 'Đã Xong',
     detailBtn: 'Chi Tiết',
-    modalTitle: 'Thông tin chi tiết về tour',
+    tourDetailModal: 'Thông tin chi tiết về tour',
     generalTab: 'Sơ lược',
     scheduleTab: 'Lịch trình',
     feedbackTab: 'Góp ý',
@@ -456,7 +462,17 @@ export const LangVietnamese: Language = {
     editBtn: 'Sửa',
     saveBtn: 'Lưu',
     tourguide: 'Hướng dẫn viên',
-    edit: 'Chỉnh sửa'
+    tourReopenModal: 'Mở lại tour',
+    beginTime: 'Thời gian bắt đầu',
+    endTime: 'Thời gian kết thúc',
+    closeFeedbackTime: 'Thời hạn nhận góp ý',
+    closeRegisterTime: 'Thời hạn đăng ký',
+    rename: 'tên tour mới',
+    reopenBtn: 'Mở lại',
+    edit: 'Chỉnh sửa',
+    collectedMoney: 'Đã thu phí',
+    verifyCollectedMoney: 'Xác nhận thu phí',
+    registerFor: 'Đăng ký cho (người)'
   },
 
   compUserTour: {
@@ -472,7 +488,9 @@ export const LangVietnamese: Language = {
     statusPrepared: 'Đã Xong',
     detailBtn: 'Chi Tiết',
     tripDuration: 'Thời gian hành trình',
-    tripDurationUnit: 'ngày'
+    tripDurationUnit: 'ngày',
+    cancelTourBtn: 'Hủy',
+    confirmCancelTour: 'Bạn thật sự muốn hủy tour này?'
   },
 
   compUpdateProfile: {
@@ -549,7 +567,9 @@ export const LangVietnamese: Language = {
     contact: 'Liên hệ',
     phoneNumber: 'Số điện thoại',
     registered: 'Đã đăng ký',
-    loginToRegister: 'Đăng nhập để Đăng ký'
+    loginToRegister: 'Đăng nhập để Đăng ký',
+    errorRegisterFail: 'Đăng ký thất bại, vui lòng thử lại',
+    errorRegisterMoreThanLimit: 'Đăng ký của bạn vượt quá số lượng chổ trống hiện tại'
   },
 
   compTourEditing: {
@@ -565,6 +585,28 @@ export const LangVietnamese: Language = {
     locations: 'Địa điểm',
     schedule: 'Kế hoạch',
     preparation: 'Chuẩn bị',
-    performs: 'Phụ trách'
+    performs: 'Phụ trách',
+    province: 'Tỉnh/Thành phố',
+    selectedLocation: 'Địa điểm đã chọn',
+    newLocation: 'Địa điểm mới',
+    provinceLocation: 'Địa điểm trong tỉnh/thành phố',
+    addSchedule: 'Thêm kế hoạch',
+    scheduleCost: 'Chi phí theo kế hoạch',
+    memberLimit: 'Số lượng tham gia',
+    registerCost: 'Chi phí đăng ký',
+    perPerson: 'VND/người',
+    timeline: 'Mốc thời gian',
+    register: 'Đăng ký',
+    tourguide: 'Dẫn đoàn',
+    tourguideContact: 'Thông tin Liên hệ dẫn đoàn',
+    addPreparation: 'Thêm nội dung chuẩn bị',
+    addPreformer: 'Bổ sung phụ trách',
+    currentPerformer: 'Phụ trách hiện tại',
+    members: 'Thành viên tham gia tour',
+    tourguides: 'Dẫn đoàn',
+    editTourMessage: 'Bạn chắc chắn chứ? Hành động này không thể khôi phục sau khi thực hiện',
+    cancelEditMessage: 'Bạn chắc chắn chứ? Các thay đổi của bạn chưa được lưu',
+    editTourSuccess: 'Chỉnh sửa thành công',
+    editTourFail: 'Chỉnh sửa thất bại, vui lòng thử lại!'
   }
 };

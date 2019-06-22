@@ -19,8 +19,8 @@ $BACKGROUND_COLOR: #ebedee;
 
     .cardview-img {
         width: 100%;
+        // min-height: 100px;
         height: fit-content;
-        min-height: 100px;
         background-color: #dfe4eb;
 
         display: flex;

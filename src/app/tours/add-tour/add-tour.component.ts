@@ -111,6 +111,13 @@ export class AddTourComponent implements OnInit {
           username: item.username
         };
       });
+      this.arrTourguides.sort((userA, userB) => {
+        if (userA.displayName[0] < userB.displayName[0]) {
+          return -1;
+        } else {
+          return 1;
+        }
+      });
     });
 
     this.server.getReviewer().subscribe(res => {

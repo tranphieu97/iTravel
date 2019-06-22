@@ -11,6 +11,7 @@ const app = require('../../index');
 var ObjectId = require('mongodb').ObjectId;
 const postService = require('../services/post-service.js');
 const User = require('../../model/user.model').User;
+const tourService = require('../services/tour-service');
 
 // Routing - START
 /**
@@ -653,8 +654,8 @@ app.get('/api/user-info', (req, res) => {
         const queryObj = { _id: new ObjectId(req.query.userId) }
         // console.log(queryObj);
 
-        // create projection object to return only id, username, avatar
-        const projectionObj = { projection: { _id: 1, firstName: 1, lastName: 1, avatar: 1 } }
+        // create projection object to return only id, username, avatar // Phieu add username
+        const projectionObj = { projection: { _id: 1, firstName: 1, lastName: 1, avatar: 1 , username: 1} }
         // console.log(projectionObj);
 
         database.getOneWithProjection(database.iTravelDB.Users, queryObj, projectionObj)
@@ -901,8 +902,9 @@ app.get('/api/get-tour-feedbacks', async (req, res) => {
 
 app.get('/api/tours', async (req, res) => {
     try {
-        const tours = await Tour.find({ 'isActive': true },
+        let tours = await Tour.find({ 'isActive': true },
             '_id tourName description registerCost locationIds beginTime endTime cover status closeFeedbackTime closeRegisterTime durationTime', () => { });
+        tours = tourService.updateTourStatus(tours);
         res.status(200).json({
             data: tours,
             statusCode: 200
@@ -1014,21 +1016,29 @@ app.get('/api/tour-registerd-info/', async (req, res) => {
                         data: null
                     });
                 } else {
-                    let isRegisterd = false;
+                    // if record exist cancelTime, it was canceled register before
+                    const registeredRecord = data.members.filter(x => !x.cancelTime);
+
+                    let isRegistered = false;
                     if (userId) {
-                        const existData = data.members.findIndex(x => x.memberId === userId);
-                        if (existData && (existData.length > 0 || existData > -1)) {
-                            isRegisterd = true;
+                        const existData = registeredRecord.findIndex(x => x.memberId === userId);
+                        if (existData > -1) {
+                            isRegistered = true;
                         }
                     }
+
+                    let currentMember = 0;
+                    registeredRecord.forEach(record => {
+                        currentMember = currentMember + record.registerFor;
+                    });
                     
                     const returnData = {
                         registerCost: data.registerCost,
                         memberLimit: data.memberLimit,
                         closeRegisterTime: data.closeRegisterTime,
-                        isRegisterd: isRegisterd,
-                        isFullslot: data.members.length === data.memberLimit ? true : false,
-                        currentMember: data.members.length
+                        isRegistered: isRegistered,
+                        isFullslot: currentMember >= data.memberLimit ? true : false,
+                        currentMember: currentMember
                     };
 
                     res.status(200).json({

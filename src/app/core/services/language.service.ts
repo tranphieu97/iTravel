@@ -17,8 +17,8 @@ export class LanguageService {
   constructor() {
     this.createEnglishDictionary();
     this.createVietnameseDictionary();
-    this.currentLanguage = this.enLanguage;
-    this.hasChangeLanguage.next('en');
+    this.currentLanguage = this.vnLanguage;
+    this.hasChangeLanguage.next('vn');
   }
 
   /**

@@ -9,7 +9,7 @@ import { LanguageService } from 'src/app/core/services/language.service';
   templateUrl: './send-feedback.component.html',
   styleUrls: ['./send-feedback.component.scss']
 })
-export class SendFeedbackComponent implements OnInit, AfterViewInit {
+export class SendFeedbackComponent implements OnInit {
   @Input() tourId: string;
   @Input() refetchTourFeedbacks;
   authorAvatar = '';
@@ -30,13 +30,19 @@ export class SendFeedbackComponent implements OnInit, AfterViewInit {
     );
     this.getAuthorAvatar();
     this.isLogin = this.userService.isLogin;
+    this.userService.isLoginChange.asObservable().subscribe(() => {
+      this.isLogin = this.userService.isLogin;
+    });
+    this.userService.hasChangeUser.asObservable().subscribe(() => {
+      this.isLogin = this.userService.isLogin;
+    });
   }
 
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.isLogin = this.userService.isLogin;
-    }, 1500);
-  }
+  // ngAfterViewInit() {
+  //   setTimeout(() => {
+  //     this.isLogin = this.userService.isLogin;
+  //   }, 1500);
+  // }
 
   onSendTourFeedback(feedbackElement: HTMLTextAreaElement) {
     const feedbackContent = feedbackElement.value;

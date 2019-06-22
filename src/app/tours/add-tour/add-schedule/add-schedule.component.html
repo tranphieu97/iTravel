@@ -65,7 +65,7 @@
           <option *ngFor="let perform of arrPerforms" [value]="perform._id">{{perform.displayName}}</option>
         </select>
       </div>
-      <small>{{compLanguage.addTourNoteSelectMore}}</small>
+      <small>{{compLanguage.addScheduleNoteSelectMore}}</small>
     </div>
   </div>
   <div class="form-group flex-row">
@@ -100,10 +100,10 @@
 <div class="flex-col schedule-review" *ngIf="isFinishedInput" (click)="isFinishedInput = false">
   <div class="flex-row">
     <div class="flex-1 schedule-title">
-      {{scheduleModel.beginTime | date}}
+      {{scheduleModel.beginTime | date:'dd/MM/yyyy'}}
     </div>
     <div class="flex-1 schedule-title">
-      {{scheduleModel.beginTime | date:'shortTime'}} - {{scheduleModel.endTime | date:'shortTime'}}
+      {{scheduleModel.beginTime | date:'HH:mm'}} - {{scheduleModel.endTime | date:'HH:mm'}}
     </div>
     <div class="flex-1 schedule-title">
       {{scheduleModel.tasks.join(', ')}}

@@ -19,6 +19,7 @@ export class Language {
     to: string;
     choose: string;
     invalidInputData: string;
+    verifyAction: string;
   };
 
   // Layout
@@ -88,6 +89,11 @@ export class Language {
     registerEnterUsername: string;
     registerEnterPassword: string;
     registerEnterConfirmPassword: string;
+    registerSuccess: string;
+    registerUsernameExist: string;
+    registerDataInvalid: string;
+    registerFail: string;
+    registerPasswordNotMatch: string;
   };
 
   // For Menu in NavigationBar Component
@@ -432,7 +438,7 @@ export class Language {
     statusPreparing: string;
     statusPrepared: string;
     detailBtn: string;
-    modalTitle: string;
+    tourDetailModal: string;
     generalTab: string;
     scheduleTab: string;
     feedbackTab: string;
@@ -459,7 +465,17 @@ export class Language {
     editBtn: string;
     saveBtn: string;
     tourguide: string;
+    tourReopenModal: string;
+    rename: string;
+    beginTime: string;
+    endTime: string;
+    closeFeedbackTime: string;
+    closeRegisterTime: string;
+    reopenBtn: string;
     edit: string;
+    collectedMoney: string;
+    verifyCollectedMoney: string;
+    registerFor: string;
   };
 
   compUserTour: {
@@ -476,6 +492,8 @@ export class Language {
     detailBtn: string;
     tripDuration: string;
     tripDurationUnit: string;
+    cancelTourBtn: string;
+    confirmCancelTour: string;
   };
 
   compUpdateProfile: {
@@ -553,6 +571,8 @@ export class Language {
     phoneNumber: string;
     registered: string;
     loginToRegister: string;
+    errorRegisterMoreThanLimit: string;
+    errorRegisterFail: string;
   };
 
   compTourEditing: {
@@ -569,6 +589,28 @@ export class Language {
     schedule: string;
     preparation: string;
     performs: string;
+    province: string;
+    selectedLocation: string;
+    newLocation: string;
+    provinceLocation: string;
+    addSchedule: string;
+    scheduleCost: string;
+    memberLimit: string;
+    registerCost: string;
+    perPerson: string;
+    timeline: string;
+    register: string;
+    tourguide: string;
+    tourguideContact: string;
+    addPreparation: string;
+    addPreformer: string;
+    currentPerformer: string;
+    tourguides: string;
+    members: string;
+    editTourMessage: string;
+    cancelEditMessage: string;
+    editTourSuccess: string;
+    editTourFail: string;
   };
 
   constructor() { }

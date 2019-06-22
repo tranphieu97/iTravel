@@ -21,8 +21,7 @@
   </div>
   <div class="flex-row">
     <div class="tour-location" *ngFor="let locationId of tourCardViewModel.locationIds">
-      <span appOneTimeBinding><i class="fas fa-map-marker-alt"></i></span>
-      {{tourService.getLocationName(locationId) | titlecase}}
+      <app-location-name [locationId]="locationId" [sz]="14"></app-location-name>
     </div>
   </div>
   <div class="flex-row">

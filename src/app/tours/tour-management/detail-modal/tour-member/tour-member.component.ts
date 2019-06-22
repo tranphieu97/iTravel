@@ -19,6 +19,7 @@ export class TourMemberComponent implements OnInit, AfterViewInit {
   available = 0;
   compLanguage;
   allowSeeUserPrivateInfo = ['/tours/manager'];
+  allowSeeCanceled = ['/tours/manager'];
   currentPath: string;
 
   constructor(
@@ -35,7 +36,19 @@ export class TourMemberComponent implements OnInit, AfterViewInit {
       () =>
         (this.compLanguage = this.languageService.currentLanguage.compTourManagement)
     );
-    this.available = this.tourData.memberLimit - this.tourData.members.length;
+    if (!this.allowSeeCanceled.includes(this.currentPath)) {
+      this.tourData.members = this.tourData.members.filter(
+        member => !member.cancelTime
+      );
+    }
+    this.available =
+      this.tourData.memberLimit -
+      this.tourData.members
+        .filter(member => !member.cancelTime)
+        .reduce(
+          (total, currentMember) => (total = total + currentMember.registerFor),
+          0
+        );
     this.tourMemberInfo = this.tourData.members.map(member => ({
       tourInfo: member,
       basicInfo: { firstName: '', lastName: '', avatar: '' }
@@ -55,7 +68,10 @@ export class TourMemberComponent implements OnInit, AfterViewInit {
   }
 
   onCollectedMoney(memberItemId: string, index: number) {
-    if (!this.tourMemberInfo[index].tourInfo.cost) {
+    if (
+      !this.tourMemberInfo[index].tourInfo.cost ||
+      this.tourMemberInfo[index].tourInfo.cancelTime
+    ) {
       return;
     }
     this.serverService

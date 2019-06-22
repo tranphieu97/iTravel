@@ -7,8 +7,8 @@ import { ServerService } from './server.service';
 })
 export class MembersService {
 
-  dicMemberName: Dictionary = new Dictionary();
-  dicMemberAvatar: Dictionary = new Dictionary();
+  private dicMemberName: Dictionary = new Dictionary();
+  private dicMemberAvatar: Dictionary = new Dictionary();
 
   constructor(private server: ServerService) {
     this.dicMemberName = new Dictionary();
@@ -16,38 +16,22 @@ export class MembersService {
   }
 
   getMemberName(memberId: string) {
-    let memberName = this.dicMemberName.getValue(memberId);
-    if (memberName !== null) {
-      return memberName;
-    } else {
-      this.server.getUserBasicInfo(memberId).subscribe(res => {
-        if (res.data) {
-          memberName = res.data.lastName !== '' ? res.data.firstName + ' ' + res.data.lastName : res.data.firstName;
-          this.dicMemberName.add(memberId, memberName);
-          return memberName;
-        }
-      });
-      setTimeout(() => {
-        return memberName;
-      }, 2000);
+    return this.dicMemberName.getValue(memberId);
+  }
+
+  saveMemberName(memberId: string, memberName: string) {
+    if (this.dicMemberName.getValue(memberId) === null) {
+      this.dicMemberName.add(memberId, memberName);
     }
   }
 
   getMemberAvatar(memberId: string) {
-    let memberAvatar = this.dicMemberAvatar.getValue(memberId);
-    if (memberAvatar !== null) {
-      return memberAvatar;
-    } else {
-      this.server.getUserBasicInfo(memberId).subscribe(res => {
-        if (res.data) {
-          memberAvatar = res.data.avatar;
-          this.dicMemberAvatar.add(memberId, memberAvatar);
-          return memberAvatar;
-        }
-      });
-      setTimeout(() => {
-        return memberAvatar;
-      }, 2000);
+    return this.dicMemberAvatar.getValue(memberId);
+  }
+
+  saveMemberAvatar(memberId: string, avatar: string) {
+    if (this.dicMemberAvatar.getValue(memberId) === null) {
+      this.dicMemberAvatar.add(memberId, avatar);
     }
   }
 }

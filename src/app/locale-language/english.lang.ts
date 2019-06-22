@@ -12,7 +12,8 @@ export const LangEnglish: Language = {
     from: 'From',
     to: 'To',
     choose: 'Choose ',
-    invalidInputData: 'Input data is invalid'
+    invalidInputData: 'Input data is invalid',
+    verifyAction: 'Verify action'
   },
 
   // Layout
@@ -85,7 +86,12 @@ export const LangEnglish: Language = {
     registerEnterLastname: 'Enter your Last name',
     registerEnterUsername: 'Enter your Username',
     registerEnterPassword: 'Enter your Password',
-    registerEnterConfirmPassword: 'Re-enter your Password'
+    registerEnterConfirmPassword: 'Re-enter your Password',
+    registerDataInvalid: 'Register Fail, Invalid Data',
+    registerFail: 'Register Fail',
+    registerSuccess: 'Register Success',
+    registerUsernameExist: 'Username is exist, choose another',
+    registerPasswordNotMatch: 'Password and re-password are not match'
   },
 
   // For Feedback Component
@@ -437,7 +443,7 @@ export const LangEnglish: Language = {
     statusPreparing: 'PREPARING',
     statusPrepared: 'FINISHED',
     detailBtn: 'Detail',
-    modalTitle: 'Tour Detail',
+    tourDetailModal: 'Tour Detail',
     generalTab: 'General',
     scheduleTab: 'Schedule',
     feedbackTab: 'Feedback',
@@ -464,7 +470,17 @@ export const LangEnglish: Language = {
     editBtn: 'Edit',
     saveBtn: 'Save',
     tourguide: 'Tourguide',
-    edit: 'Edit'
+    tourReopenModal: 'Reopen Tour',
+    beginTime: 'Start at',
+    endTime: 'Finish at',
+    closeFeedbackTime: 'Receive feedback until',
+    closeRegisterTime: 'Register until',
+    rename: 'rename',
+    reopenBtn: 'Reopen',
+    edit: 'Edit',
+    collectedMoney: 'Paid',
+    verifyCollectedMoney: 'Verify paid',
+    registerFor: 'Register for (people)'
   },
 
   compUserTour: {
@@ -480,7 +496,9 @@ export const LangEnglish: Language = {
     statusPrepared: 'FINISHED',
     detailBtn: 'Detail',
     tripDuration: 'Trip duration',
-    tripDurationUnit: 'day(s)'
+    tripDurationUnit: 'day(s)',
+    cancelTourBtn: 'Cancel tour',
+    confirmCancelTour: 'You really want to cancel this tour?'
   },
 
   compUpdateProfile: {
@@ -557,7 +575,9 @@ export const LangEnglish: Language = {
     contact: 'Contact',
     phoneNumber: 'Phone number',
     registered: 'Registered',
-    loginToRegister: 'Login to Register'
+    loginToRegister: 'Login to Register',
+    errorRegisterMoreThanLimit: 'Your register more than tour available slots now',
+    errorRegisterFail: 'Register Fail, try again!'
   },
 
   compTourEditing: {
@@ -573,6 +593,28 @@ export const LangEnglish: Language = {
     locations: 'Locations',
     schedule: 'Schedule',
     preparation: 'Preparation',
-    performs: 'Performs'
+    performs: 'Performs',
+    province: 'Province/City',
+    selectedLocation: 'Selected Location',
+    newLocation: 'New Location',
+    provinceLocation: 'Province\'s Locations',
+    addSchedule: 'Add Schedule',
+    scheduleCost: 'Schedule Cost: ',
+    memberLimit: 'Member limit',
+    registerCost: 'Register cost',
+    perPerson: 'VND/Person',
+    timeline: 'Timeline',
+    register: 'Register',
+    tourguide: 'Tourguide',
+    tourguideContact: 'Tourguide \'s Contact',
+    addPreparation: 'Add preparation',
+    addPreformer: 'Add Performers',
+    currentPerformer: 'Current Performers',
+    members: 'Tour\'s members',
+    tourguides: 'Tourguides',
+    editTourMessage: 'Are your sure? This action cannot restore in the future.',
+    cancelEditMessage: 'Are your sure? Your change is not saved now',
+    editTourFail: 'Edit fail, try again!',
+    editTourSuccess: 'Edit success!'
   }
 };

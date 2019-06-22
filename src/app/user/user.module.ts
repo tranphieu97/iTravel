@@ -9,6 +9,7 @@ import { UpdateProfileComponent } from './update-profile/update-profile.componen
 import { UserTourComponent } from './user-tour/user-tour.component';
 import { ToursModule } from '../tours/tours.module';
 import { DetailModalComponent } from '../tours/tour-management/detail-modal/detail-modal.component';
+import { ConfirmModalComponent } from '../shared/confirm-modal/confirm-modal.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,6 @@ import { DetailModalComponent } from '../tours/tour-management/detail-modal/deta
     ToursModule
   ],
   declarations: [UserProfileComponent, UserPostManagementComponent, UserTourComponent, UpdateProfileComponent],
-  entryComponents: [DetailModalComponent]
+  entryComponents: [DetailModalComponent, ConfirmModalComponent]
 })
 export class UserModule { }
