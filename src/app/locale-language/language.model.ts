@@ -276,6 +276,9 @@ export class Language {
     filterFullKeyword: string;
     filterFullRegion: string;
     filterFullFilter: string;
+    posts: string;
+    tours: string;
+    enterSearch: string;
   };
 
   // For User

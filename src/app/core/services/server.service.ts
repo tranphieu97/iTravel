@@ -618,21 +618,29 @@ export class ServerService {
     return this.http.patch<{ statusCode: number }>(this.HOST + 'tourguide/update-tour-status', updateBody);
   }
 
-  getTourRegisteredInfo(tourId: string, userId: string): Observable<{statusCode: number, data: any}> {
+  getTourRegisteredInfo(tourId: string, userId: string): Observable<{ statusCode: number, data: any }> {
     const params = {
       _id: tourId,
       userId: userId
     };
 
-    return this.http.get<{statusCode: number, data: any}>(this.HOST + 'api/tour-registerd-info', {params: params});
+    return this.http.get<{ statusCode: number, data: any }>(this.HOST + 'api/tour-registerd-info', { params: params });
   }
 
-  registerTour(tourId: string, registerObject: TourMember): Observable<{statusCode: number, result: any}> {
+  registerTour(tourId: string, registerObject: TourMember): Observable<{ statusCode: number, result: any }> {
     const registerBody = {
       _id: tourId,
       registerObj: registerObject
     };
 
-    return this.http.patch<{statusCode: number, result: any}>(this.HOST + 'user/register-tour', registerBody);
+    return this.http.patch<{ statusCode: number, result: any }>(this.HOST + 'user/register-tour', registerBody);
+  }
+
+  searchByKeyword(keyword: string): Observable<{ statusCode: number, arrPost: Array<any>, arrTour: Array<any> }> {
+    const params = {
+      keyword: keyword
+    };
+    return this.http.get<{ statusCode: number, arrPost: Array<any>, arrTour: Array<any> }>(
+      this.HOST + 'api/search-keyword', { params: params });
   }
 }

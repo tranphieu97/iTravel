@@ -277,7 +277,10 @@ export const LangEnglish: Language = {
     filterFullCategory: 'Category',
     filterFullKeyword: 'Keyword',
     filterFullRegion: 'Region',
-    filterFullFilter: 'Filter'
+    filterFullFilter: 'Filter',
+    posts: 'Posts',
+    tours: 'Tours',
+    enterSearch: 'Enter search content'
   },
 
   // For User Module
