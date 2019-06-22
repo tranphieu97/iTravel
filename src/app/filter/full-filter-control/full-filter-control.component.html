@@ -1,27 +1,36 @@
-<div class="content-box filter-box">
-  <div>
-    <!-- <app-horizontal-card-view-post *ngFor="let post of listPostByCategory" [inputPost]="post"></app-horizontal-card-view-post> -->
+<div class="no-border-box flex-3 flex-col">
+  <div class="border-box search-box">
+    <input class="form-control" type="text" [(ngModel)]="keyword" (keydown.enter)="search()"
+      [placeholder]="compLanguage.enterSearch" (blur)="search()">
+  </div>
+  <div class="border-box flex-1 content-box">
+    <app-loading *ngIf="isLoading"></app-loading>
+    <ngb-tabset *ngIf="!isLoading">
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <b class="title">{{compLanguage.posts}}</b>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <div class="flex-col tab-content">
+            <app-horizontal-card-view-post *ngFor="let post of arrPosts" [inputPost]="post">
+            </app-horizontal-card-view-post>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>
+          <b class="title">{{compLanguage.tours}}</b>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <div class="flex-col tab-content">
+            <app-horizontal-card-view-tour *ngFor="let tour of arrTours" [tourCardViewModel]="tour">
+            </app-horizontal-card-view-tour>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
   </div>
 </div>
-<div class="content-box control-box">
-  <h4>{{compLanguage.filterFullTitle}}</h4>
-  <form>
-    <div class="form-group">
-      <label>{{compLanguage.filterFullKeyword}}</label>
-      <input class="form-control" type="text">
-    </div>
-    <div class="form-group">
-      <label>{{compLanguage.filterFullCategory}}</label>
-      <select class="form-control">
-        <option></option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>{{compLanguage.filterFullRegion}}</label>
-      <select class="form-control">
-        <option></option>
-      </select>
-    </div>
-    <button type="submit" class="btn btn-success">{{compLanguage.filterFullFilter}}</button>
-  </form>
+<div class="border-box flex-1">
+
 </div>

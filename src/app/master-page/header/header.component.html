@@ -17,7 +17,7 @@
                 <span class="input-group-text"><i class="fas fa-search"></i></span>
             </div>
             <input type="text" [(ngModel)]="searchBoxText" name="search" class="form-control"
-                [placeholder]="compLanguage.headerSearch">
+                [placeholder]="compLanguage.headerSearch" (keydown)="searchByText($event)">
             <div class="input-group-append">
                 <span class="input-group-text"><i class="la la-close kt-quick-search__close"
                         style="display: none;"></i></span>

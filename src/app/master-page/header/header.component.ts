@@ -6,6 +6,7 @@ import { SearchHistory } from 'src/app/model/searchHistory.model';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { UserService } from '../../core/services/user.service';
 import { LanguageService } from '../../core/services/language.service';
+import { SearchService } from 'src/app/core/services/search.service';
 
 
 @Component({
@@ -30,25 +31,26 @@ export class HeaderComponent implements OnInit {
   compLanguage;
 
   constructor(public masterPage: MasterPageService, private server: ServerService, public language: LanguageService,
-    public user: UserService, private router: Router) { }
+    public user: UserService, private router: Router, private searchService: SearchService) { }
 
   ngOnInit() {
     this.compLanguage = this.language.currentLanguage.compHeader;
     this.language.hasChangeLanguage.subscribe(() => this.compLanguage = this.language.currentLanguage.compHeader);
   }
 
-  searchByText() {
-    if (this.searchBoxText.trim() !== '') {
-      const searchHistory: SearchHistory =
-        new SearchHistory(this.searchBoxText.toString().trim().toLowerCase(), '');
-      this.server.postSearchHistory(searchHistory).subscribe();
-      this.searchBoxText = '';
-      this.isShowSearchBox = false;
+  searchByText(event) {
+    if (event.key === 'Enter') {
+      console.log('test');
+      if (this.searchBoxText.trim() !== '' && this.searchBoxText.trim().length > 2) {
+        console.log('search');
+        // Create log
+        const searchHistory: SearchHistory =
+          new SearchHistory(this.searchBoxText.trim().toLowerCase(), this.user.getUserId());
+        this.server.postSearchHistory(searchHistory).subscribe();
 
-      this.changeHeaderFlagByFlagName('isShowSearchBox');
-
-      this.masterPage.searchKeyword = this.searchBoxText.toString().trim();
-      this.router.navigate(['filter/all']);
+        this.searchService.setKeyword(this.searchBoxText.toLocaleLowerCase());
+        this.router.navigate(['filter/all']);
+      }
     }
   }
 
