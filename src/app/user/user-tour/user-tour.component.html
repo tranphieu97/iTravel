@@ -47,7 +47,9 @@
           <button class="btn btn-primary" (click)="openDetail(tour)">
             {{compLanguage.detailBtn}}
           </button>
-          <button class="btn btn-danger" (click)="cancelTour(tour)">
+          <!-- <button class="btn btn-danger" (click)="cancelTour(tour)"> -->
+          <button class="btn btn-danger"
+            (click)="openConfirmCancel(compLanguage.confirmCancelTour, tour)">
             {{compLanguage.cancelTourBtn}}
           </button>
         </td>

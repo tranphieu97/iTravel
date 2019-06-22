@@ -6,6 +6,7 @@ import { ConstTourStatus, ConstTourPreparationStatus } from 'src/app/constants';
 import { LanguageService } from 'src/app/core/services/language.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DetailModalComponent } from 'src/app/tours/tour-management/detail-modal/detail-modal.component';
+import { ConfirmModalComponent } from 'src/app/shared/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-user-tour',
@@ -32,11 +33,6 @@ export class UserTourComponent implements OnInit {
       () =>
         (this.compLanguage = this.languageService.currentLanguage.compUserTour)
     );
-    // this.serverService.getToursByUser(true).subscribe(res => {
-    //   if (res.data) {
-    //     this.tours = res.data;
-    //   }
-    // });
     this.fetchTour();
   }
 
@@ -54,6 +50,15 @@ export class UserTourComponent implements OnInit {
       size: 'lg'
     });
     modalRef.componentInstance.tourData = tour;
+  }
+
+  openConfirmCancel(message: string, tour: Tour) {
+    const confirmModalRef = this.modalService.open(ConfirmModalComponent, {
+      centered: true
+    });
+    // passing input
+    confirmModalRef.componentInstance.message = message;
+    confirmModalRef.componentInstance.onAccept = () => this.cancelTour(tour);
   }
 
   cancelTour(tour: Tour) {
@@ -85,7 +90,6 @@ export class UserTourComponent implements OnInit {
     this.serverService.updateCancelTour(tour._id, { schedules, preparations, members }).subscribe((res => {
       if (res.message === 'Success') {
         this.fetchTour();
-        alert('Cancel successful');
       }
     }));
   }

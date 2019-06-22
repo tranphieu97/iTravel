@@ -33,6 +33,9 @@ export class SendFeedbackComponent implements OnInit {
     this.userService.isLoginChange.asObservable().subscribe(() => {
       this.isLogin = this.userService.isLogin;
     });
+    this.userService.hasChangeUser.asObservable().subscribe(() => {
+      this.isLogin = this.userService.isLogin;
+    });
   }
 
   // ngAfterViewInit() {

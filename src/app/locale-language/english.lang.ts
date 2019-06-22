@@ -12,7 +12,8 @@ export const LangEnglish: Language = {
     from: 'From',
     to: 'To',
     choose: 'Choose ',
-    invalidInputData: 'Input data is invalid'
+    invalidInputData: 'Input data is invalid',
+    verifyAction: 'Verify action'
   },
 
   // Layout
@@ -496,7 +497,8 @@ export const LangEnglish: Language = {
     detailBtn: 'Detail',
     tripDuration: 'Trip duration',
     tripDurationUnit: 'day(s)',
-    cancelTourBtn: 'Cancel tour'
+    cancelTourBtn: 'Cancel tour',
+    confirmCancelTour: 'You really want to cancel this tour?'
   },
 
   compUpdateProfile: {
