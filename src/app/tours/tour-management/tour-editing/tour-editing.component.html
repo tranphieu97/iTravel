@@ -60,25 +60,25 @@
       </ng-template>
       <ng-template ngbTabContent>
         <div class="flex-col tab-content flex-1">
-          <app-timeline-editing [tourData]="tourData"></app-timeline-editing>
+          <app-timeline-editing [tourData]="tourModel"></app-timeline-editing>
           <br />
           <div class="flex-row form-group">
             <label class="row-label">{{compLanguage.memberLimit}}</label>
             <div class="row-input">
-              <input type="number" class="form-control" name="member-limit" [(ngModel)]="tourData.memberLimit">
+              <input type="number" class="form-control" name="member-limit" [(ngModel)]="tourModel.memberLimit">
             </div>
           </div>
           <div class="flex-row form-group">
             <label class="row-label">{{compLanguage.registerCost}}</label>
             <div class="row-input flex-row">
-              <input type="number" class="form-control" name="member-limit" [(ngModel)]="tourData.registerCost">
+              <input type="number" class="form-control" name="member-limit" [(ngModel)]="tourModel.registerCost">
             </div>
           </div>
           <br />
           <div class="flex-row form-group">
             <label class="row-label">{{compLanguage.tourguide}}</label>
             <div class="row-input flex-row">
-              <select class="form-control" [(ngModel)]="tourData.tourGuideId">
+              <select class="form-control" [(ngModel)]="tourModel.tourGuideId">
                 <option [value]="tourguide._id" *ngFor="let tourguide of arrTourguide">
                   {{tourguide.displayName}}
                 </option>
@@ -88,7 +88,7 @@
           <div class="flex-row form-group">
             <label class="row-label">{{compLanguage.tourguideContact}}</label>
             <div class="row-input flex-row">
-              <input type="text" class="form-control" name="member-limit" [(ngModel)]="tourData.contactNumber">
+              <input type="text" class="form-control" name="member-limit" [(ngModel)]="tourModel.contactNumber">
             </div>
           </div>
         </div>
@@ -142,7 +142,7 @@
       </ng-template>
       <ng-template ngbTabContent>
         <div class="flex-col tab-content">
-          <app-add-preformer [tourMembers]="tourData.members"></app-add-preformer>
+          <app-add-preformer [tourMembers]="tourModel.members"></app-add-preformer>
         </div>
       </ng-template>
     </ngb-tab>
@@ -165,7 +165,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-danger" (click)="modal.dismiss()">{{commonLanguage.cancel}}</button>
-    <button type="button" class="btn btn-outline-success" (click)="modal.dismiss()">{{commonLanguage.ok}}</button>
+    <button type="button" class="btn btn-outline-success" (click)="editTour(); modal.dismiss()">{{commonLanguage.ok}}</button>
   </div>
 </ng-template>
 

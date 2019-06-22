@@ -99,4 +99,8 @@ export class TourEditingComponent implements OnInit {
   openModal(contentId) {
     this.modal.open(contentId, { ariaLabelledBy: 'modal-basic-title', centered: true });
   }
+
+  editTour() {
+    console.log(this.tourModel);
+  }
 }
