@@ -18,6 +18,11 @@ export class UserTourComponent implements OnInit {
   tourStatus: ConstTourStatus = new ConstTourStatus();
   tourPreparationStatus = new ConstTourPreparationStatus();
   // tourGuides = [];
+
+  isLoading: Boolean = true;
+  page: Number = 1;
+  pageSize: Number = 8;
+
   compLanguage;
 
   constructor(
@@ -37,10 +42,12 @@ export class UserTourComponent implements OnInit {
   }
 
   fetchTour() {
+    this.isLoading = true;
     this.serverService.getToursByUser(true).subscribe(res => {
       if (res.data) {
         this.tours = res.data;
       }
+      this.isLoading = false;
     });
   }
 

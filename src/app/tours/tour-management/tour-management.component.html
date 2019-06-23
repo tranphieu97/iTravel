@@ -42,8 +42,8 @@
         </div>
       </form>
     </div> -->
-
-    <div class="tour-management-table">
+    <app-loading *ngIf="isLoadingTours"></app-loading>
+    <div class="tour-management-table" *ngIf="!isLoadingTours">
       <table class="table table-hover">
         <thead class="thead-light">
           <tr>
@@ -57,7 +57,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let tour of tours; let i = index">
+          <tr *ngFor="let tour of tours | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize; let i = index">
             <td>{{i+1}}</td>
             <td><strong>{{tour.tourName}}</strong></td>
             <td>{{tourGuides[i].firstName+' '+tourGuides[i].lastName}}</td>
@@ -99,5 +99,8 @@
         </tbody>
       </table>
     </div>
+  </div>
+  <div class="flex-row flex-justify-end" style="padding-top: 5px">
+    <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="tours.length"></ngb-pagination>
   </div>
 </div>

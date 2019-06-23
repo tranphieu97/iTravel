@@ -15,10 +15,14 @@ import { EditTourService } from 'src/app/core/services/edit-tour.service';
   styleUrls: ['./tour-management.component.scss']
 })
 export class TourManagementComponent implements OnInit {
-  tours: Tour[];
+  tours: Tour[] = [];
   tourStatus: ConstTourStatus = new ConstTourStatus();
   tourGuides = [];
   compLanguage;
+
+  public isLoadingTours: Boolean = true;
+  public page: Number = 1;
+  public pageSize: Number = 8;
 
   constructor(
     public languageService: LanguageService,
@@ -51,6 +55,7 @@ export class TourManagementComponent implements OnInit {
   }
 
   refreshListTour = () => {
+    this.isLoadingTours = true;
     this.server.getTours().subscribe(res => {
       this.tours = res.data ? res.data : [];
       this.tourGuides = this.tours.map(tour => ({
@@ -58,6 +63,7 @@ export class TourManagementComponent implements OnInit {
         lastName: ''
       }));
       this.getTourGuide();
+      this.isLoadingTours = false;
     });
   }
 

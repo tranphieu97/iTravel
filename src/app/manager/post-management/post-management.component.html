@@ -10,23 +10,27 @@
       <form class="form-inline">
         <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="chosenKindOfPost">
           <label ngbButtonLabel class="btn-primary">
-            <input ngbButton (click)="filterListPostByPostStatus('ANY')" type="radio" [value]="flagKindOfPost.all"> {{compLanguage.postManagementAllPost}}
+            <input ngbButton (click)="filterListPostByPostStatus('ANY')" type="radio" [value]="flagKindOfPost.all">
+            {{compLanguage.postManagementAllPost}}
           </label>
           <label ngbButtonLabel class="btn-success">
-            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.APPROVED)" type="radio" [value]="flagKindOfPost.approved">{{compLanguage.postManagementApproved}}
+            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.APPROVED)" type="radio"
+              [value]="flagKindOfPost.approved">{{compLanguage.postManagementApproved}}
           </label>
           <label ngbButtonLabel class="btn-warning">
-            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.PENDING)" type="radio" value="flagKindOfPost.pending">{{compLanguage.postManagementPending}}
+            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.PENDING)" type="radio"
+              value="flagKindOfPost.pending">{{compLanguage.postManagementPending}}
           </label>
           <label ngbButtonLabel class="btn-danger">
-            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.DENY)" type="radio" [value]="flagKindOfPost.denied">{{compLanguage.postManagementDenied}}
+            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.DENY)" type="radio"
+              [value]="flagKindOfPost.denied">{{compLanguage.postManagementDenied}}
           </label>
         </div>
         <div class="form-group">
           <label class="control-title">{{compLanguage.postManagementStartDate}}</label>
           <div class="input-group">
-            <input class="form-control" placeholder="yyyy-mm-dd" name="startDate" (focus)="resetError()" [(ngModel)]="startDate" ngbDatepicker
-              #startdate="ngbDatepicker" #modelstartdate="ngModel">
+            <input class="form-control" placeholder="yyyy-mm-dd" name="startDate" (focus)="resetError()"
+              [(ngModel)]="startDate" ngbDatepicker #startdate="ngbDatepicker" #modelstartdate="ngModel">
             <div class="input-group-append">
               <button class="btn btn-outline-secondary calendar" (click)="startdate.toggle()" type="button">
                 <span><i class="fas fa-calendar-alt"></i></span>
@@ -37,8 +41,8 @@
         <div class="form-group">
           <label class="control-title">{{compLanguage.postManagementEndDate}}</label>
           <div class="input-group">
-            <input class="form-control" placeholder="yyyy-mm-dd" name="endDate" (focus)="resetError()" [(ngModel)]="endDate" ngbDatepicker
-              #enddate="ngbDatepicker">
+            <input class="form-control" placeholder="yyyy-mm-dd" name="endDate" (focus)="resetError()"
+              [(ngModel)]="endDate" ngbDatepicker #enddate="ngbDatepicker">
             <div class="input-group-append">
               <button class="btn btn-outline-secondary calendar" (click)="enddate.toggle()" type="button">
                 <span><i class="fas fa-calendar-alt"></i></span>
@@ -47,7 +51,8 @@
           </div>
         </div>
         <div class="form-group">
-          <button (click)="validateDateForm()" class="btn btn-success" type="button" [disabled]="startDate === undefined || endDate === undefined">
+          <button (click)="validateDateForm()" class="btn btn-success" type="button"
+            [disabled]="startDate === undefined || endDate === undefined">
             {{compLanguage.postManagementFilter}}
           </button>
         </div>
@@ -56,7 +61,8 @@
     <div *ngIf="this.hasError" class="alert alert-danger" role="alert">
       {{this.errorMessage}}
     </div>
-    <div class="post-management-table">
+    <app-loading *ngIf="isLoading"></app-loading>
+    <div class="post-management-table" *ngIf="!isLoading">
       <table class="table table-hover">
         <thead class="thead-light">
           <tr>
@@ -70,28 +76,35 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let post of listShowPost">
+          <tr *ngFor="let post of listShowPost | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
             <td>{{listShowPost.indexOf(post) + 1}}</td>
             <td><strong>{{post.title}}</strong></td>
             <td>{{post.authorId}}</td>
             <td>{{post.createdTime | date}}</td>
             <td>{{post.categories}}</td>
-            <td [ngClass]="{'green-text': post.status.indexOf(this.constant.POST_STATUS.APPROVED) !== -1, 'red-text': post.status.indexOf(this.constant.POST_STATUS.DENY) !== -1, 'yellow-text': post.status.indexOf(this.constant.POST_STATUS.PENDING) !== -1}">
+            <td
+              [ngClass]="{'green-text': post.status.indexOf(this.constant.POST_STATUS.APPROVED) !== -1, 'red-text': post.status.indexOf(this.constant.POST_STATUS.DENY) !== -1, 'yellow-text': post.status.indexOf(this.constant.POST_STATUS.PENDING) !== -1}">
               <i class="fas fa-circle tiny-icon"></i> {{post.status | titlecase}}
             </td>
             <td class="action-cell">
-              <span class="action-icon" (click)="openPostViewDialog(content, post._id)"><i class="fas fa-eye"></i></span>
+              <span class="action-icon" (click)="openPostViewDialog(content, post._id)"><i
+                  class="fas fa-eye"></i></span>
               <div ngbDropdown class="action-icon">
                 <span ngbDropdownToggle id="post-management-action"><i class="fas fa-bars"></i></span>
                 <div ngbDropdownMenu aria-labelledby="post-management-action" id="post-management-action-dropdown">
-                  <button (click)="openPostViewDialog(approve, post._id)" class="dropdown-item">{{compLanguage.postManagementApprove}}</button>
-                  <button (click)="openPostDenyDialog(deny, post._id, post.title)" class="dropdown-item">{{compLanguage.postManagementDeny}}</button>
+                  <button (click)="openPostViewDialog(approve, post._id)"
+                    class="dropdown-item">{{compLanguage.postManagementApprove}}</button>
+                  <button (click)="openPostDenyDialog(deny, post._id, post.title)"
+                    class="dropdown-item">{{compLanguage.postManagementDeny}}</button>
                 </div>
               </div>
             </td>
           </tr>
         </tbody>
       </table>
+    </div>
+    <div class="flex-row flex-justify-end" *ngIf="!isLoading">
+      <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="listShowPost.length"></ngb-pagination>
     </div>
   </div>
 </div>
@@ -108,7 +121,8 @@
     <app-post id="review-post" [postId]="postViewId"></app-post>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close()">{{this.compLanguage.postManagementPostViewOk}}</button>
+    <button type="button" class="btn btn-outline-dark"
+      (click)="modal.close()">{{this.compLanguage.postManagementPostViewOk}}</button>
   </div>
 </ng-template>
 
@@ -123,8 +137,10 @@
     <app-post id="review-post" [postId]="postViewId"></app-post>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-danger" (click)="modal.close()">{{this.compLanguage.postManagementCancel}}</button>
-    <button type="button" class="btn btn-success" (click)="modal.close(); approvePost(postViewId)">{{this.compLanguage.postManagementApprove}}</button>
+    <button type="button" class="btn btn-danger"
+      (click)="modal.close()">{{this.compLanguage.postManagementCancel}}</button>
+    <button type="button" class="btn btn-success"
+      (click)="modal.close(); approvePost(postViewId)">{{this.compLanguage.postManagementApprove}}</button>
   </div>
 </ng-template>
 
@@ -148,14 +164,18 @@
       <div class="form-group">
         <label>{{compLanguage.postManagementDenyReason}}</label>
         <textarea formControlName="denyReason" class="form-control" rows="5"></textarea>
-        <div *ngIf="denyForm.get('denyReason').hasError('required') && (denyForm.get('denyReason').dirty || denyForm.get('denyReason').touched)" class="error-mess">
+        <div
+          *ngIf="denyForm.get('denyReason').hasError('required') && (denyForm.get('denyReason').dirty || denyForm.get('denyReason').touched)"
+          class="error-mess">
           {{compLanguage.postManagementErrorEmptyReason}}
         </div>
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-success" (click)="modal.close()">{{this.compLanguage.postManagementCancel}}</button>
-    <button type="button" class="btn btn-danger" (click)="modal.close(); denyPost(postViewId)" [disabled]="denyForm.invalid">{{this.compLanguage.postManagementDeny}}</button>
+    <button type="button" class="btn btn-success"
+      (click)="modal.close()">{{this.compLanguage.postManagementCancel}}</button>
+    <button type="button" class="btn btn-danger" (click)="modal.close(); denyPost(postViewId)"
+      [disabled]="denyForm.invalid">{{this.compLanguage.postManagementDeny}}</button>
   </div>
 </ng-template>

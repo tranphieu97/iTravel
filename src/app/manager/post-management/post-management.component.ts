@@ -26,18 +26,19 @@ export class PostManagementComponent implements OnInit {
 
   hasError: Boolean = false;
   errorMessage: String = '';
+  isLoading: Boolean = true;
 
   listAllPost: any = [];
   listShowPost: any = [];
 
   closeResult: string;
-
   postViewId = '';
-
   denyForm: FormGroup;
 
-  compLanguage;
+  public page: Number = 1;
+  public pageSize: Number = 8;
 
+  compLanguage;
   constructor(public language: LanguageService, private calendar: NgbCalendar, private server: ServerService,
     private modalService: NgbModal, public constant: ConstantService, private formBuilder: FormBuilder) { }
 
@@ -199,12 +200,14 @@ export class PostManagementComponent implements OnInit {
    * @author phieu-th
    */
   refreshListPost() {
+    this.isLoading = true;
     this.server.getPostsByManager().subscribe((res) => {
       if (res.data) {
         this.listAllPost = res.data;
         this.sortPostArrayByDate(this.listAllPost);
         this.listShowPost = this.listAllPost;
       }
+      this.isLoading = false;
     });
     this.resetError();
   }

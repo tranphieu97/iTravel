@@ -31,16 +31,18 @@ export class UserPostManagementComponent implements OnInit {
 
   hasError: Boolean = false;
   errorMessage: String = '';
+  isLoading: Boolean = true;
 
   listAllPost: any = [];
   listShowPost: any = [];
 
   postViewId: string;
-
   searchKeyword: String = '';
 
-  compLanguage;
+  page: Number = 1;
+  pageSize: Number = 8;
 
+  compLanguage;
   constructor(public language: LanguageService, public constant: ConstantService, private server: ServerService,
     private user: UserService, private modalService: NgbModal, private router: Router) { }
 
@@ -73,6 +75,7 @@ export class UserPostManagementComponent implements OnInit {
    * @author phieu-th
    */
   refreshListPost() {
+    this.isLoading = true;
     this.server.getPostByAuthorUser(this.user.currentUser._id).subscribe((res) => {
       if (res.data) {
         this.listAllPost = res.data;
@@ -82,6 +85,7 @@ export class UserPostManagementComponent implements OnInit {
         this.hasError = true;
         this.errorMessage = this.compLanguage.userPostManagementListPostEmpty;
       }
+      this.isLoading = false;
     });
   }
 

@@ -27,7 +27,15 @@
         </div>
         <app-loading *ngIf="isLoadingTour"></app-loading>
         <div class="flex-1" *ngIf="!isLoadingTour" style="overflow-y: auto">
-            <app-horizontal-card-view-tour *ngFor="let tour of arrRegisteringTour" [tourCardViewModel]="tour"></app-horizontal-card-view-tour>
+            <app-horizontal-card-view-tour
+                *ngFor="let tour of arrRegisteringTour | slice: (pageRegisteringTour-1) * pageSizeRegisteringTour : (pageRegisteringTour-1) * pageSizeRegisteringTour + pageSizeRegisteringTour"
+                [tourCardViewModel]="tour">
+            </app-horizontal-card-view-tour>
+        </div>
+        <div class="flex-row flex-justify-end">
+            <ngb-pagination [(page)]="pageRegisteringTour" [pageSize]="pageSizeRegisteringTour"
+                [collectionSize]="arrRegisteringTour.length">
+            </ngb-pagination>
         </div>
     </div>
     <div class="border-box flex-1 flex-col" style="margin-left: 5px; margin-top: 0px;">
@@ -36,7 +44,9 @@
         </div>
         <app-loading *ngIf="isLoadingTour"></app-loading>
         <div class="flex-1 flex-col arr-pending" *ngIf="!isLoadingTour">
-            <div class="flex-row pending-tour" *ngFor="let tour of arrPendingTour" (click)="redirectToBuilding(tour._id)">
+            <div class="flex-row pending-tour"
+                *ngFor="let tour of arrPendingTour | slice: (pagePendingTour-1) * pageSizePendingTour : (pagePendingTour-1) * pageSizePendingTour + pageSizePendingTour"
+                (click)="redirectToBuilding(tour._id)">
                 <div class="flex-4 flex-col">
                     <h4>
                         <u># {{tour.tourName}}</u>
@@ -51,6 +61,11 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="flex-row flex-justify-center">
+            <ngb-pagination [(page)]="pagePendingTour" [pageSize]="pageSizePendingTour"
+                [collectionSize]="arrPendingTour.length">
+            </ngb-pagination>
         </div>
     </div>
 </div>
