@@ -18,7 +18,7 @@ export class FullFilterControlComponent implements OnInit {
   public keyword: string;
   public arrTours: Array<CardViewTour> = [];
   public arrPosts: Array<CardViewPost> = [];
-  public isLoading: Boolean = true;
+  public isLoading: Boolean = false;
 
   compLanguage;
   constructor(public language: LanguageService, private searchService: SearchService, private server: ServerService,

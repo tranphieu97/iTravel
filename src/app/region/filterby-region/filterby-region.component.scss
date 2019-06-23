@@ -1,61 +1,135 @@
-@import 'src/styles.scss';
+@import "src/styles.scss";
 
-:host {
+@media (min-width: 768px) {
+  :host {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     width: 100%;
     height: 100%;
 
     .filter-box {
-        flex: 2.5 1;
-        height: 95%;
-        display: flex;
-        flex-direction: column;
-        padding: 10px;
-        
-        #filter-box-content {
-            flex: 1 1;
-            overflow: scroll;
-        }
+      flex: 2.5 1;
+      height: 95%;
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
 
-        #filter-box-content::-webkit-scrollbar {
-            display: none;
-            width: 0px;  
-            background: transparent; 
-        }
-        
-        #filter-box-content::-webkit-scrollbar-thumb {
-            background: rgb(255, 255, 255);
-        }
-        #filter-box-content { -ms-overflow-style: none; }
-        #filter-box-content { -ms-overflow-style: none; }
+      #filter-box-content {
+        flex: 1 1;
+        overflow: scroll;
+      }
+
+      #filter-box-content::-webkit-scrollbar {
+        display: none;
+        width: 0px;
+        background: transparent;
+      }
+
+      #filter-box-content::-webkit-scrollbar-thumb {
+        background: rgb(255, 255, 255);
+      }
+      #filter-box-content {
+        -ms-overflow-style: none;
+      }
+      #filter-box-content {
+        -ms-overflow-style: none;
+      }
     }
 
     .chart-box {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1;
+      padding: 10px;
+
+      .region-title {
+        height: fit-content;
+        border-bottom: 1px solid $GRAY;
+      }
+
+      .region-chart {
+        flex: 1 1;
         display: flex;
         flex-direction: column;
-        flex: 1 1;
-        padding: 10px;
 
-        .region-title {
-            height: fit-content;
-            border-bottom: 1px solid $GRAY;
+        h6 {
+          margin: 3px;
+          color: $GREEN;
+          font-weight: bold;
         }
 
-        .region-chart {
-            flex: 1 1;
-            display: flex;
-            flex-direction: column;
-
-            h6 {
-                margin: 3px;
-                color: $GREEN;
-                font-weight: bold;
-            }
-
-            #post-ratio {
-                flex: 1 1;
-            }
+        #post-ratio {
+          flex: 1 1;
         }
+      }
     }
+  }
+}
+
+@media (min-width: 320px) and (max-width: 767px) {
+  :host {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+
+    .filter-box {
+      flex: 2.5 1;
+      height: 95%;
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+
+      #filter-box-content {
+        flex: 1 1;
+        overflow: scroll;
+      }
+
+      #filter-box-content::-webkit-scrollbar {
+        display: none;
+        width: 0px;
+        background: transparent;
+      }
+
+      #filter-box-content::-webkit-scrollbar-thumb {
+        background: rgb(255, 255, 255);
+      }
+      #filter-box-content {
+        -ms-overflow-style: none;
+      }
+      #filter-box-content {
+        -ms-overflow-style: none;
+      }
+    }
+
+    .chart-box {
+      display: none;
+      flex-direction: column;
+      flex: 1 1;
+      padding: 10px;
+
+      .region-title {
+        height: fit-content;
+        border-bottom: 1px solid $GRAY;
+      }
+
+      .region-chart {
+        flex: 1 1;
+        display: flex;
+        flex-direction: column;
+
+        h6 {
+          margin: 3px;
+          color: $GREEN;
+          font-weight: bold;
+        }
+
+        #post-ratio {
+          flex: 1 1;
+        }
+      }
+    }
+  }
 }

@@ -1,6 +1,7 @@
-@import 'src/styles.scss';
+@import "src/styles.scss";
 
-:host {
+@media (min-width: 768px) {
+  :host {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -8,22 +9,58 @@
     overflow: scroll;
 
     .index-part {
-        display: flex;
-        flex: 1 1;
-        align-items: center;
+      display: flex;
+      flex: 1 1;
+      align-items: center;
+      vertical-align: middle;
+      background-color: $NAVBAR_BACKGROUND_COLOR;
+
+      img {
+        width: 60%;
+        margin-left: 20%;
+        margin-right: 20%;
         vertical-align: middle;
-        background-color: $NAVBAR_BACKGROUND_COLOR;
+        cursor: pointer;
+      }
 
-        img {
-            width: 60%;
-            margin-left: 20%;
-            margin-right: 20%;
-            vertical-align: middle;
-            cursor: pointer;
-        }
-
-        .content-box {
-            padding: 10px;
-        }
+      .content-box {
+        padding: 10px;
+      }
     }
+  }
+}
+
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+
+@media (min-width: 320px) and (max-width: 767px) {
+  :host {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 200vh;
+    overflow: scroll;
+
+    .index-part {
+      display: flex;
+      flex: 1 1;
+      align-items: center;
+      vertical-align: middle;
+      background-color: $NAVBAR_BACKGROUND_COLOR;
+
+      img {
+        width: 60%;
+        margin-left: 20%;
+        margin-right: 20%;
+        vertical-align: middle;
+        cursor: pointer;
+      }
+
+      .content-box {
+        padding: 10px;
+      }
+    }
+  }
 }

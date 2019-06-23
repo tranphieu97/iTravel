@@ -1,27 +1,61 @@
 @import "src/styles.scss";
 
-:host {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 100%;
+@media (min-width: 768px) {
+  :host {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
 
-  .search-box {
-    input {
-      font-size: 20px;
+    .search-box {
+      input {
+        font-size: 20px;
+      }
+    }
+
+    .content-box {
+      margin-top: 10px !important;
+      overflow: auto;
+
+      .tab-content {
+        padding: 5px 10px;
+
+        * {
+          font-size: 18px;
+        }
+      }
     }
   }
+}
 
-  .content-box {
-    margin-top: 10px !important;
-    overflow: auto;
+@media (min-width: 320px) and (max-width: 767px) {
+  :host {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
 
-    .tab-content {
-      padding: 5px 10px;
-
-      * {
-        font-size: 18px;
+    .search-box {
+      input {
+        font-size: 20px;
       }
+    }
+
+    .content-box {
+      margin-top: 10px !important;
+      overflow: auto;
+
+      .tab-content {
+        padding: 5px 10px;
+
+        * {
+          font-size: 18px;
+        }
+      }
+    }
+
+    #controls {
+      display: none;
     }
   }
 }
