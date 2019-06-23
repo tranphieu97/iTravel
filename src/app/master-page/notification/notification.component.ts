@@ -22,22 +22,29 @@ export class NotificationComponent implements OnInit {
   constructor(public language: LanguageService, private serverService: ServerService, public userService: UserService) { }
 
   ngOnInit() {
+    if (this.userService.isLogin) {
+      this.fetchNotification();
+    }
     this.userService.isLoginChange.asObservable().subscribe(() => {
       if (this.userService.isLogin) {
-        this.serverService.getUserNotification(this.userService.currentUser._id).subscribe(receiveData => {
-          if (receiveData.data) {
-            this.notificationItems = receiveData.data.notificationItems;
-            this.recentNotificationItems = receiveData.data.notificationItems.slice(0, 10);
-          } else {
-            // if current user not has notification, create an empty one
-            const newNoti = new Notification(this.userService.currentUser._id, []);
-            this.serverService.postNewNotification(newNoti).subscribe();
-          }
-        });
+        this.fetchNotification();
       }
     });
     this.compLanguage = this.language.currentLanguage.compNotification;
     this.language.hasChangeLanguage.subscribe(() => this.compLanguage = this.language.currentLanguage.compNotification);
+  }
+
+  fetchNotification() {
+    this.serverService.getUserNotification(this.userService.currentUser._id).subscribe(receiveData => {
+      if (receiveData.data) {
+        this.notificationItems = receiveData.data.notificationItems;
+        this.recentNotificationItems = receiveData.data.notificationItems.slice(0, 10);
+      } else {
+        // if current user not has notification, create an empty one
+        const newNoti = new Notification(this.userService.currentUser._id, []);
+        this.serverService.postNewNotification(newNoti).subscribe();
+      }
+    });
   }
 
   handleShowContent(divContent: HTMLDivElement, divShortContent: HTMLDivElement) {

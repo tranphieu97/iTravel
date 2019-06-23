@@ -3,7 +3,7 @@ const database = require('../database.js');
 const config = require('../../_config.js');
 
 // Import models file
-const { Tour } = require('../../model/mongoose/models')
+const { Tour, Post } = require('../../model/mongoose/models')
 
 // Get app instance from index
 const jwt = require('jsonwebtoken');
@@ -655,7 +655,7 @@ app.get('/api/user-info', (req, res) => {
         // console.log(queryObj);
 
         // create projection object to return only id, username, avatar // Phieu add username
-        const projectionObj = { projection: { _id: 1, firstName: 1, lastName: 1, avatar: 1 , username: 1} }
+        const projectionObj = { projection: { _id: 1, firstName: 1, lastName: 1, avatar: 1, username: 1 } }
         // console.log(projectionObj);
 
         database.getOneWithProjection(database.iTravelDB.Users, queryObj, projectionObj)
@@ -1031,7 +1031,7 @@ app.get('/api/tour-registerd-info/', async (req, res) => {
                     registeredRecord.forEach(record => {
                         currentMember = currentMember + record.registerFor;
                     });
-                    
+
                     const returnData = {
                         registerCost: data.registerCost,
                         memberLimit: data.memberLimit,
@@ -1057,6 +1057,56 @@ app.get('/api/tour-registerd-info/', async (req, res) => {
         res.status(200).json({
             statusCode: 404,
             data: null
+        });
+    }
+});
+
+app.get('/api/search-keyword', async (req, res) => {
+    const keyword = req.query.keyword;
+    let arrPost = [];
+    let arrTour = [];
+
+    try {
+        await Post.find({
+            $text: {
+                $search: keyword
+            },
+            'status': config.POST_STATUS.APPROVED
+        }, ' _id title cover categories createdTime description location: post.location viewAmount ',
+            { limit: 10 }, (err, data) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    arrPost = data;
+                }
+            });
+
+        await Tour.find({
+            $text: {
+                $search: keyword
+            },
+            'status': config.TOUR_STATUS.REGISTERING,
+            isActive: true
+        }, '_id tourName description registerCost locationIds beginTime endTime cover status closeFeedbackTime closeRegisterTime durationTime',
+            { limit: 10 }, (err, data) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    arrTour = data;
+                }
+            });
+
+        res.status(200).json({
+            arrPost: arrPost,
+            arrTour: arrTour,
+            statusCode: 200
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(200).json({
+            arrPost: [],
+            arrTour: [],
+            statusCode: 404
         });
     }
 });

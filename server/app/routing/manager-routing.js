@@ -9,6 +9,7 @@ var ObjectId = require('mongodb').ObjectId;
 
 // Get app instance from index
 const app = require('../../index');
+const notificationService = require('../services/notification-service');
 
 // Routing - START
 /**
@@ -111,7 +112,7 @@ app.get('/manager/users-permission', async (req, res) => {
 app.patch('/manager/approve-post', async (req, res) => {
     const postId = req.body.postId;
     const status = req.body.status;
-
+    const userId = authentication.getTokenUserId(req.headers.authorization);
     if (status !== config.POST_STATUS.APPROVED) {
         res.status(403).json({
             message: 'Forbidden'
@@ -143,12 +144,24 @@ app.patch('/manager/approve-post', async (req, res) => {
                             'approvedTime': new Date()
                         };
                         database.updateDocumentByFilter(database.iTravelDB.Posts, idFilter, fieldChange)
-                            .then((updateResult) => {
+                            .then(async (updateResult) => {
                                 // matchedCount is defult result will be returned by mongodb
                                 if (updateResult.matchedCount === 1) {
                                     res.status(201).json({
                                         message: 'Approved Success'
                                     });
+                                    const post = await database.getOneWithProjection(
+                                        database.iTravelDB.Posts,
+                                        idFilter,
+                                        { title: 1 }
+                                    );
+                                    const sendNotiResult = await notificationService.sendNotification(
+                                        { content: `Bạn đã xem bài viết mới chưa - ${post.title}` },
+                                        userId
+                                    );
+                                    if(sendNotiResult.modifiedCount) {
+                                        console.log('send notification successful')
+                                    }
                                 } else {
                                     res.status(200).json({
                                         message: 'Not found post'

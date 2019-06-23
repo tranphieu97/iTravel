@@ -126,7 +126,7 @@ export const LangVietnamese: Language = {
     menuPlans: 'Kế hoạch',
     menuTrend: 'Xu hướng',
     menuPersonal: 'Cá nhân',
-    menuFilter: 'Bộ lọc',
+    menuFilter: 'Tìm kiếm',
     menuAbout: 'Về chúng tôi',
     menuItemTheNorth: 'Miền Bắc',
     menuItemTheCentral: 'Miền Trung',
@@ -271,7 +271,10 @@ export const LangVietnamese: Language = {
     filterFullCategory: 'Thể loại',
     filterFullKeyword: 'Từ khóa',
     filterFullRegion: 'Vùng miền',
-    filterFullFilter: 'Lọc'
+    filterFullFilter: 'Lọc',
+    posts: 'Bài viết',
+    tours: 'Chuyến đi',
+    enterSearch: 'Nhập nội dung tìm kiếm'
   },
 
   // For User Module

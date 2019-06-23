@@ -7,7 +7,8 @@
   </div>
   <hr>
   <div *ngIf="false" class="filter-row"></div>
-  <table class="table table-hover">
+  <app-loading *ngIf="isLoading"></app-loading>
+  <table class="table table-hover" *ngIf="!isLoading">
     <thead class="thead-light">
       <tr>
         <th>#</th>

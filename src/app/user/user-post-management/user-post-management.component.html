@@ -10,26 +10,32 @@
       <form class="form-inline">
         <div class="btn-group btn-group-toggle" ngbRadioGroup name="radioBasic" [(ngModel)]="chosenKindOfPost">
           <label ngbButtonLabel class="btn-primary">
-            <input ngbButton (click)="filterListPostByPostStatus('ANY')" type="radio" [value]="FLAG_KIND_OF_POST.ALL"> {{compLanguage.userPostManagementAllPost}}
+            <input ngbButton (click)="filterListPostByPostStatus('ANY')" type="radio" [value]="FLAG_KIND_OF_POST.ALL">
+            {{compLanguage.userPostManagementAllPost}}
           </label>
           <label ngbButtonLabel class="btn-success">
-            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.APPROVED)" type="radio" [value]="FLAG_KIND_OF_POST.APPROVED">{{compLanguage.userPostManagementApproved}}
+            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.APPROVED)" type="radio"
+              [value]="FLAG_KIND_OF_POST.APPROVED">{{compLanguage.userPostManagementApproved}}
           </label>
           <label ngbButtonLabel class="btn-warning">
-            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.PENDING)" type="radio" value="FLAG_KIND_OF_POST.PENDING">{{compLanguage.userPostManagementPending}}
+            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.PENDING)" type="radio"
+              value="FLAG_KIND_OF_POST.PENDING">{{compLanguage.userPostManagementPending}}
           </label>
           <label ngbButtonLabel class="btn-danger">
-            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.DENY)" type="radio" [value]="FLAG_KIND_OF_POST.DENIED">{{compLanguage.userPostManagementDenied}}
+            <input ngbButton (click)="filterListPostByPostStatus(this.constant.POST_STATUS.DENY)" type="radio"
+              [value]="FLAG_KIND_OF_POST.DENIED">{{compLanguage.userPostManagementDenied}}
           </label>
         </div>
 
         <div class="form-group">
           <label class="control-title">{{compLanguage.userPostManagementTablePostName}}:</label>
-          <input name="post-title" (input)="filterListPostByTypingKeyWord()" [(ngModel)]="searchKeyword" class="form-control" type="text" [placeholder]="compLanguage.userPostManagementEnterPostTitle">
+          <input name="post-title" (input)="filterListPostByTypingKeyWord()" [(ngModel)]="searchKeyword"
+            class="form-control" type="text" [placeholder]="compLanguage.userPostManagementEnterPostTitle">
         </div>
-        <div class="form-group">
+        <div class="form-group" *ngIf="false">
           <div ngbDropdown class="d-inline-block">
-            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{compLanguage.userPostManagementPostTimeTitle}}</button>
+            <button class="btn btn-outline-primary" id="dropdownBasic1"
+              ngbDropdownToggle>{{compLanguage.userPostManagementPostTimeTitle}}</button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
               <button class="dropdown-item">{{compLanguage.userPostManagementPostTimeOneWeek}}</button>
               <button class="dropdown-item">{{compLanguage.userPostManagementPostTimeOneMonth}}</button>
@@ -42,7 +48,8 @@
     <div *ngIf="this.hasError" class="alert alert-danger" role="alert">
       {{this.errorMessage}}
     </div>
-    <div class="post-management-table">
+    <app-loading *ngIf="isLoading"></app-loading>
+    <div class="post-management-table" *ngIf="!isLoading">
       <table class="table table-hover">
         <thead class="thead-light">
           <tr>
@@ -55,23 +62,34 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let post of listShowPost">
+          <tr *ngFor="let post of listShowPost | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
             <td>{{listShowPost.indexOf(post) + 1}}</td>
             <td><strong>{{post.title}}</strong></td>
             <td>{{post.createdTime | date}}</td>
             <td>{{post.categories}}</td>
-            <td [ngClass]="{'green-text': post.status.indexOf(this.constant.POST_STATUS.APPROVED) !== -1, 'red-text': post.status.indexOf(this.constant.POST_STATUS.DENY) !== -1, 'yellow-text': post.status.indexOf(this.constant.POST_STATUS.PENDING) !== -1}">
+            <td
+              [ngClass]="{'green-text': post.status.indexOf(this.constant.POST_STATUS.APPROVED) !== -1, 'red-text': post.status.indexOf(this.constant.POST_STATUS.DENY) !== -1, 'yellow-text': post.status.indexOf(this.constant.POST_STATUS.PENDING) !== -1}">
               <i class="fas fa-circle tiny-icon"></i> {{post.status | titlecase}}
             </td>
             <td class="action-cell">
-              <span class="action-icon" (click)="openPostViewDialog(postreview, post._id)" *ngIf="post.status.indexOf(this.constant.POST_STATUS.PENDING) !== -1 || post.status.indexOf(this.constant.POST_STATUS.DENY) !== -1"><i class="fas fa-eye"></i></span>
-              <span class="action-icon" [routerLink]="['/view-post/', post._id]" *ngIf="post.status.indexOf(this.constant.POST_STATUS.APPROVED) !== -1"><i class="fas fa-eye"></i></span>
-              <span class="action-icon" [routerLink]="['/create-post/', post._id]" *ngIf="post.status.indexOf(this.constant.POST_STATUS.PENDING) !== -1 || post.status.indexOf(this.constant.POST_STATUS.DENY) !== -1"><i class="far fa-edit"></i></span>
-              <span class="action-icon" (click)="openPostViewDialog(editconfirm, post._id)" *ngIf="post.status.indexOf(this.constant.POST_STATUS.APPROVED) !== -1"><i class="far fa-edit"></i></span>
+              <span class="action-icon" (click)="openPostViewDialog(postreview, post._id)"
+                *ngIf="post.status.indexOf(this.constant.POST_STATUS.PENDING) !== -1 || post.status.indexOf(this.constant.POST_STATUS.DENY) !== -1"><i
+                  class="fas fa-eye"></i></span>
+              <span class="action-icon" [routerLink]="['/view-post/', post._id]"
+                *ngIf="post.status.indexOf(this.constant.POST_STATUS.APPROVED) !== -1"><i class="fas fa-eye"></i></span>
+              <span class="action-icon" [routerLink]="['/create-post/', post._id]"
+                *ngIf="post.status.indexOf(this.constant.POST_STATUS.PENDING) !== -1 || post.status.indexOf(this.constant.POST_STATUS.DENY) !== -1"><i
+                  class="far fa-edit"></i></span>
+              <span class="action-icon" (click)="openPostViewDialog(editconfirm, post._id)"
+                *ngIf="post.status.indexOf(this.constant.POST_STATUS.APPROVED) !== -1"><i
+                  class="far fa-edit"></i></span>
             </td>
           </tr>
         </tbody>
       </table>
+    </div>
+    <div class="flex-row flex-justify-end" *ngIf="!isLoading">
+      <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="listShowPost.length"></ngb-pagination>
     </div>
   </div>
 </div>
@@ -88,7 +106,8 @@
     <app-post id="review-post" [postId]="postViewId"></app-post>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close()">{{this.compLanguage.postManagementPostViewOk}}</button>
+    <button type="button" class="btn btn-outline-dark"
+      (click)="modal.close()">{{this.compLanguage.postManagementPostViewOk}}</button>
   </div>
 </ng-template>
 
@@ -100,10 +119,12 @@
     </button>
   </div>
   <div class="modal-body review-post-body">
-      {{this.compLanguage.userPostManagementEditMessage}}
+    {{this.compLanguage.userPostManagementEditMessage}}
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-danger" (click)="modal.close()">{{this.compLanguage.userPostManagementEditCancel}}</button>
-    <button type="button" class="btn btn-success" [routerLink]="['/create-post/', postViewId]" (click)="modal.close()" >{{this.compLanguage.userPostManagementEditOK}}</button>
+    <button type="button" class="btn btn-danger"
+      (click)="modal.close()">{{this.compLanguage.userPostManagementEditCancel}}</button>
+    <button type="button" class="btn btn-success" [routerLink]="['/create-post/', postViewId]"
+      (click)="modal.close()">{{this.compLanguage.userPostManagementEditOK}}</button>
   </div>
 </ng-template>

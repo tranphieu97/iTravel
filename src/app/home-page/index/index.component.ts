@@ -25,6 +25,12 @@ export class IndexComponent implements OnInit {
   arrPendingTour: Array<CardViewTour> = [];
   arrRegisteringTour: Array<CardViewTour> = [];
 
+  pagePendingTour: Number = 1;
+  pageSizePendingTour: Number = 8;
+
+  pageRegisteringTour: Number = 1;
+  pageSizeRegisteringTour: Number = 10;
+
   compLanguage;
   commonLanguage;
   TOUR_STATUS: ConstTourStatus = new ConstTourStatus();
