@@ -129,7 +129,7 @@ export const LangEnglish: Language = {
     menuCuisine: 'Cuisine',
     menuPlans: 'Plans',
     menuTrend: 'Trend',
-    menuFilter: 'Filter',
+    menuFilter: 'Search',
     menuPersonal: 'Personal',
     menuAbout: 'About Us',
     menuItemTheNorth: 'The North',

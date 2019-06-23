@@ -126,7 +126,7 @@ export const LangVietnamese: Language = {
     menuPlans: 'Kế hoạch',
     menuTrend: 'Xu hướng',
     menuPersonal: 'Cá nhân',
-    menuFilter: 'Bộ lọc',
+    menuFilter: 'Tìm kiếm',
     menuAbout: 'Về chúng tôi',
     menuItemTheNorth: 'Miền Bắc',
     menuItemTheCentral: 'Miền Trung',
