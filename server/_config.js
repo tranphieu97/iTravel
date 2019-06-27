@@ -2,11 +2,17 @@ const {
     DB_USERNAME,
     DB_PASSWORD,
     DB_NAME,
+    DB_PORT,
+    ENV,
+    ENV_LOCAL,
+    ENV_CLOUD,
     DB_HOST,
     SECRET_KEY,
     PUBLIC_KEY
 } = require('./secret-info/secret')
-const db_host = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}/`;
+const db_host = ENV === ENV_CLOUD 
+    ? `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}/`
+    : `mongodb://${DB_HOST}:${DB_PORT}/`
 const db_name = DB_NAME;
 const CONNECTION_STRING = db_host + db_name;
 
