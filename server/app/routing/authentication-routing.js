@@ -10,6 +10,7 @@ const User = require('../../model/user.model').User;
 
 // Get app instance from index
 const app = require('../../index');
+const UserInterestService = require('../services/userInterest.service');
 
 // Routing - START
 /**
@@ -190,7 +191,7 @@ app.post('/auth/login', async (req, res) => {
                             };
 
                             authentication.insertUserSignInLog(userInfo.username);
-
+                            UserInterestService.updateUserInterest(userInfo._id);
                             jwt.sign(userData, config.SECRET_KEY, { expiresIn: '23h' }, (err, jwtToken) => {
                                 res.status(201).json({
                                     message: 'Login success!',

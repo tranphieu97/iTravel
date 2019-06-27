@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit, OnDestroy } from '@angular/core';
 import { Tour } from 'src/app/model/tour.model';
 import { ServerService } from 'src/app/core/services/server.service';
 import { LanguageService } from 'src/app/core/services/language.service';
@@ -12,7 +12,7 @@ import { MembersService } from 'src/app/core/services/members.service';
   templateUrl: './tour-view.component.html',
   styleUrls: ['./tour-view.component.scss']
 })
-export class TourViewComponent implements OnInit {
+export class TourViewComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input() tourId: string;
   public tourModel: Tour;
@@ -37,6 +37,7 @@ export class TourViewComponent implements OnInit {
 
   compLanguage;
   commonLanguage;
+  timeOut;
 
   ngOnInit() {
     this.compLanguage = this.language.currentLanguage.compTourView;
@@ -47,6 +48,22 @@ export class TourViewComponent implements OnInit {
     });
 
     this.getTour();
+  }
+
+  ngAfterViewInit() {
+    this.timeOut = setTimeout(() => {
+      if (this.TOUR_STATUS.REGISTERING === this.tourModel.status) {
+        this.server.updateTourInterest(this.tourId, 17).subscribe(() => {
+          console.log('add point for view tour');
+        });
+      }
+    }, 10000);
+  }
+
+  ngOnDestroy() {
+    if (this.timeOut) {
+      clearTimeout(this.timeOut);
+    }
   }
 
   getTour() {

@@ -119,6 +119,13 @@ export class RegisteringFormComponent implements OnInit {
     }
   }
 
+  showFormRegister() {
+    this.isShowFormRegister = true;
+    this.server.updateTourInterest(this.tourId, 60).subscribe(() => {
+      console.log('add point for click register');
+    });
+  }
+
   open(content) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
   }
