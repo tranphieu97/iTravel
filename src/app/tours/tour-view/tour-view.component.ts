@@ -53,9 +53,7 @@ export class TourViewComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     this.timeOut = setTimeout(() => {
       if (this.TOUR_STATUS.REGISTERING === this.tourModel.status) {
-        this.server.updateTourInterest(this.tourId, 17).subscribe(() => {
-          console.log('add point for view tour');
-        });
+        this.server.updateTourInterest(this.tourId, 17).subscribe();
       }
     }, 10000);
   }

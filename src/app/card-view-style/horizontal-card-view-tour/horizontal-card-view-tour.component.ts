@@ -29,9 +29,7 @@ export class HorizontalCardViewTourComponent implements OnInit {
   @HostListener('click') onclick() {
     // update point
     if (this.router.url === '/filter/all' && this.tourCardViewModel.status === this.TOUR_STATUS.REGISTERING) {
-      this.serverService.updateTourInterest(this.tourCardViewModel._id, 50).subscribe(() => {
-        console.log('add point for search');
-      });
+      this.serverService.updateTourInterest(this.tourCardViewModel._id, 50).subscribe();
     }
     this.router.navigate(['/tours/registering/', this.tourCardViewModel._id]);
   }

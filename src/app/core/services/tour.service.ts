@@ -21,4 +21,21 @@ export class TourService {
       this.dicLocation.add(locationId, locationName);
     }
   }
+
+  applyInterest(listRawTour, interestData): any {
+    // apply interest
+    const interestTours = [];
+    const normalTours = [];
+    for (const tour of listRawTour) {
+      const interestItemOfThisTour = interestData.find(interestItem => interestItem.tourId === tour._id);
+      if (interestItemOfThisTour) {
+        tour.point = interestItemOfThisTour.point;
+        interestTours.push(tour);
+      } else {
+        normalTours.push(tour);
+      }
+    }
+    interestTours.sort((tour1, tour2) => tour2.point - tour1.point);
+    return [...interestTours, ...normalTours];
+  }
 }
