@@ -9,7 +9,7 @@
   <div class="member-list">
     <div *ngFor="let member of tourData.members; let i=index"
       [ngClass]="{canceled: member.cancelTime}"
-      class="member-item p-3">
+      class="member-item p-3 m-2">
       <div class="avatar"
         [ngStyle]="{'background-image': 'url('+tourMemberInfo[i].basicInfo.avatar+')'}">
       </div>
