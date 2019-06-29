@@ -2,6 +2,7 @@ import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { Tour } from 'src/app/model/tour.model';
 import { ServerService } from 'src/app/core/services/server.service';
 import { LanguageService } from 'src/app/core/services/language.service';
+import { ConstTourStatus } from 'src/app/constants';
 
 @Component({
   selector: 'app-tour-schedule',
@@ -19,6 +20,7 @@ export class TourScheduleComponent implements OnInit, AfterViewInit {
     };
   }[][] = [];
   compLanguage;
+  TOUR_STATUS = new ConstTourStatus();
 
   constructor(
     private serverService: ServerService,

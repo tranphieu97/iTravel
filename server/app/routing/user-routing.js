@@ -14,6 +14,8 @@ const { Tour } = require('../../model/mongoose/models')
 const app = require('../../index');
 const tourService = require('../services/tour-service');
 const notificationService = require('../services/notification-service');
+const userInterestService = require('../services/userInterest.service');
+const UserInterestService = require('../services/userInterest.service');
 
 // Routing - START
 /**
@@ -213,6 +215,7 @@ app.post('/user/token-login', async (req, res) => {
                             isTourguide: isTourguide
                         }
                         authentication.insertUserSignInLog(userInfo.username);
+                        UserInterestService.updateUserInterest(userInfo._id);
                         jwt.sign(userData, config.SECRET_KEY, { expiresIn: '23h' }, (err, jwtToken) => {
                             res.status(201).json({
                                 message: 'Login success!',
@@ -793,6 +796,49 @@ app.patch('/user/update-cancel-tour', async (req, res) => {
     } catch (error) {
         console.log('update-cancel-tour failed');
         res.status(200).json({
+            message: error.message,
+            statusCode: 500
+        });
+    }
+});
+
+/**
+ * @author Thong
+ */
+app.patch('/user/update-tour-interest-point', async (req, res) => {
+    try {
+        const tourId = req.body.tourId
+        const value = req.body.value
+        const userId = authentication.getTokenUserId(req.headers.authorization);
+        
+        await userInterestService.updateTourInterestPoint(userId, tourId, value);
+
+        res.status(200).json({
+            message: 'Success'
+        });
+    } catch (error) {
+        console.log('update point failed');
+        res.json({
+            message: error.message,
+            statusCode: 500
+        });
+    }
+});
+
+/**
+ * @author Thong
+ */
+app.get('/user/get-tour-interest', async (req, res) => {
+    try {
+        const userId = authentication.getTokenUserId(req.headers.authorization);
+        const listTour = await userInterestService.findTourInterestByUser(userId);
+        res.status(200).json({
+            message: 'Success',
+            data: listTour
+        });
+    } catch (error) {
+        console.log('update point failed');
+        res.json({
             message: error.message,
             statusCode: 500
         });

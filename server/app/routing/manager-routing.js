@@ -156,7 +156,10 @@ app.patch('/manager/approve-post', async (req, res) => {
                                         { title: 1 }
                                     );
                                     const sendNotiResult = await notificationService.sendNotification(
-                                        { content: `Bạn đã xem bài viết mới chưa - ${post.title}` },
+                                        { 
+                                            content: `Bạn đã xem bài viết mới chưa - ${post.title}`,
+                                            linkTo: `/view-post/${postId}`
+                                        },
                                         userId
                                     );
                                     if(sendNotiResult.modifiedCount) {
