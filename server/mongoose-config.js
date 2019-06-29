@@ -12,7 +12,8 @@ const {
 
 const localUrl = `mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`;
 const cloudUrl = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`;
-const url = ENV === ENV_CLOUD ? cloudUrl : localUrl;
+//const url = ENV === ENV_CLOUD ? cloudUrl : localUrl;
+const url = cloudUrl;
 mongoose.connect(url, {
     useNewUrlParser: true
 });
