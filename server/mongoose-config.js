@@ -3,13 +3,14 @@ const {
     DB_USERNAME,
     DB_PASSWORD,
     DB_NAME,
+    DB_PORT,
     ENV,
     ENV_LOCAL,
     ENV_CLOUD,
     DB_HOST
 } = require('./secret-info/secret')
 
-const localUrl = `mongodb://localhost:27017/${DB_NAME}`;
+const localUrl = `mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}`;
 const cloudUrl = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`;
 const url = ENV === ENV_CLOUD ? cloudUrl : localUrl;
 mongoose.connect(url, {

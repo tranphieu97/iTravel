@@ -127,7 +127,10 @@ app.post('/tourguide/create-tour', async (req, res) => {
             statusCode: 201
         });
         const sendNotiResult = await notificationService.sendNotification(
-            { content: `Có tour mới đang cần góp ý - ${newTour.tourName}` },
+            { 
+                content: `Có tour mới đang cần góp ý - ${newTour.tourName}`,
+                linkTo: `/tours/building/${newTour._id.toString()}`
+            },
             userId
         );
         if(sendNotiResult.modifiedCount) {
@@ -265,7 +268,10 @@ app.patch('/tourguide/update-tour-status', async (req, res) => {
                 { tourName: 1 }
             );
             const sendNotiResult = await notificationService.sendNotification(
-                { content: `Bạn có muốn tham gia tour mới ${tour.tourName}` },
+                {
+                    content: `Bạn có muốn tham gia tour mới ${tour.tourName}`,
+                    linkTo: `/tours/registering/${updateInfo._id.toString()}`
+                },
                 userId
             );
             if(sendNotiResult.modifiedCount) {

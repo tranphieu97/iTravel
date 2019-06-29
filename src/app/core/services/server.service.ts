@@ -456,6 +456,21 @@ export class ServerService {
   }
 
   /**
+   * @author Thong
+   * @param tourId string
+   * @param value number
+   */
+  updateTourInterest(tourId: string, value: number) {
+    return this.http.patch<{ message: string }>(this.HOST + 'user/update-tour-interest-point', {
+      tourId, value
+    });
+  }
+
+  getTourInterest() {
+    return this.http.get<{ message: string, data: any, statusCode: number}>(this.HOST + 'user/get-tour-interest');
+  }
+
+  /**
    * Get user post by UserId
    * @name getPostByAuthorUser
    * @author phieu-th

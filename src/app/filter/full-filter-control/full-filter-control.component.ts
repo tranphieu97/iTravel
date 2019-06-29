@@ -7,6 +7,7 @@ import { CardViewPost } from 'src/app/model/cardViewPost.model';
 import { CardViewTour } from 'src/app/model/card-view-tour.model';
 import { SearchHistory } from 'src/app/model/searchHistory.model';
 import { UserService } from 'src/app/core/services/user.service';
+import { TourService } from 'src/app/core/services/tour.service';
 
 @Component({
   selector: 'app-full-filter-control',
@@ -22,7 +23,7 @@ export class FullFilterControlComponent implements OnInit {
 
   compLanguage;
   constructor(public language: LanguageService, private searchService: SearchService, private server: ServerService,
-    private userService: UserService) { }
+    private userService: UserService, private tourService: TourService) { }
 
   ngOnInit() {
     this.compLanguage = this.language.currentLanguage.pageFilter;
@@ -41,7 +42,12 @@ export class FullFilterControlComponent implements OnInit {
       this.isLoading = true;
       this.server.searchByKeyword(this.keyword).subscribe(res => {
         this.arrPosts = res.arrPost;
-        this.arrTours = res.arrTour;
+        this.server.getTourInterest().subscribe(interestRes => {
+          if (interestRes.data) {
+            // apply interest
+            this.arrTours = this.tourService.applyInterest(res.arrTour, interestRes.data);
+          }
+        });
         this.isLoading = false;
       });
 

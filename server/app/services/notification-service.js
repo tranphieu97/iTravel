@@ -38,7 +38,6 @@ exports.sendNotificationOld = async (fromId, toId, content, linkTo) => {
 /**
  * @param notificationItem from?, to?, content, linkTo?, type?
  * @param fromId string
- * @param content string
  * @param toIds string[] | null(if send all)
  */
 exports.sendNotification = async (notificationItem, userId, toIds = '') => {

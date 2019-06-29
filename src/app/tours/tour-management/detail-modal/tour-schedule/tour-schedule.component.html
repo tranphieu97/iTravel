@@ -39,7 +39,7 @@
         [ngStyle]="{'background-image': 'url(' + memInfo.info.avatar + ')'}">
       </div>
     </div>
-    <span *ngIf="schedule.cost"><b>{{compLanguage.scheduleCost+':'}}
+    <span *ngIf="tourData.status === TOUR_STATUS.PENDING && schedule.cost"><b>{{compLanguage.scheduleCost+':'}}
       </b>{{schedule.cost | currency:'VND'}}</span>
     <span
       *ngIf="schedule.note"><b>{{compLanguage.note+': '}}</b>{{schedule.note}}</span>

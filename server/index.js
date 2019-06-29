@@ -49,13 +49,47 @@ app.use((req, res, next) => {
     }
 
     // Request to pages need to login account
-    if (url.indexOf('/api/') === -1 && url.indexOf('/auth/') === -1 && (token === null || token === undefined)) {
+    // if (url.indexOf('/api/') === -1 && url.indexOf('/auth/') === -1 && (token === null || token === undefined)) {
+    //     res.status(401).json({
+    //         message: 'Unauthorized'
+    //     });
+    // } else {
+
+    //     // Request to page need admin permission
+    //     if (url.indexOf('/manager/') !== -1) {
+    //         authentication.isSpecifiedPermissionRequest(req, config.USER_PERMISSION.ADMIN)
+    //             .then((isRequestedByAdmin) => {
+    //                 if (isRequestedByAdmin) {
+    //                     next();
+    //                 } else {
+    //                     res.status(401).json({
+    //                         message: 'Unauthorized'
+    //                     });
+    //                 }
+    //             });
+    //     } else if (url.indexOf('/user/') !== -1) {
+    //         authentication.isSpecifiedPermissionRequest(req, config.USER_PERMISSION.MEMBER)
+    //             .then((isRequestedByMember) => {
+    //                 if (isRequestedByMember) {
+    //                     next();
+    //                 } else {
+    //                     res.status(401).json({
+    //                         message: 'Unauthorized'
+    //                     });
+    //                 }
+    //             });
+    //     } else {
+    //         next();
+    //     }
+    // }
+
+    // APIs always require Token
+    if ((url.includes('/manager/') || url.includes('/tourguide/') || url.includes('/user/')) && !token) {
         res.status(401).json({
             message: 'Unauthorized'
         });
     } else {
-
-        // Request to page need admin permission
+        // Check valid token
         if (url.indexOf('/manager/') !== -1) {
             authentication.isSpecifiedPermissionRequest(req, config.USER_PERMISSION.ADMIN)
                 .then((isRequestedByAdmin) => {
@@ -71,6 +105,17 @@ app.use((req, res, next) => {
             authentication.isSpecifiedPermissionRequest(req, config.USER_PERMISSION.MEMBER)
                 .then((isRequestedByMember) => {
                     if (isRequestedByMember) {
+                        next();
+                    } else {
+                        res.status(401).json({
+                            message: 'Unauthorized'
+                        });
+                    }
+                });
+        } else if (url.indexOf('/tourguide/') !== -1) {
+            authentication.isSpecifiedPermissionRequest(req, config.USER_PERMISSION.TOURGUIDE)
+                .then((isRequestedByTourguide) => {
+                    if (isRequestedByTourguide) {
                         next();
                     } else {
                         res.status(401).json({
