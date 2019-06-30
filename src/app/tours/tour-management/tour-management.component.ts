@@ -65,6 +65,16 @@ export class TourManagementComponent implements OnInit {
     this.isLoadingTours = true;
     this.server.getTours().subscribe(res => {
       this.tours = res.data ? res.data : [];
+      this.tours.sort((tour1, tour2) => {
+        if ((tour1.status === this.tourStatus.FINISHED && tour2.status === this.tourStatus.FINISHED)
+          || (tour1.status !== this.tourStatus.FINISHED && tour2.status !== this.tourStatus.FINISHED)) {
+          const tour1CreationTime = new Date(tour1.creationTime);
+          const tour2CreationTime = new Date(tour2.creationTime);
+          return tour1CreationTime > tour2CreationTime ? -1 : 1;
+        } else {
+          return tour1.status === this.tourStatus.FINISHED ? 1 : -1;
+        }
+      });
       this.tourGuides = this.tours.map(tour => ({
         firstName: '',
         lastName: ''

@@ -49,9 +49,17 @@ export class UserTourComponent implements OnInit {
   fetchTour() {
     this.isLoading = true;
     this.serverService.getToursByUser(true).subscribe(res => {
-      if (res.data) {
-        this.tours = res.data;
-      }
+      this.tours = res.data ? res.data : [];
+      this.tours.sort((tour1, tour2) => {
+        if ((tour1.status === this.tourStatus.FINISHED && tour2.status === this.tourStatus.FINISHED)
+          || (tour1.status !== this.tourStatus.FINISHED && tour2.status !== this.tourStatus.FINISHED)) {
+          const tour1CreationTime = new Date(tour1.creationTime);
+          const tour2CreationTime = new Date(tour2.creationTime);
+          return tour1CreationTime > tour2CreationTime ? -1 : 1;
+        } else {
+          return tour1.status === this.tourStatus.FINISHED ? 1 : -1;
+        }
+      });
       this.isLoading = false;
     });
   }
