@@ -1,97 +1,196 @@
 @import "src/styles.scss";
 
-:host {
-  width: 100%;
-  height: fit-content;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: stretch;
-
-  border-bottom: 1px solid $SECONDARY;
-
-  cursor: pointer;
-
-  .cover {
-    max-width: 200px;
+@media (min-width: 768px) {
+  :host {
+    width: 100%;
     height: fit-content;
-    display: block;
-    padding: 3px;
-    border: 1px solid $SECONDARY;
 
-    img {
-      width: 100%;
-      height: auto;
-    }
-  }
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
 
-  .summary {
-      padding: 5px;
+    border-bottom: 1px solid $SECONDARY;
 
-    h1 {
-        font-size: 18px;
-        font-weight: 700;
-        margin: 3px 0;
-    }
+    cursor: pointer;
 
-    .tour-location {
-      font-size: 14px;
-      font-weight: 600;
-      margin: 5px;
+    .cover {
+      max-width: 200px;
+      height: fit-content;
+      display: block;
+      padding: 3px;
+      border: 1px solid $SECONDARY;
 
-      span {
-        color: red;
-
-        i {
-          font-size: 14px;
-        }
+      img {
+        width: 100%;
+        height: auto;
       }
     }
 
-    .time {
+    .summary {
+      padding: 5px;
+
+      h1 {
+        font-size: 18px;
+        font-weight: 700;
+        margin: 3px 0;
+      }
+
+      .tour-location {
+        font-size: 14px;
+        font-weight: 600;
+        margin: 5px;
+
+        span {
+          color: red;
+
+          i {
+            font-size: 14px;
+          }
+        }
+      }
+
+      .time {
         font-size: 15px;
         font-weight: 600;
         margin-right: 5px;
         color: orangered;
+      }
+
+      .description {
+        text-align: justify;
+        max-height: 40px;
+        overflow: hidden;
+        margin: 0;
+      }
     }
 
-    .description {
-      text-align: justify;
-      max-height: 40px;
-      overflow: hidden;
-      margin: 0;
-    }
-  }
+    .sub-info {
+      width: 120px;
+      border-left: 1px solid $SECONDARY;
+      border-right: 1px solid $SECONDARY;
+      padding: 5px;
 
-  .sub-info {
-    width: 120px;
-    border-left: 1px solid $SECONDARY;
-    border-right: 1px solid $SECONDARY;
-    padding: 5px;
-
-    .cost {
+      .cost {
         font-size: 16px;
         color: green;
         font-weight: 600;
         text-align: center;
+      }
+    }
+  }
+
+  :host:hover {
+    background-color: $SECONDARY;
+    border-bottom: 1px solid $GRAY;
+    border-top: 1px solid $GRAY;
+
+    .summary {
+      h1 {
+        color: blue;
+      }
+    }
+    .sub-info {
+      border-left: 1px solid $GRAY;
+      border-right: 1px solid $GRAY;
     }
   }
 }
+@media (min-width: 320px) and (max-width: 767px) {
+  :host {
+    width: 100%;
+    height: fit-content;
 
-:host:hover {
-  background-color: $SECONDARY;
-  border-bottom: 1px solid $GRAY;
-  border-top: 1px solid $GRAY;
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
 
+    border-bottom: 1px solid $SECONDARY;
 
-  .summary {
+    cursor: pointer;
 
-    h1 {
-        color: blue;
+    #tour-cover {
+      display: none !important;
+    }
+
+    .cover {
+      max-width: 200px;
+      height: fit-content;
+      display: block;
+      padding: 3px;
+      border: 1px solid $SECONDARY;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    .summary {
+      padding: 5px;
+
+      h1 {
+        font-size: 18px;
+        font-weight: 700;
+        margin: 3px 0;
+      }
+
+      .tour-location {
+        font-size: 14px;
+        font-weight: 600;
+        margin: 5px;
+
+        span {
+          color: red;
+
+          i {
+            font-size: 14px;
+          }
+        }
+      }
+
+      .time {
+        font-size: 15px;
+        font-weight: 600;
+        margin-right: 5px;
+        color: orangered;
+      }
+
+      .description {
+        text-align: justify;
+        max-height: 40px;
+        overflow: hidden;
+        margin: 0;
+      }
+    }
+
+    .sub-info {
+      width: 100px;
+      border-left: 1px solid $SECONDARY;
+      border-right: 1px solid $SECONDARY;
+      padding: 5px;
+
+      .cost {
+        font-size: 16px;
+        color: green;
+        font-weight: 600;
+        text-align: center;
+      }
     }
   }
-  .sub-info {
-    border-left: 1px solid $GRAY;
-    border-right: 1px solid $GRAY;
+
+  :host:hover {
+    background-color: $SECONDARY;
+    border-bottom: 1px solid $GRAY;
+    border-top: 1px solid $GRAY;
+
+    .summary {
+      h1 {
+        color: blue;
+      }
+    }
+    .sub-info {
+      border-left: 1px solid $GRAY;
+      border-right: 1px solid $GRAY;
+    }
   }
 }
