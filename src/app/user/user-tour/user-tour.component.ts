@@ -7,6 +7,7 @@ import { LanguageService } from 'src/app/core/services/language.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DetailModalComponent } from 'src/app/tours/tour-management/detail-modal/detail-modal.component';
 import { ConfirmModalComponent } from 'src/app/shared/confirm-modal/confirm-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-tour',
@@ -29,7 +30,8 @@ export class UserTourComponent implements OnInit {
     private languageService: LanguageService,
     private userService: UserService,
     private serverService: ServerService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -38,6 +40,9 @@ export class UserTourComponent implements OnInit {
       () =>
         (this.compLanguage = this.languageService.currentLanguage.compUserTour)
     );
+    this.userService.hasChangeUser.subscribe(() => {
+      this.router.navigate(['/home']);
+    });
     this.fetchTour();
   }
 

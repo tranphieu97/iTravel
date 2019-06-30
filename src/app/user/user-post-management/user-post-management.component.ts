@@ -52,6 +52,9 @@ export class UserPostManagementComponent implements OnInit {
     this.language.hasChangeLanguage.subscribe(() => {
       this.compLanguage = {...this.language.currentLanguage.compUserPostManagement};
     });
+    this.user.hasChangeUser.subscribe(() => {
+      this.router.navigate(['/home']);
+    });
   }
 
   /**

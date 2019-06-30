@@ -118,6 +118,9 @@ export class CreatePostComponent implements OnInit {
       this.compLanguage = this.language.currentLanguage.compCreatePost;
       this.changeLanguage();
     });
+    this.user.hasChangeUser.subscribe(() => {
+      this.router.navigate(['/home']);
+    });
 
     // subscribe when hasNewImage
     this.subscribeHasNewImage();
@@ -435,9 +438,5 @@ export class CreatePostComponent implements OnInit {
       this.validateObject.validateAddress.maxLength.status = true;
       return '';
     }
-  }
-
-  onTest() {
-    this.router.navigate(['/create-post', '5c1a4602f0491d2a9c8a2ff7']);
   }
 }

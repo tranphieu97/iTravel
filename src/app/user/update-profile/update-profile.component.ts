@@ -7,6 +7,7 @@ import { ProvinceCity } from 'src/app/model/province-city.model';
 import { ProvinceCityService } from 'src/app/core/services/province-city.service';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { DateStructService } from 'src/app/core/services/date-struct.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-update-profile',
@@ -30,7 +31,7 @@ export class UpdateProfileComponent implements OnInit {
   commonLanguage;
 
   constructor(private server: ServerService, private userService: UserService, public language: LanguageService,
-    private provinceService: ProvinceCityService, private dateStructService: DateStructService) { }
+    private provinceService: ProvinceCityService, private dateStructService: DateStructService, private router: Router) { }
 
   ngOnInit() {
     this.compLanguage = this.language.currentLanguage.compUpdateProfile;
@@ -38,6 +39,10 @@ export class UpdateProfileComponent implements OnInit {
     this.language.hasChangeLanguage.subscribe(() => {
       this.compLanguage = this.language.currentLanguage.compUpdateProfile;
       this.commonLanguage = this.language.currentLanguage.common;
+    });
+
+    this.userService.hasChangeUser.subscribe(() => {
+      this.router.navigate(['/home']);
     });
 
     this.userId = this.userService.getUserId();

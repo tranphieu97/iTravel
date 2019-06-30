@@ -77,6 +77,9 @@ export class AddTourComponent implements OnInit {
       this.compLanguage = this.language.currentLanguage.compAddTour;
       this.commonLanguage = this.language.currentLanguage.common;
     });
+    this.userService.hasChangeUser.subscribe(() => {
+      this.router.navigate(['/home']);
+    });
 
     this.addTourService.setupTour();
     this.stepperService.setMaxStep(4);
