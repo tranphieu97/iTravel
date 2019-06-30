@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LanguageService } from 'src/app/core/services/language.service';
 // tslint:disable-next-line:max-line-length
 import { NgbDateStruct, NgbModal, NgbTimeStruct, NgbTimepickerConfig, NgbDate } from '@ng-bootstrap/ng-bootstrap';
@@ -23,7 +23,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-tour.component.scss'],
   providers: [NgbTimepickerConfig]
 })
-export class AddTourComponent implements OnInit {
+export class AddTourComponent implements OnInit, OnDestroy {
 
   public startDate: NgbDate;
   public endDate: NgbDate;
@@ -61,6 +61,7 @@ export class AddTourComponent implements OnInit {
 
   compLanguage;
   commonLanguage;
+  logoutSubscription;
 
   constructor(public language: LanguageService, private timepickerConfig: NgbTimepickerConfig,
     private provinceService: ProvinceCityService, private server: ServerService, private modal: NgbModal,
@@ -76,6 +77,9 @@ export class AddTourComponent implements OnInit {
     this.language.hasChangeLanguage.subscribe(() => {
       this.compLanguage = this.language.currentLanguage.compAddTour;
       this.commonLanguage = this.language.currentLanguage.common;
+    });
+    this.logoutSubscription = this.userService.hasChangeUser.subscribe(() => {
+      this.router.navigate(['/home']);
     });
 
     this.addTourService.setupTour();
@@ -149,6 +153,10 @@ export class AddTourComponent implements OnInit {
         this.tourModel.preparations.splice(index, 1);
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.logoutSubscription.unsubscribe();
   }
 
   selectProvince(province: ProvinceCity) {
@@ -303,6 +311,7 @@ export class AddTourComponent implements OnInit {
         this.tourModel.endTime = this.dateStructService.getDateFromDateTimeStruct(this.endDate, this.endTime);
         this.tourModel.closeFeedbackTime = this.dateStructService.getDateFromDateTimeStruct(this.feedbackDeadline, this.feedbackTime);
         this.tourModel.closeRegisterTime = this.dateStructService.getDateFromDateTimeStruct(this.registerDeadline, this.registerTime);
+        // tslint:disable-next-line: max-line-length
         this.tourModel.durationTime = ((this.dateStructService.getDateFromDateStruct(this.endDate).valueOf() - this.dateStructService.getDateFromDateStruct(this.startDate).valueOf()) / 86400000) + 1;
         this.tourModel.locationIds = this.arrSelectedLocation.map(x => x._id);
 

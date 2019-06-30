@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LanguageService } from '../../core/services/language.service';
 import { ConstantService } from '../../core/services/constant.service';
 import { ServerService } from '../../core/services/server.service';
@@ -12,7 +12,7 @@ import { Router, RouterLink } from '@angular/router';
   templateUrl: './user-post-management.component.html',
   styleUrls: ['./user-post-management.component.scss']
 })
-export class UserPostManagementComponent implements OnInit {
+export class UserPostManagementComponent implements OnInit, OnDestroy {
 
   FLAG_KIND_OF_POST: any = {
     ALL: 'All',
@@ -41,6 +41,7 @@ export class UserPostManagementComponent implements OnInit {
 
   page: Number = 1;
   pageSize: Number = 8;
+  logoutSubscription;
 
   compLanguage;
   constructor(public language: LanguageService, public constant: ConstantService, private server: ServerService,
@@ -52,6 +53,13 @@ export class UserPostManagementComponent implements OnInit {
     this.language.hasChangeLanguage.subscribe(() => {
       this.compLanguage = {...this.language.currentLanguage.compUserPostManagement};
     });
+    this.logoutSubscription = this.user.hasChangeUser.subscribe(() => {
+      this.router.navigate(['/home']);
+    });
+  }
+
+  ngOnDestroy() {
+    this.logoutSubscription.unsubscribe();
   }
 
   /**

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ServerService } from 'src/app/core/services/server.service';
 import { User } from 'src/app/model/user.model';
 import { UserService } from 'src/app/core/services/user.service';
@@ -7,13 +7,14 @@ import { ProvinceCity } from 'src/app/model/province-city.model';
 import { ProvinceCityService } from 'src/app/core/services/province-city.service';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { DateStructService } from 'src/app/core/services/date-struct.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-update-profile',
   templateUrl: './update-profile.component.html',
   styleUrls: ['./update-profile.component.scss']
 })
-export class UpdateProfileComponent implements OnInit {
+export class UpdateProfileComponent implements OnInit, OnDestroy {
 
   public isUploading: Boolean = false;
   public isLoading: Boolean = false;
@@ -28,9 +29,10 @@ export class UpdateProfileComponent implements OnInit {
 
   compLanguage;
   commonLanguage;
+  logoutSubscription;
 
   constructor(private server: ServerService, private userService: UserService, public language: LanguageService,
-    private provinceService: ProvinceCityService, private dateStructService: DateStructService) { }
+    private provinceService: ProvinceCityService, private dateStructService: DateStructService, private router: Router) { }
 
   ngOnInit() {
     this.compLanguage = this.language.currentLanguage.compUpdateProfile;
@@ -38,6 +40,10 @@ export class UpdateProfileComponent implements OnInit {
     this.language.hasChangeLanguage.subscribe(() => {
       this.compLanguage = this.language.currentLanguage.compUpdateProfile;
       this.commonLanguage = this.language.currentLanguage.common;
+    });
+
+    this.logoutSubscription = this.userService.hasChangeUser.subscribe(() => {
+      this.router.navigate(['/home']);
     });
 
     this.userId = this.userService.getUserId();
@@ -51,6 +57,10 @@ export class UpdateProfileComponent implements OnInit {
     } else {
       this.arrProvince = this.provinceService.allProvinceCity;
     }
+  }
+
+  ngOnDestroy() {
+    this.logoutSubscription.unsubscribe();
   }
 
   getUserInfo() {

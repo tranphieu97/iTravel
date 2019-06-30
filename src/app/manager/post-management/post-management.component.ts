@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LanguageService } from '../../core/services/language.service';
 import { NgbDateStruct, NgbCalendar, NgbDate, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ServerService } from '../../core/services/server.service';
 import { ConstantService } from 'src/app/core/services/constant.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UserService } from 'src/app/core/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post-management',
   templateUrl: './post-management.component.html',
   styleUrls: ['./post-management.component.scss']
 })
-export class PostManagementComponent implements OnInit {
+export class PostManagementComponent implements OnInit, OnDestroy {
 
   startDate: NgbDateStruct;
   endDate: NgbDateStruct;
@@ -39,8 +41,11 @@ export class PostManagementComponent implements OnInit {
   public pageSize: Number = 8;
 
   compLanguage;
+  logoutSubscription;
+
   constructor(public language: LanguageService, private calendar: NgbCalendar, private server: ServerService,
-    private modalService: NgbModal, public constant: ConstantService, private formBuilder: FormBuilder) { }
+    private modalService: NgbModal, public constant: ConstantService, private formBuilder: FormBuilder,
+    private userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.refreshListPost();
@@ -54,6 +59,13 @@ export class PostManagementComponent implements OnInit {
 
     this.compLanguage = this.language.currentLanguage.compPostManagement;
     this.language.hasChangeLanguage.subscribe(() => this.compLanguage = this.language.currentLanguage.compPostManagement);
+    this.logoutSubscription = this.userService.hasChangeUser.subscribe(() => {
+      this.router.navigate(['/home']);
+    });
+  }
+
+  ngOnDestroy() {
+    this.logoutSubscription.unsubscribe();
   }
 
   /**

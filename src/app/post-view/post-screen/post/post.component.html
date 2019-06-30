@@ -35,7 +35,7 @@
     </div>
     <!-- add ngFor for tags -->
     <div class="row m-0">
-      <div class="col-12 p-2">
+      <div class="tag-list col-12 p-2">
         <span class="tag">Tag:</span>
         <span *ngFor="let provinceName of post.location.provinceCity" class="tag tag-item">{{ provinceName }}</span>
         <span *ngFor="let tag of post.tags" class="tag tag-item">{{ tag.tagContent }}</span>

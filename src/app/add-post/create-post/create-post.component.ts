@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PostService } from 'src/app/core/services/post.service';
 import { ServerService } from 'src/app/core/services/server.service';
 import { Post } from 'src/app/model/post.model';
@@ -13,7 +13,7 @@ import { LanguageService } from 'src/app/core/services/language.service';
   templateUrl: './create-post.component.html',
   styleUrls: ['./create-post.component.scss']
 })
-export class CreatePostComponent implements OnInit {
+export class CreatePostComponent implements OnInit, OnDestroy {
   // local post receive data from service
   // it should has init data until receiving data from server so browser will not has error
   post: Post = new Post(null, null, [], [], '', '', '', new Location('', [], '', ''), [], [], '', [], '');
@@ -72,6 +72,8 @@ export class CreatePostComponent implements OnInit {
     }
   };
 
+  logoutSubscription;
+
   constructor(
     private postService: PostService,
     private serverService: ServerService,
@@ -118,6 +120,9 @@ export class CreatePostComponent implements OnInit {
       this.compLanguage = this.language.currentLanguage.compCreatePost;
       this.changeLanguage();
     });
+    this.logoutSubscription = this.user.hasChangeUser.subscribe(() => {
+      this.router.navigate(['/home']);
+    });
 
     // subscribe when hasNewImage
     this.subscribeHasNewImage();
@@ -144,6 +149,10 @@ export class CreatePostComponent implements OnInit {
         this.alertContent = this.validateObject[location[0]][location[1]]['message'];
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.logoutSubscription.unsubscribe();
   }
 
   /**
@@ -435,9 +444,5 @@ export class CreatePostComponent implements OnInit {
       this.validateObject.validateAddress.maxLength.status = true;
       return '';
     }
-  }
-
-  onTest() {
-    this.router.navigate(['/create-post', '5c1a4602f0491d2a9c8a2ff7']);
   }
 }
