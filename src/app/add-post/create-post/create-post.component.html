@@ -83,7 +83,7 @@
           </div>
         </div>
         <!-- row8 has save button -->
-        <div class="row form-group m-0">
+        <div *ngIf="!isSaved" class="row form-group m-0">
           <div class="col-12 no-padding">
             <button class="btn btn-warning" (click)="onCancel()">{{ compLanguage.createPostCancelBtn }}</button>
             <button class="btn btn-success" (click)="onSave()">{{ compLanguage.createPostSaveBtn }}</button>

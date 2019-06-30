@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { Tour } from 'src/app/model/tour.model';
 import { CardViewTour } from 'src/app/model/card-view-tour.model';
 import { TourService } from 'src/app/core/services/tour.service';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-index',
@@ -37,7 +38,7 @@ export class IndexComponent implements OnInit {
   TOUR_STATUS: ConstTourStatus = new ConstTourStatus();
 
   constructor(private server: ServerService, public masterPage: MasterPageService, public language: LanguageService,
-    private constant: ConstantService, private router: Router, private tourService: TourService) { }
+    private constant: ConstantService, private router: Router, private tourService: TourService, private userService: UserService) { }
 
   ngOnInit() {
     this.compLanguage = this.language.currentLanguage.pageHome;
@@ -105,12 +106,16 @@ export class IndexComponent implements OnInit {
           .filter(tour => tour.status === this.TOUR_STATUS.PENDING);
         const tempRegisteringTour = res.data
           .filter(tour => tour.status === this.TOUR_STATUS.REGISTERING && new Date(tour.closeRegisterTime) >= new Date());
-        this.server.getTourInterest().subscribe(interestRes => {
-          if (interestRes.data) {
-            // apply interest
-            this.arrRegisteringTour = this.tourService.applyInterest(tempRegisteringTour, interestRes.data);
-          }
-        });
+        if (this.userService.isLogin) {
+          this.server.getTourInterest().subscribe(interestRes => {
+            if (interestRes.data) {
+              // apply interest
+              this.arrRegisteringTour = this.tourService.applyInterest(tempRegisteringTour, interestRes.data);
+            }
+          });
+        } else {
+          this.arrRegisteringTour = tempRegisteringTour;
+        }
 
         this.arrPendingTour.sort((tour1, tour2) => {
           return new Date(tour1.closeFeedbackTime).valueOf() - new Date(tour2.closeFeedbackTime).valueOf();

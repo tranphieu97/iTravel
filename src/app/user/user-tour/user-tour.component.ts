@@ -7,6 +7,7 @@ import { LanguageService } from 'src/app/core/services/language.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DetailModalComponent } from 'src/app/tours/tour-management/detail-modal/detail-modal.component';
 import { ConfirmModalComponent } from 'src/app/shared/confirm-modal/confirm-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-tour',
@@ -29,7 +30,8 @@ export class UserTourComponent implements OnInit {
     private languageService: LanguageService,
     private userService: UserService,
     private serverService: ServerService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -38,15 +40,26 @@ export class UserTourComponent implements OnInit {
       () =>
         (this.compLanguage = this.languageService.currentLanguage.compUserTour)
     );
+    this.userService.hasChangeUser.subscribe(() => {
+      this.router.navigate(['/home']);
+    });
     this.fetchTour();
   }
 
   fetchTour() {
     this.isLoading = true;
     this.serverService.getToursByUser(true).subscribe(res => {
-      if (res.data) {
-        this.tours = res.data;
-      }
+      this.tours = res.data ? res.data : [];
+      this.tours.sort((tour1, tour2) => {
+        if ((tour1.status === this.tourStatus.FINISHED && tour2.status === this.tourStatus.FINISHED)
+          || (tour1.status !== this.tourStatus.FINISHED && tour2.status !== this.tourStatus.FINISHED)) {
+          const tour1CreationTime = new Date(tour1.creationTime);
+          const tour2CreationTime = new Date(tour2.creationTime);
+          return tour1CreationTime > tour2CreationTime ? -1 : 1;
+        } else {
+          return tour1.status === this.tourStatus.FINISHED ? 1 : -1;
+        }
+      });
       this.isLoading = false;
     });
   }

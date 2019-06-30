@@ -194,6 +194,7 @@ app.patch('/manager/deny-post', async (req, res) => {
     const postId = req.body.postId;
     const status = req.body.status;
     const reason = req.body.reason;
+    const userId = authentication.getTokenUserId(req.headers.authorization);
 
     if (status !== config.POST_STATUS.DENY) {
         res.status(403).json({
@@ -226,12 +227,28 @@ app.patch('/manager/deny-post', async (req, res) => {
                         };
 
                         database.updateDocumentByFilter(database.iTravelDB.Posts, idFilter, fieldChange)
-                            .then((updateResult) => {
+                            .then(async (updateResult) => {
                                 // matchedCount is defult result will be returned by mongodb
                                 if (updateResult.matchedCount === 1) {
                                     res.status(201).json({
                                         message: 'Denied Success'
                                     });
+                                    const post = await database.getOneWithProjection(
+                                        database.iTravelDB.Posts,
+                                        idFilter,
+                                        { title: 1 }
+                                    );
+                                    const sendNotiResult = await notificationService.sendNotification(
+                                        { 
+                                            content: `Bài viết của bạn đã bị từ chối - ${post.title}${reason ? ' - '+reason : ''}`,
+                                            linkTo: `/user/posts`,
+                                        },
+                                        userId,
+                                        [post.authorId]
+                                    );
+                                    if(sendNotiResult.modifiedCount) {
+                                        console.log('send notification successful')
+                                    }
                                 } else {
                                     res.status(200).json({
                                         message: 'Not found post'
