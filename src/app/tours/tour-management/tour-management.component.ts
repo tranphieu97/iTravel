@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LanguageService } from 'src/app/core/services/language.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ServerService } from 'src/app/core/services/server.service';
@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
   templateUrl: './tour-management.component.html',
   styleUrls: ['./tour-management.component.scss']
 })
-export class TourManagementComponent implements OnInit {
+export class TourManagementComponent implements OnInit, OnDestroy {
   tours: Tour[] = [];
   tourStatus: ConstTourStatus = new ConstTourStatus();
   tourGuides = [];
@@ -25,6 +25,7 @@ export class TourManagementComponent implements OnInit {
   public isLoadingTours: Boolean = true;
   public page: Number = 1;
   public pageSize: Number = 8;
+  logoutSubscription;
 
   constructor(
     public languageService: LanguageService,
@@ -41,7 +42,7 @@ export class TourManagementComponent implements OnInit {
       () =>
         (this.compLanguage = this.languageService.currentLanguage.compTourManagement)
     );
-    this.userService.hasChangeUser.subscribe(() => {
+    this.logoutSubscription = this.userService.hasChangeUser.subscribe(() => {
       this.router.navigate(['/home']);
     });
     this.refreshListTour();
@@ -49,6 +50,10 @@ export class TourManagementComponent implements OnInit {
     this.editTourService.hasEditedSuccess.subscribe(() => {
       this.refreshListTour();
     });
+  }
+
+  ngOnDestroy() {
+    this.logoutSubscription.unsubscribe();
   }
 
   getTourGuide() {

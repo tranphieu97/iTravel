@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ServerService } from 'src/app/core/services/server.service';
 import { User } from 'src/app/model/user.model';
 import { UserService } from 'src/app/core/services/user.service';
@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   templateUrl: './update-profile.component.html',
   styleUrls: ['./update-profile.component.scss']
 })
-export class UpdateProfileComponent implements OnInit {
+export class UpdateProfileComponent implements OnInit, OnDestroy {
 
   public isUploading: Boolean = false;
   public isLoading: Boolean = false;
@@ -29,6 +29,7 @@ export class UpdateProfileComponent implements OnInit {
 
   compLanguage;
   commonLanguage;
+  logoutSubscription;
 
   constructor(private server: ServerService, private userService: UserService, public language: LanguageService,
     private provinceService: ProvinceCityService, private dateStructService: DateStructService, private router: Router) { }
@@ -41,7 +42,7 @@ export class UpdateProfileComponent implements OnInit {
       this.commonLanguage = this.language.currentLanguage.common;
     });
 
-    this.userService.hasChangeUser.subscribe(() => {
+    this.logoutSubscription = this.userService.hasChangeUser.subscribe(() => {
       this.router.navigate(['/home']);
     });
 
@@ -56,6 +57,10 @@ export class UpdateProfileComponent implements OnInit {
     } else {
       this.arrProvince = this.provinceService.allProvinceCity;
     }
+  }
+
+  ngOnDestroy() {
+    this.logoutSubscription.unsubscribe();
   }
 
   getUserInfo() {

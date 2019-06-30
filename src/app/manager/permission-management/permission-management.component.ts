@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ServerService } from 'src/app/core/services/server.service';
 import { LanguageService } from 'src/app/core/services/language.service';
 import { ConstantService } from 'src/app/core/services/constant.service';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   templateUrl: './permission-management.component.html',
   styleUrls: ['./permission-management.component.scss']
 })
-export class PermissionManagementComponent implements OnInit {
+export class PermissionManagementComponent implements OnInit, OnDestroy {
 
   listPermission: any = [];
 
@@ -29,6 +29,7 @@ export class PermissionManagementComponent implements OnInit {
   message: String = '';
   selectedBlockReason: string;
   compLanguage;
+  logoutSubscription;
 
   constructor(private server: ServerService, public language: LanguageService, private constant: ConstantService,
     private modal: NgbModal, private _user: UserService, private router: Router) { }
@@ -56,9 +57,13 @@ export class PermissionManagementComponent implements OnInit {
 
     this.compLanguage = this.language.currentLanguage.compPermissionManagement;
     this.language.hasChangeLanguage.subscribe(() => this.compLanguage = this.language.currentLanguage.compPermissionManagement);
-    this._user.hasChangeUser.subscribe(() => {
+    this.logoutSubscription = this._user.hasChangeUser.subscribe(() => {
       this.router.navigate(['/home']);
     });
+  }
+
+  ngOnDestroy() {
+    this.logoutSubscription.unsubscribe();
   }
 
   /**

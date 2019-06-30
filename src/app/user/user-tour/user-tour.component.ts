@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from 'src/app/core/services/user.service';
 import { ServerService } from 'src/app/core/services/server.service';
 import { Tour } from 'src/app/model/tour.model';
@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   templateUrl: './user-tour.component.html',
   styleUrls: ['./user-tour.component.scss']
 })
-export class UserTourComponent implements OnInit {
+export class UserTourComponent implements OnInit, OnDestroy {
   tours: Tour[];
   tourStatus: ConstTourStatus = new ConstTourStatus();
   tourPreparationStatus = new ConstTourPreparationStatus();
@@ -23,7 +23,7 @@ export class UserTourComponent implements OnInit {
   isLoading: Boolean = true;
   page: Number = 1;
   pageSize: Number = 8;
-
+  logoutSubscription;
   compLanguage;
 
   constructor(
@@ -40,10 +40,14 @@ export class UserTourComponent implements OnInit {
       () =>
         (this.compLanguage = this.languageService.currentLanguage.compUserTour)
     );
-    this.userService.hasChangeUser.subscribe(() => {
+    this.logoutSubscription = this.userService.hasChangeUser.subscribe(() => {
       this.router.navigate(['/home']);
     });
     this.fetchTour();
+  }
+
+  ngOnDestroy() {
+    this.logoutSubscription.unsubscribe();
   }
 
   fetchTour() {
