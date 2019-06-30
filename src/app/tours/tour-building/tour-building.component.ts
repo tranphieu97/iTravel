@@ -52,6 +52,10 @@ export class TourBuildingComponent implements OnInit {
     });
 
     this.userId = this.userService.getUserId();
+
+    this.userService.hasChangeUser.subscribe(() => {
+      this.userId = this.userService.getUserId();
+    });
   }
 
 }
