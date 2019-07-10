@@ -5,7 +5,8 @@ const authentication = require('../authentication.js');
 
 // Include library
 const jwt = require('jsonwebtoken');
-var ObjectId = require('mongodb').ObjectId;
+const ObjectId = require('mongodb').ObjectId;
+const request = require('request');
 
 // Import models file
 const { Tour } = require('../../model/mongoose/models')
@@ -869,6 +870,26 @@ app.patch('/user/send-tour-feedback', async (req, res) => {
         });
     }
 });
+
+app.get('/api/get-location', (req, res) => {
+    const forwarded = req.headers['x-forwarded-for']
+    console.log('x-forwarded-for', forwarded)
+    console.log('req.connection.remoteAddress', req.connection.remoteAddress)
+    const ip = forwarded ? forwarded.split(/, /)[0] : req.connection.remoteAddress
+    request(
+        { url: `http://ip-api.com/json/${ip}` },
+        (error, response, body) => {
+          if (error || response.statusCode !== 200) {
+            return res.status(500).json({ type: 'error', message: err.message });
+          }
+    
+          res.json(JSON.parse(body));
+        }
+    )
+    // res.json({
+    //     message: 'testing'
+    // })
+})
 
 app.patch('/user/reviewer-feedback', async (req, res) => {
     const revieverFeedback = req.body;
