@@ -16,7 +16,6 @@ const app = require('../../index');
 const tourService = require('../services/tour-service');
 const notificationService = require('../services/notification-service');
 const userInterestService = require('../services/userInterest.service');
-const UserInterestService = require('../services/userInterest.service');
 
 // Routing - START
 /**
@@ -216,7 +215,7 @@ app.post('/user/token-login', async (req, res) => {
                             isTourguide: isTourguide
                         }
                         authentication.insertUserSignInLog(userInfo.username);
-                        UserInterestService.updateUserInterest(userInfo._id);
+                        userInterestService.updateUserInterest(userInfo._id);
                         jwt.sign(userData, config.SECRET_KEY, { expiresIn: '23h' }, (err, jwtToken) => {
                             res.status(201).json({
                                 message: 'Login success!',
@@ -809,16 +808,19 @@ app.patch('/user/update-cancel-tour', async (req, res) => {
 app.patch('/user/update-tour-interest-point', async (req, res) => {
     try {
         const tourId = req.body.tourId
-        const value = req.body.value
+        let value = req.body.value
         const userId = authentication.getTokenUserId(req.headers.authorization);
-        
+        //
+        const shouldPlusNearby = await userInterestService.shouldPlusNearby(req);
+        if (shouldPlusNearby) value = Math.floor(value + 0.2 * value);
+        //
         await userInterestService.updateTourInterestPoint(userId, tourId, value);
-
+        console.log(`Tour ${tourId} added ${value} points`);
         res.status(200).json({
             message: 'Success'
         });
     } catch (error) {
-        console.log('update point failed');
+        console.log('update point failed', error.message);
         res.json({
             message: error.message,
             statusCode: 500
@@ -838,7 +840,6 @@ app.get('/user/get-tour-interest', async (req, res) => {
             data: listTour
         });
     } catch (error) {
-        console.log('update point failed');
         res.json({
             message: error.message,
             statusCode: 500
@@ -870,26 +871,6 @@ app.patch('/user/send-tour-feedback', async (req, res) => {
         });
     }
 });
-
-app.get('/api/get-location', (req, res) => {
-    const forwarded = req.headers['x-forwarded-for']
-    console.log('x-forwarded-for', forwarded)
-    console.log('req.connection.remoteAddress', req.connection.remoteAddress)
-    const ip = forwarded ? forwarded.split(/, /)[0] : req.connection.remoteAddress
-    request(
-        { url: `http://ip-api.com/json/${ip}` },
-        (error, response, body) => {
-          if (error || response.statusCode !== 200) {
-            return res.status(500).json({ type: 'error', message: err.message });
-          }
-    
-          res.json(JSON.parse(body));
-        }
-    )
-    // res.json({
-    //     message: 'testing'
-    // })
-})
 
 app.patch('/user/reviewer-feedback', async (req, res) => {
     const revieverFeedback = req.body;

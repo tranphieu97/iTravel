@@ -6,6 +6,7 @@ import { ConstTourStatus } from 'src/app/constants';
 import { TourService } from 'src/app/core/services/tour.service';
 import { CardViewPost } from 'src/app/model/cardViewPost.model';
 import { MembersService } from 'src/app/core/services/members.service';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-tour-view',
@@ -33,7 +34,7 @@ export class TourViewComponent implements OnInit, AfterViewInit, OnDestroy {
   };
 
   constructor(private server: ServerService, public language: LanguageService, public tourService: TourService,
-    public membersService: MembersService) { }
+    public membersService: MembersService, private userService: UserService) { }
 
   compLanguage;
   commonLanguage;
@@ -51,16 +52,13 @@ export class TourViewComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   async ngAfterViewInit() {
-    try {
-      const temp = this.server.testIpLookUp().subscribe(res => {
-        console.log('res', res);
-      });
-    } catch (error) {
-      console.log(error);
-    }
     this.timeOut = setTimeout(() => {
-      if (this.TOUR_STATUS.REGISTERING === this.tourModel.status) {
-        this.server.updateTourInterest(this.tourId, 17).subscribe();
+      try {
+        if (this.TOUR_STATUS.REGISTERING === this.tourModel.status && this.userService.isLogin) {
+          this.server.updateTourInterest(this.tourId, 17).subscribe();
+        }
+      } catch (error) {
+        console.log(error.message);
       }
     }, 10000);
   }

@@ -466,12 +466,12 @@ export class ServerService {
     });
   }
 
-  testIpLookUp() {
-    // return this.http.get('https://geoip-db.com/json');
-    // return this.http.get<any>('http://ip-api.com/json');
-    // return this.http.get('https://cors-anywhere.herokuapp.com/http://ip-api.com/json');
-    return this.http.get(this.HOST + 'api/get-location');
-  }
+  // testIpLookUp() {
+  //   // return this.http.get('https://geoip-db.com/json');
+  //   // return this.http.get<any>('http://ip-api.com/json');
+  //   // return this.http.get('https://cors-anywhere.herokuapp.com/http://ip-api.com/json');
+  //   return this.http.get(this.HOST + 'api/get-location');
+  // }
 
   getTourInterest() {
     return this.http.get<{ message: string, data: any, statusCode: number}>(this.HOST + 'user/get-tour-interest');
