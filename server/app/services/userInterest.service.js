@@ -13,8 +13,8 @@ getLocationName = async req => {
       ? forwarded.split(/, /)[0]
       : req.connection.remoteAddress;
 
-    // const apiRes = await axios.get(`http://ip-api.com/json/${ip}`) // DEPLOY
-    const apiRes = await axios.get('http://ip-api.com/json/171.227.96.25'); // DEVELOP
+     const apiRes = await axios.get(`http://ip-api.com/json/${ip}`) // DEPLOY
+    //const apiRes = await axios.get('http://ip-api.com/json/171.227.96.25'); // DEVELOP
 
     return apiRes.data && apiRes.data.regionName
       ? apiRes.data.regionName
