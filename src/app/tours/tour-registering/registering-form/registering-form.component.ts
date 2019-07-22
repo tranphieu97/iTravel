@@ -120,8 +120,12 @@ export class RegisteringFormComponent implements OnInit {
   }
 
   showFormRegister() {
-    this.isShowFormRegister = true;
+    try {
+      this.isShowFormRegister = true;
     this.server.updateTourInterest(this.tourId, 60).subscribe();
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 
   open(content) {

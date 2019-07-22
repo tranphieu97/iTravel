@@ -5,6 +5,7 @@ import { TourService } from 'src/app/core/services/tour.service';
 import { LanguageService } from 'src/app/core/services/language.service';
 import { ServerService } from 'src/app/core/services/server.service';
 import { ConstTourStatus } from 'src/app/constants';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-horizontal-card-view-tour',
@@ -23,13 +24,22 @@ export class HorizontalCardViewTourComponent implements OnInit {
     private router: Router,
     public tourService: TourService,
     private language: LanguageService,
-    private serverService: ServerService
+    private serverService: ServerService,
+    private userService: UserService
   ) { }
 
   @HostListener('click') onclick() {
     // update point
-    if (this.router.url === '/filter/all' && this.tourCardViewModel.status === this.TOUR_STATUS.REGISTERING) {
-      this.serverService.updateTourInterest(this.tourCardViewModel._id, 50).subscribe();
+    try {
+      if (
+        this.router.url === '/filter/all' &&
+        this.tourCardViewModel.status === this.TOUR_STATUS.REGISTERING &&
+        this.userService.isLogin
+      ) {
+        this.serverService.updateTourInterest(this.tourCardViewModel._id, 50).subscribe();
+      }
+    } catch (error) {
+      console.log(error.message);
     }
     this.router.navigate(['/tours/registering/', this.tourCardViewModel._id]);
   }
