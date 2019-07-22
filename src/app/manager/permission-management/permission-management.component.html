@@ -34,14 +34,14 @@
           <div class="setting-for-account">
             <input type="button" class="btn btn-success" (click)="openConfirmDialog(updatePermission)" *ngIf="currentAccount.status === constant.USER_STATUS.ACTIVE"
               [value]="compLanguage.permissionUpdatePermission" [disabled]="isWaitingUpdate">
-            <input type="button" class="btn btn-danger" [value]="compLanguage.permissionBlock"
+            <!-- <input type="button" class="btn btn-danger" [value]="compLanguage.permissionBlock"
               [disabled]="isWaitingUpdate" (click)="openConfirmDialog(block)" *ngIf="currentAccount.status === constant.USER_STATUS.ACTIVE">
             <input type="button" class="btn btn-danger" [value]="compLanguage.permissionUnBlockTitle"
-              [disabled]="isWaitingUpdate" (click)="openConfirmDialog(unblock)" *ngIf="currentAccount.status === constant.USER_STATUS.BLOCK">
+              [disabled]="isWaitingUpdate" (click)="openConfirmDialog(unblock)" *ngIf="currentAccount.status === constant.USER_STATUS.BLOCK"> -->
             <app-loading *ngIf="isWaitingUpdate"></app-loading>
           </div>
         </div>
-        <div class="setting-row">
+        <div class="setting-row" *ngIf="false">
           <label>
             {{compLanguage.perrmisionSendNotifyTitle}}
           </label>
