@@ -4,6 +4,7 @@ import { UserService } from 'src/app/core/services/user.service';
 import { LanguageService } from 'src/app/core/services/language.service';
 import { TourMember } from 'src/app/model/tour-member.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConstUserInterest } from 'src/app/constants/user-interest';
 
 @Component({
   selector: 'app-registering-form',
@@ -28,6 +29,7 @@ export class RegisteringFormComponent implements OnInit {
   public isLoading: Boolean = true;
   public isErrorOverLimit: Boolean = false;
   public isErrorServer: Boolean = false;
+  public USER_INTEREST: ConstUserInterest = new ConstUserInterest();
 
   compLanguage;
   commonLanguage;
@@ -122,7 +124,7 @@ export class RegisteringFormComponent implements OnInit {
   showFormRegister() {
     try {
       this.isShowFormRegister = true;
-    this.server.updateTourInterest(this.tourId, 60).subscribe();
+    this.server.updateTourInterest(this.tourId, this.USER_INTEREST.INTEREST_LV3).subscribe();
     } catch (error) {
       console.log(error.message);
     }
